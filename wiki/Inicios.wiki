@@ -1,10 +1,9 @@
-#summary One-sentence summary of this page.
+#summary Armado del ambiente.
 #labels Phase-Deploy
 
 = Introduction =
 
-Add your content here.
-
+Se detallan las herramientas de desarrollo que se utilizan.
 
 = Details =
 
@@ -17,12 +16,12 @@ Add your content here.  Format your content with:
 
 
 = J2EE =
-------
+
 *Download:* http://download.eclipse.org/webtools/repository/helios/
 instalar ultimas versiones de cada uno
 
 = SVN = 
------
+
 Help->Install new software
 workwith: http://subclipse.tigris.org/update_1.6.x
 instalar todo.
@@ -35,7 +34,6 @@ usuario: email (sin @gmail.com)
 password: ir a Profile->settings (se genera automaticamente)
 		
 = Tomcat =
---------
 
 *Download:* http://tomcat.apache.org/download-70.cgi
 
@@ -46,12 +44,12 @@ password: ir a Profile->settings (se genera automaticamente)
 Spring IDE Core
 
 = DB4O =
-------
+
 *Download:* http://www.db4o.com/
 
 db4o-8.0\doc\tutorial\db4o-8.0-tutorial.pdf
 
-Object Manager Enterprise installation
+_Object Manager Enterprise installation:_
 Object Manager Enterprise (OME) is an object browser for db4o databases. OME installation can be
 found in /ome folder of the distribution. The zip file in this folder contains the Eclipse plugin version of
 OME.
