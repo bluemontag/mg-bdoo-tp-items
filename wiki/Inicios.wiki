@@ -18,7 +18,7 @@ Add your content here.  Format your content with:
 
 *J2EE:*
 ------
-http://download.eclipse.org/webtools/repository/helios/
+*Download:* http://download.eclipse.org/webtools/repository/helios/
 instalar ultimas versiones de cada uno
 
 *SVN:*
@@ -37,17 +37,19 @@ password: ir a Profile->settings (se genera automaticamente)
 *Tomcat:*
 --------
 
-http://tomcat.apache.org/download-70.cgi
+*Download:* http://tomcat.apache.org/download-70.cgi
 
 *Sprint:*
 --------
 
-http://springide.org/updatesite
+*Download:* http://springide.org/updatesite
 
 Spring IDE Core
 
 *DB4O:*
 ------
+*Download:* http://www.db4o.com/
+
 db4o-8.0\doc\tutorial\db4o-8.0-tutorial.pdf
 
 Object Manager Enterprise installation
