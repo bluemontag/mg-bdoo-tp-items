@@ -16,12 +16,12 @@ Add your content here.  Format your content with:
 
 
 
-*J2EE:*
+= J2EE =
 ------
 *Download:* http://download.eclipse.org/webtools/repository/helios/
 instalar ultimas versiones de cada uno
 
-*SVN:*
+= SVN = 
 -----
 Help->Install new software
 workwith: http://subclipse.tigris.org/update_1.6.x
@@ -34,19 +34,18 @@ show views: svn repository
 usuario: email (sin @gmail.com)
 password: ir a Profile->settings (se genera automaticamente)
 		
-*Tomcat:*
+= Tomcat =
 --------
 
 *Download:* http://tomcat.apache.org/download-70.cgi
 
-*Sprint:*
---------
+= Sprint = 
 
 *Download:* http://springide.org/updatesite
 
 Spring IDE Core
 
-*DB4O:*
+= DB4O =
 ------
 *Download:* http://www.db4o.com/
 
