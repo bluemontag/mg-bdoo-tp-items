@@ -1,5 +1,5 @@
 #summary Armado del ambiente.
-#labels Phase-Deploy
+#labels Inicios
 
 = Introduction =
 
