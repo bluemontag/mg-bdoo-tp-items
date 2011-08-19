@@ -5,16 +5,6 @@
 
 Se detallan las herramientas de desarrollo que se utilizan.
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-
-
-
-
 = J2EE =
 
 *Download:* http://download.eclipse.org/webtools/repository/helios/
@@ -47,12 +37,14 @@ Spring IDE Core
 
 *Download:* http://www.db4o.com/
 
-db4o-8.0\doc\tutorial\db4o-8.0-tutorial.pdf
+*Totorial:* db4o-8.0\doc\tutorial\db4o-8.0-tutorial.pdf
 
 _Object Manager Enterprise installation:_
+
 Object Manager Enterprise (OME) is an object browser for db4o databases. OME installation can be
 found in /ome folder of the distribution. The zip file in this folder contains the Eclipse plugin version of
 OME.
+
 To install the plugin, you need to have a version of Eclipse >= 3.3 installed. Unzip the file to a folder of
 your choice. Then open Eclipse, select 'Help' -> 'Software Updates...' -> 'Available Software' from the
 menu. Choose 'Add Site...' -> 'Local...' and select the unzipped folder. Follow the Eclipse Update
