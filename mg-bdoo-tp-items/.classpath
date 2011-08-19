@@ -13,5 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="lib/db4o-8.0.184.15484-all-java5.jar" sourcepath="C:/Users/Rodrigo/Documents/magister ing. software/Base de datos/bdoo/db4o-8.0/src/db4oj/lib/decaf-annotations.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
