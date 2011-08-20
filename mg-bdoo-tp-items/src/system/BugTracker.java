@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import com.db4o.User;
 
-public class SeguimientoDeItems {
+public class BugTracker {
 	
 	public final static String NOMBRE = "Seguimiento de items";
 	public final static String DESCRIPCION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
-	private static SeguimientoDeItems instance;	
+	private static BugTracker instance;	
 	
 	private ArrayList<User> users;
 
@@ -25,15 +25,15 @@ public class SeguimientoDeItems {
 	public void setUsers(ArrayList<User> users) {
 		this.users = users;
 	}
-	private SeguimientoDeItems(){
+	private BugTracker(){
 		users = new ArrayList<User>();
 	}
-	public static SeguimientoDeItems getInstance(){
+	public static BugTracker getInstance(){
 		if (instance == null){
-			return (new SeguimientoDeItems());
+			return (new BugTracker());
 		}
 		return instance;
-	}	
+	}
 
 	public String toString(){
 		return NOMBRE+" / "+DESCRIPCION;

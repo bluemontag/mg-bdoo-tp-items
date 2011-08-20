@@ -1,12 +1,12 @@
 package installer;
 
-import system.SeguimientoDeItems;
+import system.BugTracker;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.User;
 
-public class MGDBOOTPItemsInstaller {
+public class BugTrackerInstaller {
 
 	/**
 	 * @param args
@@ -15,7 +15,7 @@ public class MGDBOOTPItemsInstaller {
 		ObjectContainer db=Db4oEmbedded.openFile(Db4oEmbedded
 				.newConfiguration(), "SeguimientoDeItemsBaseDeDatos");
 		try {
-			SeguimientoDeItems sistema = SeguimientoDeItems.getInstance();
+			BugTracker sistema = BugTracker.getInstance();
 			User user = new User("rodrigo","rodrigo");
 			sistema.addUser(user);
 			db.store(sistema);
