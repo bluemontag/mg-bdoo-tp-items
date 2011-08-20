@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.db4o.User;
 
+import domain.Proyecto;
+
 public class BugTracker {
 	
 	public final static String NOMBRE = "Seguimiento de items";
@@ -11,6 +13,7 @@ public class BugTracker {
 	private static BugTracker instance;	
 	
 	private ArrayList<User> users;
+	private ArrayList<Proyecto> proyectos;
 
 	
 	/**
@@ -25,6 +28,14 @@ public class BugTracker {
 	public void setUsers(ArrayList<User> users) {
 		this.users = users;
 	}
+	
+	/**
+	 * @return the users
+	 */
+	public void addProyecto(Proyecto proyecto) {
+		proyectos.add(proyecto);
+	}
+	
 	private BugTracker(){
 		users = new ArrayList<User>();
 	}
