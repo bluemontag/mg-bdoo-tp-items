@@ -33,6 +33,10 @@ password: ir a Profile->settings (se genera automaticamente)
 
 Spring IDE Core
 
+*Configurar Spring-Tomcat:*
+
+http://www.bigsoft.co.uk/blog/index.php/2008/08/10/configuring-eclipse-tomcat-spring
+
 = DB4O =
 
 *Download:* http://www.db4o.com/
