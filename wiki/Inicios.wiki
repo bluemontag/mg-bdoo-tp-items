@@ -27,7 +27,7 @@ password: ir a Profile->settings (se genera automaticamente)
 
 *Download:* http://tomcat.apache.org/download-70.cgi
 
-= Sprint = 
+= Spring = 
 
 *Download:* http://springide.org/updatesite
 
