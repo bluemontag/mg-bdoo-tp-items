@@ -52,3 +52,7 @@ OME.
 To install the plugin, you need to have a version of Eclipse >= 3.3 installed. Unzip the file to a folder of
 your choice. Then open Eclipse, select 'Help' -> 'Software Updates...' -> 'Available Software' from the
 menu. Choose 'Add Site...' -> 'Local...' and select the unzipped folder. Follow the Eclipse Update
+
+= Struts 2 =
+
+Se configuro el framework MVC "Struts 2" en la aplicacion, con un hola mundo y una pantalla de login de ejemplo.
