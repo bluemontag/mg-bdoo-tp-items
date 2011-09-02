@@ -1,6 +1,7 @@
 package installer;
 
-import system.BugTracker;
+
+import bugTracker.domain.BugTracker;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;

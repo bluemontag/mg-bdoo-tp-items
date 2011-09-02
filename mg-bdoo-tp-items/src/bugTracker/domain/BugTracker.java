@@ -1,10 +1,11 @@
-package system;
+package bugTracker.domain;
 
 import java.util.ArrayList;
 
+import proyecto.domain.Proyecto;
+
 import com.db4o.User;
 
-import domain.Proyecto;
 
 public class BugTracker {
 	

@@ -1,12 +1,15 @@
 /**
  * 
  */
-package domain;
+package proyecto.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import workflow.domain.Workflow;
+
 import com.db4o.User;
+
 
 /**
  * @author Rodrigo
