@@ -1,6 +1,7 @@
 package installer;
 
 
+import usuario.domain.Usuario;
 import bugTracker.domain.BugTracker;
 
 import com.db4o.Db4oEmbedded;
@@ -17,11 +18,11 @@ public class BugTrackerInstaller {
 				.newConfiguration(), "SeguimientoDeItemsBaseDeDatos");
 		try {
 			BugTracker sistema = BugTracker.getInstance();
-			User user = new User("rodrigo","rodrigo");
-			sistema.addUser(user);
+			Usuario unUsuario = new Usuario("rodrigo","rodrigo");
+			sistema.agregarUsuario(unUsuario);
 			db.store(sistema);
 			System.out.println("Stored: "+sistema);
-			System.out.println("Stored: "+user);
+			System.out.println("Stored: "+unUsuario);
 		}
 		finally {
 			db.close();

@@ -6,6 +6,7 @@ package proyecto.domain;
 import java.util.ArrayList;
 import java.util.Date;
 
+import usuario.domain.Usuario;
 import workflow.domain.Workflow;
 
 import com.db4o.User;
@@ -19,21 +20,18 @@ public class Proyecto {
 
 	private String nombre;
 	private Date fechaCreacion;
-	private ArrayList<User> miembros;
-	private User lider;
+	private ArrayList<Usuario> miembros;
+	private Usuario lider;
 	private ArrayList<Workflow> workflows;
 
-	/**
-	 * @return the users
-	 */
-	public void addUser(User miembro) {
-		miembros.add(miembro);
+	public void agregarMiembro(Usuario unMiembro) {
+		miembros.add(unMiembro);
 	}
 
 	/**
 	 * @return the lider
 	 */
-	public User getLider() {
+	public Usuario getLider() {
 		return lider;
 	}
 
@@ -41,8 +39,8 @@ public class Proyecto {
 	 * @param lider
 	 *            the lider to set
 	 */
-	public void setLider(User lider) {
-		this.lider = lider;
+	public void setLider(Usuario unLider) {
+		this.lider = unLider;
 	}
 
 	/**
