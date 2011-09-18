@@ -1,14 +1,14 @@
 package installer;
 
 
+import itemTracker.domain.BugTracker;
 import usuario.domain.Usuario;
-import bugTracker.domain.BugTracker;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.User;
 
-public class BugTrackerInstaller {
+public class ItemTrackerInstaller {
 
 	/**
 	 * @param args
