@@ -28,5 +28,4 @@ public class ItemTrackerInstaller {
 			db.close();
 		}
 	}
-
 }

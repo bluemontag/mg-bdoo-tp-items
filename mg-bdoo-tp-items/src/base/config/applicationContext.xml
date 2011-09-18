@@ -81,7 +81,7 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
- -->
+ 	-->
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
 		la clase Tracker
@@ -93,11 +93,8 @@
 		</property>
 	</bean> -->
 
-	<!--
-		Objeto utilizado para acceder en forma eficiente a las instancias de
-		la clase User
-	
-
+	<!-- Objeto utilizado para acceder en forma eficiente 
+			a las instancias de la clase User
 	<bean id="userRepository"
 		class="zinbig.item.repositories.impl.hibernate.HibernateUsersRepository">
 		<property name="sessionFactory">
@@ -106,22 +103,19 @@
 	</bean>-->
 
 	<!-- Mock de repositorio de users -->
-		
 		<bean id="userRepository" class="user.repository.MockUserRepository">
 		</bean>
-	
 
-	<!--
-		Objeto utilizado para acceder en forma eficiente a las instancias de
-		la clase Operation
-	
+	<!-- Objeto utilizado para acceder en forma eficiente a 
+			las instancias de la clase Operation
+
 	<bean id="operationsRepository"
 		class="zinbig.item.repositories.impl.hibernate.HibernateOperationsRepository">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
--->
+	-->
 
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
@@ -134,18 +128,20 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
--->
+	-->
+
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
 		la clase Project
-	
+
 	<bean id="projectsRepository"
 		class="zinbig.item.repositories.impl.hibernate.HibernateProjectsRepository">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
--->
+	-->
+
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
 		la clase Item.
@@ -156,7 +152,8 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
--->
+	-->
+
 	<!--
 		Objeto utilizado para generar los strings de los filtros de ítems
 	
@@ -164,7 +161,8 @@
 		class="zinbig.item.model.filters.HibernateFilterStringCreationStrategy">
 
 	</bean>
--->
+	-->
+
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
 		la clase Priority y PrioritySet.s
@@ -175,7 +173,8 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
--->
+	-->
+
 	<!-- Objeto utilizado para acceder a los diferentes repositorios -->
 	<bean id="repositoryLocator" class="zinbig.item.repositories.RepositoryLocator"
 		factory-method="getInstance">
@@ -187,7 +186,6 @@
 	<!-- ==================== -->
 	<!-- ==== Servicios ===== -->
 	<!-- ==================== -->
-	
 
 	<!-- ==== Abstracto ==== -->
 	<bean id="abstractServiceImpl" class="base.service.AbstractServiceImpl"
@@ -232,7 +230,8 @@
 				<bean class="zinbig.item.util.spring.ServiceExceptionInterceptor" />
 			</list>
 		</property>
-	</bean>-->
+	</bean>
+	-->
 
 	<!-- Objeto utilizado para acceder a los diferentes servicios -->
 	<bean id="serviceLocator" class="zinbig.item.services.ServiceLocator"
