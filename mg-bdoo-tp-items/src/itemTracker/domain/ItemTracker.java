@@ -1,4 +1,4 @@
-package bugTracker.domain;
+package itemTracker.domain;
 
 import java.util.ArrayList;
 import java.util.List;

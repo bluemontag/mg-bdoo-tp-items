@@ -1,4 +1,4 @@
-package bugTracker.command;
+package itemTracker.command;
 
 import base.command.AbstractAction;
 
