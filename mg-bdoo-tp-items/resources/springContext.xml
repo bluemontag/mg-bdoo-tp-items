@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:util="http://www.springframework.org/schema/util" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+
+<!-- ARCHIVO DE CONFIGURACION CENTRAL DE SPRING  --> 
+
+<!--  ***** HIBERNATE - SESSION ****** --> 
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource_app" /> 
+		<property name="mappingResources">
+			<list>
+				<value>ar/gov/arba/sur/model/Prueba.hbm.xml</value> 
+				<value>ar/gov/arba/sur/model/PruebaCollection.hbm.xml</value>
+				<value>ar/gov/arba/sur/model/Provincia.hbm.xml</value>
+				<value>ar/gov/arba/sur/model/Categoria.hbm.xml</value>				
+    			<value>ar/gov/arba/sur/model/Motivo.hbm.xml</value>										
+    			<value>ar/gov/arba/sur/model/Submotivo.hbm.xml</value>						
+    			<value>ar/gov/arba/sur/model/TipoReclamo.hbm.xml</value>				
+    			<value>ar/gov/arba/sur/model/BloqueDeAlta.hbm.xml</value>				    			
+    			<value>ar/gov/arba/sur/model/relations/RTipoReclamoBloqueAlta.hbm.xml</value>	
+    			<value>ar/gov/arba/sur/model/relations/RTipoAccionProximoEstado.hbm.xml</value>	
+    			<value>ar/gov/arba/sur/model/relations/RRolTieneInteresEnEstado.hbm.xml</value>	
+    			<value>ar/gov/arba/sur/model/relations/RBloqueAltaExigeValidacion.hbm.xml</value>	
+    			<value>ar/gov/arba/sur/model/Contribuyente.hbm.xml</value>	
+    			<value>ar/gov/arba/sur/model/Domicilio.hbm.xml</value>    						
+    			<value>ar/gov/arba/sur/model/Reclamo.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/Accion.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/Estado.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/Presentacion.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/TipoEstructura.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/MedioComunicacion.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/RelacionContribuyente.hbm.xml</value>    			    			
+    			<value>ar/gov/arba/sur/model/DatosContacto.hbm.xml</value>    			    			    			
+				<value>ar/gov/arba/sur/model/CanalIngreso.hbm.xml</value>
+				<value>ar/gov/arba/sur/model/ObjetoImponible.hbm.xml</value>				
+    			<value>ar/gov/arba/sur/model/InfoCatastral.hbm.xml</value>
+				<value>ar/gov/arba/sur/model/Juicio.hbm.xml</value>				    			
+				<value>ar/gov/arba/sur/model/MedidaCautelar.hbm.xml</value>
+				<value>ar/gov/arba/sur/model/TipoMedidaCautelar.hbm.xml</value>				
+    			<value>ar/gov/arba/sur/model/TiposDePresentacion.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/TiposDeAccion.hbm.xml</value>
+    			<value>ar/gov/arba/sur/model/Documentacion.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/eventos/AccionDisparaEvento.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/eventos/Evento.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/eventos/ContactoOrganismo.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/validaciones/ValidacionBloque.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/InfoDebitoAutomatico.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/EqMotivosPadronRB.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/AccesoAReclamo.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/DocumentacionAPresentar.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/retenciones/RBMotivoHost.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/retenciones/RBSubmotivoHost.hbm.xml</value>
+             	<value>ar/gov/arba/sur/model/retenciones/RBDocumentacionAPresentar.hbm.xml</value>
+				<value>ar/gov/arba/sur/model/retenciones/Retencion.hbm.xml</value>
+				<value>ar/gov/arba/sur/model/Denuncia.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<!--value>hibernate.dialect=org.hibernate.dialect.OracleDialect</value--> 
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.jdbc.batch_size"><![CDATA[0]]></prop>
+			</props>
+		</property>
+
+	</bean>
+	
+	<bean id="sessionFactoryGenericas" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource_genericas" /> 
+		<property name="mappingResources">
+			<list>
+                <value>ar/gov/arba/sur/model/Localidad.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<!--value>hibernate.dialect=org.hibernate.dialect.OracleDialect</value--> 
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+
+	</bean>
+	
+	<!-- <bean id="sessionFactoryParametros" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource_parametros" /> 
+		<property name="mappingResources">
+			<list>
+    			<value>ar/gov/arba/sur/model/Rol.hbm.xml</value>						    			
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+
+	</bean>
+ -->
+ 
+<!-- ***** TX MANAGER ****** -->
+<!-- Las transacciones declarativas no se pueden usar con esta version de java, se usa programaticamente -->
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" /> 
+	</bean>
+
+<!-- ***** DELEGATE ****** -->
+	<bean id="delegate" class="ar.gov.arba.sur.delegate.Delegate" scope="singleton" >
+		<property name="facade">
+			<ref local="facade"/>
+		</property>
+		<property name="validacionesManager">
+			<ref local="vm"/>
+		</property>
+	</bean>
+	
+	<bean id="vm" class="ar.gov.arba.sur.model.validaciones.ValidacionesManager" scope="singleton">
+
+	</bean>
+	
+<!-- ***** FACADE ****** -->
+<!-- Se define el bean facade y se le inyectan los DAOs -->
+	
+	<bean id="facade" class="ar.gov.arba.sur.facade.Facade" scope="singleton" >
+		<property name="baseDAO">
+			<ref local="baseDAO"/>
+		</property>
+		<property name="gestionDAO">
+			<ref local="gestionDAO"/>
+		</property>
+		<property name="hostDAO">
+			<ref local="hostDAO"/>
+		</property>
+		<property name="collectionProviderDAO">
+			<ref local="collectionProviderDAO"/>
+		</property>
+		<property name="reclamoDAO">
+			<ref local="reclamoDAO"/>
+		</property>		
+		<property name="accionDAO">
+			<ref local="accionDAO"/>
+		</property>
+		<property name="presentacionDAO">
+			<ref local="presentacionDAO"/>
+		</property>
+		<property name="tipoReclamoDAO">
+			<ref local="tipoReclamoDAO"/>
+		</property>
+		<property name="organismoDAO">
+			<ref local="organismoDAO"/>
+		</property>		
+		<property name="ftpDAO">
+			<ref local="ftpDAO"/>
+		</property>
+		<property name="seguridadDAO">
+			<ref local="seguridadDAO"/>
+		</property>
+		<property name="manager">
+			<ref local="manager"/>
+		</property>
+		<property name="transactionManager">
+			<ref local="transactionManager"/>
+		</property>
+	</bean>
+
+
+<!-- ***** LOGIC ****** -->
+
+	<bean id="manager" class="ar.gov.arba.sur.logic.Manager" scope="singleton" >
+	</bean>
+
+	<bean id="bloqueManager" class="ar.gov.arba.sur.logic.BloqueManager" scope="prototype"  >
+		<property name="facade">
+			<ref local="facade"/>
+		</property>
+	</bean>
+
+	<bean id="collectionProviderGenericoFacade" class="ar.gov.gba.ec.collectionProvider.facade.CollectionProviderFacade" scope="singleton" >
+
+	</bean>
+	
+<!-- ***** DAO ****** -->
+
+	<bean id="gestionDAO" class="ar.gov.arba.sur.dao.gestion.GestionDAO" scope="singleton" >
+		<property name="dataSource" ref="dataSource_gestion"></property>
+	</bean>
+	<bean id="hostDAO" class="ar.gov.arba.sur.dao.host.HostDAO" scope="singleton" >
+	</bean>
+	<bean id="collectionProviderDAO" class="ar.gov.arba.sur.dao.collectionprovider.CollectionProviderDAO" scope="singleton" >
+		<property name="sessionFactory" ref="sessionFactory" /> 
+		<property name="genericasDAO" ref="genericasDAO" /> 		
+		<property name="collectionProviderGenericoFacade" ref="collectionProviderGenericoFacade" />
+	</bean>
+	<bean id="genericasDAO" class="ar.gov.arba.sur.dao.genericas.GenericasDAO" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactoryGenericas" /> 
+	</bean>	
+	<bean id="baseDAO" class="ar.gov.arba.sur.dao.base.BaseDAO" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory" /> 
+	</bean>
+
+	<bean id="reclamoDAO" class="ar.gov.arba.sur.dao.oracle.ReclamoDAO" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory" /> 
+		<property name="transactionManager">
+			<ref local="transactionManager"/>
+		</property>	
+		<property name="accionDAO">
+			<ref local="accionDAO"/>
+		</property>
+		<property name="ftpDAO">
+			<ref local="ftpDAO"/>
+		</property>
+		<!-- <property name="scds" ref="dataSource_app"/>-->
+	</bean>
+	
+	<bean id="ftpDAO" class="ar.gov.arba.sur.dao.ftp.FTPDao" scope="singleton">
+	</bean>	
+	
+	<bean id="accionDAO" class="ar.gov.arba.sur.dao.oracle.AccionDAO" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory" /> 
+		<property name="transactionManager">
+			<ref local="transactionManager"/>
+		</property>		
+		<property name="ftpDAO">
+			<ref local="ftpDAO"/>
+		</property>
+	</bean>	
+
+	<bean id="presentacionDAO" class="ar.gov.arba.sur.dao.oracle.PresentacionDAO" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory" /> 
+		<property name="transactionManager">
+			<ref local="transactionManager"/>
+		</property>		
+	</bean>	
+
+	<bean id="tipoReclamoDAO" class="ar.gov.arba.sur.dao.oracle.TipoReclamoDAO" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory" /> 
+		<property name="transactionManager">
+			<ref local="transactionManager"/>
+		</property>		
+	</bean>
+	<bean id="organismoDAO" class="ar.gov.arba.sur.dao.oracle.OrganismoDAO" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory" /> 
+		<property name="transactionManager">
+			<ref local="transactionManager"/>
+		</property>
+		<!-- <property name="scds" ref="dataSource_app"/>-->
+	</bean>
+	<bean id="seguridadDAO" class="ar.gov.arba.sur.dao.seguridad.SeguridadDAO" scope="singleton">
+	</bean>
+
+</beans>
+

@@ -2,7 +2,7 @@ package bugTracker.command;
 
 import base.command.AbstractAction;
 
-public class BugTrackerCommand extends AbstractAction{
+public class ItemTrackerCommand extends AbstractAction{
 
 	/**
 	 * 
