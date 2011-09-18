@@ -19,7 +19,7 @@ public class ItemTrackerInstaller {
 		try {
 			ItemTracker itemTracker = ItemTracker.getInstance();
 			User aUser = new User("rodrigo","rodrigo");
-			itemTracker.agregarUsuario(aUser);
+			itemTracker.addUser(aUser);
 			db.store(itemTracker);
 			System.out.println("Stored: "+itemTracker);
 			System.out.println("Stored: "+aUser);

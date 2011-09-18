@@ -1,6 +1,6 @@
 package base.service;
 
-import bugTracker.domain.ItemTracker;
+import itemTracker.domain.ItemTracker;
 
 public class AbstractServiceImpl {
 

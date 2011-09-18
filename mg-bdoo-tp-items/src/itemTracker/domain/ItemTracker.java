@@ -5,48 +5,49 @@ import java.util.List;
 
 import user.domain.User;
 
-import itemTracker.exceptions.UsuarioExistenteException;
+import itemTracker.exception.UnknownUserException;
 
 
 public class ItemTracker {
-//	
-//	public final static String NOMBRE = "Seguimiento de items";
-//	public final static String DESCRIPCION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
-//	private static ItemTracker instance;	
-//	
-//	private ArrayList<User> usuarios;
-////	private ArrayList<Proyecto> proyectos;
-//
-//	
-//	/**
-//	 * @return the users
-//	 */
-//	public void agregarUsuario(User unUser) {
-//		usuarios.add(unUser);
+	
+	public final static String Name = "Seguimiento de items";
+	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
+	private static ItemTracker instance;	
+	
+	private ArrayList<User> users;
+//	private ArrayList<Proyecto> proyectos;
+
+	
+	/**
+	 * @return the users
+	 */
+	public void addUser(User aUser) {
+		this.users.add(aUser);
+	}
+	/**
+	 * @param users the users to set
+	 */
+	public void setUsuarios(ArrayList<User> users) {
+		this.users = users;
+	}
+	
+	/**
+	 * @param proyects the proyects to set
+	 */
+//	public void addProyecto(Proyecto proyecto) {
+//		proyectos.add(proyecto);
 //	}
-//	/**
-//	 * @param users the users to set
-//	 */
-//	public void setUsuarios(ArrayList<User> usuarios) {
-//		this.usuarios = usuarios;
-//	}
-//	
-//	/**
-//	 * @return the users
-//	 */
-////	public void addProyecto(Proyecto proyecto) {
-////		proyectos.add(proyecto);
-////	}
-//	
-//	private ItemTracker(){
-//		usuarios = new ArrayList<User>();
-//	}
-//	public static ItemTracker getInstance(){
-//		if (instance == null){
-//			return (new ItemTracker());
-//		}
-//		return instance;
-//	}
+	
+	private ItemTracker(){
+		this.users = new ArrayList<User>();
+	}
+	
+	public static ItemTracker getInstance(){
+		if (instance == null){
+			return (new ItemTracker());
+		}
+		return instance;
+	}
 //
 //	public String toString(){
 //		return NOMBRE+ " / "+ DESCRIPCION;
