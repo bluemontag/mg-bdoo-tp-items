@@ -5,7 +5,7 @@ import java.util.List;
 
 import user.domain.User;
 
-import bugTracker.exceptions.UsuarioExistenteException;
+import itemTracker.exceptions.UsuarioExistenteException;
 
 
 public class ItemTracker {
