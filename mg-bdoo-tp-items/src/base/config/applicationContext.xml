@@ -13,57 +13,18 @@
 			<value>${jdbc.url}</value>
 		</property>
 		<property name="username">
-			<value>${jdbc.username}</value>
+			<value>rodrigo</value>
 		</property>
 		<property name="password">
-			<value>${jdbc.password}</value>
+			<value>rodrigo</value>
 		</property>
-	</bean>
-
-	<bean id="c3p0Datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass">
-			<value>${jdbc.driverClassName}</value>
-		</property>
-		<property name="jdbcUrl">
-			<value>${jdbc.url}</value>
-		</property>
-		<property name="user">
-			<value>${jdbc.username}</value>
-		</property>
-		<property name="password">
-			<value>${jdbc.password}</value>
-		</property>
-	</bean>
--->
-	<!-- SessionFactory de hibernate 
+	</bean>-->
+	
+	<!-- SessionFactory de db4o 
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
-		<!-- <property name="dataSource">
-			 <ref local="dataSource" /> -->
-			<!-- <ref local="c3p0Datasource" /> -->
-		<!--	</property>
-		<property name="mappingResources">
-			<list>
-				<value>zinbig/item/model/users/AbstractUser.hbm.xml</value>
-				<value>zinbig/item/model/Tracker.hbm.xml</value>
-				<value>zinbig/item/model/Operation.hbm.xml</value>
-				<value>zinbig/item/model/projects/Project.hbm.xml</value>
-				<value>zinbig/item/model/Item.hbm.xml</value>
-				<value>zinbig/item/model/ItemFile.hbm.xml</value>
-				<value>zinbig/item/model/ItemType.hbm.xml</value>
-				<value>zinbig/item/model/Comment.hbm.xml</value>
-				<value>zinbig/item/model/projects/Priority.hbm.xml</value>
-				<value>zinbig/item/model/projects/PrioritySet.hbm.xml</value>
-				<value>zinbig/item/util/i18n/I18NMessage.hbm.xml</value>
-				<value>zinbig/item/util/i18n/ItemLocale.hbm.xml</value>
-				<value>zinbig/item/util/SystemProperty.hbm.xml</value>
-				<value>zinbig/item/model/workflow/WorkflowNode.hbm.xml</value>
-				<value>zinbig/item/model/filters/Filter.hbm.xml</value>
-				<value>zinbig/item/model/workflow/WorkflowDescription.hbm.xml</value>
-				<value>zinbig/item/model/workflow/WorkflowNodeDescription.hbm.xml</value>
-				<value>zinbig/item/model/workflow/WorkflowLinkDescription.hbm.xml</value>
-			</list>
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
 		</property>
 		<property name="hibernateProperties">
 			<props>
@@ -71,17 +32,16 @@
 				<prop key="hibernate.show_sql">false</prop>
 			</props>
 		</property>
-	</bean>
-	-->
+	</bean> --> 
 	
 	<!-- Administrador de transacciones 
 	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		class="org.springextensions.db4o.Db4oTransactionManager">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
-	</bean>
- 	-->
+	</bean> -->
+	
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
 		la clase Tracker
