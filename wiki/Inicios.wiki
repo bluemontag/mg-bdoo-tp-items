@@ -60,3 +60,4 @@ Se configuro el framework MVC "Struts 2" en la aplicacion, con un hola mundo y u
 = Maven 2 =
 
 Update site: http://m2eclipse.sonatype.org/sites/m2e
+o este: http://download.eclipse.org/technology/m2e/releases
