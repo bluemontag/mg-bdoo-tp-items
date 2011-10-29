@@ -56,3 +56,7 @@ menu. Choose 'Add Site...' -> 'Local...' and select the unzipped folder. Follow 
 = Struts 2 =
 
 Se configuro el framework MVC "Struts 2" en la aplicacion, con un hola mundo y una pantalla de login de ejemplo.
+
+= Maven 2 =
+
+Update site: http://m2eclipse.sonatype.org/sites/m2e
