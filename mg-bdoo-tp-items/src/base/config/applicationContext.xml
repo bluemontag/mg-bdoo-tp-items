@@ -55,11 +55,6 @@
 		</property>
 	</bean>
 
-
-	<!-- Objeto utilizado para acceder al contexto de la aplicación  PARA QUE ES ESTO????
-	<bean id="contextApplicationContextProvider" class="zinbig.item.util.spring.ItemApplicationContextProvider"></bean>
-	-->
-
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
 		la clase Tracker
