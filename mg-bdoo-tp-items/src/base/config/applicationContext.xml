@@ -3,201 +3,286 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<!-- Datos para la conexión de hibernate
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName">
+
+	<!-- Objeto utilizado para configurar hibernate -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>/WEB-INF/classes/jdbc.properties</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
 			<value>${jdbc.driverClassName}</value>
 		</property>
-		<property name="url">
+		<property name="jdbcUrl">
 			<value>${jdbc.url}</value>
 		</property>
-		<property name="username">
-			<value>rodrigo</value>
+		<property name="user">
+			<value>${jdbc.username}</value>
 		</property>
 		<property name="password">
-			<value>rodrigo</value>
+			<value>${jdbc.password}</value>
 		</property>
-	</bean>-->
-	
-	<!-- SessionFactory de db4o 
+	</bean>
+
+	<!-- SessionFactory de hibernate -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">
 			<ref local="dataSource" />
 		</property>
+		<property name="mappingResources">
+			<list>
+				<value>zinbig/item/model/users/AbstractUser.hbm.xml</value>
+			</list>
+		</property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.show_sql">${hibernate.showSQL}</prop>
 			</props>
 		</property>
-	</bean> --> 
-	
-	<!-- Administrador de transacciones 
+	</bean>
+
+	<!-- Objeto utilizado para administrar las transacciones -->
 	<bean id="transactionManager"
-		class="org.springextensions.db4o.Db4oTransactionManager">
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
-	</bean> -->
-	
+	</bean>
+
+
+	<!-- Objeto utilizado para acceder al contexto de la aplicación  PARA QUE ES ESTO????
+	<bean id="contextApplicationContextProvider" class="zinbig.item.util.spring.ItemApplicationContextProvider"></bean>
+	-->
+
 	<!--
 		Objeto utilizado para acceder en forma eficiente a las instancias de
 		la clase Tracker
-	
-	<bean id="itemTrackerRepository"
-		class="zinbig.item.repositories.impl.hibernate.HibernateTrackerRepository">
+	-->
+	<bean id="itemsTrackerRepository"
+		class="item.repositories.impl.hibernate.HibernateItemsTrackerRepository">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
-	</bean> -->
+	</bean>
 
-	<!-- Objeto utilizado para acceder en forma eficiente 
-			a las instancias de la clase User
-	<bean id="userRepository"
+	<!--
+		Objeto utilizado para acceder en forma eficiente a las instancias de
+		la clase User
+	-->
+
+	<bean id="usersRepository"
 		class="zinbig.item.repositories.impl.hibernate.HibernateUsersRepository">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
-	</bean>-->
+	</bean>
 
-	<!-- Mock de repositorio de users -->
-		<bean id="userRepository" class="user.repository.MockUserRepository">
+	<!--
+		Objeto utilizado para acceder en forma eficiente a las instancias de
+		la clase User <bean id="usersRepository"
+		class="zinbig.item.repositories.impl.mock.MockUsersRepository">
+
 		</bean>
-
-	<!-- Objeto utilizado para acceder en forma eficiente a 
-			las instancias de la clase Operation
-
-	<bean id="operationsRepository"
-		class="zinbig.item.repositories.impl.hibernate.HibernateOperationsRepository">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
 	-->
 
-	<!--
-		Objeto utilizado para acceder en forma eficiente a las instancias de
-		la clase Workflow y sus clases asociadas.
-	
-	<bean id="workflowsRepository"
-		class="zinbig.item.repositories.impl.hibernate.HibernateWorkflowsRepository">
-		<property name="sessionFactory">
-
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
-	-->
-
-	<!--
-		Objeto utilizado para acceder en forma eficiente a las instancias de
-		la clase Project
-
-	<bean id="projectsRepository"
-		class="zinbig.item.repositories.impl.hibernate.HibernateProjectsRepository">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
-	-->
-
-	<!--
-		Objeto utilizado para acceder en forma eficiente a las instancias de
-		la clase Item.
-	
-	<bean id="itemsRepository"
-		class="zinbig.item.repositories.impl.hibernate.HibernateItemsRepository">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
-	-->
-
-	<!--
-		Objeto utilizado para generar los strings de los filtros de ítems
-	
-	<bean id="filterStringCreationStrategy"
-		class="zinbig.item.model.filters.HibernateFilterStringCreationStrategy">
-
-	</bean>
-	-->
-
-	<!--
-		Objeto utilizado para acceder en forma eficiente a las instancias de
-		la clase Priority y PrioritySet.s
-	
-	<bean id="prioritiesRepository"
-		class="zinbig.item.repositories.impl.hibernate.HibernatePrioritiesRepository">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
-	-->
 
 	<!-- Objeto utilizado para acceder a los diferentes repositorios -->
 	<bean id="repositoryLocator" class="zinbig.item.repositories.RepositoryLocator"
 		factory-method="getInstance">
-		<property name="userRepository">
-			<ref local="userRepository" />
+		<property name="usersRepository">
+			<ref local="usersRepository" />
+		</property>
+		<property name="itemsTrackerRepository">
+			<ref local="itemsTrackerRepository" />
 		</property>
 	</bean>
 
-	<!-- ==================== -->
-	<!-- ==== Servicios ===== -->
-	<!-- ==================== -->
+	<!--
+		Objeto utilizado para crear los diferentes DTOs requeridos por la
+		aplicación
+	-->
+	<bean id="dtoFactory" class="zinbig.item.util.dto.DTOFactory"
+		factory-method="getInstance">
+	</bean>
 
-	<!-- ==== Abstracto ==== -->
-	<bean id="abstractServiceImpl" class="base.service.AbstractServiceImpl"
+	<!-- Clase abstracta de todos los servicios del sistema -->
+	<bean id="baseServiceImpl" class="zinbig.item.services.impl.BaseServiceImpl"
 		abstract="true">
-		<property name="userRepository">
-			<ref local="userRepository" />
+		<property name="itemsTrackerRepository">
+			<ref local="itemsTrackerRepository" />
+		</property>
+		<property name="usersRepository">
+			<ref local="usersRepository" />
+		</property>
+		<property name="dtoFactory">
+			<ref local="dtoFactory" />
 		</property>
 	</bean>
 
-	<!-- ==== Usuarios ==== -->
-	<bean id="userServiceTarget" class="zinbig.item.services.impl.UserServiceImpl"
-		parent="abstractServiceImpl">
-		<!-- <property name="encryptionStrategy">
-			<ref local="encryptionStrategy" />
-		</property> -->
-	</bean>
-	
-	<!-- Interceptor de usuarios -->
-	<bean id="userService"
-		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="target">
-			<ref local="userServiceTarget" />
-		</property>
+	<!--
+		Objeto que implementa la definición de los servicios para usuarios
+	-->
+	<bean id="usersServiceTarget" class="zinbig.item.services.impl.UsersServiceImpl"
+		parent="baseServiceImpl">
 	</bean>
 
-	<!-- Interceptor de usuarios 
-	<bean id="userService"
+	<!-- Proxy trasaccional para los servicios de usuarios -->
+	<bean id="usersService"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager">
 			<ref local="transactionManager" />
 		</property>
 		<property name="target">
-			<ref local="userServiceTarget" />
-		</property> -->
-		<!-- <property name="transactionAttributes">
+			<ref local="usersServiceTarget" />
+		</property>
+		<property name="transactionAttributes">
 			<props>
 				<prop key="*">PROPAGATION_REQUIRED</prop>
 			</props>
-		</property> -->
-			<!--  <property name="preInterceptors">
+		</property>
+		<property name="preInterceptors">
 			<list>
 				<bean class="zinbig.item.util.spring.ServiceExceptionInterceptor" />
 			</list>
 		</property>
 	</bean>
+
+	<!--
+		Objeto que implementa la definición de los servicios para proyectos
 	-->
+	<bean id="projectsServiceTarget" class="zinbig.item.services.impl.ProjectsServiceImpl"
+		parent="baseServiceImpl">
+
+	</bean>
+
+	<!-- Proxy trasaccional para los servicios de proyectos -->
+	<bean id="projectsService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="projectsServiceTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="zinbig.item.util.spring.ServiceExceptionInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!--
+		Objeto que implementa la definición de los servicios para prioridades
+	-->
+	<bean id="prioritiesServiceTarget" class="zinbig.item.services.impl.PrioritiesServiceImpl"
+		parent="baseServiceImpl">
+
+	</bean>
+
+	<!-- Proxy trasaccional para los servicios de prioridades -->
+	<bean id="prioritiesService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="prioritiesServiceTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="zinbig.item.util.spring.ServiceExceptionInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!--
+		Objeto que implementa la definición de los servicios para ítems
+	-->
+	<bean id="itemsServiceTarget" class="zinbig.item.services.impl.ItemsServiceImpl"
+		parent="baseServiceImpl">
+	</bean>
+
+	<!-- Proxy trasaccional para los servicios de ítems -->
+	<bean id="itemsService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="itemsServiceTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="zinbig.item.util.spring.ServiceExceptionInterceptor" />
+			</list>
+		</property>
+
+	</bean>
+
+	<!--
+		Objeto que implementa la definición de los servicios para workflows.
+	-->
+	<bean id="workflowsServiceTarget" class="zinbig.item.services.impl.WorkflowsServiceImpl"
+		parent="baseServiceImpl">
+	</bean>
+
+	<!-- Proxy trasaccional para los servicios de workflows -->
+	<bean id="workflowsService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="workflowsServiceTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="zinbig.item.util.spring.ServiceExceptionInterceptor" />
+			</list>
+		</property>
+	</bean>
 
 	<!-- Objeto utilizado para acceder a los diferentes servicios -->
 	<bean id="serviceLocator" class="zinbig.item.services.ServiceLocator"
 		factory-method="getInstance">
-		<property name="userService">
-			<ref local="userService" />
+		<property name="usersService">
+			<ref local="usersService" />
+		</property>
+		<property name="projectsService">
+			<ref local="projectsService" />
+		</property>
+		<property name="itemsService">
+			<ref local="itemsService" />
+		</property>
+		<property name="workflowsService">
+			<ref local="workflowsService" />
 		</property>
 	</bean>
+
 </beans>
