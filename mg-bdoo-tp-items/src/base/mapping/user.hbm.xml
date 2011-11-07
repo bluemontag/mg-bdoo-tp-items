@@ -4,13 +4,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="itemTracker.domain.ItemTracker" table="ITEM_TRACKER">
+	<class name="user.domain.User" table="USER">
 		<id name="id" type="long" column="ID">
 			<generator class="native" />
 		</id>
-		<set name="users" table="USER">
-			<key column="ID" />
-			<one-to-many class="user.domain.User" />
-		</set>
+		<property name="userName" column="user_name" unique="true"
+			not-null="true" />
+		<property name="password" column="password" unique="true"
+			not-null="true" />
 	</class>
 </hibernate-mapping>

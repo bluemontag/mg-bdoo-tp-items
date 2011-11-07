@@ -1,6 +1,8 @@
 package user.domain;
 
-public class User {
+import base.domain.BaseDomain;
+
+public class User extends BaseDomain{
 
 	private String userName;
 	private String password;
@@ -10,6 +12,7 @@ public class User {
 		this.userName = aUserName;
 		this.password = aPassword;
 	}
+
 	
 	/**
 	 * @return the userName

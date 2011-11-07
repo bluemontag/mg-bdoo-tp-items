@@ -1,20 +1,23 @@
 package itemTracker.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import base.domain.BaseDomain;
 
 import user.domain.User;
 
-import itemTracker.exception.UnknownUserException;
+//import itemTracker.exception.UnknownUserException;
 
 
-public class ItemTracker {
+public class ItemTracker extends BaseDomain{
 	
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
 	private static ItemTracker instance;	
 	
-	private ArrayList<User> users;
+	private Set<User> users;
 //	private ArrayList<Proyecto> proyectos;
 
 	
@@ -27,8 +30,15 @@ public class ItemTracker {
 	/**
 	 * @param users the users to set
 	 */
-	public void setUsuarios(ArrayList<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	/**
+	 * @returns users
+	 */
+	public Set<User> getUsers() {
+		return this.users;
 	}
 	
 	/**
@@ -39,7 +49,7 @@ public class ItemTracker {
 //	}
 	
 	private ItemTracker(){
-		this.users = new ArrayList<User>();
+		this.users = new HashSet<User>();
 	}
 	
 	public static ItemTracker getInstance(){

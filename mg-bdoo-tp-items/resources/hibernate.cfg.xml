@@ -15,5 +15,6 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<!-- Mapping files -->
 		<mapping resource="base/mapping/itemTracker.hbm.xml" />
+		<mapping resource="base/mapping/user.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
