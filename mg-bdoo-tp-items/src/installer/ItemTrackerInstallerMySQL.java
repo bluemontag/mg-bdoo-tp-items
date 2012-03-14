@@ -1,4 +1,4 @@
-package base.test;
+package installer;
 
 import itemTracker.domain.ItemTracker;
 
@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 import user.domain.User;
 
-public class Test {
+public class ItemTrackerInstallerMySQL {
 	public static void main(String[] args) {
 		Session session = null;
 
@@ -24,15 +24,17 @@ public class Test {
 			System.out.println("Inserting Record");
 			User aUser = new User("rodrigo", "rodrigo");
 			ItemTracker itemTracker = ItemTracker.getInstance();
+			session.getTransaction().begin();
 			itemTracker.addUser(aUser);
 			session.save(itemTracker);
-			System.out.println("Done");
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
 			// Actual contact insertion will happen at this step
 			session.flush();
 			session.close();
+			System.out.println("Done");
 		}
 
 	}

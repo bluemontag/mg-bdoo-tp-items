@@ -4,13 +4,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="user.domain.User" table="USER">
-		<id name="id" type="long" column="ID">
-			<generator class="native" />
+	<class name="user.domain.User" table="USUARIO">
+		<id name="id" type="long" unsaved-value="null">
+		    <column name="ID" not-null="true"/>
+		    <generator class="identity"/>
 		</id>
-		<property name="userName" column="user_name" unique="true"
-			not-null="true" />
-		<property name="password" column="password" unique="true"
-			not-null="true" />
+				
+		<property name="userName" column="user_name"/>
+		<property name="password" column="password"/>
 	</class>
 </hibernate-mapping>

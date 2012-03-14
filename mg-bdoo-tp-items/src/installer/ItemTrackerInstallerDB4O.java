@@ -1,11 +1,7 @@
 package installer;
 
 
-import user.domain.User;
-
-import itemTracker.domain.ItemTracker;
-
-public class ItemTrackerInstaller {
+public class ItemTrackerInstallerDB4O {
 
 	/**
 	 * @param args

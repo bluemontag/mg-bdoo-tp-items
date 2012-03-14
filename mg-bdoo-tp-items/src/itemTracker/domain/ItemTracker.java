@@ -1,6 +1,7 @@
 package itemTracker.domain;
 
 
+import java.awt.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,11 +17,14 @@ public class ItemTracker extends BaseDomain{
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
 	private static ItemTracker instance;	
+	private String name; // TODO: borrar
 	
-	private Set<User> users;
+	private Set<User> users = new HashSet<User>();
 //	private ArrayList<Proyecto> proyectos;
 
-	
+	public ItemTracker(String aName){
+		this.setName(aName); // TODO: borrar
+	}
 	/**
 	 * @return the users
 	 */
@@ -54,7 +58,8 @@ public class ItemTracker extends BaseDomain{
 	
 	public static ItemTracker getInstance(){
 		if (instance == null){
-			return (new ItemTracker());
+			ItemTracker itemTracker = new ItemTracker("Item tracker");
+			return itemTracker;
 		}
 		return instance;
 	}
@@ -97,6 +102,14 @@ public class ItemTracker extends BaseDomain{
 //	public Boolean validarWorkflow(Workflow unWorkflow){
 //		return true;
 //	}
+	 // TODO: borrar
+	public void setName(String name) {
+		this.name = name;
+	}
+	 // TODO: borrar
+	public String getName() {
+		return name;
+	}
 	
 
 }

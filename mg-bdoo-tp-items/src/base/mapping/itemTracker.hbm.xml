@@ -5,12 +5,14 @@
 
 <hibernate-mapping>
 	<class name="itemTracker.domain.ItemTracker" table="ITEM_TRACKER">
-		<id name="id" type="long" column="ID">
-			<generator class="native" />
+		<id name="id" type="long" unsaved-value="null">
+		    <column name="ID" not-null="true"/>
+		    <generator class="identity"/>
 		</id>
-		<set name="users" table="USER">
-			<key column="ID" />
+		<set name="users" table="USUARIO" cascade="all" >
+			<key column="ID" not-null="false"/>
 			<one-to-many class="user.domain.User" />
 		</set>
+		<property name="name" column="name"/>
 	</class>
 </hibernate-mapping>
