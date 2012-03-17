@@ -3,9 +3,9 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<import resource="repositoryFindersApplicationContext.xml" />
+	<import resource="repositoriesApplicationContext.xml" />
 
-	<bean id="MemoryRrepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+	<bean id="memoryRrepositoryFinder" class="base.repository.MemoryRepositoryFinder">
 		<property name="itemTrackerRepository">
 			<idref bean="memoryItemTrackerRepository" />
 		</property>
@@ -14,7 +14,7 @@
 		</property>
 	</bean>
 
-	<bean id="HibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
+	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
 		<property name="itemTrackerRepository">
 			<idref bean="hibernateItemTrackerRepository" />
 		</property>

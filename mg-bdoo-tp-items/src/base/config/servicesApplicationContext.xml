@@ -3,46 +3,45 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<import resource="trasactionManagerApplicationContext.xml">
+	<import resource="trasactionManagerApplicationContext.xml" />
 
-	<bean id="baseServiceImpl" class="zinbig.item.services.impl.BaseServiceImpl"
+	<bean id="abstractServiceImpl" class="base.service.AbstractServiceImpl"
 		abstract="true">
-		<property name="itemsTrackerRepository">
-			<ref local="itemsTrackerRepository" />
+		<property name="repositoryFinder">
+			<idref bean="hibernateRepositoryFinder" />
 		</property>
-		<property name="usersRepository">
-			<ref local="usersRepository" />
-		</property>
-		<property name="dtoFactory">
-			<ref local="dtoFactory" />
-		</property>
+		<!-- Si se quiere usar el repositorio de memoria se deben descomentar las 
+			siguientes lineas y comentar las anteriores! -->
+		<!-- <property name="repositoryFinder"> -->
+		<!-- <idref bean="memoryRepositoryFinder" /> -->
+		<!-- </property> -->
+<!-- 		<property name="dtoFactory"> -->
+<!-- 			<idref bean="dtoFactory" /> -->
+<!-- 		</property> -->
 	</bean>
 
-	<!--
-		Objeto que implementa la definición de los servicios para usuarios
-	-->
-	<bean id="usersServiceTarget" class="zinbig.item.services.impl.UsersServiceImpl"
-		parent="baseServiceImpl">
+	<!-- Objeto que implementa la definición de los servicios para usuarios -->
+	<bean id="userServiceTarget" class="user.service.UserServiceImpl"
+		parent="abstractServiceImpl">
 	</bean>
 
 	<!-- Proxy trasaccional para los servicios de usuarios -->
-	<bean id="usersService"
+	<bean id="userService"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager">
-			<ref local="transactionManager" />
+			<idref bean="transactionManager" />
 		</property>
 		<property name="target">
-			<ref local="usersServiceTarget" />
+			<ref local="userServiceTarget" />
 		</property>
-		<property name="transactionAttributes">
-			<props>
-				<prop key="*">PROPAGATION_REQUIRED</prop>
-			</props>
-		</property>
-		<property name="preInterceptors">
-			<list>
-				<bean class="zinbig.item.util.spring.ServiceExceptionInterceptor" />
-			</list>
+	</bean>
+
+
+	<!-- Objeto utilizado para acceder a los diferentes servicios -->
+	<bean id="serviceFinder" class="base.service.ServiceFinder"
+		factory-method="getInstance">
+		<property name="userService">
+			<idref bean="userService" />
 		</property>
 	</bean>
 
