@@ -17,14 +17,10 @@ public class ItemTracker extends BaseDomain{
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
 	private static ItemTracker instance;	
-	private String name; // TODO: borrar
 	
 	private Set<User> users = new HashSet<User>();
 //	private ArrayList<Proyecto> proyectos;
 
-	public ItemTracker(String aName){
-		this.setName(aName); // TODO: borrar
-	}
 	/**
 	 * @return the users
 	 */
@@ -58,7 +54,7 @@ public class ItemTracker extends BaseDomain{
 	
 	public static ItemTracker getInstance(){
 		if (instance == null){
-			ItemTracker itemTracker = new ItemTracker("Item tracker");
+			ItemTracker itemTracker = new ItemTracker();
 			return itemTracker;
 		}
 		return instance;
@@ -68,10 +64,10 @@ public class ItemTracker extends BaseDomain{
 //		return NOMBRE+ " / "+ DESCRIPCION;
 //	}
 //	
-//	/*
-//	 * 
-//	 */
-//	public void crearUsuario(String unNombreDeUsuario, String unPasswordEncriptado, Equipo equipo) throws UsuarioExistenteException{
+	/*
+	 * 
+	 */
+//	public void createUser(String unNombreDeUsuario, String unPasswordEncriptado, Equipo equipo) throws UsuarioExistenteException{
 //		
 //		User nuevoUsuario = new User(unNombreDeUsuario, unPasswordEncriptado);
 //		this.agregarUsuario(nuevoUsuario);
@@ -102,14 +98,6 @@ public class ItemTracker extends BaseDomain{
 //	public Boolean validarWorkflow(Workflow unWorkflow){
 //		return true;
 //	}
-	 // TODO: borrar
-	public void setName(String name) {
-		this.name = name;
-	}
-	 // TODO: borrar
-	public String getName() {
-		return name;
-	}
 	
 
 }

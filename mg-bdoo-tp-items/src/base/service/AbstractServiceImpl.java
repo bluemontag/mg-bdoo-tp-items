@@ -1,10 +1,24 @@
 package base.service;
 
-import itemTracker.domain.ItemTracker;
+import base.repository.AbstractRepositoryFinder;
+
 
 public class AbstractServiceImpl {
+	
+	private AbstractRepositoryFinder repositoryFinder;
 
-	public ItemTracker getItemTrackerRespository(){
-		return null;
+	public AbstractRepositoryFinder getRepositoryFinder(){
+		return repositoryFinder;
 	}
+	
+	public void setRepositoryFinder(AbstractRepositoryFinder repositoryFinder){
+		this.repositoryFinder = repositoryFinder;
+	}
+	
+//	public AbstractItemTrackerReposiory getItemTrackerRespository() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
+
+

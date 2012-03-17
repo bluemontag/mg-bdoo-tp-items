@@ -7,7 +7,7 @@
 	<class name="user.domain.User" table="USUARIO">
 		<id name="id" type="long" unsaved-value="null">
 		    <column name="ID" not-null="true"/>
-		    <generator class="identity"/>
+		    <generator class="native"/>
 		</id>
 				
 		<property name="userName" column="user_name"/>

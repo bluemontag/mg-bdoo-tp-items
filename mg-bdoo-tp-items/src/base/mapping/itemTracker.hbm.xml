@@ -7,12 +7,11 @@
 	<class name="itemTracker.domain.ItemTracker" table="ITEM_TRACKER">
 		<id name="id" type="long" unsaved-value="null">
 		    <column name="ID" not-null="true"/>
-		    <generator class="identity"/>
+		    <generator class="native"/>
 		</id>
 		<set name="users" table="USUARIO" cascade="all" >
 			<key column="ID" not-null="false"/>
 			<one-to-many class="user.domain.User" />
 		</set>
-		<property name="name" column="name"/>
 	</class>
 </hibernate-mapping>
