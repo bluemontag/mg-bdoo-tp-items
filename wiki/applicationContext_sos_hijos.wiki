@@ -4,23 +4,21 @@
 
 Se muestra la relación que hay entre los archivos de configuración, que incluye que y para que es cada uno.
 
-_applicationContext.xml
-
 = Details =
 
-_dataSourcesApplicationContext.xml
+* dataSourcesApplicationContext.xml *
 
 Se configura el/los dataSources necesarios.
 
-_repositoriesApplicationContext.xml
+* repositoriesApplicationContext.xml *
 
 Se crean los beans de repositorios (para cualquier origen de datos: por ahora hibernate y memoria).
 
-_repositoryFindersApplicationContext.xml
+* repositoryFindersApplicationContext.xml *
 
 Se configuran los beans para obtener repositorios de un tipo de origen de datos. Eligiendo uno de estos en el bean de *abstractServiceImpl* (ver _servicesApplicationContext.xml) podemos configurar el origen de los datos.
 
-_servicesApplicationContext.xml
+* servicesApplicationContext.xml *
 
 Se configuran los beans de servicios (ver punto anterior). También se encuentra configurado el serviceFinder, que se usa para obtener los servicios.
 
@@ -42,3 +40,9 @@ Se configuran los bean de session y transacción.
 
 * servicesApplicationContext.xml *
     trasactionManagerApplicationContext.xml
+
+Por lo tanto
+
+* applicationContext.xml *
+    repositoryFindersApplicationContext.xml
+    servicesApplicationContext.xml
