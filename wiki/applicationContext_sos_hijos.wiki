@@ -31,14 +31,14 @@ Se configuran los bean de session y transacción.
 
 = Esquema de import =
 
-* dataSourcesApplicationContext.xml
+* dataSourcesApplicationContext.xml *
 
-* transactionManagerApplicationContext.xml
+* transactionManagerApplicationContext.xml *
     dataSourcesApplicationContext.xml
 
-* repositoryFindersApplicationContext.xml
+* repositoryFindersApplicationContext.xml *
     repositoriesApplicationContext.xml
       dataSourcesApplicationContext.xml
 
-* servicesApplicationContext.xml
+* servicesApplicationContext.xml *
     trasactionManagerApplicationContext.xml
