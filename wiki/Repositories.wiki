@@ -6,12 +6,11 @@ Como en teoría podríamos tener varios lugares de donde sacar los datos, se pen
 
 = Details =
 
-Base: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio.
+Base: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio. Estas son:
 
-* AbstractRepositoryFinder.java
+* AbstractRepositoryFinder
 
-Tiene los métodos que devuelven los repositorios abstractos, junto con el repositorio abstracto.
-Esta clase es  
+Tiene los métodos que devuelven todos los repositorios abstractos, junto con el *repositorio abstracto*. El repositorio en realidad esta instanciado a través de la *inyección de dependencias* con spring, ver las siguientes clases para entender cómo.
 
 Ejemplo:
 {{{
@@ -25,8 +24,15 @@ Ejemplo:
    }
 }}}
 
-* HibernateRepositoryFinder.java
-* MemoryRepositoryFinder.java
+* HibernateRepositoryFinder y MemoryRepositoryFinder
+
+Estas clases heredan de AbstractRepositoryFinder, con lo cual heredan la implementación y las propiedades del mismo. Si bien estas clases no tienen código, se necesitan para inyectarles las clases concretas a través de spring. Ejemplo del XML:
+
+{{{
+
+}}}
+
+
 
 
 Add your content here.  Format your content with:
