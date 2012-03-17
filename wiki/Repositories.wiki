@@ -1,0 +1,35 @@
+#Aca cuento como es la arquitectura para armar un repositorio...
+
+= Introduction =
+
+Como en teoría podríamos tener varios lugares de donde sacar los datos, se pensó la aplicación para dejar abierta la posibilidad de introducir nuevos repositorios según el origen de ellos. En principio solo vamos a crear los repositorios con datos que originan de la base mapeada con Hibernate (en el momento MySql) y lo que esta en memoria.
+
+= Details =
+
+Base: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio.
+
+* AbstractRepositoryFinder.java
+
+Tiene los métodos que devuelven los repositorios abstractos, junto con el repositorio abstracto.
+Esta clase es  
+
+Ejemplo:
+{{{
+   AbstractUserRepository userRepository;
+
+   public AbstractUserRepository getUserRespository(){
+     return this.userRepository;
+   }
+   public void setUserRespository(AbstractUserRepository userRepository){
+     this.userRepository = userRepository;
+   }
+}}}
+
+* HibernateRepositoryFinder.java
+* MemoryRepositoryFinder.java
+
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
