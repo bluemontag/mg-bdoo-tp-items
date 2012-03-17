@@ -29,7 +29,7 @@ _transactionManagerApplicationContext.xml
 Se configuran los bean de session y transacción.
 
 
-= Esquema de import =
+= Esquema de imports =
 
 * dataSourcesApplicationContext.xml *
 
