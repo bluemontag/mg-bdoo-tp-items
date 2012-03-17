@@ -22,7 +22,7 @@ Se configuran los beans para obtener repositorios de un tipo de origen de datos.
 
 Se configuran los beans de servicios (ver punto anterior). También se encuentra configurado el serviceFinder, que se usa para obtener los servicios.
 
-_transactionManagerApplicationContext.xml
+* transactionManagerApplicationContext.xml *
 
 Se configuran los bean de session y transacción.
 
@@ -44,5 +44,5 @@ Se configuran los bean de session y transacción.
 Por lo tanto
 
 * applicationContext.xml *
-    repositoryFindersApplicationContext.xml
-    servicesApplicationContext.xml
+   - repositoryFindersApplicationContext.xml 
+   - servicesApplicationContext.xml 
