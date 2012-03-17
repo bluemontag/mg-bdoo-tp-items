@@ -44,5 +44,7 @@ Se configuran los bean de session y transacción.
 Por lo tanto
 
 * applicationContext.xml *
-   - repositoryFindersApplicationContext.xml 
+
+   - repositoryFindersApplicationContext.xml
+
    - servicesApplicationContext.xml 
