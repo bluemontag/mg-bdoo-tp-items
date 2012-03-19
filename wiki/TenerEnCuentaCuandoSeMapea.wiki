@@ -3,6 +3,7 @@
 = Donde agregar los archivos hbm.xml =
 
 1- base/config/transactionManagerApplicationContext.xml
+
 2- hibernate.cfg.xml
 
 
