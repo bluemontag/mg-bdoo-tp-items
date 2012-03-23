@@ -2,12 +2,14 @@ package installer;
 
 import itemTracker.repository.HibernetItemTrackerRepository;
 import itemTracker.repository.MemoryItemTrackerRepository;
+import itemTracker.service.ItemTrackerServiceBI;
 
 import org.hibernate.impl.SessionFactoryImpl;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
+import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -26,11 +28,9 @@ public class PruebasDeServicios {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		
+	
 		String[] contextPaths = new String[] { CONTEXT };
-		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(
-		                contextPaths);
+		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(contextPaths);
 
 		PropertyPlaceholderConfigurer configurer = (PropertyPlaceholderConfigurer) ctx.getBean("propertyConfigurer");
 		System.out.println("configurer: " + configurer);
@@ -55,9 +55,9 @@ public class PruebasDeServicios {
 		
 		HibernetItemTrackerRepository hibernateItemTrackerRepository = (HibernetItemTrackerRepository) ctx.getBean("hibernateItemTrackerRepository");
 		System.out.println("hibernateItemTrackerRepository: " + hibernateItemTrackerRepository);
-//		
-//		HibernetUserRepository hibernateUserRepository = (HibernetUserRepository) ctx.getBean("hibernateUserRepository");
-//		System.out.println("hibernateUserRepository: " + hibernateUserRepository);
+		
+		HibernetUserRepository hibernateUserRepository = (HibernetUserRepository) ctx.getBean("hibernateUserRepository");
+		System.out.println("hibernateUserRepository: " + hibernateUserRepository);
 
 		// REPOSITORIOS MEMORIA
 		
@@ -67,9 +67,16 @@ public class PruebasDeServicios {
 		MemoryUserRepository memoryUserRepository = (MemoryUserRepository) ctx.getBean("memoryUserRepository");
 		System.out.println("memoryUserRepository: " + memoryUserRepository);
 		
-		UserServiceBI userService = ServiceFinder.getInstance().getUserService();
+		// SERVICIOS
+		
+		UserServiceBI userService = (UserServiceBI) ctx.getBean("userService");
+		System.out.println("userService: " + userService);
+		
+		ItemTrackerServiceBI itemTrackerService = (ItemTrackerServiceBI) ctx.getBean("itemTrackerService");
+		System.out.println("itemTrackerService: " + itemTrackerService);
+		
+		UserServiceBI userServiceOb = ServiceFinder.getInstance().getUserService();
 		UserDTO userDTO = userService.createUser("asd","asd");
-
 	}
 
 }

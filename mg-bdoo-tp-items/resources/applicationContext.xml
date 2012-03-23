@@ -3,11 +3,160 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-<import resource="base/config/dataSourcesApplicationContext.xml"/>
-<import resource="base/config/repositoriesApplicationContext.xml" />
-<import resource="base/config/repositoryFindersApplicationContext.xml"/>
-<import resource="base/config/transactionManagerApplicationContext.xml" />
+<!-- <import resource="base/config/dataSourcesApplicationContext.xml"/> -->
+<!-- <import resource="base/config/repositoriesApplicationContext.xml" /> -->
+<!-- <import resource="base/config/repositoryFindersApplicationContext.xml"/> -->
+<!-- <import resource="base/config/transactionManagerApplicationContext.xml" /> -->
 <!-- <import resource="base/config/servicesApplicationContext.xml"/> -->
+
+
+
+	<!-- Objeto utilizado para configurar hibernate -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>base/config/jdbc.properties</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+	</bean>
+
+	<!-- Objeto utilizado para administrar las transacciones -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- ==================== Servicios =================== -->
+
+	<bean id="abstractServiceImpl" class="base.service.AbstractServiceImpl"
+		abstract="true">
+		<property name="repositoryFinder" ref="hibernateRepositoryFinder" />
+		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
+			siguiente linea y comentar la anterior! -->
+		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->
+		<!-- <property name="dtoFactory"> -->
+		<!-- <idref bean="dtoFactory" /> -->
+		<!-- </property> -->
+	</bean>
+
+
+	<!-- ==================== Servicio de ItemTracker =================== -->
+
+	<bean id="itemTrackerServiceTarget" class="itemTracker.service.ItemTrackerServiceImpl"
+		parent="abstractServiceImpl"/>
+
+	<bean id="itemTrackerService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="itemTrackerServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- ==================== Servicio de User =================== -->
+
+	<bean id="userServiceTarget" class="user.service.UserServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="userService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="userServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- ================ Contenedor de servicios =================== -->
+
+	<bean id="serviceFinder" class="base.service.ServiceFinder"
+		factory-method="getInstance">
+		<property name="userService" ref="userService" />
+		<property name="itemTrackerService" ref="itemTrackerService" />
+	</bean>
+	
+	<!-- =========================================================== -->
+	<!-- =================== SessionFactory ======================== -->
+
+	<!-- SessionFactory de hibernate -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="hibernate.cfg.xml"/>
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+	</bean>
+
+	<!-- =================== Repositorios ======================== -->
+
+	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+		<property name="itemTrackerRepository" ref="memoryItemTrackerRepository" />
+		<property name="userRepository">
+			<ref bean="memoryUserRepository"/>
+		</property>
+	</bean>
+
+	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
+		<property name="itemTrackerRepository" ref="hibernateItemTrackerRepository" />
+		<property name="userRepository">
+			<ref bean="hibernateUserRepository"/>
+		</property>		
+	</bean>
+
+
+		<!-- ==================================================
+	 TODO: poner en un import sepatado. 
+	 Repositorios para obtener datos desde hibernate.
+		================================================== -->
+	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository">
+		<property name="sessionFactory">
+			 <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+	<bean id="hibernateUserRepository" class="user.repository.HibernetUserRepository">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- =====================================================
+	TODO: poner en un import sepatado.
+		Repositorios para obtener datos desde memoria. 
+		======================================================= -->
+
+	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/>
+	<bean id="memoryUserRepository" class="user.repository.MemoryUserRepository"/>
+
+
+
+
+
+
+
 
 <!-- 
 <bean id="log4jInitializer"

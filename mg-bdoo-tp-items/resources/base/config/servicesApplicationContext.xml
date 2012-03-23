@@ -4,34 +4,25 @@
 <beans>
 	<bean id="abstractServiceImpl" class="base.service.AbstractServiceImpl"
 		abstract="true">
-		<property name="repositoryFinder">
-			<idref bean="hibernateRepositoryFinder" />
-		</property>
-		<!-- Si se quiere usar el repositorio de memoria se deben descomentar las 
-			siguientes lineas y comentar las anteriores! -->
-		<!-- <property name="repositoryFinder"> -->
-		<!-- <idref bean="memoryRepositoryFinder" /> -->
+		<property name="repositoryFinder" ref="hibernateRepositoryFinder" />
+		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
+			siguiente linea y comentar la anterior! -->
+		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->
+		<!-- <property name="dtoFactory"> -->
+		<!-- <idref bean="dtoFactory" /> -->
 		<!-- </property> -->
-<!-- 		<property name="dtoFactory"> -->
-<!-- 			<idref bean="dtoFactory" /> -->
-<!-- 		</property> -->
 	</bean>
 
 
 	<!-- ==================== Servicio de ItemTracker =================== -->
 
 	<bean id="itemTrackerServiceTarget" class="itemTracker.service.ItemTrackerServiceImpl"
-		parent="abstractServiceImpl">
-	</bean>
+		parent="abstractServiceImpl"/>
 
 	<bean id="itemTrackerService"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="target">
-			<ref local="itemTrackerServiceTarget" />
-		</property>
-		<property name="transactionManager">
-			<idref bean="transactionManager" />
-		</property>
+		<property name="target" ref="itemTrackerServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
 		<property name="transactionAttributes">
 			<props>
 				<prop key="*">PROPAGATION_REQUIRED</prop>
@@ -47,12 +38,8 @@
 
 	<bean id="userService"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="target">
-			<ref local="userServiceTarget" />
-		</property>
-		<property name="transactionManager">
-			<idref bean="transactionManager" />
-		</property>
+		<property name="target" ref="userServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
 		<property name="transactionAttributes">
 			<props>
 				<prop key="*">PROPAGATION_REQUIRED</prop>
@@ -64,13 +51,11 @@
 
 	<bean id="serviceFinder" class="base.service.ServiceFinder"
 		factory-method="getInstance">
-		<property name="userService">
-			<idref bean="userService" />
-		</property>
-		<property name="itemTrackerService">
-			<idref bean="itemTrackerService" />
-		</property>
+		<property name="userService" ref="userService" />
+		<property name="itemTrackerService" ref="itemTrackerService" />
 	</bean>
+	
+	<!-- =========================================================== -->
 
 </beans>
 

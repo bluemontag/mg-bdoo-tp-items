@@ -7,24 +7,24 @@
 	 TODO: poner en un import sepatado. 
 	 Repositorios para obtener datos desde hibernate.
 		================================================== -->
-<!-- 	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository"> -->
-<!-- 		<property name="sessionFactory"> -->
-<!-- 			<idref bean="sessionFactory" /> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
+	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository">
+		<property name="sessionFactory">
+			<idref bean="sessionFactory" />
+		</property>
+	</bean>
 
-<!-- 	<bean id="hibernateUserRepository" class="user.repository.HibernetUserRepository"> -->
-<!-- 		<property name="sessionFactory"> -->
-<!-- 			<idref bean="sessionFactory" /> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
+	<bean id="hibernateUserRepository" class="user.repository.HibernetUserRepository">
+		<property name="sessionFactory">
+			<idref bean="sessionFactory" />
+		</property>
+	</bean>
 
 	<!-- =====================================================
 	TODO: poner en un import sepatado.
 		Repositorios para obtener datos desde memoria. 
 		======================================================= -->
 
-<!-- 	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/> -->
-<!-- 	<bean id="memoryUserRepository" class="user.repository.MemoryUserRepository"/> -->
+	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/>
+	<bean id="memoryUserRepository" class="user.repository.MemoryUserRepository"/>
 
 </beans>
