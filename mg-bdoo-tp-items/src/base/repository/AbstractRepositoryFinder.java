@@ -1,24 +1,24 @@
 package base.repository;
 
-import itemTracker.repository.AbstractItemTrackerRepository;
-import user.repository.AbstractUserRepository;
+import itemTracker.repository.ItemTrackerRepositoryBI;
+import user.repository.UserRepositoryBI;
 
 public abstract class AbstractRepositoryFinder {
 
-	AbstractItemTrackerRepository itemTrackerRepository;
-	AbstractUserRepository userRepository;
+	ItemTrackerRepositoryBI itemTrackerRepository;
+	UserRepositoryBI userRepository;
 
-	public AbstractItemTrackerRepository getItemTrackerRespository(){
+	public ItemTrackerRepositoryBI getItemTrackerRepository(){
 		return this.itemTrackerRepository;
 	}
-	public void setUserRespository(AbstractItemTrackerRepository itemTrackerRepository){
+	public void setItemTrackerRepository(ItemTrackerRepositoryBI itemTrackerRepository){
 		this.itemTrackerRepository = itemTrackerRepository;
 	}
 	
-	public AbstractUserRepository getUserRespository(){
+	public UserRepositoryBI getUserRepository(){
 		return this.userRepository;
 	}
-	public void setUserRespository(AbstractUserRepository userRepository){
+	public void setUserRepository(UserRepositoryBI userRepository){
 		this.userRepository = userRepository;
 	}
 	

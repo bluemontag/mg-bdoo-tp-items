@@ -1,8 +1,9 @@
 package user.repository;
 
+import base.repository.HibernateBaseRepository;
 import user.domain.User;
 
-public class HibernetUserRepository extends AbstractUserRepository{
+public class HibernetUserRepository extends HibernateBaseRepository implements UserRepositoryBI{
 
 	@Override
 	public User getUserByUserName(String aUserName) {

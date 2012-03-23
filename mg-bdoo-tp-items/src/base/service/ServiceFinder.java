@@ -5,8 +5,21 @@ import user.service.UserServiceBI;
 
 public class ServiceFinder {
 
+	private static ServiceFinder instance;
 	private ItemTrackerServiceBI itemTrackerService;
 	private UserServiceBI userService;
+	
+	/**
+	 * Método estático que permite acceder a la única instancia de esta clase.
+	 * 
+	 * @return la única instancia de esta clase.
+	 */
+	public static ServiceFinder getInstance() {
+		if (instance == null) {
+			instance = new ServiceFinder();
+		}
+		return instance;
+	}
 	
 	/**
 	 * @return the itemTrackerService

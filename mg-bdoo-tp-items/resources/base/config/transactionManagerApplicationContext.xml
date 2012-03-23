@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- SessionFactory de hibernate -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="hibernate.cfg.xml"/>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- SessionFactory de hibernate -->
+<!-- 	<bean id="sessionFactory" -->
+<!-- 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
+<!-- 		<property name="dataSource"> -->
+<!-- 			<idref bean="dataSource" /> -->
+<!-- 		</property> -->
+<!-- 		<property name="mappingResources"> -->
+<!-- 			<list> -->
+<!-- 				<value>itemTracker/domain/itemTracker.hbm.xml</value> -->
+<!-- 				<value>user/domain/user.hbm.xml</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="hibernateProperties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="hibernate.dialect">${hibernate.dialect}</prop> -->
+<!-- 				<prop key="hibernate.show_sql">${hibernate.showSQL}</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<!-- Objeto utilizado para administrar las transacciones -->
+<!-- 	<bean id="transactionManager" -->
+<!-- 		class="org.springframework.orm.hibernate3.HibernateTransactionManager"> -->
+<!-- 		<property name="sessionFactory"> -->
+<!-- 			<ref local="sessionFactory" /> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+		<property name="itemTrackerRepository" ref="memoryItemTrackerRepository" />
+		<property name="userRepository" ref="memoryUserRepository" />
+	</bean>
+
+	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
+		<property name="itemTrackerRepository" ref="hibernateItemTrackerRepository" />
+		<property name="userRepository" ref="hibernateUserRepository" />
+	</bean>
+
+
+		<!-- ==================================================
+	 TODO: poner en un import sepatado. 
+	 Repositorios para obtener datos desde hibernate.
+		================================================== -->
+	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="hibernateUserRepository" class="user.repository.HibernetUserRepository">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<!-- =====================================================
+	TODO: poner en un import sepatado.
+		Repositorios para obtener datos desde memoria. 
+		======================================================= -->
+
+	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/>
+	<bean id="memoryUserRepository" class="user.repository.MemoryUserRepository"/>
+</beans>

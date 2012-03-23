@@ -2,7 +2,7 @@ package user.repository;
 
 import user.domain.User;
 
-public class MemoryUserRepository extends AbstractUserRepository{
+public class MemoryUserRepository implements UserRepositoryBI{
 
 	@Override
 	public User getUserByUserName(String aUserName) {

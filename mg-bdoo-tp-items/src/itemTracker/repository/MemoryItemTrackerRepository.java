@@ -1,9 +1,8 @@
 package itemTracker.repository;
 
 import itemTracker.domain.ItemTracker;
-import user.domain.User;
 
-public class MemoryItemTrackerRepository extends AbstractItemTrackerRepository{
+public class MemoryItemTrackerRepository implements ItemTrackerRepositoryBI{
 
 	@Override
 	public ItemTracker getItemTrackerByName(String aUserName) {

@@ -13,8 +13,11 @@
 		<property name="show_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<!-- Drop and re-create the database schema on startup TODO: BORRAR-->
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
 		<!-- Mapping files -->
-		<mapping resource="base/mapping/itemTracker.hbm.xml" />
-		<mapping resource="base/mapping/user.hbm.xml" />
+		<mapping resource="itemTracker/domain/itemTracker.hbm.xml" />
+		<mapping resource="user/domain/user.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
