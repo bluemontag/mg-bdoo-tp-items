@@ -4,6 +4,7 @@
 package user.service;
 
 import itemTracker.domain.ItemTracker;
+import user.domain.User;
 import user.dto.UserDTO;
 import base.service.AbstractServiceImpl;
 
@@ -14,7 +15,11 @@ import base.service.AbstractServiceImpl;
 public class UserServiceImpl extends AbstractServiceImpl implements UserServiceBI{
 
 	public UserDTO createUser(String anUserName, String aPassword){
-//		ItemTracker theItemTracker = this.getItemTrackerRespository().findeTracker();
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTrackerByName("itemTracker");
+		
+		User aUser = new User(anUserName, aPassword);
+		theItemTracker.addUser(aUser);
+		
 		return null;
 	}
 }

@@ -51,9 +51,9 @@
 		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
 			siguiente linea y comentar la anterior! -->
 		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->
-		<!-- <property name="dtoFactory"> -->
-		<!-- <idref bean="dtoFactory" /> -->
-		<!-- </property> -->
+		<property name="dtoFactory">
+			<idref bean="dtoFactory" />
+		</property>
 	</bean>
 
 
@@ -171,12 +171,12 @@
 </bean>
  -->
 
-	<!--
-		Objeto utilizado para crear los diferentes DTOs requeridos por la
-		aplicación
-	-->
-<!-- 	<bean id="dtoFactory" class="zinbig.item.util.dto.DTOFactory" -->
-<!-- 		factory-method="getInstance"> -->
-<!-- 	</bean> -->
+	<!-- =====================================================
+		Objeto utilizado para crear los diferentes DTOs. 
+		======================================================= -->
+		
+	<bean id="dtoFactory" class="zinbig.item.util.dto.DTOFactory"
+		factory-method="getInstance">
+	</bean>
 
 </beans>

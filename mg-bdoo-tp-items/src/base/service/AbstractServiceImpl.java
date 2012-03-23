@@ -1,5 +1,7 @@
 package base.service;
 
+import itemTracker.repository.ItemTrackerRepositoryBI;
+import base.dto.AbstractDTOFactory;
 import base.repository.AbstractRepositoryFinder;
 
 
@@ -15,10 +17,9 @@ public class AbstractServiceImpl {
 		this.repositoryFinder = repositoryFinder;
 	}
 	
-//	public AbstractItemTrackerReposiory getItemTrackerRespository() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	public ItemTrackerRepositoryBI getItemTrackerRespository() {
+		return this.getRepositoryFinder().getItemTrackerRepository();
+	}
 }
 
 
