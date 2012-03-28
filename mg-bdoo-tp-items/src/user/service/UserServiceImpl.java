@@ -15,11 +15,11 @@ import base.service.AbstractServiceImpl;
 public class UserServiceImpl extends AbstractServiceImpl implements UserServiceBI{
 
 	public UserDTO createUser(String anUserName, String aPassword){
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTrackerByName("itemTracker");
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		
 		User aUser = new User(anUserName, aPassword);
 		theItemTracker.addUser(aUser);
 		
-		return null;
+		return new UserDTO("rodrigo", "rodrigo");
 	}
 }

@@ -42,6 +42,14 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
+	
+	<!-- =====================================================
+		Objeto utilizado para obtener los diferentes DTOsFactories. 
+		======================================================= -->
+		
+		<bean id="dtoFactoryFinder" class="base.dto.DTOFactoryFinder"/>
+	
+	
 
 	<!-- ==================== Servicios =================== -->
 
@@ -51,9 +59,7 @@
 		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
 			siguiente linea y comentar la anterior! -->
 		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->
-		<property name="dtoFactory">
-			<idref bean="dtoFactory" />
-		</property>
+		<property name="dtoFactoryFinder" ref="dtoFactoryFinder" />
 	</bean>
 
 
@@ -98,7 +104,7 @@
 		<property name="itemTrackerService" ref="itemTrackerService" />
 	</bean>
 	
-	<!-- =========================================================== -->
+
 	<!-- =================== SessionFactory ======================== -->
 
 	<!-- SessionFactory de hibernate -->
@@ -128,7 +134,6 @@
 
 
 		<!-- ==================================================
-	 TODO: poner en un import sepatado. 
 	 Repositorios para obtener datos desde hibernate.
 		================================================== -->
 	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository">
@@ -144,7 +149,6 @@
 	</bean>
 
 	<!-- =====================================================
-	TODO: poner en un import sepatado.
 		Repositorios para obtener datos desde memoria. 
 		======================================================= -->
 
@@ -170,13 +174,5 @@
 	</property>
 </bean>
  -->
-
-	<!-- =====================================================
-		Objeto utilizado para crear los diferentes DTOs. 
-		======================================================= -->
-		
-	<bean id="dtoFactory" class="zinbig.item.util.dto.DTOFactory"
-		factory-method="getInstance">
-	</bean>
 
 </beans>

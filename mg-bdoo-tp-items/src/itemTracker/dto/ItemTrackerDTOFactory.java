@@ -1,7 +1,6 @@
 package itemTracker.dto;
 
-import base.dto.AbstractDTOFactory;
 
-public class ItemTrackerDTOFactory extends AbstractDTOFactory {
+public class ItemTrackerDTOFactory{
 
 }

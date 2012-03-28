@@ -6,7 +6,5 @@ import user.domain.User;
 
 public interface ItemTrackerRepositoryBI extends HibernateBaseRepositoryBI{
 	
-	
-	// En teoria deberia haber uno solo.. TODO: ver como obtener el unico itemTracker
-	public abstract ItemTracker getItemTrackerByName(String aUserName);
+	public abstract ItemTracker getItemTracker();
 }

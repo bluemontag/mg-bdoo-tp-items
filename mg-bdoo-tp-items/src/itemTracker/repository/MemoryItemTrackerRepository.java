@@ -5,7 +5,7 @@ import itemTracker.domain.ItemTracker;
 public class MemoryItemTrackerRepository implements ItemTrackerRepositoryBI{
 
 	@Override
-	public ItemTracker getItemTrackerByName(String aUserName) {
+	public ItemTracker getItemTracker() {
 		// ver super
 		return null;
 	}
