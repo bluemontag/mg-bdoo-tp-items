@@ -11,5 +11,12 @@
 		</id>
 		<property name="userName" column="user_name" unique="true"/>
 		<property name="password" column="password"/>
+		<property name="removed" column="removed"/>		
 	</class>
+	
+	<!-- Queries for User -->
+	<query name="getUserByUserName">
+        <![CDATA[from User user where user.userName = :anUserName]]>
+    </query>
+    
 </hibernate-mapping>

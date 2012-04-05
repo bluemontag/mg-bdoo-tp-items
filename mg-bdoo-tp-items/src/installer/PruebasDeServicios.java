@@ -1,5 +1,7 @@
 package installer;
 
+import java.util.Collection;
+
 import itemTracker.repository.HibernetItemTrackerRepository;
 import itemTracker.repository.MemoryItemTrackerRepository;
 import itemTracker.service.ItemTrackerServiceBI;
@@ -32,6 +34,42 @@ public class PruebasDeServicios {
 		String[] contextPaths = new String[] { CONTEXT };
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(contextPaths);
 
+//		printBeans(ctx);
+		prubeaDeServiciosUser(ctx);
+		
+	}
+	private static void prubeaDeServiciosUser(AbstractApplicationContext ctx){
+		
+		UserServiceBI userService = (UserServiceBI) ctx.getBean("userService");
+		
+		//create
+		UserDTO userDTO = userService.createUser("test_to_remove","test_to_remove");
+		System.out.print("Se creo el usuario: "+userDTO);
+		
+		// list
+		System.out.print("\n Listando usuarios \n");		
+		Collection<UserDTO> usersDTO = userService.listUsers();
+		for(UserDTO userDTOindex: usersDTO){
+			System.out.print(userDTOindex);
+			System.out.print("\n");
+		}
+		
+		// remove
+		System.out.print("\n Eliminando: test_to_remove \n");
+		userService.removeUserByName("test_to_remove");
+
+		// list
+		System.out.print("\n Listando usuarios \n");
+		usersDTO = userService.listUsers();
+		for(UserDTO userDTOindex: usersDTO){
+			System.out.print(userDTOindex);
+			System.out.print("\n");
+		}
+		System.out.print("\n");
+	}
+	
+	@SuppressWarnings("unused")
+	private static void printBeans(AbstractApplicationContext ctx) {
 		PropertyPlaceholderConfigurer configurer = (PropertyPlaceholderConfigurer) ctx.getBean("propertyConfigurer");
 		System.out.println("configurer: " + configurer);
 		
@@ -69,14 +107,11 @@ public class PruebasDeServicios {
 		
 		// SERVICIOS
 		
-		UserServiceBI userService = (UserServiceBI) ctx.getBean("userService");
-		System.out.println("userService: " + userService);
-		
 		ItemTrackerServiceBI itemTrackerService = (ItemTrackerServiceBI) ctx.getBean("itemTrackerService");
 		System.out.println("itemTrackerService: " + itemTrackerService);
 		
-		UserServiceBI userServiceOb = ServiceFinder.getInstance().getUserService();
-		UserDTO userDTO = userService.createUser("asd","asd");
+		UserServiceBI userService = (UserServiceBI) ctx.getBean("userService");
+		System.out.println("userService: " + userService);
 	}
 
 }

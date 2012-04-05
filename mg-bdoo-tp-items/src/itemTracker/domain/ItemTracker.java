@@ -19,8 +19,6 @@ public class ItemTracker extends BaseDomain{
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
 	
 	private Collection<User> users = new HashSet<User>();
-//	private Collection<Proyecto> proyectos;
-	
 	
 	public ItemTracker(){
 		this.users = new HashSet<User>();
@@ -47,55 +45,6 @@ public class ItemTracker extends BaseDomain{
 	}
 
 	public void removeUser(User anUser) {
-		this.users.remove(anUser);
+		anUser.setRemoved(true);
 	}
-	
-	/**
-	 * @param proyects the proyects to set
-	 */
-//	public void addProyecto(Proyecto proyecto) {
-//		proyectos.add(proyecto);
-//	}
-
-//
-//	public String toString(){
-//		return NOMBRE+ " / "+ DESCRIPCION;
-//	}
-//	
-	/*
-	 * 
-	 */
-//	public void createUser(String unNombreDeUsuario, String unPasswordEncriptado, Equipo equipo) throws UsuarioExistenteException{
-//		
-//		User nuevoUsuario = new User(unNombreDeUsuario, unPasswordEncriptado);
-//		this.agregarUsuario(nuevoUsuario);
-//	}
-//	
-//	public void crearTipoItem(String nombre, Workflow workflow)// Equipo?
-//	{
-//		
-//	}
-//	public void crearItem(TipoItem untipoItem, String unaDescripcion, String unaPrioridad){
-//		
-//	}
-//	public void crearEstadoDeWorkflow(String unNombre, Workflow unWorkflow, List<Estado> proximosEstados){
-//		
-//	}
-//	public void verHistoricoDeItem(Item unItem){
-//		
-//	}
-//	public void cambiarEstadoDeItem(Item unItem, Transicion unaTransicion){
-//		
-//	}
-//	public void listarItemsConEstadoEliminado(User unUsuario, Proyecto unProyecto){
-//		
-//	}
-//	public void asignarEstadoAItem(Item unItem, Estado unEstado){
-//		
-//	}
-//	public Boolean validarWorkflow(Workflow unWorkflow){
-//		return true;
-//	}
-	
-
 }

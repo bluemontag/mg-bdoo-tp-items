@@ -6,10 +6,12 @@ public class UserDTO {
 
 	protected String userName;
 	protected String password;
+	protected boolean removed;
 
 	public UserDTO(User aUser) {
 		this.userName = aUser.getUserName();
 		this.password = aUser.getPassword();
+		this.removed = aUser.isRemoved(); 
 	}
 	
 	/**
@@ -39,5 +41,8 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	public String toString(){
+		return "UserName: -"+this.getUserName()+" - "+ (this.removed? "REMOVED": "ALIVE");
+	}
 }

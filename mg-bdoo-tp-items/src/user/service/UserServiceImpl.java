@@ -4,10 +4,8 @@
 package user.service;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
 import itemTracker.domain.ItemTracker;
+import itemTracker.exception.UnknownUserException;
 import user.domain.User;
 import user.dto.UserDTO;
 import user.dto.UserDTOFactory;
@@ -42,7 +40,13 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 
 	@Override
 	public void removeUserByName(String anUserName) {
-		User userToRemove = this.getUserRespository().getUserByUserName(anUserName);
+		User userToRemove = null;
+		// TODO: ver como hacer con esto!!
+		try {
+			userToRemove = this.getUserRespository().getUserByUserName(anUserName);
+		} catch (UnknownUserException e) {
+			e.printStackTrace();
+		}
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		theItemTracker.removeUser(userToRemove);	
 	}
