@@ -7,7 +7,10 @@ public class User extends BaseDomain{
 	private String userName;
 	private String password;
 	
-
+	public User() {
+		// Si no esta este contructor, hibernate no funciona.
+	}
+	
 	public User(String aUserName, String aPassword) {
 		this.userName = aUserName;
 		this.password = aPassword;

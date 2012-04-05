@@ -6,11 +6,10 @@
 <hibernate-mapping>
 	<class name="user.domain.User" table="USUARIO">
 		<id name="id" type="long" unsaved-value="null">
-		    <column name="ID" not-null="true"/>
+		    <column name="id" not-null="true"/>
 		    <generator class="native"/>
 		</id>
-				
-		<property name="userName" column="user_name"/>
+		<property name="userName" column="user_name" unique="true"/>
 		<property name="password" column="password"/>
 	</class>
 </hibernate-mapping>

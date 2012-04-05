@@ -31,7 +31,7 @@ public class UserTest extends TestCase{
 	
 	@Test
 	public void testCreateUser(){
-		ServiceFinder.getInstance().getUserService().createUser("rodrigo", "rodrigo");
+		ServiceFinder.getInstance().getUserService().createUser("rodrigo1", "rodrigo1");
 		assertEquals("","");
 	}
 

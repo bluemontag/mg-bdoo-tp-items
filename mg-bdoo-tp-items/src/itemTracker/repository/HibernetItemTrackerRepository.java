@@ -7,8 +7,7 @@ public class HibernetItemTrackerRepository extends HibernateBaseRepository imple
 
 	@Override
 	public ItemTracker getItemTracker() {
-		// ver super
-		return null;
+		return (ItemTracker) this.findeById(ItemTracker.class, new Long(1));
 	}
 
 }

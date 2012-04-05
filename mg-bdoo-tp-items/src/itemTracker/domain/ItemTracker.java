@@ -2,6 +2,7 @@ package itemTracker.domain;
 
 
 import java.awt.List;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,11 +17,15 @@ public class ItemTracker extends BaseDomain{
 	
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
-	private static ItemTracker instance;	
 	
-	private Set<User> users = new HashSet<User>();
-//	private ArrayList<Proyecto> proyectos;
-
+	private Collection<User> users = new HashSet<User>();
+//	private Collection<Proyecto> proyectos;
+	
+	
+	public ItemTracker(){
+		this.users = new HashSet<User>();
+	}
+	
 	/**
 	 * @return the users
 	 */
@@ -30,14 +35,14 @@ public class ItemTracker extends BaseDomain{
 	/**
 	 * @param users the users to set
 	 */
-	public void setUsers(Set<User> users) {
+	public void setUsers(Collection<User> users) {
 		this.users = users;
 	}
 
 	/**
 	 * @returns users
 	 */
-	public Set<User> getUsers() {
+	public Collection<User> getUsers() {
 		return this.users;
 	}
 	
@@ -47,18 +52,7 @@ public class ItemTracker extends BaseDomain{
 //	public void addProyecto(Proyecto proyecto) {
 //		proyectos.add(proyecto);
 //	}
-	
-	private ItemTracker(){
-		this.users = new HashSet<User>();
-	}
-	
-	public static ItemTracker getInstance(){
-		if (instance == null){
-			ItemTracker itemTracker = new ItemTracker();
-			return itemTracker;
-		}
-		return instance;
-	}
+
 //
 //	public String toString(){
 //		return NOMBRE+ " / "+ DESCRIPCION;

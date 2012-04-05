@@ -20,15 +20,6 @@ public class AbstractServiceImpl {
 		this.repositoryFinder = repositoryFinder;
 	}
 	
-	// DtoFactoryFinder
-	public void setDtoFactoryFinder(DTOFactoryFinder dtoFactoryFinder) {
-		this.dtoFactoryFinder = dtoFactoryFinder;
-	}
-
-	public DTOFactoryFinder getDtoFactoryFinder() {
-		return dtoFactoryFinder;
-	}
-	
 	// Repositorios
 	public ItemTrackerRepositoryBI getItemTrackerRespository() {
 		return this.getRepositoryFinder().getItemTrackerRepository();

@@ -23,7 +23,7 @@ public class ItemTrackerInstallerMySQL {
 			// them from form object
 			System.out.println("Inserting Record");
 			User aUser = new User("rodrigo", "rodrigo");
-			ItemTracker itemTracker = ItemTracker.getInstance();
+			ItemTracker itemTracker = new ItemTracker();
 			session.getTransaction().begin();
 			itemTracker.addUser(aUser);
 			session.save(itemTracker);

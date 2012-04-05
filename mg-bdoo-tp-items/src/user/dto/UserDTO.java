@@ -1,13 +1,15 @@
 package user.dto;
 
+import user.domain.User;
+
 public class UserDTO {
 
 	protected String userName;
 	protected String password;
 
-	public UserDTO(String userName, String password) {
-		this.userName = userName;
-		this.password = password;
+	public UserDTO(User aUser) {
+		this.userName = aUser.getUserName();
+		this.password = aUser.getPassword();
 	}
 	
 	/**

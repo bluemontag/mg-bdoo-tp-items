@@ -9,5 +9,4 @@ public class MemoryUserRepository implements UserRepositoryBI{
 		// Devolver el usuario desde lo que esta cargado en memoria.
 		return null;
 	}
-
 }
