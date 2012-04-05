@@ -43,14 +43,6 @@
 		</property>
 	</bean>
 	
-	<!-- =====================================================
-		Objeto utilizado para obtener los diferentes DTOsFactories. 
-		======================================================= -->
-		
-		<bean id="dtoFactoryFinder" class="base.dto.DTOFactoryFinder"/>
-	
-	
-
 	<!-- ==================== Servicios =================== -->
 
 	<bean id="abstractServiceImpl" class="base.service.AbstractServiceImpl"
@@ -59,7 +51,6 @@
 		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
 			siguiente linea y comentar la anterior! -->
 		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->
-		<property name="dtoFactoryFinder" ref="dtoFactoryFinder" />
 	</bean>
 
 
