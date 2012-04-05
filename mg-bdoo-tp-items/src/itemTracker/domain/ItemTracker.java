@@ -45,6 +45,10 @@ public class ItemTracker extends BaseDomain{
 	public Collection<User> getUsers() {
 		return this.users;
 	}
+
+	public void removeUser(User anUser) {
+		this.users.remove(anUser);
+	}
 	
 	/**
 	 * @param proyects the proyects to set
