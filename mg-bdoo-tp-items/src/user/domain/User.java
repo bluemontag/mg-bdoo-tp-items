@@ -11,8 +11,8 @@ public class User extends BaseDomain{
 		// Si no esta este contructor, hibernate no funciona.
 	}
 	
-	public User(String aUserName, String aPassword) {
-		this.userName = aUserName;
+	public User(String anUserName, String aPassword) {
+		this.userName = anUserName;
 		this.password = aPassword;
 	}
 
@@ -25,10 +25,10 @@ public class User extends BaseDomain{
 	}
 
 	/**
-	 * @param aUserName the userName to set
+	 * @param anUserName the userName to set
 	 */
-	public void setUserName(String aUserName) {
-		this.userName = aUserName;
+	public void setUserName(String anUserName) {
+		this.userName = anUserName;
 	}
 
 	/**

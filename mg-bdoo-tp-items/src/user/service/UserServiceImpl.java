@@ -35,9 +35,15 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		
 		Collection<User> users = theItemTracker.getUsers();
-		
 		Collection<UserDTO> usersDTOs = UserDTOFactory.getUserDTOList(users);
 		
 		return usersDTOs;
+	}
+
+	@Override
+	public void removeUserByName(String anUserName) {
+		User userToRemove = this.getUserRespository().getUserByUserName(anUserName);
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		theItemTracker.removeUser(userToRemove);	
 	}
 }

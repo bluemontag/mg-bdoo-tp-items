@@ -3,6 +3,7 @@ package user.service;
 import java.util.Collection;
 
 
+import user.domain.User;
 import user.dto.UserDTO;
 
 public interface UserServiceBI {
@@ -11,5 +12,7 @@ public interface UserServiceBI {
 	
 	// Todo: StrategyOrder?
 	Collection<UserDTO> listUsers();
+
+	void removeUserByName(String anUserName);
 	
 }
