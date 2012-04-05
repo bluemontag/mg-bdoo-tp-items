@@ -9,7 +9,6 @@ import base.repository.AbstractRepositoryFinder;
 public class AbstractServiceImpl {
 	
 	private AbstractRepositoryFinder repositoryFinder;
-	private DTOFactoryFinder dtoFactoryFinder;
 
 	// RepositoryFinder
 	public AbstractRepositoryFinder getRepositoryFinder(){
