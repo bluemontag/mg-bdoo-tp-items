@@ -17,6 +17,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import user.domain.User;
 import user.dto.UserDTO;
+import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import user.repository.HibernetUserRepository;
 import user.repository.MemoryUserRepository;
@@ -65,7 +66,11 @@ public class PruebasDeServicios {
 		
 		// remove
 		System.out.print("\n Eliminando: test_to_remove \n");
-		userService.removeUserByName("test_to_remove");
+		try {
+			userService.removeUserByUserName("test_to_remove");
+		} catch (UnknownUserException unknownUserException) {
+			System.out.print("\n El usuarios no se puede eliminar porque no existe.\n");
+		}
 
 		// list
 		System.out.print("\n Listando usuarios \n");
@@ -75,6 +80,30 @@ public class PruebasDeServicios {
 			System.out.print("\n");
 		}
 		System.out.print("\n");
+		
+		// Editar
+		System.out.print("\n Editando: test_to_remove \n");
+		UserDTO userToEdit = null;
+		UserDTO userToEdit2 = null;
+		try {
+			userToEdit = userService.getUserByUserName("test_to_remove");
+			userToEdit2 = userService.getUserByUserName("test_to_remove");
+		} catch (UnknownUserException e) {
+			e.printStackTrace();
+		}
+		userToEdit.setPassword("el_nuevo_password");
+		try {
+			userService.updateUser(userToEdit);
+		} catch (UnknownUserException unknownUserException) {
+			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
+		}
+		userToEdit2.setPassword("el_nuevo_password2");
+		try {
+			userService.updateUser(userToEdit2);
+		} catch (UnknownUserException unknownUserException) {
+			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
+		}
+		
 	}
 	
 	@SuppressWarnings("unused")
