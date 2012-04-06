@@ -45,15 +45,26 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	}
 
 	@Override
-	public void removeUserByName(String anUserName) {
-		User userToRemove = null;
-		// TODO: ver como hacer con esto!!
-		try {
-			userToRemove = this.getUserRespository().getUserByUserName(anUserName);
-		} catch (UnknownUserException e) {
-			e.printStackTrace();
-		}
+	public void removeUserByUserName(String anUserName) throws UnknownUserException {
+
+		User userToRemove = this.getUserRespository().getUserByUserName(anUserName);
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		theItemTracker.removeUser(userToRemove);	
+	}
+
+	@Override
+	public UserDTO getUserByUserName(String anUserName) throws UnknownUserException {
+		User userToReturn = null;
+		userToReturn = this.getUserRespository().getUserByUserName(anUserName);
+		UserDTO userDTO = UserDTOFactory.getUserDTO(userToReturn);
+		return userDTO;
+	}
+
+	@Override
+	public void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException {
+		// TODO
+		User userToUpdate = this.getUserRespository().getUserByUserName(userToUpdateDTO.getUserName());
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		theItemTracker.removeUser(userToUpdate);
 	}
 }

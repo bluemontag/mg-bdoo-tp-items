@@ -3,6 +3,7 @@ package user.service;
 import java.util.Collection;
 
 import user.dto.UserDTO;
+import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 
 /**
@@ -14,6 +15,10 @@ public interface UserServiceBI {
 
 	Collection<UserDTO> listUsers();
 
-	void removeUserByName(String anUserName);
+	void removeUserByUserName(String anUserName) throws UnknownUserException;
+	
+	UserDTO getUserByUserName(String anUserName) throws UnknownUserException;
+
+	void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException;
 	
 }
