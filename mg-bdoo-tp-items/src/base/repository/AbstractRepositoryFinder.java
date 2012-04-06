@@ -3,6 +3,9 @@ package base.repository;
 import itemTracker.repository.ItemTrackerRepositoryBI;
 import user.repository.UserRepositoryBI;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public abstract class AbstractRepositoryFinder {
 
 	ItemTrackerRepositoryBI itemTrackerRepository;

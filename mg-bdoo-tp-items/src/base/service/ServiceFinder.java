@@ -3,6 +3,9 @@ package base.service;
 import itemTracker.service.ItemTrackerServiceBI;
 import user.service.UserServiceBI;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ServiceFinder {
 
 	private static ServiceFinder instance;

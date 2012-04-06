@@ -28,7 +28,6 @@ import base.service.ServiceFinder;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-
 public class PruebasDeServicios {
 	final static String CONTEXT = "applicationContext.xml";
 

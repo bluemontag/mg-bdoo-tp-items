@@ -5,6 +5,9 @@ import java.util.HashSet;
 
 import user.domain.User;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class UserDTOFactory{
 
 	static public UserDTO getUserDTO(User aUser){

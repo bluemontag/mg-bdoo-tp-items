@@ -4,7 +4,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.hibernate.Query;
 
 /**
- * 
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
 public abstract class HibernateBaseRepository extends HibernateDaoSupport implements HibernateBaseRepositoryBI {
 

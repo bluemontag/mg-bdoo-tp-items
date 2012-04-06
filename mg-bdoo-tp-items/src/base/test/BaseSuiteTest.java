@@ -7,6 +7,9 @@ import user.test.UserTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public abstract class BaseSuiteTest {
 
 	final static String CONTEXT = "applicationContext.xml";

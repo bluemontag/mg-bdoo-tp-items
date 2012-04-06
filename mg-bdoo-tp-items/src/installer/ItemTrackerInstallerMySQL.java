@@ -8,6 +8,9 @@ import org.hibernate.cfg.Configuration;
 
 import user.domain.User;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ItemTrackerInstallerMySQL {
 	public static void main(String[] args) {
 		Session session = null;

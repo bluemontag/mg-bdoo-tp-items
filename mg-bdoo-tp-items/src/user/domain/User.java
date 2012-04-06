@@ -2,6 +2,9 @@ package user.domain;
 
 import base.domain.BaseDomain;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class User extends BaseDomain{
 
 	private String userName;

@@ -1,11 +1,10 @@
 package installer;
 
-
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ItemTrackerInstallerDB4O {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 //		ObjectContainer db=Db4oEmbedded.openFile(Db4oEmbedded
 //				.newConfiguration(), "SeguimientoDeItemsBaseDeDatos");

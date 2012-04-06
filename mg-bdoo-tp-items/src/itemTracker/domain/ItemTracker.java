@@ -10,9 +10,9 @@ import base.domain.BaseDomain;
 
 import user.domain.User;
 
-//import itemTracker.exception.UnknownUserException;
-
-
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ItemTracker extends BaseDomain{
 	
 	public final static String Name = "Seguimiento de items";

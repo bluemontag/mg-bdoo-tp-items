@@ -2,10 +2,11 @@ package base.service;
 
 import user.repository.UserRepositoryBI;
 import itemTracker.repository.ItemTrackerRepositoryBI;
-import base.dto.DTOFactoryFinder;
 import base.repository.AbstractRepositoryFinder;
 
-
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class AbstractServiceImpl {
 	
 	private AbstractRepositoryFinder repositoryFinder;

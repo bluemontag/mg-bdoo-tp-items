@@ -8,6 +8,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ItemTrackerTest extends TestCase{
 
 	@BeforeClass
