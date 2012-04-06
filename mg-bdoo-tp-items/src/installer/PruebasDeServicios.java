@@ -24,11 +24,13 @@ import base.repository.HibernateRepositoryFinder;
 import base.repository.MemoryRepositoryFinder;
 import base.service.ServiceFinder;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
+
 public class PruebasDeServicios {
 	final static String CONTEXT = "applicationContext.xml";
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 	
 		String[] contextPaths = new String[] { CONTEXT };

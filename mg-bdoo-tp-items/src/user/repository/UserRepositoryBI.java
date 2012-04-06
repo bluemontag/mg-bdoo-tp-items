@@ -1,7 +1,7 @@
 package user.repository;
 
-import itemTracker.exception.UnknownUserException;
 import user.domain.User;
+import user.exception.UnknownUserException;
 
 public interface UserRepositoryBI{
 	

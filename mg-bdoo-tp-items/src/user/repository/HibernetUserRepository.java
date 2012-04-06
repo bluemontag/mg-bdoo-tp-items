@@ -3,9 +3,9 @@ package user.repository;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
-import itemTracker.exception.UnknownUserException;
 import base.repository.HibernateBaseRepository;
 import user.domain.User;
+import user.exception.UnknownUserException;
 
 public class HibernetUserRepository extends HibernateBaseRepository implements UserRepositoryBI{
 

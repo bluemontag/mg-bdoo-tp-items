@@ -5,27 +5,32 @@ package user.service;
 
 import java.util.Collection;
 import itemTracker.domain.ItemTracker;
-import itemTracker.exception.UnknownUserException;
 import user.domain.User;
 import user.dto.UserDTO;
 import user.dto.UserDTOFactory;
+import user.exception.UnknownUserException;
 import base.service.AbstractServiceImpl;
 
 /**
- * @author Rodrigo
- *
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
 public class UserServiceImpl extends AbstractServiceImpl implements UserServiceBI{
 
 	@Override
 	public UserDTO createUser(String anUserName, String aPassword){
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		
-		User aUser = new User(anUserName, aPassword);
-		theItemTracker.addUser(aUser);
-		
-		UserDTO userDTO = UserDTOFactory.getUserDTO(aUser);
-		return userDTO;
+		try {
+			this.getUserRespository().getUserByUserName(anUserName);
+		} catch (UnknownUserException e) {			
+			ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+			
+			User aUser = new User(anUserName, aPassword);
+			theItemTracker.addUser(aUser);
+			
+			UserDTO userDTO = UserDTOFactory.getUserDTO(aUser);
+			return userDTO;
+		}
+		return null;
 	}
 
 	@Override
