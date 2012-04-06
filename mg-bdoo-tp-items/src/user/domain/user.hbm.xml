@@ -4,19 +4,20 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="user.domain.User" table="USUARIO">
+	<class name="user.domain.User" table="USUARIO" optimistic-lock="version">
 		<id name="id" type="long" unsaved-value="null">
-		    <column name="id" not-null="true"/>
-		    <generator class="native"/>
+			<column name="id" not-null="true" />
+			<generator class="native" />
 		</id>
-		<property name="userName" column="user_name" unique="true"/>
-		<property name="password" column="password"/>
-		<property name="removed" column="removed"/>		
+		<version column="version" name="version" />		
+		<property name="userName" column="user_name" unique="true" />
+		<property name="password" column="password" />
+		<property name="removed" column="removed" />
 	</class>
-	
+
 	<!-- Queries for User -->
 	<query name="getUserByUserName">
         <![CDATA[from User user where user.userName = :anUserName]]>
-    </query>
-    
+	</query>
+
 </hibernate-mapping>

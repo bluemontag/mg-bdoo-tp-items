@@ -6,11 +6,13 @@
 <hibernate-mapping>
 	<class name="itemTracker.domain.ItemTracker" table="ITEM_TRACKER">
 		<id name="id" type="long" unsaved-value="null">
-		    <column name="id" not-null="true"/>
-		    <generator class="native"/>
+			<column name="id" not-null="true" />
+			<generator class="native" />
 		</id>
+		<version column="version" name="version" />
+		
 		<set name="users" table="USUARIO" cascade="all" >
-			<key column="id_item_tracker" not-null="false"/>
+			<key column="id_item_tracker" not-null="true"/>
 			<one-to-many class="user.domain.User" />
 		</set>
 	</class>
