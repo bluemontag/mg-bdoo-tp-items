@@ -9,6 +9,7 @@ import user.domain.User;
 import user.dto.UserDTO;
 import user.dto.UserDTOFactory;
 import user.exception.UnknownUserException;
+import user.exception.UserAlreadyExistsException;
 import base.service.AbstractServiceImpl;
 
 /**
@@ -17,11 +18,11 @@ import base.service.AbstractServiceImpl;
 public class UserServiceImpl extends AbstractServiceImpl implements UserServiceBI{
 
 	@Override
-	public UserDTO createUser(String anUserName, String aPassword){
+	public UserDTO createUser(String anUserName, String aPassword) throws UserAlreadyExistsException{
 		
 		try {
 			this.getUserRespository().getUserByUserName(anUserName);
-		} catch (UnknownUserException e) {			
+		} catch (UnknownUserException unknownUserException) {			
 			ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 			
 			User aUser = new User(anUserName, aPassword);
@@ -30,7 +31,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 			UserDTO userDTO = UserDTOFactory.getUserDTO(aUser);
 			return userDTO;
 		}
-		return null;
+		throw new UserAlreadyExistsException("El usuario "+anUserName+" ya existe.");
 	}
 
 	@Override

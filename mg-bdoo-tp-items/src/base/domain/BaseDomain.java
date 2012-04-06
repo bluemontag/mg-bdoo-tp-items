@@ -1,5 +1,8 @@
 package base.domain;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class BaseDomain {
 
 	private Long id;

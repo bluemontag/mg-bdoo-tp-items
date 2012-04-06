@@ -12,9 +12,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import user.dto.UserDTO;
+import user.exception.UserAlreadyExistsException;
 
 import base.service.ServiceFinder;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class UserTest extends TestCase{
 
 	@BeforeClass
@@ -36,7 +40,12 @@ public class UserTest extends TestCase{
 	
 	@Test
 	public void testCreateUser(){
-		ServiceFinder.getInstance().getUserService().createUser("rodrigo1", "rodrigo1");
+		try {
+			ServiceFinder.getInstance().getUserService().createUser("rodrigo1", "rodrigo1");
+		} catch (UserAlreadyExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals("","");
 	}
 	

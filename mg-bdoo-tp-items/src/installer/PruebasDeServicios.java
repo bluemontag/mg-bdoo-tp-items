@@ -17,6 +17,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import user.domain.User;
 import user.dto.UserDTO;
+import user.exception.UserAlreadyExistsException;
 import user.repository.HibernetUserRepository;
 import user.repository.MemoryUserRepository;
 import user.service.UserServiceBI;
@@ -45,8 +46,15 @@ public class PruebasDeServicios {
 		UserServiceBI userService = (UserServiceBI) ctx.getBean("userService");
 		
 		//create
-		UserDTO userDTO = userService.createUser("test_to_remove","test_to_remove");
-		System.out.print("Se creo el usuario: "+userDTO);
+		UserDTO userDTO;
+		try {
+			userDTO = userService.createUser("test_to_remove","test_to_remove");
+			System.out.print("Se creo el usuario: "+userDTO);
+			System.out.print("\n");
+		} catch (UserAlreadyExistsException userAlreadyExistsException) {
+			System.out.print(userAlreadyExistsException.getMsj());
+			System.out.print("\n");
+		}
 		
 		// list
 		System.out.print("\n Listando usuarios \n");		

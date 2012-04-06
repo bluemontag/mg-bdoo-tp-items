@@ -2,6 +2,9 @@ package user.dto;
 
 import user.domain.User;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class UserDTO {
 
 	protected String userName;
@@ -43,6 +46,6 @@ public class UserDTO {
 	}
 	
 	public String toString(){
-		return "UserName: -"+this.getUserName()+" - "+ (this.removed? "REMOVED": "ALIVE");
+		return "UserName: - "+this.getUserName()+" - "+ (this.removed? "REMOVED": "ALIVE");
 	}
 }
