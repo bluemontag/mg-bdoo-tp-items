@@ -35,7 +35,7 @@ public class UserTest extends TestCase{
 
 	@After
 	public void tearDown() throws Exception {
-		ServiceFinder.getInstance().getUserService().removeUserByName("rodrigo1");
+		ServiceFinder.getInstance().getUserService().removeUserByUserName("rodrigo1");
 	}
 	
 	@Test
