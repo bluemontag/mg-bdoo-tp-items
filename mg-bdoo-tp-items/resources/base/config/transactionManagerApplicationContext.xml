@@ -4,7 +4,7 @@
 <beans>
 	<!-- SessionFactory de hibernate -->
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="configLocation" value="hibernate.cfg.xml"/>
 		<property name="dataSource">
 			<ref bean="dataSource"/>
