@@ -14,25 +14,8 @@ public class ItemTracker extends BaseDomain{
 	
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
-	
-	private Long id;
-	private Integer version;	
+		
 	private Collection<User> users = new HashSet<User>();
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Long getId() {
-		return id;
-	}
-	
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
-	public Integer getVersion() {
-		return version;
-	}
 
 	public ItemTracker(){
 		this.users = new HashSet<User>();

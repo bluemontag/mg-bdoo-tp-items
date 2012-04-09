@@ -5,6 +5,6 @@ package base.repository;
  */
 public interface HibernateBaseRepositoryBI {
 	
-	Object findeById(Class<?> aClass, Long anId);
+	Object findeByOid(Class<?> aClass, String anOid);
 
 }

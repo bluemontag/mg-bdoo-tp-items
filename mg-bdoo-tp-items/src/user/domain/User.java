@@ -7,10 +7,8 @@ import base.domain.BaseDomain;
  */
 public class User extends BaseDomain{
 
-	private Long id;
-	private Integer version;
-	private String userName;
-	private String password;
+	protected String userName;
+	protected String password;
 	
 	// se utiliza para saber si un usuario fue eliminado.
 	private boolean removed = false;
@@ -22,21 +20,6 @@ public class User extends BaseDomain{
 	public User(String anUserName, String aPassword) {
 		this.userName = anUserName;
 		this.password = aPassword;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Long getId() {
-		return id;
-	}	
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
-	public Integer getVersion() {
-		return version;
 	}
 	
 	public String getUserName() {

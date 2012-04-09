@@ -63,8 +63,8 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	@Override
 	public void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException {
 		// TODO
-		User userToUpdate = this.getUserRespository().getUserByUserName(userToUpdateDTO.getUserName());
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		theItemTracker.removeUser(userToUpdate);
+		User userToUpdate = this.getUserRespository().getUserByOid(userToUpdateDTO.getOid());
+		userToUpdate.setPassword(userToUpdateDTO.getPassword());
+		userToUpdate.setVersion(userToUpdateDTO.getVersion()+10);
 	}
 }

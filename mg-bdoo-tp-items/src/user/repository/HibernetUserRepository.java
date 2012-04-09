@@ -9,6 +9,21 @@ import user.exception.UnknownUserException;
 
 public class HibernetUserRepository extends HibernateBaseRepository implements UserRepositoryBI{
 
+
+	@Override
+	public Class getEntityClass() {
+		return User.class;
+	}
+
+	@Override
+	public User getUserByOid(String anId) throws UnknownUserException {
+		User anUser = (User) this.findeByOid(User.class, anId);
+		if(anUser == null){
+			throw new UnknownUserException();
+		}
+		return anUser;
+	} 
+	
 	@Override
 	public User getUserByUserName(String anUserName) throws UnknownUserException {
 

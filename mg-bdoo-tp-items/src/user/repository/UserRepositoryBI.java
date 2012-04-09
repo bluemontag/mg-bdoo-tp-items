@@ -6,4 +6,6 @@ import user.exception.UnknownUserException;
 public interface UserRepositoryBI{
 	
 	User getUserByUserName(String anUserName) throws UnknownUserException;
+
+	User getUserByOid(String oid) throws UnknownUserException;
 }

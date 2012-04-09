@@ -1,17 +1,29 @@
 package base.dto;
 
-// TODO: ver el tema de las versiones de los DTOs..
+import base.domain.BaseDomain;
+import user.domain.User;
+
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class AbstractDTO {
-	protected Long id;
+public abstract class AbstractDTO {
+	protected String oid;
+	protected Integer version;
 	
-	public void setId(Long id) {
-		this.id = id;
+	public AbstractDTO(BaseDomain aBaseDomainObject) {
+		this.oid = aBaseDomainObject.getOid();
+		this.version = aBaseDomainObject.getVersion();
 	}
-
-	public Long getId() {
-		return id;
+	public void setOid(String anOid) {
+		this.oid = anOid;
+	}
+	public String getOid() {
+		return oid;
+	}	
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer aVersion) {
+		this.version = aVersion;
 	}
 }

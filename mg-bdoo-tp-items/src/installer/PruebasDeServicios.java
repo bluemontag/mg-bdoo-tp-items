@@ -6,16 +6,12 @@ import itemTracker.repository.HibernetItemTrackerRepository;
 import itemTracker.repository.MemoryItemTrackerRepository;
 import itemTracker.service.ItemTrackerServiceBI;
 
-import org.hibernate.impl.SessionFactoryImpl;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
-import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
-
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import user.domain.User;
 import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
@@ -24,7 +20,6 @@ import user.repository.MemoryUserRepository;
 import user.service.UserServiceBI;
 import base.repository.HibernateRepositoryFinder;
 import base.repository.MemoryRepositoryFinder;
-import base.service.ServiceFinder;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -56,13 +51,7 @@ public class PruebasDeServicios {
 			System.out.print("\n");
 		}
 		
-		// list
-		System.out.print("\n Listando usuarios \n");		
-		Collection<UserDTO> usersDTO = userService.listUsers();
-		for(UserDTO userDTOindex: usersDTO){
-			System.out.print(userDTOindex);
-			System.out.print("\n");
-		}
+		listUsers(userService);
 		
 		// remove
 		System.out.print("\n Eliminando: test_to_remove \n");
@@ -72,6 +61,37 @@ public class PruebasDeServicios {
 			System.out.print("\n El usuarios no se puede eliminar porque no existe.\n");
 		}
 
+		listUsers(userService);
+		
+		// Editar con concurrencia.
+		System.out.print("\n Editando usuario con concurrencia: test_to_remove \n");
+		UserDTO userToEditDTO = null;
+		UserDTO userToEditDTO2 = null;
+		try {
+			userToEditDTO = userService.getUserByUserName("test_to_remove");
+			userToEditDTO2 = userService.getUserByUserName("test_to_remove");
+		} catch (UnknownUserException e) {
+			e.printStackTrace();
+		}
+		userToEditDTO.setPassword("el_nuevo_password3");
+		try {
+			userService.updateUser(userToEditDTO);
+		} catch (UnknownUserException unknownUserException) {
+			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
+		}
+		userToEditDTO2.setPassword("el_nuevo_password2");
+		try {
+			userService.updateUser(userToEditDTO2);
+		} catch (UnknownUserException unknownUserException) {
+			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
+		}
+		
+		listUsers(userService);
+		
+	}
+	
+	private static void listUsers(UserServiceBI userService) {
+		Collection<UserDTO> usersDTO;
 		// list
 		System.out.print("\n Listando usuarios \n");
 		usersDTO = userService.listUsers();
@@ -80,30 +100,6 @@ public class PruebasDeServicios {
 			System.out.print("\n");
 		}
 		System.out.print("\n");
-		
-		// Editar
-		System.out.print("\n Editando: test_to_remove \n");
-		UserDTO userToEdit = null;
-		UserDTO userToEdit2 = null;
-		try {
-			userToEdit = userService.getUserByUserName("test_to_remove");
-			userToEdit2 = userService.getUserByUserName("test_to_remove");
-		} catch (UnknownUserException e) {
-			e.printStackTrace();
-		}
-		userToEdit.setPassword("el_nuevo_password");
-		try {
-			userService.updateUser(userToEdit);
-		} catch (UnknownUserException unknownUserException) {
-			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
-		}
-		userToEdit2.setPassword("el_nuevo_password2");
-		try {
-			userService.updateUser(userToEdit2);
-		} catch (UnknownUserException unknownUserException) {
-			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
-		}
-		
 	}
 	
 	@SuppressWarnings("unused")

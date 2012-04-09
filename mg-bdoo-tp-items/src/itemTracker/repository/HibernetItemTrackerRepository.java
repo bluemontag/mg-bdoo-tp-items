@@ -9,8 +9,12 @@ import itemTracker.domain.ItemTracker;
 public class HibernetItemTrackerRepository extends HibernateBaseRepository implements ItemTrackerRepositoryBI{
 
 	@Override
-	public ItemTracker getItemTracker() {
-		return (ItemTracker) this.findeById(ItemTracker.class, new Long(1));
+	public Class getEntityClass() {
+		return ItemTracker.class;
 	}
-
+	
+	@Override
+	public ItemTracker getItemTracker() {
+		return (ItemTracker) this.getEntityCriteria().uniqueResult();
+	}
 }
