@@ -2,7 +2,7 @@ package base.test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import user.test.UserTest;
+import user.test.UserUpdateServiceTest;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -13,11 +13,12 @@ import junit.framework.TestSuite;
 public abstract class BaseSuiteTest {
 
 	final static String CONTEXT = "applicationContext.xml";
-	
+
+	@SuppressWarnings("rawtypes")
 	public static Test suite() {
 		
 		loadApplicationContext();
-		
+
 		Class[] testClasses = getTestsToPerform();
 		TestSuite suite= new TestSuite(testClasses);
 
@@ -29,8 +30,9 @@ public abstract class BaseSuiteTest {
 		new ClassPathXmlApplicationContext(contextPaths);
 	}
 
+	@SuppressWarnings("rawtypes")
 	protected static Class[] getTestsToPerform(){
-		Class[] testClasses = {UserTest.class};
+		Class[] testClasses = {UserUpdateServiceTest.class};
 		return testClasses;
 	}
 	
