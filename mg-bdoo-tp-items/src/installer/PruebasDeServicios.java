@@ -82,10 +82,6 @@ public class PruebasDeServicios {
 		} catch (DTOConcurrencyException dtoConcurrencyExecption) {
 			System.out.print("\n"+ userToEditDTO.getUserName()+": "+dtoConcurrencyExecption.getMsj());
 		}
-//		try {
-//			Thread.sleep(3000);
-//		} catch (InterruptedException e) {}
-		
 		userToEditDTO2.setPassword("el_nuevo_password2");
 		try {
 			userService.updateUser(userToEditDTO2);
