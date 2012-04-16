@@ -9,7 +9,7 @@
 			<generator class="assigned" />
 		</id>
 		<version column="version" name="version" unsaved-value="null"/>	
-		<set name="users" table="USUARIO" cascade="all" >
+		<set name="users" table="USUARIO" cascade="all-delete-orphan" >
 			<key column="id_item_tracker" not-null="true"/>
 			<one-to-many class="user.domain.User" />
 		</set>
