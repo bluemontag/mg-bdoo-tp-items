@@ -12,11 +12,11 @@ public class UserDTO extends AbstractDTO{
 	protected String password;
 	protected boolean removed;
 
-	public UserDTO(User aUser) {
-		super(aUser);
-		this.userName = aUser.getUserName();
-		this.password = aUser.getPassword();
-		this.removed = aUser.isRemoved(); 
+	public UserDTO(User anUser) {
+		super(anUser);
+		this.userName = anUser.getUserName();
+		this.password = anUser.getPassword();
+		this.removed = anUser.isRemoved();
 	}
 	
 	/**
