@@ -6,6 +6,7 @@ import java.util.HashSet;
 import base.domain.BaseDomain;
 
 import user.domain.User;
+import user.exception.UnknownUserException;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -41,7 +42,24 @@ public class ItemTracker extends BaseDomain{
 		return this.users;
 	}
 
-	public void removeUser(User anUser) {
+	public void logicalRemoveUser(User anUser) {
 		anUser.setRemoved(true);
+	}
+	
+	//usado solo por los tests para dejar la base como estaba
+	@Deprecated
+	public void removeUser(User anUser) throws UnknownUserException {
+		User anUserToRemove = null;
+		for(User user: this.users){
+			if(user.equals(anUser)){
+				anUserToRemove = user;
+				break;
+			}
+		}
+		if(anUserToRemove != null){
+			this.users.remove(anUserToRemove);
+		}else{
+			throw new UnknownUserException();
+		}
 	}
 }
