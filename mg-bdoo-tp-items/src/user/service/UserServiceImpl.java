@@ -10,6 +10,7 @@ import user.dto.UserDTO;
 import user.dto.UserDTOFactory;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
+import base.exception.DTOConcurrencyException;
 import base.service.AbstractServiceImpl;
 
 /**
@@ -45,14 +46,6 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	}
 
 	@Override
-	public void removeUserByUserName(String anUserName) throws UnknownUserException {
-
-		User userToRemove = this.getUserRespository().getUserByUserName(anUserName);
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		theItemTracker.removeUser(userToRemove);	
-	}
-
-	@Override
 	public UserDTO getUserByUserName(String anUserName) throws UnknownUserException {
 		User userToReturn = null;
 		userToReturn = this.getUserRespository().getUserByUserName(anUserName);
@@ -61,10 +54,40 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	}
 
 	@Override
-	public void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException {
+	public UserDTO getUser(UserDTO anUserDTO) throws UnknownUserException {
+		return this.getUserByUserName(anUserDTO.getUserName());
+	}
+	
+	@Override
+	public void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException, DTOConcurrencyException {
 		// TODO
 		User userToUpdate = this.getUserRespository().getUserByOid(userToUpdateDTO.getOid());
+		this.checkDTOConcurrency(userToUpdateDTO, userToUpdate);
 		userToUpdate.setPassword(userToUpdateDTO.getPassword());
-		userToUpdate.setVersion(userToUpdateDTO.getVersion()+10);
 	}
+
+	@Override
+	public void logicalRemoveUserByUserName(String anUserName) throws UnknownUserException {
+
+		User userToRemove = this.getUserRespository().getUserByUserName(anUserName);
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		theItemTracker.logicalRemoveUser(userToRemove);	
+	}
+	
+	@Override
+	public void logicalRemoveUser(UserDTO anUserDTO) throws UnknownUserException {
+
+		this.logicalRemoveUserByUserName(anUserDTO.getUserName());
+	}
+	
+	//usado solo por los tests para dejar la base como estaba
+	@Deprecated
+	@Override
+	public void removeUser(UserDTO anUserDTO) throws UnknownUserException, DTOConcurrencyException {
+
+		User userToRemove = this.getUserRespository().getUserByUserName(anUserDTO.getUserName());
+		this.checkDTOConcurrency(anUserDTO, userToRemove);
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		theItemTracker.removeUser(userToRemove);	
+	}	
 }

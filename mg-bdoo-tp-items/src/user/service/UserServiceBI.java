@@ -2,6 +2,8 @@ package user.service;
 
 import java.util.Collection;
 
+import base.exception.DTOConcurrencyException;
+
 import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
@@ -11,14 +13,31 @@ import user.exception.UserAlreadyExistsException;
  */
 public interface UserServiceBI {
 
+	// Creats
+	
 	UserDTO createUser(String anUserName, String aPassword) throws UserAlreadyExistsException;
 
+	// Lists
+	
 	Collection<UserDTO> listUsers();
-
-	void removeUserByUserName(String anUserName) throws UnknownUserException;
+	
+	// Retrives
 	
 	UserDTO getUserByUserName(String anUserName) throws UnknownUserException;
-
-	void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException;
 	
+	UserDTO getUser(UserDTO anUserDTO) throws UnknownUserException;
+
+	// Updates
+	
+	void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException, DTOConcurrencyException;
+	
+	// Removes
+	
+	void logicalRemoveUserByUserName(String anUserName) throws UnknownUserException;
+	
+	void logicalRemoveUser(UserDTO aUserDTOToRemove) throws UnknownUserException;
+	
+	// usado por los tests para dejar la base como estaba
+	@Deprecated
+	void removeUser(UserDTO aUserDTOToRemove) throws UnknownUserException, DTOConcurrencyException;
 }
