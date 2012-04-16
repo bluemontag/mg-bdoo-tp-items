@@ -12,7 +12,11 @@ public abstract class AbstractDTO {
 	
 	public AbstractDTO(BaseDomain aBaseDomainObject) {
 		this.oid = aBaseDomainObject.getOid();
-		this.version = aBaseDomainObject.getVersion();
+		if(aBaseDomainObject.getVersion() == null){
+			this.version = 0;
+		}else{
+			this.version = aBaseDomainObject.getVersion();
+		}
 	}
 	public void setOid(String anOid) {
 		this.oid = anOid;
