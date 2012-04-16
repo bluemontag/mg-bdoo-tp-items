@@ -18,6 +18,7 @@ import user.exception.UserAlreadyExistsException;
 import user.repository.HibernetUserRepository;
 import user.repository.MemoryUserRepository;
 import user.service.UserServiceBI;
+import base.exception.DTOConcurrencyException;
 import base.repository.HibernateRepositoryFinder;
 import base.repository.MemoryRepositoryFinder;
 
@@ -56,7 +57,7 @@ public class PruebasDeServicios {
 		// remove
 		System.out.print("\n Eliminando: test_to_remove \n");
 		try {
-			userService.removeUserByUserName("test_to_remove");
+			userService.logicalRemoveUserByUserName("test_to_remove");
 		} catch (UnknownUserException unknownUserException) {
 			System.out.print("\n El usuarios no se puede eliminar porque no existe.\n");
 		}
@@ -77,13 +78,21 @@ public class PruebasDeServicios {
 		try {
 			userService.updateUser(userToEditDTO);
 		} catch (UnknownUserException unknownUserException) {
-			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
+			System.out.print("\n"+userToEditDTO2.getUserName()+": "+"El usuarios no se puede actualizar porque no existe.\n");
+		} catch (DTOConcurrencyException dtoConcurrencyExecption) {
+			System.out.print("\n"+ userToEditDTO.getUserName()+": "+dtoConcurrencyExecption.getMsj());
 		}
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {}
+		
 		userToEditDTO2.setPassword("el_nuevo_password2");
 		try {
 			userService.updateUser(userToEditDTO2);
 		} catch (UnknownUserException unknownUserException) {
-			System.out.print("\n El usuarios no se puede actualizar porque no existe.\n");
+			System.out.print("\n"+userToEditDTO2.getUserName()+": "+"El usuarios no se puede actualizar porque no existe.\n");
+		} catch (DTOConcurrencyException dtoConcurrencyExecption) {
+			System.out.print("\n"+ userToEditDTO2.getUserName()+": "+dtoConcurrencyExecption.getMsj());
 		}
 		
 		listUsers(userService);
