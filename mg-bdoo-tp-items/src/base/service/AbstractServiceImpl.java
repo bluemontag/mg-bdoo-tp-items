@@ -2,6 +2,9 @@ package base.service;
 
 import user.repository.UserRepositoryBI;
 import itemTracker.repository.ItemTrackerRepositoryBI;
+import base.domain.BaseDomain;
+import base.dto.AbstractDTO;
+import base.exception.DTOConcurrencyException;
 import base.repository.AbstractRepositoryFinder;
 
 /**
@@ -27,7 +30,14 @@ public class AbstractServiceImpl {
 	
 	public UserRepositoryBI getUserRespository() {
 		return this.getRepositoryFinder().getUserRepository();
-	}	
+	}
+	
+	// Chequeo de concurrencia.
+	final protected void checkDTOConcurrency(AbstractDTO aDTO, BaseDomain aBaseDomianObject) throws DTOConcurrencyException {
+		if(!aDTO.getVersion().equals(aBaseDomianObject.getVersion())){
+			throw new DTOConcurrencyException("La entidad que desea modificar ha sido usada por otro usuario.");
+		}
+	}
 }
 
 
