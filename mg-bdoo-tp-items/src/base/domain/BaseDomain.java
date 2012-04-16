@@ -1,5 +1,7 @@
 package base.domain;
 
+import base.dto.AbstractDTO;
+
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
@@ -37,6 +39,10 @@ public abstract class BaseDomain implements IPersistentObject{
         
         if (oid == null) return false;
         return oid.equals(other.getOid());
+    }
+    
+    public boolean equalsToDTO(AbstractDTO aBaseDTO) {
+        return oid.equals(aBaseDTO.getOid());
     }
 
     public int hashCode() {
