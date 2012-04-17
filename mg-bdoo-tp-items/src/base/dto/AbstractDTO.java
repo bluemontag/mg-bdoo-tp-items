@@ -6,7 +6,7 @@ import user.domain.User;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public abstract class AbstractDTO {
+public abstract class AbstractDTO implements Cloneable{
 	protected String oid;
 	protected Integer version;
 	
@@ -29,5 +29,13 @@ public abstract class AbstractDTO {
 	}
 	public void setVersion(Integer aVersion) {
 		this.version = aVersion;
+	}
+	
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 }
