@@ -38,6 +38,16 @@ public class AbstractServiceImpl {
 			throw new DTOConcurrencyException("La entidad que desea modificar ha sido usada por otro usuario.");
 		}
 	}
+	
+	protected long sleepUpdateForTestPropuses(int serviceNumber) {
+		int sleepTime = 1000/serviceNumber;
+		try {
+			Thread.sleep(sleepTime);
+		} catch (InterruptedException e) {
+			// al horno!
+		}
+		return sleepTime;
+	}
 }
 
 
