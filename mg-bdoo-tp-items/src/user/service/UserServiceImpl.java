@@ -18,6 +18,8 @@ import base.service.AbstractServiceImpl;
  */
 public class UserServiceImpl extends AbstractServiceImpl implements UserServiceBI{
 
+	private static int calledTimes = 1;  
+	
 	@Override
 	public UserDTO createUser(String anUserName, String aPassword) throws UserAlreadyExistsException{
 		
@@ -60,10 +62,16 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	
 	@Override
 	public void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException, DTOConcurrencyException {
-		// TODO
+		
+		// Codigo solo para poder simular una trasación mas larga, para
+		// comprobar que funciona el control de concurrecion
 		User userToUpdate = this.getUserRespository().getUserByOid(userToUpdateDTO.getOid());
+		int serviceNumber = calledTimes++;
+		System.out.println("Comienza servicio numero: "+serviceNumber);		
+		long sleepTime = this.sleepUpdateForTestPropuses(serviceNumber);
 		this.checkDTOConcurrency(userToUpdateDTO, userToUpdate);
 		userToUpdate.setPassword(userToUpdateDTO.getPassword());
+		System.out.println("Finaliza servicio numero: "+serviceNumber+" - tiempo dormido: "+sleepTime);
 	}
 
 	@Override
