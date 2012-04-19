@@ -66,12 +66,12 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 		// Codigo solo para poder simular una trasación mas larga, para
 		// comprobar que funciona el control de concurrecion
 		User userToUpdate = this.getUserRespository().getUserByOid(userToUpdateDTO.getOid());
-		int serviceNumber = calledTimes++;
-		System.out.println("Comienza servicio numero: "+serviceNumber);		
-		long sleepTime = this.sleepUpdateForTestPropuses(serviceNumber);
+//		int serviceNumber = calledTimes++;
+//		System.out.println("Comienza servicio numero: "+serviceNumber);		
+//		long sleepTime = this.sleepUpdateForTestPropuses(serviceNumber);
 		this.checkDTOConcurrency(userToUpdateDTO, userToUpdate);
 		userToUpdate.setPassword(userToUpdateDTO.getPassword());
-		System.out.println("Finaliza servicio numero: "+serviceNumber+" - tiempo dormido: "+sleepTime);
+//		System.out.println("Finaliza servicio numero: "+serviceNumber+" - tiempo dormido: "+sleepTime);
 	}
 
 	@Override
