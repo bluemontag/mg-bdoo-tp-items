@@ -1,5 +1,12 @@
 package user.test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Stack;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +22,7 @@ import base.exception.DTOConcurrencyException;
 public class UserUpdateServiceTest extends UserServiceTest{
 	
 	protected UserDTO anCreatedUserDTO;
-//	protected UserDTO anUserDTOForConcurrencyPepe;
-//	protected UserDTO anUserDTOForConcurrencyMengano;
-//	protected UserDTO anUserDTOForConcurrencyFulano;
+	private final static int MASSIVE_AMOUNT = 50;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -68,7 +73,61 @@ public class UserUpdateServiceTest extends UserServiceTest{
 	}
 	
 	@Test
-	public void testUserUpdateConcurrencyTest(){
+	public void testUserUpdateMassiveConcurrencyTest(){
+		
+		Stack<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsStackNotFinisehd = new Stack<UserUpdateConcurrencyTest>();
+		HashSet<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsSetForCheckConcurrency = new HashSet<UserUpdateConcurrencyTest>();
+		UserDTO userDTOForMassiveTestAux = null;
+		
+		for(int i=0; i< MASSIVE_AMOUNT ; i++){
+		
+			try {
+				userDTOForMassiveTestAux = this.userService.getUser(this.anCreatedUserDTO);
+			} catch (UnknownUserException e) {
+				fail("El usuario que se intenta editar no existe.");
+			}
+			// modificamos los DTOs obtenidos.
+			userDTOForMassiveTestAux.setPassword("password_for_massive_test_"+i);
+			UserUpdateConcurrencyTest userUpdateConcurrencyTestAux = new UserUpdateConcurrencyTest(this.userService, userDTOForMassiveTestAux, "Massive Test : -"+i+"-");
+			massiveUserUpdateConcurrencyTestsStackNotFinisehd.push(userUpdateConcurrencyTestAux);
+			massiveUserUpdateConcurrencyTestsSetForCheckConcurrency.add(userUpdateConcurrencyTestAux);
+		}
+		
+		for(UserUpdateConcurrencyTest userUpdateConcurrencyTest: massiveUserUpdateConcurrencyTestsStackNotFinisehd){
+			userUpdateConcurrencyTest.start();
+		}
+
+		// Esperamos que todos los Threads terminen..
+		while(!massiveUserUpdateConcurrencyTestsStackNotFinisehd.empty()){
+			UserUpdateConcurrencyTest userUpdateConcurrencyTest = (UserUpdateConcurrencyTest) massiveUserUpdateConcurrencyTestsStackNotFinisehd.peek();
+			if(userUpdateConcurrencyTest.isThreadFinished()){
+				massiveUserUpdateConcurrencyTestsStackNotFinisehd.pop();
+			}else{
+				try {
+					Thread.sleep(1000); // un segundo
+				} catch (InterruptedException e) {
+					fail("Error en la prueba concurrente");
+				}
+			}
+		}
+		
+		// Chequeamos que al menos falle
+		boolean errorDeConcurrencia = false;
+		for(UserUpdateConcurrencyTest userUpdateConcurrencyTest: massiveUserUpdateConcurrencyTestsSetForCheckConcurrency){
+			if(userUpdateConcurrencyTest.isConcurrencyError()){
+				errorDeConcurrencia = true;
+				break;
+			}
+		}		
+		
+		// El test no falla si hubo error de concurrencia de hibernate.
+		assertTrue(errorDeConcurrencia);
+	}
+	
+	@Test
+	// Si se configura el servicio update con una determinada secuencia, se puede establecer que usuario se guardo.
+	// sin embargo hay que meterse en el servicio y queda feo. Por ahora esto no se usa.
+	public void porAhoraNoSeUsatestUserUpdateControledConcurrencyTest(){
 		
 		// Obtengo 3 veces el mismo usuario, no alcanza con usar el mismo DTO
 		// porque se necesitan 3 DTOs diferentes para sumular 3 operaciones
