@@ -4,7 +4,7 @@
 
 <beans>	
 
-	<!-- =================== Repositorios ======================== -->
+	<!-- =================== Respository Finders ======================== -->
 
 	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
 		<property name="itemTrackerRepository" ref="memoryItemTrackerRepository" />
