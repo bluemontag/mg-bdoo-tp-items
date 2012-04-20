@@ -1,50 +1,29 @@
-#Relacion entre los xml que estan en base.config y applicationContext
+#Relacion entre los xml que estan en context.config y applicationContext
 
 = Introduction =
 
-Se muestra la relación que hay entre los archivos de configuración, que incluye que y para que es cada uno.
+Se muestra la relación que hay entre los archivos de configuración del contexto.
 
 = Details =
 
-* dataSourcesApplicationContext.xml *
+* context/config/dataSourcesApplicationContext.xml *
 
 Se configura el/los dataSources necesarios.
 
-* repositoriesApplicationContext.xml *
+* context/config/repositoriesApplicationContext.xml *
 
 Se crean los beans de repositorios (para cualquier origen de datos: por ahora hibernate y memoria).
 
-* repositoryFindersApplicationContext.xml *
+También se pueden encontrar los repository finders, que se utilizan para inyectarlo en el servicio base (base.service.AbstractServiceImpl) para poder recuperar los datos del origen necesario.
 
-Se configuran los beans para obtener repositorios de un tipo de origen de datos. Eligiendo uno de estos en el bean de *abstractServiceImpl* (ver _servicesApplicationContext.xml) podemos configurar el origen de los datos.
+Inyectando uno de estos finders en el bean de *abstractServiceImpl* (ver _servicesApplicationContext.xml_) podemos configurar el origen de los datos.
 
 * servicesApplicationContext.xml *
 
 Se configuran los beans de servicios (ver punto anterior). También se encuentra configurado el serviceFinder, que se usa para obtener los servicios.
 
+Recordemos que cada servicio esta decorado con una transacción.
+
 * transactionManagerApplicationContext.xml *
 
 Se configuran los bean de session y transacción.
-
-
-= Esquema de imports =
-
-* dataSourcesApplicationContext.xml *
-
-* transactionManagerApplicationContext.xml *
-    dataSourcesApplicationContext.xml
-
-* repositoryFindersApplicationContext.xml *
-    repositoriesApplicationContext.xml
-      dataSourcesApplicationContext.xml
-
-* servicesApplicationContext.xml *
-    trasactionManagerApplicationContext.xml
-
-Por lo tanto
-
-* applicationContext.xml *
-
-   - repositoryFindersApplicationContext.xml
-
-   - servicesApplicationContext.xml 
