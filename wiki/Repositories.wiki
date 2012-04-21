@@ -51,6 +51,7 @@ Se agrega el repositorio de ItemTracker
 {{{
 
 	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+		<!-- NUEVO REPOSITORIO!!!! -->
 		<property name="itemTrackerRepository">
 			<ref bean="memoryItemTrackerRepository"/>
 		</property>
@@ -60,6 +61,7 @@ Se agrega el repositorio de ItemTracker
 	</bean>
 
 	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
+		<!-- NUEVO REPOSITORIO!!!! -->
 		<property name="itemTrackerRepository">
 			<ref bean="hibernateItemTrackerRepository"/>
 		</property>				
@@ -67,6 +69,52 @@ Se agrega el repositorio de ItemTracker
 			<ref bean="hibernateUserRepository"/>
 		</property>		
 	</bean>
+
+}}}
+
+*2.-* Ahora el tema es... de donde sacamos los beans _hibernateItemTrackerRepository_ y _memoryItemTrackerRepository_ ? Bueno.. hay que definirlos de la siguiente manera:
+
+{{{
+
+	<!-- Para hibernate -->
+	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository">
+		<property name="sessionFactory">
+			 <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+	<!-- Para cuando viene de memoria -->
+	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/>
+
+}}}
+
+Ver de colocalor en el lugar correspondiente según dicen los comentarios en el archivo xml correspondiente para que queden ordenados.
+
+*3.-* Bueno ahora hay que definir los repositorios y ya estaría. En este caso tenemos estos dos:
+
+_itemTracker.repository.MemoryItemTrackerRepository_:
+
+Un repositorio de memoria debería tener esta forma
+
+{{{
+
+public class MemoryItemTrackerRepository implements ItemTrackerRepositoryBI{
+    // definicio de los metodos que esta en ItemTrackerRepositoryBI
+}
+
+}}}
+
+_itemTracker.repository.HibernetItemTrackerRepository_:
+
+Un repositorio de hibernate deberia tener esta forma
+
+{{{
+
+public class HibernetItemTrackerRepository extends HibernateBaseRepository implements ItemTrackerRepositoryBI{
+
+    // definicio de los metodos que esta en ItemTrackerRepositoryBI y si hubiera abstractos en HibernateBaseRepository.
+
+}
 
 }}}
 
