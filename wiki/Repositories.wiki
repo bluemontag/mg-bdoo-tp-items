@@ -6,7 +6,7 @@ Como en teoría podríamos tener varios lugares de donde sacar los datos, se pen
 
 = Details =
 
-*Base*: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio. Estas son:
+*Base*: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio (estan en _base.exception_). Estas son:
 
 _AbstractRepositoryFinder.java_ : el finder abstracto, define que repositorios se pueden "encontrar".
 
