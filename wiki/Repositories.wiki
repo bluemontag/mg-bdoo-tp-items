@@ -26,6 +26,50 @@ _HibernetUserRepository.java_: repositorio concreto de hibernate. Cualquier repo
 _MemoryUserRepository.java_: repositorio concreto de memoria. Solo debe extender la interfaz correspondiente (en este caso UserRepositoryBI).
 (TODO: agregar un _MemoryBaseRepository_ si es necesario)
 
+= Como crear un repositorio nuevo =
+
+*1.-* En repositoriesApplicationContext.xml agregar una entrada en cada *Finder*, ejemplo: tenemos deifinido solo el repositorio de usuario y agregamos el repositorio de ItemTracker:
+
+{{{
+
+	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+		<property name="userRepository">
+			<ref bean="memoryUserRepository"/>
+		</property>
+	</bean>
+
+	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">			
+		<property name="userRepository">
+			<ref bean="hibernateUserRepository"/>
+		</property>		
+	</bean>
+
+}}}
+
+Se agrega el repositorio de ItemTracker
+
+{{{
+
+	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+		<property name="itemTrackerRepository">
+			<ref bean="memoryItemTrackerRepository"/>
+		</property>
+		<property name="userRepository">
+			<ref bean="memoryUserRepository"/>
+		</property>
+	</bean>
+
+	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
+		<property name="itemTrackerRepository">
+			<ref bean="hibernateItemTrackerRepository"/>
+		</property>				
+		<property name="userRepository">
+			<ref bean="hibernateUserRepository"/>
+		</property>		
+	</bean>
+
+}}}
+
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
