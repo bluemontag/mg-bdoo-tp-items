@@ -22,10 +22,6 @@ show views: svn repository
 
 usuario: email (sin @gmail.com)
 password: ir a Profile->settings (se genera automaticamente)
-		
-= Tomcat =
-
-*Download:* http://tomcat.apache.org/download-70.cgi
 
 = Spring = 
 
@@ -36,26 +32,6 @@ Spring IDE Core
 *Configurar Spring-Tomcat:*
 
 http://www.bigsoft.co.uk/blog/index.php/2008/08/10/configuring-eclipse-tomcat-spring
-
-= DB4O =
-
-*Download:* http://www.db4o.com/
-
-*Totorial:* db4o-8.0\doc\tutorial\db4o-8.0-tutorial.pdf
-
-_Object Manager Enterprise installation:_
-
-Object Manager Enterprise (OME) is an object browser for db4o databases. OME installation can be
-found in /ome folder of the distribution. The zip file in this folder contains the Eclipse plugin version of
-OME.
-
-To install the plugin, you need to have a version of Eclipse >= 3.3 installed. Unzip the file to a folder of
-your choice. Then open Eclipse, select 'Help' -> 'Software Updates...' -> 'Available Software' from the
-menu. Choose 'Add Site...' -> 'Local...' and select the unzipped folder. Follow the Eclipse Update
-
-= Struts 2 =
-
-Se configuro el framework MVC "Struts 2" en la aplicacion, con un hola mundo y una pantalla de login de ejemplo.
 
 = Maven 2 =
 
