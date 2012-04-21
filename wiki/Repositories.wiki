@@ -99,14 +99,16 @@ Un repositorio de memoria debería tener esta forma
 {{{
 
 public class MemoryItemTrackerRepository implements ItemTrackerRepositoryBI{
-    // definicio de los metodos que esta en ItemTrackerRepositoryBI
+
+    // definición de los métodos que esta en ItemTrackerRepositoryBI
+
 }
 
 }}}
 
 _itemTracker.repository.HibernetItemTrackerRepository_:
 
-Un repositorio de hibernate deberia tener esta forma
+Un repositorio de hibernate debería tener esta forma
 
 {{{
 
@@ -117,8 +119,3 @@ public class HibernetItemTrackerRepository extends HibernateBaseRepository imple
 }
 
 }}}
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
