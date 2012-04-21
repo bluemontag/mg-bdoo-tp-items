@@ -7,14 +7,18 @@
 	<!-- =================== Respository Finders ======================== -->
 
 	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
-		<property name="itemTrackerRepository" ref="memoryItemTrackerRepository" />
+		<property name="itemTrackerRepository">
+			<ref bean="memoryItemTrackerRepository"/>
+		</property>
 		<property name="userRepository">
 			<ref bean="memoryUserRepository"/>
 		</property>
 	</bean>
 
 	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
-		<property name="itemTrackerRepository" ref="hibernateItemTrackerRepository" />
+		<property name="itemTrackerRepository">
+			<ref bean="hibernateItemTrackerRepository"/>
+		</property>				
 		<property name="userRepository">
 			<ref bean="hibernateUserRepository"/>
 		</property>		

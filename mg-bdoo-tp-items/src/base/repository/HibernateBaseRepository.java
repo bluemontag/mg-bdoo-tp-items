@@ -11,8 +11,7 @@ import org.hibernate.SessionFactory;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public abstract class HibernateBaseRepository implements
-		HibernateBaseRepositoryBI {
+public abstract class HibernateBaseRepository{
 
 	private SessionFactory sessionFactory;
 
