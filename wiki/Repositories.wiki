@@ -6,31 +6,15 @@ Como en teoría podríamos tener varios lugares de donde sacar los datos, se pen
 
 = Details =
 
-Base: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio. Estas son:
+*Base*: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio. Estas son:
 
-* AbstractRepositoryFinder
+_AbstractRepositoryFinder.java_ : el finder abstracto, define que repositorios se pueden "encontrar".
 
-Tiene los métodos que devuelven todos los repositorios abstractos, junto con el *repositorio abstracto*. El repositorio en realidad esta instanciado a través de la *inyección de dependencias* con spring, ver las siguientes clases para entender cómo.
+_HibernateBaseRepository.java_ : se definen los los metodos genericos para cualquier repositorio hibernate.
 
-Ejemplo:
-{{{
-   AbstractUserRepository userRepository;
+HibernateRepositoryFinder.java : un finder contrecto de repositorios de hibernate. Si bien no tiene nada, se usa para inyeccion de dependencias en el contexto de hibernate (ver context/config/repositoriesApplicationContext.xml)
 
-   public AbstractUserRepository getUserRespository(){
-     return this.userRepository;
-   }
-   public void setUserRespository(AbstractUserRepository userRepository){
-     this.userRepository = userRepository;
-   }
-}}}
-
-* HibernateRepositoryFinder y MemoryRepositoryFinder
-
-Estas clases heredan de AbstractRepositoryFinder, con lo cual heredan la implementación y las propiedades del mismo. Si bien estas clases no tienen código, se necesitan para inyectarles las clases concretas a través de spring. Ejemplo del XML:
-
-{{{
-
-}}}
+MemoryRepositoryFinder.java : un finder conctreto de repositorios de objetos de memoria. Igual que el anterior no tiene nada por el mismo motivo.
 
 
 
