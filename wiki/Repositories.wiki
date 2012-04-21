@@ -16,7 +16,7 @@ _HibernateRepositoryFinder.java_ : un finder contrecto de repositorios de hibern
 
 _MemoryRepositoryFinder.java_ : un finder conctreto de repositorios de objetos de memoria. Igual que el anterior no tiene nada por el mismo motivo.
 
-*User*: ahora vemos como son los repositorios concretos. Estan definidos en _[class].repository_ en este caso _user.repository_.
+*User*: ahora vemos como son los repositorios concretos. Estan definidos en [class].repository en este caso _user.repository_.
 Hay 3 clases en este caso, una interface que debe tener todos los metodos que se quieren acceder y una clase para cada origen de datos (hibernate y memoria en este caso).
 
 _UserRepositoryBI.java_: define la interfaz que debe tener el repositorio de usuario, cada objeto que posea un repositorio debe definir una interfaz.
