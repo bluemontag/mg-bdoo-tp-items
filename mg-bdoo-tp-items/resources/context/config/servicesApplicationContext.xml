@@ -47,16 +47,30 @@
 		</property>
 	</bean>
 
+	<!-- ==================== Servicio de Proyecto =================== -->
+
+	<bean id="proyectServiceTarget" class="proyect.service.ProyectServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="proyectService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="proyectServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
 	<!-- ================ Contenedor de servicios =================== -->
 
 	<bean id="serviceFinder" class="base.service.ServiceFinder"
 		factory-method="getInstance">
 		<property name="userService" ref="userService" />
 		<property name="itemTrackerService" ref="itemTrackerService" />
+		<property name="proyectService" ref="proyectService" />
 	</bean>
-	
-
-
-
 </beans>
 
