@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import user.dto.UserDTO;
+import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import user.repository.HibernetUserRepository;
@@ -96,11 +97,11 @@ public class PruebasDeServicios {
 	}
 	
 	private static void listUsers(UserServiceBI userService) {
-		Collection<UserDTO> usersDTO;
+		Collection<UserDTOForLists> usersDTOForLists;
 		// list
 		System.out.print("\n Listando usuarios \n");
-		usersDTO = userService.listUsers();
-		for(UserDTO userDTOindex: usersDTO){
+		usersDTOForLists = userService.listUsers();
+		for(UserDTOForLists userDTOindex: usersDTOForLists){
 			System.out.print(userDTOindex);
 			System.out.print("\n");
 		}
