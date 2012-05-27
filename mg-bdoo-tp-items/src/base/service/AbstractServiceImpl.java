@@ -1,5 +1,6 @@
 package base.service;
 
+import proyect.repository.ProyectRepositoryBI;
 import user.repository.UserRepositoryBI;
 import itemTracker.repository.ItemTrackerRepositoryBI;
 import base.domain.BaseDomain;
@@ -31,6 +32,10 @@ public class AbstractServiceImpl {
 	public UserRepositoryBI getUserRespository() {
 		return this.getRepositoryFinder().getUserRepository();
 	}
+	
+	public ProyectRepositoryBI getProyectRespository() {
+		return this.getRepositoryFinder().getProyectRepository();
+	}	
 	
 	// Chequeo de concurrencia.
 	final protected void checkDTOConcurrency(AbstractDTO aDTO, BaseDomain aBaseDomianObject) throws DTOConcurrencyException {
