@@ -67,37 +67,31 @@ public class ItemTracker extends BaseDomain{
 	//usado solo por los tests para dejar la base como estaba
 	@Deprecated
 	public void removeUser(User anUser) throws UnknownUserException {
-		User anUserToRemove = null;
-		for(User user: this.users){
-			if(user.equals(anUser)){
-				anUserToRemove = user;
-				break;
-			}
-		}
-		if(anUserToRemove != null){
-			this.users.remove(anUserToRemove);
-		}else{
+//		User anUserToRemove = null;
+//		for(User user: this.users){
+//			if(user.equals(anUser)){
+//				anUserToRemove = user;
+//				break;
+//			}
+//		}
+//		if(anUserToRemove != null){
+		boolean removed = this.users.remove(anUser);
+//		}else{
+		if(!removed){
 			throw new UnknownUserException();
 		}
+//		}
 	}
 	
 	public void logicalRemoveProyect(Proyect aProyect) {
 		aProyect.setRemoved(true);
 	}
-	
-	//usado solo por los tests para dejar la base como estaba
+
 	@Deprecated
 	public void removeProyect(Proyect aProyect) throws UnknownProyectException {
-		Proyect aProyectToRemove = null;
-		for(Proyect aProyectIndex: this.proyects){
-			if(aProyectIndex.equals(aProyect)){
-				aProyectToRemove = aProyectIndex;
-				break;
-			}
-		}
-		if(aProyectToRemove != null){
-			this.proyects.remove(aProyectToRemove);
-		}else{
+		
+		boolean removed = this.proyects.remove(aProyect);
+		if(!removed){
 			throw new UnknownProyectException("El proyecto que desea eliminar no existe.");
 		}
 	}
