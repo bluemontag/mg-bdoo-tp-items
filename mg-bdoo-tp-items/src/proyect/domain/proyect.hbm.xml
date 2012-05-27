@@ -11,7 +11,9 @@
 		<version column="version" name="version" unsaved-value="null"/>		
 		<property name="name" column="name" unique="true" />
 		<property name="creationDate" column="creation_date" />
-	
+		
+		<many-to-one name="leader" class="user.domain.User" column="oid_leader_user" not-null="false" cascade="all" />
+		
 		<set name="users" table="PORYECT_USER" cascade="all">
 			<key column="oid_proyect" />
 			<many-to-many column="oid_user" class="user.domain.User" />

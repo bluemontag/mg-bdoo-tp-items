@@ -55,18 +55,15 @@ public class Proyect extends BaseDomain{
 	public Collection<User> getUsers() {
 		return this.users;
 	}
+	
 	public void removeUser(User anUser) throws UnknownUserException {
-		User anUserToRemove = null;
-		for(User user: this.users){
-			if(user.equals(anUser)){
-				anUserToRemove = user;
-				break;
-			}
-		}
-		if(anUserToRemove != null){
-			this.users.remove(anUserToRemove);
-		}else{
+		boolean removed = this.users.remove(anUser);
+		if(!removed){
 			throw new UnknownUserException();
 		}
+	}
+
+	public void addUsers(Collection<User> users) {
+		this.users.addAll(users);
 	}
 }
