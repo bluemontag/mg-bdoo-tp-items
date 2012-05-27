@@ -1,7 +1,10 @@
 package user.repository;
 
+import java.util.Collection;
+
 import user.domain.User;
 import user.dto.UserDTO;
+import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 
 public class MemoryUserRepository implements UserRepositoryBI{
@@ -21,5 +24,10 @@ public class MemoryUserRepository implements UserRepositoryBI{
 	@Override
 	public User getUserByDTO(UserDTO aUserDTO) throws UnknownUserException {
 		return this.getUserByOid(aUserDTO.getOid());
+	}
+
+	@Override
+	public Collection<User> getUsersByDTOsList(Collection<UserDTOForLists> usersDTOs) {
+		return null;
 	}
 }
