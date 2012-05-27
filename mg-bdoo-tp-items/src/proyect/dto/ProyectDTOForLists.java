@@ -5,8 +5,8 @@ import base.dto.AbstractDTOForLists;
 
 public class ProyectDTOForLists extends AbstractDTOForLists{
 
-	public ProyectDTOForLists(Proyect proyect) {
-		
+	public ProyectDTOForLists(Proyect aProyect) {
+		super(aProyect);
 	} 
 
 }
