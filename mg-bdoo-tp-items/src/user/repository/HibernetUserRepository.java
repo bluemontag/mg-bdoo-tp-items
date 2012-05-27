@@ -1,10 +1,9 @@
 package user.repository;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-
+import base.exception.BaseException;
 import base.repository.HibernateBaseRepository;
 import user.domain.User;
+import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 
 public class HibernetUserRepository extends HibernateBaseRepository implements UserRepositoryBI{
@@ -17,8 +16,8 @@ public class HibernetUserRepository extends HibernateBaseRepository implements U
 	}
 
 	@Override
-	public User getUserByOid(String anId) throws UnknownUserException {
-		User anUser = (User) this.findeByOid(User.class, anId);
+	public User getUserByOid(String anOid) throws UnknownUserException {
+		User anUser = (User) this.findeByOid(this.getEntityClass(), anOid);
 		if(anUser == null){
 			throw new UnknownUserException();
 		}
@@ -29,20 +28,19 @@ public class HibernetUserRepository extends HibernateBaseRepository implements U
 	public User getUserByUserName(String anUserName) throws UnknownUserException {
 
 		User user = null;
-		Query getUserByNameQuery = this.getNamedQuery("getUserByUserName");
-
-		getUserByNameQuery.setParameter("anUserName", anUserName);
-		getUserByNameQuery.setMaxResults(1);
-
-		try{
-			user = (User) getUserByNameQuery.uniqueResult();
-		}catch(HibernateException notUniqueResultException){
-			notUniqueResultException.printStackTrace();
+		try {
+			user = (User) this.getEntityByUniqueField("getUserByUserName", "anUserName", anUserName);
+		} catch (BaseException aBaseException) {
+			// TODO ver que hacer!!
 		}
-
 		if (user == null) {
-				throw new UnknownUserException();
+				throw new UnknownUserException("El usuario "+ anUserName +" no existe.");
 		}
 		return user;
+	}
+
+	@Override
+	public User getUserByDTO(UserDTO aUserDTO) throws UnknownUserException {
+		return this.getUserByOid(aUserDTO.getOid());
 	}
 }

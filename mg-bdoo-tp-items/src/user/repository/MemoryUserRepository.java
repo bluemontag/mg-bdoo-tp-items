@@ -1,13 +1,14 @@
 package user.repository;
 
 import user.domain.User;
+import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 
 public class MemoryUserRepository implements UserRepositoryBI{
 	
 	@Override
 	public User getUserByOid(String oid) throws UnknownUserException {
-		// TODO Auto-generated method stub
+		// Devolver el usuario desde lo que esta cargado en memoria.
 		return null;
 	}
 	
@@ -15,5 +16,10 @@ public class MemoryUserRepository implements UserRepositoryBI{
 	public User getUserByUserName(String anUserName) throws UnknownUserException {
 		// Devolver el usuario desde lo que esta cargado en memoria.
 		return null;
+	}
+
+	@Override
+	public User getUserByDTO(UserDTO aUserDTO) throws UnknownUserException {
+		return this.getUserByOid(aUserDTO.getOid());
 	}
 }
