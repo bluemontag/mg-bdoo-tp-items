@@ -8,7 +8,7 @@ import base.exception.BaseException;
 public class UserAlreadyExistsException extends BaseException {
 
 	public UserAlreadyExistsException(String msj) {
-		this.setMsj(msj);
+		super(msj);
 	}
 
 	private static final long serialVersionUID = 1L;

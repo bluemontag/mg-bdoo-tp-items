@@ -7,6 +7,14 @@ import base.exception.BaseException;
  */
 public class UnknownUserException extends BaseException {
 
+	public UnknownUserException(String msj) {
+		super(msj);
+	}
+
+	public UnknownUserException() {
+		super("El usuario que busca no existe.");
+	}
+
 	private static final long serialVersionUID = 1L;
 	
 }
