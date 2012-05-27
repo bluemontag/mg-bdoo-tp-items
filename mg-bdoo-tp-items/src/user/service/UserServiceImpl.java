@@ -97,5 +97,12 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 		this.checkDTOConcurrency(anUserDTO, userToRemove);
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		theItemTracker.removeUser(userToRemove);	
+	}
+
+	@Override
+	public void setUserAsAdmin(UserDTO anUserDTO) throws UnknownUserException {
+		User userToSetAsAdmin = this.getUserRespository().getUserByOid(anUserDTO.getOid());
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		theItemTracker.setAdminUser(userToSetAsAdmin);
 	}	
 }

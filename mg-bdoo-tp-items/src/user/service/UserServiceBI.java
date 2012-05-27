@@ -31,6 +31,8 @@ public interface UserServiceBI {
 	
 	void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException, DTOConcurrencyException;
 	
+	void setUserAsAdmin(UserDTO anUser) throws UnknownUserException;
+	
 	// Removes
 	
 	void logicalRemoveUserByUserName(String anUserName) throws UnknownUserException;
