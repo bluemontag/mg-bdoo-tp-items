@@ -1,25 +1,30 @@
 package user.dto;
 
-import java.util.Collection;
-import java.util.HashSet;
-
+import base.domain.BaseDomain;
+import base.dto.AbstractDTO;
+import base.dto.AbstractDTOForLists;
+import base.dto.DTOFactory;
 import user.domain.User;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class UserDTOFactory{
+public class UserDTOFactory extends DTOFactory{
 
-	static public UserDTO getUserDTO(User aUser){
-		return new UserDTO(aUser);
+	private UserDTOFactory(){}
+	
+	public static UserDTOFactory getInstance(){
+		return new UserDTOFactory();
+	}
+	
+	@Override
+	public AbstractDTO getDTO(BaseDomain aUser){
+		return new UserDTO((User) aUser);
+	}
+	
+	@Override
+	public AbstractDTOForLists getDTOForLists(BaseDomain aBaseDomainObject) {
+		return new UserDTOForLists((User) aBaseDomainObject);
 	}
 
-	public static Collection<UserDTO> getUserDTOList(Collection<User> users) {
-		Collection<UserDTO> usersDTO = new HashSet<UserDTO>();
-		for(User aUser: users){
-			UserDTO aUserDTO = UserDTOFactory.getUserDTO(aUser);
-			usersDTO.add(aUserDTO);
-		}
-		return usersDTO;
-	}
 }
