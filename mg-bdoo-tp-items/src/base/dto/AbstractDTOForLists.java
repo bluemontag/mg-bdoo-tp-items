@@ -1,5 +1,11 @@
 package base.dto;
 
-public abstract class AbstractDTOForLists {
+import base.domain.BaseDomain;
+
+public abstract class AbstractDTOForLists extends AbstractDTO{
+
+	public AbstractDTOForLists(BaseDomain aBaseDomainObject) {
+		super(aBaseDomainObject);
+	}
 
 }

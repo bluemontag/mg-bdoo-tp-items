@@ -7,7 +7,7 @@ import base.domain.BaseDomain;
 
 public abstract class DTOFactory {
 
-	public Collection<AbstractDTOForLists> getDTOList(Collection<BaseDomain> aBaseDomainList) {
+	public Collection<? extends AbstractDTOForLists> getDTOList(Collection<? extends BaseDomain> aBaseDomainList) {
 		Collection<AbstractDTOForLists> aAbstractDTOForListsCollection = new HashSet<AbstractDTOForLists>();
 		for(BaseDomain aBaseDomainObject: aBaseDomainList){
 			AbstractDTOForLists aAbstractDTOForLists = this.getDTOForLists(aBaseDomainObject);
