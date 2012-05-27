@@ -98,7 +98,7 @@ public class ItemTracker extends BaseDomain{
 		if(aProyectToRemove != null){
 			this.proyects.remove(aProyectToRemove);
 		}else{
-			throw new UnknownProyectException();
+			throw new UnknownProyectException("El proyecto que desea eliminar no existe.");
 		}
 	}
 }
