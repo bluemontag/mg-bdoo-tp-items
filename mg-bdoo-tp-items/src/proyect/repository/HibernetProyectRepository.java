@@ -3,6 +3,7 @@ package proyect.repository;
 import base.exception.BaseException;
 import base.repository.HibernateBaseRepository;
 import proyect.domain.Proyect;
+import proyect.dto.ProyectDTO;
 import proyect.exception.UnknownProyectException;
 
 public class HibernetProyectRepository extends HibernateBaseRepository implements ProyectRepositoryBI {
@@ -35,6 +36,11 @@ public class HibernetProyectRepository extends HibernateBaseRepository implement
 				throw new UnknownProyectException("El proyecto "+ aProyectName +" no existe.");
 		}
 		return proyect;
+	}
+
+	@Override
+	public Proyect getProyectByDTO(ProyectDTO aProyectDTO) throws UnknownProyectException {
+		return this.getProyectByOid(aProyectDTO.getOid());
 	}
 
 }
