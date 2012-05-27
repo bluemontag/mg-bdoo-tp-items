@@ -18,5 +18,8 @@
 	<query name="getUserByUserName">
         <![CDATA[from User user where user.userName = :anUserName]]>
 	</query>
+	<query name="getUsersByOids">
+        <![CDATA[from User user where user.removed = :isRemoved and user.oid IN (:oids)]]>
+	</query>	
 
 </hibernate-mapping>
