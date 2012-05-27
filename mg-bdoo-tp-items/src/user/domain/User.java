@@ -10,9 +10,6 @@ public class User extends BaseDomain{
 	protected String userName;
 	protected String password;
 	
-	// se utiliza para saber si un usuario fue eliminado.
-	private boolean removed = false;
-	
 	public User() {
 		// Si no esta este contructor, hibernate no funciona.
 	}
@@ -36,13 +33,5 @@ public class User extends BaseDomain{
 
 	public void setPassword(String aPassword) {
 		this.password = aPassword;
-	}
-
-	public void setRemoved(boolean removed) {
-		this.removed = removed;
-	}
-
-	public boolean isRemoved() {
-		return removed;
 	}
 }
