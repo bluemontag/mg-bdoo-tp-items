@@ -1,18 +1,12 @@
 package user.test;
 
 
-import java.util.Collection;
-
 import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-
-import user.dto.UserDTO;
-import user.exception.UserAlreadyExistsException;
 import user.service.UserServiceBI;
 
 import base.service.ServiceFinder;
