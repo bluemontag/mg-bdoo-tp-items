@@ -1,6 +1,8 @@
 package base.repository;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -10,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import base.domain.BaseDomain;
+import base.dto.AbstractDTO;
 import base.exception.BaseException;
 
 /**
@@ -69,8 +72,16 @@ public abstract class HibernateBaseRepository{
 		try{
 			aBaseDomainObject = (BaseDomain) getBaseDomainObjectByNamedQuery.uniqueResult();
 		}catch(HibernateException notUniqueResultException){
-			new BaseException("Inesperado!: existe mas de una entidad con el mismo nombre.");
+			new BaseException("Inesperado!: existe mas de una entidad con el mismo campo.");
 		}
 		return aBaseDomainObject;
+	}
+	
+	public Collection<String> getOidsFromColleccionOfDTOs(Collection<? extends AbstractDTO> dtoCollection){
+		Collection<String> oids = new HashSet<String>();
+		for(AbstractDTO dto: dtoCollection){
+			oids.add(dto.getOid());
+		}
+		return oids;
 	}
 }
