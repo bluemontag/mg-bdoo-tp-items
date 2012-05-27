@@ -8,6 +8,7 @@ import itemTracker.domain.ItemTracker;
 import user.domain.User;
 import user.dto.UserDTO;
 import user.dto.UserDTOFactory;
+import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import base.exception.DTOConcurrencyException;
@@ -36,20 +37,21 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	}
 
 	@Override
-	public Collection<UserDTO> listUsers() {
+	@SuppressWarnings("unchecked")
+	public Collection<UserDTOForLists> listUsers() {
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		
 		Collection<User> users = theItemTracker.getUsers();
-		Collection<UserDTO> usersDTOs = UserDTOFactory.getInstance().getDTOList(users);
+		Collection<UserDTOForLists> usersDTOForLists = (Collection<UserDTOForLists>) UserDTOFactory.getInstance().getDTOList(users);
 		
-		return usersDTOs;
+		return usersDTOForLists;
 	}
 
 	@Override
 	public UserDTO getUserByUserName(String anUserName) throws UnknownUserException {
 		User userToReturn = null;
 		userToReturn = this.getUserRespository().getUserByUserName(anUserName);
-		UserDTO userDTO = UserDTOFactory.getDTO(userToReturn);
+		UserDTO userDTO = (UserDTO) UserDTOFactory.getInstance().getDTO(userToReturn);
 		return userDTO;
 	}
 

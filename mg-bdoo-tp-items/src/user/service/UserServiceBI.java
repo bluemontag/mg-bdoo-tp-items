@@ -5,6 +5,7 @@ import java.util.Collection;
 import base.exception.DTOConcurrencyException;
 
 import user.dto.UserDTO;
+import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 
@@ -19,7 +20,7 @@ public interface UserServiceBI {
 
 	// Lists
 	
-	Collection<UserDTO> listUsers();
+	Collection<UserDTOForLists> listUsers();
 	
 	// Retrives
 	
