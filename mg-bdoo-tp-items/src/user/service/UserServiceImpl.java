@@ -29,7 +29,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 			User aUser = new User(anUserName, aPassword);
 			theItemTracker.addUser(aUser);
 			
-			UserDTO userDTO = UserDTOFactory.getUserDTO(aUser);
+			UserDTO userDTO = (UserDTO) UserDTOFactory.getInstance().getDTO(aUser);
 			return userDTO;
 		}
 		throw new UserAlreadyExistsException("El usuario "+anUserName+" ya existe.");
@@ -40,7 +40,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		
 		Collection<User> users = theItemTracker.getUsers();
-		Collection<UserDTO> usersDTOs = UserDTOFactory.getUserDTOList(users);
+		Collection<UserDTO> usersDTOs = UserDTOFactory.getInstance().getDTOList(users);
 		
 		return usersDTOs;
 	}
@@ -49,7 +49,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	public UserDTO getUserByUserName(String anUserName) throws UnknownUserException {
 		User userToReturn = null;
 		userToReturn = this.getUserRespository().getUserByUserName(anUserName);
-		UserDTO userDTO = UserDTOFactory.getUserDTO(userToReturn);
+		UserDTO userDTO = UserDTOFactory.getDTO(userToReturn);
 		return userDTO;
 	}
 
