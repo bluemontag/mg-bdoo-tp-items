@@ -45,9 +45,25 @@ public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectSe
 	}
 	
 	@Override
-	public void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> users){
+	public ProyectDTO getProyect(ProyectDTO aProyectDTO) throws UnknownProyectException{
+		Proyect aProyect = this.getProyectRespository().getProyectByDTO(aProyectDTO);
+		return (ProyectDTO) ProyectDTOFactory.getInstance().getDTO(aProyect);
+	}
+	
+	@Override
+	public void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> usersDTOs) throws UnknownProyectException, UnknownUserException{
 		
+		Proyect aProyect = this.getProyectRespository().getProyectByDTO(aProyectDTO);
+		Collection<User> users = this.getUserRespository().getUsersByDTOsList(usersDTOs);
+		aProyect.addUsers(users);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void removeProyect(ProyectDTO anProyectDTOToRemove) throws UnknownProyectException {
 		
-		
+		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		Proyect aProyect = this.getProyectRespository().getProyectByDTO(anProyectDTOToRemove);
+		theItemTracker.removeProyect(aProyect);
 	}
 }

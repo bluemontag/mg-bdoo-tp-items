@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import proyect.dto.ProyectDTO;
 import proyect.exception.ProyectAlreadyExistsException;
+import proyect.exception.UnknownProyectException;
 import user.dto.UserDTO;
 import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
@@ -13,8 +14,21 @@ import user.exception.UnknownUserException;
  */
 public interface ProyectServiceBI {
 
+	// Creats
 	
 	ProyectDTO createProyect(String aProyectName, UserDTO aProyectLeaderUserDTO) throws ProyectAlreadyExistsException, UnknownUserException;
+	
+	// Lists
+	
+	// Retrives
 
-	void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> users);
+	ProyectDTO getProyect(ProyectDTO anCreatedProyectDTO) throws UnknownProyectException;
+	
+	// Updates
+	
+	void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> users) throws UnknownProyectException, UnknownUserException;
+	
+	// Removes
+	
+	void removeProyect(ProyectDTO anProyectDTOToRemove) throws UnknownProyectException;
 }
