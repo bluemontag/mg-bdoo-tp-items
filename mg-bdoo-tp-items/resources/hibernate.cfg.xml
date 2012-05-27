@@ -10,8 +10,9 @@
 		<property name="hibernate.connection.username">mg-tp-bd</property>
 		<property name="hibernate.connection.password">mg-tp-bd</property>
 		<property name="hibernate.connection.pool_size">10</property>
-		<property name="show_sql">false</property>
-<!-- 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property> -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>		
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>		
@@ -21,5 +22,6 @@
 		<!-- Mapping files -->
 		<mapping resource="itemTracker/domain/itemTracker.hbm.xml" />
 		<mapping resource="user/domain/user.hbm.xml" />
+		<mapping resource="proyect/domain/proyect.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
