@@ -18,9 +18,9 @@
 		</set>
 		
 	</class>
-	<!-- Queries for User -->
-<!-- 	<query name="getUserByUserName"> -->
-<!--         <![CDATA[from User user where user.userName = :anUserName]]> -->
-<!-- 	</query> -->
+	<!--  Queries for User  -->
+	<query name="getProyectByName">
+        <![CDATA[from Proyect proyect where proyect.name = :aProyectName]]>
+	</query>
 
 </hibernate-mapping>
