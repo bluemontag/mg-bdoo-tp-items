@@ -10,6 +10,7 @@ import user.exception.UnknownUserException;
 public class HibernetUserRepository extends HibernateBaseRepository implements UserRepositoryBI{
 
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Class getEntityClass() {
 		return User.class;
