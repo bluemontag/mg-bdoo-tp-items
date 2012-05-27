@@ -11,6 +11,10 @@ public abstract class BaseDomain implements IPersistentObject{
 	protected String oid=OidGenerator.createId();
 	protected Integer version;
 	
+	// se utiliza para saber si un objeto base fue eliminado.
+	// Solo lo utilizan objetos que puedan ser elminados logicamente.
+	private boolean removed = false;
+	
 	public void setOid(String anOid) {
 		this.oid = anOid;
 	}
@@ -25,6 +29,14 @@ public abstract class BaseDomain implements IPersistentObject{
 
 	public Integer getVersion() {
 		return version;
+	}
+	
+	public void setRemoved(boolean removed) {
+		this.removed = removed;
+	}
+
+	public boolean isRemoved() {
+		return removed;
 	}
 	
     public boolean equals(Object obj) {
