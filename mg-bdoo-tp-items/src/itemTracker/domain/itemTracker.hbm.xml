@@ -10,15 +10,15 @@
 		</id>
 		<version column="version" name="version" unsaved-value="null"/>	
 		
-		<set name="users" table="USUARIO" cascade="all-delete-orphan" >
+		<set name="users" table="USUARIO" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="user.domain.User" />
 		</set>
 		
-		<set name="proyects" table="PROYECT" cascade="all" >
+		<set name="proyects" table="PROYECT" cascade="all-delete-orphan" >
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="proyect.domain.Proyect" />
 		</set>
-		<many-to-one name="adminUser" class="user.domain.User" column="oid_admin_user" not-null="false" cascade="all" />		
+		<many-to-one name="adminUser" class="user.domain.User" column="oid_admin_user" not-null="false" cascade="save-update" />		
 	</class>
 </hibernate-mapping>
