@@ -46,12 +46,16 @@ public class ProyectDTO extends AbstractDTO {
 		return users;
 	}
 
-	public void setUsers(Collection<UserDTOForLists> users) {
-		this.users = users;
+	public void setUsersFromDTOsForList(Collection<UserDTOForLists> usersDTOForList) {
+		this.users = usersDTOForList;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setUsers(Collection<UserDTO> usersDTO) {
+		this.users = (Collection<UserDTOForLists>) UserDTOFactory.getInstance().getDTOsForListFromDTOs(usersDTO);
 	}
 
 	public Date getCreationDate() {
 		return creationDate;
 	}
-
 }
