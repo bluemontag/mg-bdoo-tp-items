@@ -29,6 +29,9 @@ public interface ProyectServiceBI {
 	// Updates
 
 	void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> users) throws UnknownProyectException,
+			UnknownUserException, DTOConcurrencyException;
+
+	void updateProyect(ProyectDTO aCreatedProyectDTO) throws UnknownProyectException, DTOConcurrencyException,
 			UnknownUserException;
 
 	// Removes

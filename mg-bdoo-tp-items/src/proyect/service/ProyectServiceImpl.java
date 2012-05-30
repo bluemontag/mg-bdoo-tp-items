@@ -52,14 +52,14 @@ public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectSe
 
 	@Override
 	public void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> usersDTOs)
-			throws UnknownProyectException, UnknownUserException {
+			throws UnknownProyectException, UnknownUserException, DTOConcurrencyException {
 
 		Proyect aProyect = this.getProyectRespository().getProyectByDTO(aProyectDTO);
 		Collection<User> users = this.getUserRespository().getUsersByDTOsList(usersDTOs);
+		this.checkDTOConcurrency(aProyectDTO, aProyect);
 		aProyect.addUsers(users);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void removeProyect(ProyectDTO aProyectDTOToRemove) throws UnknownProyectException, DTOConcurrencyException {
 
@@ -67,5 +67,19 @@ public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectSe
 		Proyect aProyectToRemove = this.getProyectRespository().getProyectByDTO(aProyectDTOToRemove);
 		this.checkDTOConcurrency(aProyectDTOToRemove, aProyectToRemove);
 		theItemTracker.removeProyect(aProyectToRemove);
+	}
+
+	@Override
+	public void updateProyect(ProyectDTO aProyectDTOToUpdate) throws UnknownProyectException, DTOConcurrencyException,
+			UnknownUserException {
+
+		Proyect aProyectToUpdate = this.getProyectRespository().getProyectByDTO(aProyectDTOToUpdate);
+		this.checkDTOConcurrency(aProyectDTOToUpdate, aProyectToUpdate);
+		Collection<User> users = this.getUserRespository().getUsersByDTOsList(aProyectDTOToUpdate.getUsers());
+		User userPoyectLeader = this.getUserRespository().getUserByDTO(aProyectDTOToUpdate.getLeader());
+		aProyectToUpdate.setUsers(users);
+		aProyectToUpdate.setName(aProyectDTOToUpdate.getName());
+		aProyectToUpdate.setLeader(userPoyectLeader);
+
 	}
 }
