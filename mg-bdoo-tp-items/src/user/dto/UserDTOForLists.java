@@ -3,20 +3,26 @@ package user.dto;
 import user.domain.User;
 import base.dto.AbstractDTOForLists;
 
-public class UserDTOForLists extends AbstractDTOForLists{
+public class UserDTOForLists extends AbstractDTOForLists {
 
 	private String userName;
 	private String password;
-	private boolean removed;
+	private final boolean removed;
 
-	
 	public UserDTOForLists(User anUser) {
 		super(anUser);
 		this.userName = anUser.getUserName();
 		this.password = anUser.getPassword();
 		this.removed = anUser.isRemoved();
 	}
-	
+
+	public UserDTOForLists(UserDTO anUserDTO) {
+		super(anUserDTO);
+		this.userName = anUserDTO.getUserName();
+		this.password = anUserDTO.getPassword();
+		this.removed = anUserDTO.isRemoved();
+	}
+
 	/**
 	 * @return the userName
 	 */
@@ -25,7 +31,8 @@ public class UserDTOForLists extends AbstractDTOForLists{
 	}
 
 	/**
-	 * @param userName the userName to set
+	 * @param userName
+	 *            the userName to set
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -39,13 +46,15 @@ public class UserDTOForLists extends AbstractDTOForLists{
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String toString(){
-		return "UserName: - "+this.getUserName()+" - "+ (this.removed? "REMOVED": "ALIVE");
+
+	@Override
+	public String toString() {
+		return "UserName: - " + this.getUserName() + " - " + (this.removed ? "REMOVED" : "ALIVE");
 	}
 }

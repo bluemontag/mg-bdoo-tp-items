@@ -1,12 +1,12 @@
 package user.dto;
 
-import base.dto.AbstractDTO;
 import user.domain.User;
+import base.dto.AbstractDTO;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class UserDTO extends AbstractDTO{
+public class UserDTO extends AbstractDTO {
 
 	protected String userName;
 	protected String password;
@@ -18,7 +18,7 @@ public class UserDTO extends AbstractDTO{
 		this.password = anUser.getPassword();
 		this.removed = anUser.isRemoved();
 	}
-	
+
 	/**
 	 * @return the userName
 	 */
@@ -27,7 +27,8 @@ public class UserDTO extends AbstractDTO{
 	}
 
 	/**
-	 * @param userName the userName to set
+	 * @param userName
+	 *            the userName to set
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -41,13 +42,19 @@ public class UserDTO extends AbstractDTO{
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String toString(){
-		return "UserName: - "+this.getUserName()+" - "+ (this.removed? "REMOVED": "ALIVE");
+
+	@Override
+	public String toString() {
+		return "UserName: - " + this.getUserName() + " - " + (this.removed ? "REMOVED" : "ALIVE");
+	}
+
+	public boolean isRemoved() {
+		return this.removed;
 	}
 }
