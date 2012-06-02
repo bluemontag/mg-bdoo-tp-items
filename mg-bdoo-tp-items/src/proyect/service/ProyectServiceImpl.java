@@ -77,7 +77,7 @@ public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectSe
 		this.checkDTOConcurrency(aProyectDTOToUpdate, aProyectToUpdate);
 		Collection<User> users = this.getUserRespository().getUsersByDTOsList(aProyectDTOToUpdate.getUsers());
 		User userPoyectLeader = this.getUserRespository().getUserByDTO(aProyectDTOToUpdate.getLeader());
-		aProyectToUpdate.setUsers(users);
+		aProyectToUpdate.updateUsers(users);
 		aProyectToUpdate.setName(aProyectDTOToUpdate.getName());
 		aProyectToUpdate.setLeader(userPoyectLeader);
 
