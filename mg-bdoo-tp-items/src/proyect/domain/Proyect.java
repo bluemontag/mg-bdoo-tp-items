@@ -1,8 +1,8 @@
 package proyect.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import user.domain.User;
 import user.exception.UnknownUserException;
@@ -13,7 +13,7 @@ public class Proyect extends BaseDomain {
 	private String name;
 	private Date creationDate;
 	private User leader;
-	private Collection<User> users = new ArrayList<User>();
+	private Collection<User> users = new HashSet<User>();
 
 	public Proyect() {
 		// Si no esta este contructor, hibernate no funciona.
@@ -68,6 +68,11 @@ public class Proyect extends BaseDomain {
 	}
 
 	public void addUsers(Collection<User> users) {
+		this.users.addAll(users);
+	}
+
+	public void updateUsers(Collection<User> users) {
+		this.users.clear();
 		this.users.addAll(users);
 	}
 }
