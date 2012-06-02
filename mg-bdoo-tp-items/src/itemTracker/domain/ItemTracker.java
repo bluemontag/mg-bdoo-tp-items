@@ -1,7 +1,7 @@
 package itemTracker.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import proyect.domain.Proyect;
 import proyect.exception.UnknownProyectException;
@@ -17,13 +17,13 @@ public class ItemTracker extends BaseDomain {
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
 
-	private Collection<User> users = new HashSet<User>();
+	private Collection<User> users = new ArrayList<User>();
 	private User adminUser = null;
-	private Collection<Proyect> proyects = new HashSet<Proyect>();
+	private Collection<Proyect> proyects = new ArrayList<Proyect>();
 
 	public ItemTracker() {
-		this.users = new HashSet<User>();
-		this.setProyects(new HashSet<Proyect>());
+		this.users = new ArrayList<User>();
+		this.setProyects(new ArrayList<Proyect>());
 	}
 
 	public void addUser(User aUser) {

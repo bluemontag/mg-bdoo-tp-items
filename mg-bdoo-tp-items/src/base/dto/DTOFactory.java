@@ -1,7 +1,7 @@
 package base.dto;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import base.domain.BaseDomain;
 
@@ -10,7 +10,7 @@ public abstract class DTOFactory {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Collection<? extends AbstractDTOForLists> getDTOsForListFromDTOs(
 			Collection<? extends AbstractDTO> abstractsDTO) {
-		Collection dtosForLists = new HashSet();
+		Collection dtosForLists = new ArrayList();
 		for (AbstractDTO anAbstractDTO : abstractsDTO) {
 			dtosForLists.add(this.getDTOForListInstance(anAbstractDTO));
 		}
@@ -20,7 +20,7 @@ public abstract class DTOFactory {
 	protected abstract AbstractDTOForLists getDTOForListInstance(AbstractDTO anAbstractDTO);
 
 	public Collection<? extends AbstractDTOForLists> getDTOList(Collection<? extends BaseDomain> aBaseDomainList) {
-		Collection<AbstractDTOForLists> aAbstractDTOForListsCollection = new HashSet<AbstractDTOForLists>();
+		Collection<AbstractDTOForLists> aAbstractDTOForListsCollection = new ArrayList<AbstractDTOForLists>();
 		for (BaseDomain aBaseDomainObject : aBaseDomainList) {
 			AbstractDTOForLists aAbstractDTOForLists = this.getDTOForLists(aBaseDomainObject);
 			aAbstractDTOForListsCollection.add(aAbstractDTOForLists);

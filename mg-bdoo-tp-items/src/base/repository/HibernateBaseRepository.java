@@ -1,8 +1,8 @@
 package base.repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -18,7 +18,7 @@ import base.exception.BaseException;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public abstract class HibernateBaseRepository{
+public abstract class HibernateBaseRepository {
 
 	private SessionFactory sessionFactory;
 
@@ -61,25 +61,26 @@ public abstract class HibernateBaseRepository{
 	protected Object getEntityById(Serializable anId) {
 		return this.getCurrentSession().get(getEntityClass(), anId);
 	}
-	
-	public BaseDomain getEntityByUniqueField(String namedQuery, String parameterName, Object searched) throws BaseException {
+
+	public BaseDomain getEntityByUniqueField(String namedQuery, String parameterName, Object searched)
+			throws BaseException {
 		BaseDomain aBaseDomainObject = null;
 		Query getBaseDomainObjectByNamedQuery = this.getNamedQuery(namedQuery);
 
 		getBaseDomainObjectByNamedQuery.setParameter(parameterName, searched);
 		getBaseDomainObjectByNamedQuery.setMaxResults(1);
 
-		try{
+		try {
 			aBaseDomainObject = (BaseDomain) getBaseDomainObjectByNamedQuery.uniqueResult();
-		}catch(HibernateException notUniqueResultException){
+		} catch (HibernateException notUniqueResultException) {
 			new BaseException("Inesperado!: existe mas de una entidad con el mismo campo.");
 		}
 		return aBaseDomainObject;
 	}
-	
-	public Collection<String> getOidsFromColleccionOfDTOs(Collection<? extends AbstractDTO> dtoCollection){
-		Collection<String> oids = new HashSet<String>();
-		for(AbstractDTO dto: dtoCollection){
+
+	public Collection<String> getOidsFromColleccionOfDTOs(Collection<? extends AbstractDTO> dtoCollection) {
+		Collection<String> oids = new ArrayList<String>();
+		for (AbstractDTO dto : dtoCollection) {
 			oids.add(dto.getOid());
 		}
 		return oids;
