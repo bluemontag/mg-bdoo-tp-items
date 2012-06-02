@@ -1,7 +1,7 @@
 package base.repository;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Collection;
 import java.util.List;
 
@@ -79,7 +79,7 @@ public abstract class HibernateBaseRepository {
 	}
 
 	public Collection<String> getOidsFromColleccionOfDTOs(Collection<? extends AbstractDTO> dtoCollection) {
-		Collection<String> oids = new ArrayList<String>();
+		Collection<String> oids = new HashSet<String>();
 		for (AbstractDTO dto : dtoCollection) {
 			oids.add(dto.getOid());
 		}
