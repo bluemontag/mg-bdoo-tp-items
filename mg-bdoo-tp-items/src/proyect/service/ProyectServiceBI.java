@@ -24,7 +24,7 @@ public interface ProyectServiceBI {
 
 	// Retrives
 
-	ProyectDTO getProyect(ProyectDTO anCreatedProyectDTO) throws UnknownProyectException;
+	ProyectDTO getProyect(ProyectDTO aProyectDTO) throws UnknownProyectException;
 
 	// Updates
 
