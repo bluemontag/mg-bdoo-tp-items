@@ -1,6 +1,6 @@
 package proyect.dto;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Collection;
 import java.util.Date;
 
@@ -15,7 +15,7 @@ public class ProyectDTO extends AbstractDTO {
 	private String name;
 	private final Date creationDate;
 	private UserDTO leader;
-	private Collection<UserDTOForLists> users = new ArrayList<UserDTOForLists>();
+	private Collection<UserDTOForLists> users = new HashSet<UserDTOForLists>();
 
 	@SuppressWarnings("unchecked")
 	public ProyectDTO(Proyect aProyect) {
@@ -60,6 +60,6 @@ public class ProyectDTO extends AbstractDTO {
 	}
 
 	public void removeAllUsers() {
-		this.users = new ArrayList<UserDTOForLists>();
+		this.users = new HashSet<UserDTOForLists>();
 	}
 }
