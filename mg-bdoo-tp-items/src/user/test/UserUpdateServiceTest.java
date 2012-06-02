@@ -1,6 +1,6 @@
 package user.test;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Stack;
 
 import org.junit.After;
@@ -75,7 +75,7 @@ public class UserUpdateServiceTest extends UserServiceTest {
 	public void testUserUpdateMassiveConcurrencyTest() {
 
 		Stack<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsStackNotFinisehd = new Stack<UserUpdateConcurrencyTest>();
-		ArrayList<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsSetForCheckConcurrency = new ArrayList<UserUpdateConcurrencyTest>();
+		HashSet<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsSetForCheckConcurrency = new HashSet<UserUpdateConcurrencyTest>();
 		UserDTO userDTOForMassiveTestAux = null;
 
 		for (int i = 0; i < MASSIVE_AMOUNT; i++) {
