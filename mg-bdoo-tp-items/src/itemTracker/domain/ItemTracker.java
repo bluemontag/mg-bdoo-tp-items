@@ -1,6 +1,6 @@
 package itemTracker.domain;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Collection;
 
 import proyect.domain.Proyect;
@@ -17,13 +17,13 @@ public class ItemTracker extends BaseDomain {
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
 
-	private Collection<User> users = new ArrayList<User>();
+	private Collection<User> users = new HashSet<User>();
 	private User adminUser = null;
-	private Collection<Proyect> proyects = new ArrayList<Proyect>();
+	private Collection<Proyect> proyects = new HashSet<Proyect>();
 
 	public ItemTracker() {
-		this.users = new ArrayList<User>();
-		this.setProyects(new ArrayList<Proyect>());
+		this.users = new HashSet<User>();
+		this.setProyects(new HashSet<Proyect>());
 	}
 
 	public void addUser(User aUser) {
