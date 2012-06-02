@@ -62,7 +62,7 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 				aUserDTOToRemove = this.userService.getUserByUserName(BASE_USERS_NAME_TO_SET_IN_PROYECT + i);
 				this.userService.removeUser(aUserDTOToRemove);
 			} catch (UnknownUserException e) {
-				fail("Alguno de los usuarios creados no existe. Esto es un error!");
+				fail("El usuario " + BASE_USERS_NAME_TO_SET_IN_PROYECT + "_" + i + " no existe.");
 			} catch (DTOConcurrencyException e) {
 				fail("Error de concurrencia de DTO: Esto no deberia pasar ya que es un test controlado.");
 			}
