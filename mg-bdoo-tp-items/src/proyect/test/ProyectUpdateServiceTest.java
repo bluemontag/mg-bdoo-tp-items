@@ -1,7 +1,7 @@
 package proyect.test;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +17,7 @@ import base.exception.DTOConcurrencyException;
  */
 public class ProyectUpdateServiceTest extends ProyectServiceTest {
 
-	Collection<UserDTO> usuariosAAsignarAProyecto = new ArrayList<UserDTO>();
+	Collection<UserDTO> usuariosAAsignarAProyecto = new HashSet<UserDTO>();
 	protected static final int AMOUNT_OF_USERS_TO_SET_IN_PROYECT = 15;
 	protected static final String BASE_USERS_NAME_TO_SET_IN_PROYECT = "user_setted_on_proyect_";
 	protected static final String UPDATED_PROYECT_NAME = "A proyect name UPDATED";
@@ -62,11 +62,9 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 				aUserDTOToRemove = this.userService.getUserByUserName(BASE_USERS_NAME_TO_SET_IN_PROYECT + i);
 				this.userService.removeUser(aUserDTOToRemove);
 			} catch (UnknownUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				fail("Alguno de los usuarios creados no existe. Esto es un error!");
 			} catch (DTOConcurrencyException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				fail("Error de concurrencia de DTO: Esto no deberia pasar ya que es un test controlado.");
 			}
 		}
 	}
@@ -77,14 +75,11 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 		try {
 			this.proyectService.updateProyect(this.aCreatedProyectDTO);
 		} catch (UnknownProyectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail("El proyecto que se quiere modificar no existe.");
 		} catch (DTOConcurrencyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail("Error de concurrencia de DTO: Esto no deberia pasar ya que es un test controlado.");
 		} catch (UnknownUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail("Alguno de los usuarios no existe.");
 		}
 	}
 }
