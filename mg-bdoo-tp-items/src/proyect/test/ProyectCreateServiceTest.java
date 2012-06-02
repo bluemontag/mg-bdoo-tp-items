@@ -20,7 +20,6 @@ public class ProyectCreateServiceTest extends ProyectServiceTest {
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	@After
 	public void tearDown() throws Exception {
 		// ojo que no se puede eliminar primero el usuario!
