@@ -6,8 +6,10 @@ import java.util.HashSet;
 import org.junit.After;
 import org.junit.Before;
 
+import proyect.dto.ProyectDTO;
 import proyect.exception.UnknownProyectException;
 import user.dto.UserDTO;
+import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import base.exception.DTOConcurrencyException;
@@ -55,6 +57,7 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void deleteUsersSettedOnAProyect() {
 		for (int i = 0; i < AMOUNT_OF_USERS_TO_SET_IN_PROYECT; i++) {
 			UserDTO aUserDTOToRemove;
@@ -80,6 +83,33 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 			fail("Error de concurrencia de DTO: Esto no deberia pasar ya que es un test controlado.");
 		} catch (UnknownUserException e) {
 			fail("Alguno de los usuarios no existe.");
+		}
+		this.assertsOnUpdateProyectService();
+	}
+
+	private void assertsOnUpdateProyectService() {
+
+		ProyectDTO anUpdatedProyectDTO = null;
+
+		try {
+			anUpdatedProyectDTO = this.proyectService.getProyect(this.aCreatedProyectDTO);
+		} catch (UnknownProyectException e) {
+			fail("No deberia pasar esto!");
+		}
+
+		assertEquals(this.aCreatedProyectDTO.getName(), anUpdatedProyectDTO.getName());
+		assertNotSame(this.aCreatedProyectDTO.getVersion(), anUpdatedProyectDTO.getVersion());
+
+		boolean existe = false;
+		for (UserDTOForLists userDTOForList : this.aCreatedProyectDTO.getUsers()) {
+			existe = false;
+			for (UserDTOForLists userDTOForListOnUpdateProyect : anUpdatedProyectDTO.getUsers()) {
+				if (userDTOForList.equals(userDTOForListOnUpdateProyect)) {
+					existe = true;
+					break;
+				}
+			}
+			assertTrue(existe);
 		}
 	}
 }
