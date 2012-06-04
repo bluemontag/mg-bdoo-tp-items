@@ -51,4 +51,24 @@ public abstract class AbstractDTO implements Cloneable {
 			return null;
 		}
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || !(obj instanceof AbstractDTO)) {
+			return false;
+		}
+
+		AbstractDTO other = (AbstractDTO) obj;
+
+		if (oid == null)
+			return false;
+		return oid.equals(other.getOid());
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getName() + " [id=" + oid + "]";
+	}
 }
