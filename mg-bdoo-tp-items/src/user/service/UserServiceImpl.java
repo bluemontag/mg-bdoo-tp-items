@@ -3,8 +3,10 @@
  */
 package user.service;
 
-import java.util.Collection;
 import itemTracker.domain.ItemTracker;
+
+import java.util.Collection;
+
 import user.domain.User;
 import user.dto.UserDTO;
 import user.dto.UserDTOFactory;
@@ -17,38 +19,40 @@ import base.service.AbstractServiceImpl;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class UserServiceImpl extends AbstractServiceImpl implements UserServiceBI{
+public class UserServiceImpl extends AbstractServiceImpl implements UserServiceBI {
 
 	@Override
-	public UserDTO createUser(String anUserName, String aPassword) throws UserAlreadyExistsException{
-		
+	public UserDTO createUser(String sessionToken, String anUserName, String aPassword)
+			throws UserAlreadyExistsException {
+
 		try {
 			this.getUserRespository().getUserByUserName(anUserName);
-		} catch (UnknownUserException unknownUserException) {			
+		} catch (UnknownUserException unknownUserException) {
 			ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-			
-			User aUser = new User(anUserName, aPassword);
+			String aPasswordEncrypted = aPassword; // TODO: encriptar
+			User aUser = new User(anUserName, aPasswordEncrypted);
 			theItemTracker.addUser(aUser);
-			
+
 			UserDTO userDTO = (UserDTO) UserDTOFactory.getInstance().getDTO(aUser);
 			return userDTO;
 		}
-		throw new UserAlreadyExistsException("El usuario "+anUserName+" ya existe.");
+		throw new UserAlreadyExistsException("El usuario " + anUserName + " ya existe.");
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Collection<UserDTOForLists> listUsers() {
+	public Collection<UserDTOForLists> listUsers(String sessionToken) {
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		
+
 		Collection<User> users = theItemTracker.getUsers();
-		Collection<UserDTOForLists> usersDTOForLists = (Collection<UserDTOForLists>) UserDTOFactory.getInstance().getDTOList(users);
-		
+		Collection<UserDTOForLists> usersDTOForLists = (Collection<UserDTOForLists>) UserDTOFactory.getInstance()
+				.getDTOList(users);
+
 		return usersDTOForLists;
 	}
 
 	@Override
-	public UserDTO getUserByUserName(String anUserName) throws UnknownUserException {
+	public UserDTO getUserByUserName(String sessionToken, String anUserName) throws UnknownUserException {
 		User userToReturn = null;
 		userToReturn = this.getUserRespository().getUserByUserName(anUserName);
 		UserDTO userDTO = (UserDTO) UserDTOFactory.getInstance().getDTO(userToReturn);
@@ -56,47 +60,48 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	}
 
 	@Override
-	public UserDTO getUser(UserDTO anUserDTO) throws UnknownUserException {
-		return this.getUserByUserName(anUserDTO.getUserName());
+	public UserDTO getUser(String sessionToken, UserDTO anUserDTO) throws UnknownUserException {
+		return this.getUserByUserName(sessionToken, anUserDTO.getUserName());
 	}
-	
+
 	@Override
-	public void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException, DTOConcurrencyException {
-		
+	public void updateUser(String sessionToken, UserDTO userToUpdateDTO) throws UnknownUserException,
+			DTOConcurrencyException {
+
 		User userToUpdate = this.getUserRespository().getUserByOid(userToUpdateDTO.getOid());
 		this.checkDTOConcurrency(userToUpdateDTO, userToUpdate);
 		userToUpdate.setPassword(userToUpdateDTO.getPassword());
 	}
 
 	@Override
-	public void logicalRemoveUserByUserName(String anUserName) throws UnknownUserException {
+	public void logicalRemoveUserByUserName(String sessionToken, String anUserName) throws UnknownUserException {
 
 		User userToRemove = this.getUserRespository().getUserByUserName(anUserName);
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		theItemTracker.logicalRemoveUser(userToRemove);	
+		theItemTracker.logicalRemoveUser(userToRemove);
 	}
-	
-	@Override
-	public void logicalRemoveUser(UserDTO anUserDTO) throws UnknownUserException {
 
-		this.logicalRemoveUserByUserName(anUserDTO.getUserName());
+	@Override
+	public void logicalRemoveUser(String sessionToken, UserDTO anUserDTO) throws UnknownUserException {
+
+		this.logicalRemoveUserByUserName(sessionToken, anUserDTO.getUserName());
 	}
-	
-	//usado solo por los tests para dejar la base como estaba
+
+	// usado solo por los tests para dejar la base como estaba
 	@Deprecated
 	@Override
-	public void removeUser(UserDTO anUserDTO) throws UnknownUserException, DTOConcurrencyException {
+	public void removeUser(String sessionToken, UserDTO anUserDTO) throws UnknownUserException, DTOConcurrencyException {
 
 		User userToRemove = this.getUserRespository().getUserByUserName(anUserDTO.getUserName());
 		this.checkDTOConcurrency(anUserDTO, userToRemove);
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		theItemTracker.removeUser(userToRemove);	
+		theItemTracker.removeUser(userToRemove);
 	}
 
 	@Override
-	public void setUserAsAdmin(UserDTO anUserDTO) throws UnknownUserException {
+	public void setUserAsAdmin(String sessionToken, UserDTO anUserDTO) throws UnknownUserException {
 		User userToSetAsAdmin = this.getUserRespository().getUserByOid(anUserDTO.getOid());
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		theItemTracker.setAdminUser(userToSetAsAdmin);
-	}	
+	}
 }

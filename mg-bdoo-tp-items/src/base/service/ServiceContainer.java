@@ -1,27 +1,24 @@
 package base.service;
 
-import proyect.service.ProyectServiceBI;
 import itemTracker.service.ItemTrackerServiceBI;
+import proyect.service.ProyectServiceBI;
 import user.service.UserServiceBI;
 
-/**
- * @author Rodrigo Itursarry (itursarry@gmail.com)
- */
-public class ServiceFinder {
+public class ServiceContainer {
 
-	private static ServiceFinder instance;
+	private static ServiceContainer instance;
 	private ItemTrackerServiceBI itemTrackerService;
 	private UserServiceBI userService;
 	private ProyectServiceBI proyectService;
-	
+
 	/**
 	 * Método estático que permite acceder a la única instancia de esta clase.
 	 * 
 	 * @return la única instancia de esta clase.
 	 */
-	public static ServiceFinder getInstance() {
+	public static ServiceContainer getInstance() {
 		if (instance == null) {
-			instance = new ServiceFinder();
+			instance = new ServiceContainer();
 		}
 		return instance;
 	}
@@ -49,7 +46,4 @@ public class ServiceFinder {
 	public void setProyectService(ProyectServiceBI userService) {
 		this.proyectService = userService;
 	}
-
 }
-
-

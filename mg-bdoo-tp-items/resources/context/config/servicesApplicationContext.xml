@@ -11,6 +11,11 @@
 		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
 			siguiente linea y comentar la anterior! -->
 		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>				
 	</bean>
 
 
@@ -66,7 +71,7 @@
 
 	<!-- ================ Contenedor de servicios =================== -->
 
-	<bean id="serviceFinder" class="base.service.ServiceFinder"
+	<bean id="serviceContainer" class="base.service.ServiceContainer"
 		factory-method="getInstance">
 		<property name="userService" ref="userService" />
 		<property name="itemTrackerService" ref="itemTrackerService" />

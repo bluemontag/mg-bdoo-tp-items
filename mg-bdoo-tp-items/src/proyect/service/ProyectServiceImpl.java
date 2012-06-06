@@ -25,7 +25,7 @@ import base.service.AbstractServiceImpl;
 public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectServiceBI {
 
 	@Override
-	public ProyectDTO createProyect(String aProyectName, UserDTO aProyectLeaderUserDTO)
+	public ProyectDTO createProyect(String sessionToken, String aProyectName, UserDTO aProyectLeaderUserDTO)
 			throws ProyectAlreadyExistsException, UnknownUserException {
 
 		try {
@@ -45,13 +45,13 @@ public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectSe
 	}
 
 	@Override
-	public ProyectDTO getProyect(ProyectDTO aProyectDTO) throws UnknownProyectException {
+	public ProyectDTO getProyect(String sessionToken, ProyectDTO aProyectDTO) throws UnknownProyectException {
 		Proyect aProyect = this.getProyectRespository().getProyectByDTO(aProyectDTO);
 		return (ProyectDTO) ProyectDTOFactory.getInstance().getDTO(aProyect);
 	}
 
 	@Override
-	public void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> usersDTOs)
+	public void addUsersToProyect(String sessionToken, ProyectDTO aProyectDTO, Collection<UserDTOForLists> usersDTOs)
 			throws UnknownProyectException, UnknownUserException, DTOConcurrencyException {
 
 		Proyect aProyect = this.getProyectRespository().getProyectByDTO(aProyectDTO);
@@ -61,7 +61,8 @@ public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectSe
 	}
 
 	@Override
-	public void removeProyect(ProyectDTO aProyectDTOToRemove) throws UnknownProyectException, DTOConcurrencyException {
+	public void removeProyect(String sessionToken, ProyectDTO aProyectDTOToRemove) throws UnknownProyectException,
+			DTOConcurrencyException {
 
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 		Proyect aProyectToRemove = this.getProyectRespository().getProyectByDTO(aProyectDTOToRemove);
@@ -70,8 +71,8 @@ public class ProyectServiceImpl extends AbstractServiceImpl implements ProyectSe
 	}
 
 	@Override
-	public void updateProyect(ProyectDTO aProyectDTOToUpdate) throws UnknownProyectException, DTOConcurrencyException,
-			UnknownUserException {
+	public void updateProyect(String sessionToken, ProyectDTO aProyectDTOToUpdate) throws UnknownProyectException,
+			DTOConcurrencyException, UnknownUserException {
 
 		Proyect aProyectToUpdate = this.getProyectRespository().getProyectByDTO(aProyectDTOToUpdate);
 		this.checkDTOConcurrency(aProyectDTOToUpdate, aProyectToUpdate);

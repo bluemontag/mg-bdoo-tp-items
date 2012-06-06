@@ -2,12 +2,11 @@ package user.service;
 
 import java.util.Collection;
 
-import base.exception.DTOConcurrencyException;
-
 import user.dto.UserDTO;
 import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
+import base.exception.DTOConcurrencyException;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -15,32 +14,32 @@ import user.exception.UserAlreadyExistsException;
 public interface UserServiceBI {
 
 	// Creats
-	
-	UserDTO createUser(String anUserName, String aPassword) throws UserAlreadyExistsException;
+
+	UserDTO createUser(String sessionToken, String anUserName, String aPassword) throws UserAlreadyExistsException;
 
 	// Lists
-	
-	Collection<UserDTOForLists> listUsers();
-	
+
+	Collection<UserDTOForLists> listUsers(String sessionToken);
+
 	// Retrives
-	
-	UserDTO getUserByUserName(String anUserName) throws UnknownUserException;
-	
-	UserDTO getUser(UserDTO anUserDTO) throws UnknownUserException;
+
+	UserDTO getUserByUserName(String sessionToken, String anUserName) throws UnknownUserException;
+
+	UserDTO getUser(String sessionToken, UserDTO anUserDTO) throws UnknownUserException;
 
 	// Updates
-	
-	void updateUser(UserDTO userToUpdateDTO) throws UnknownUserException, DTOConcurrencyException;
-	
-	void setUserAsAdmin(UserDTO anUser) throws UnknownUserException;
-	
+
+	void updateUser(String sessionToken, UserDTO userToUpdateDTO) throws UnknownUserException, DTOConcurrencyException;
+
+	void setUserAsAdmin(String sessionToken, UserDTO anUser) throws UnknownUserException;
+
 	// Removes
-	
-	void logicalRemoveUserByUserName(String anUserName) throws UnknownUserException;
-	
-	void logicalRemoveUser(UserDTO aUserDTOToRemove) throws UnknownUserException;
-	
+
+	void logicalRemoveUserByUserName(String sessionToken, String anUserName) throws UnknownUserException;
+
+	void logicalRemoveUser(String sessionToken, UserDTO aUserDTOToRemove) throws UnknownUserException;
+
 	// usado por los tests para dejar la base como estaba
 	@Deprecated
-	void removeUser(UserDTO aUserDTOToRemove) throws UnknownUserException, DTOConcurrencyException;
+	void removeUser(String sessionToken, UserDTO aUserDTOToRemove) throws UnknownUserException, DTOConcurrencyException;
 }

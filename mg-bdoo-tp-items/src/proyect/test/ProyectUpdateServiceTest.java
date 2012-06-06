@@ -49,7 +49,8 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 		for (int i = 0; i < AMOUNT_OF_USERS_TO_SET_IN_PROYECT; i++) {
 			UserDTO aCreatedUserDTO;
 			try {
-				aCreatedUserDTO = this.userService.createUser(BASE_USERS_NAME_TO_SET_IN_PROYECT + i, " no importa");
+				aCreatedUserDTO = this.userService.createUser(this.sessionToken, BASE_USERS_NAME_TO_SET_IN_PROYECT + i,
+						" no importa");
 				usuariosAAsignarAProyecto.add(aCreatedUserDTO);
 			} catch (UserAlreadyExistsException e) {
 				fail("El usuario que se intenta crear " + (BASE_USERS_NAME_TO_SET_IN_PROYECT + i) + " ya existe.");
@@ -62,8 +63,9 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 		for (int i = 0; i < AMOUNT_OF_USERS_TO_SET_IN_PROYECT; i++) {
 			UserDTO aUserDTOToRemove;
 			try {
-				aUserDTOToRemove = this.userService.getUserByUserName(BASE_USERS_NAME_TO_SET_IN_PROYECT + i);
-				this.userService.removeUser(aUserDTOToRemove);
+				aUserDTOToRemove = this.userService.getUserByUserName(this.sessionToken,
+						BASE_USERS_NAME_TO_SET_IN_PROYECT + i);
+				this.userService.removeUser(this.sessionToken, aUserDTOToRemove);
 			} catch (UnknownUserException e) {
 				fail("El usuario " + BASE_USERS_NAME_TO_SET_IN_PROYECT + "_" + i + " no existe.");
 			} catch (DTOConcurrencyException e) {
@@ -76,7 +78,7 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 		this.aCreatedProyectDTO.setUsers(usuariosAAsignarAProyecto);
 		this.aCreatedProyectDTO.setName(UPDATED_PROYECT_NAME);
 		try {
-			this.proyectService.updateProyect(this.aCreatedProyectDTO);
+			this.proyectService.updateProyect(this.sessionToken, this.aCreatedProyectDTO);
 		} catch (UnknownProyectException e) {
 			fail("El proyecto que se quiere modificar no existe.");
 		} catch (DTOConcurrencyException e) {
@@ -92,7 +94,7 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 		ProyectDTO anUpdatedProyectDTO = null;
 
 		try {
-			anUpdatedProyectDTO = this.proyectService.getProyect(this.aCreatedProyectDTO);
+			anUpdatedProyectDTO = this.proyectService.getProyect(this.sessionToken, this.aCreatedProyectDTO);
 		} catch (UnknownProyectException e) {
 			fail("No deberia pasar esto!");
 		}

@@ -30,7 +30,7 @@ public class ProyectCreateServiceTest extends ProyectServiceTest {
 	public void testCreateProyect() {
 		this.aCreatedProyectDTO = null;
 		try {
-			this.aCreatedProyectDTO = this.proyectService.createProyect(NEW_PROYECT_NAME,
+			this.aCreatedProyectDTO = this.proyectService.createProyect(this.sessionToken, NEW_PROYECT_NAME,
 					this.aCreatedProyectLeaderUserDTO);
 		} catch (ProyectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
@@ -41,5 +41,4 @@ public class ProyectCreateServiceTest extends ProyectServiceTest {
 		assertEquals(NEW_PROYECT_NAME, this.aCreatedProyectDTO.getName());
 		assertEquals(this.aCreatedProyectLeaderUserDTO.getUserName(), this.aCreatedProyectDTO.getLeader().getUserName());
 	}
-
 }

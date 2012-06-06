@@ -17,24 +17,25 @@ public interface ProyectServiceBI {
 
 	// Creats
 
-	ProyectDTO createProyect(String aProyectName, UserDTO aProyectLeaderUserDTO) throws ProyectAlreadyExistsException,
-			UnknownUserException;
+	ProyectDTO createProyect(String sessionToken, String aProyectName, UserDTO aProyectLeaderUserDTO)
+			throws ProyectAlreadyExistsException, UnknownUserException;
 
 	// Lists
 
 	// Retrives
 
-	ProyectDTO getProyect(ProyectDTO aProyectDTO) throws UnknownProyectException;
+	ProyectDTO getProyect(String sessionToken, ProyectDTO aProyectDTO) throws UnknownProyectException;
 
 	// Updates
 
-	void addUsersToProyect(ProyectDTO aProyectDTO, Collection<UserDTOForLists> users) throws UnknownProyectException,
-			UnknownUserException, DTOConcurrencyException;
+	void addUsersToProyect(String sessionToken, ProyectDTO aProyectDTO, Collection<UserDTOForLists> users)
+			throws UnknownProyectException, UnknownUserException, DTOConcurrencyException;
 
-	void updateProyect(ProyectDTO aCreatedProyectDTO) throws UnknownProyectException, DTOConcurrencyException,
-			UnknownUserException;
+	void updateProyect(String sessionToken, ProyectDTO aCreatedProyectDTO) throws UnknownProyectException,
+			DTOConcurrencyException, UnknownUserException;
 
 	// Removes
 
-	void removeProyect(ProyectDTO anProyectDTOToRemove) throws UnknownProyectException, DTOConcurrencyException;
+	void removeProyect(String sessionToken, ProyectDTO anProyectDTOToRemove) throws UnknownProyectException,
+			DTOConcurrencyException;
 }
