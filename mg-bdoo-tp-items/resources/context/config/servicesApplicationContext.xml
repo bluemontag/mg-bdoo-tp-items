@@ -10,12 +10,7 @@
 		<property name="repositoryFinder" ref="hibernateRepositoryFinder" />
 		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
 			siguiente linea y comentar la anterior! -->
-		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->
-		<property name="preInterceptors">
-			<list>
-				<bean class="base.security.ServiceSecurityPreInterceptor" />
-			</list>
-		</property>				
+		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->			
 	</bean>
 
 
@@ -50,6 +45,11 @@
 				<prop key="*">PROPAGATION_REQUIRED</prop>
 			</props>
 		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
 	</bean>
 
 	<!-- ==================== Servicio de Proyecto =================== -->
@@ -67,6 +67,11 @@
 				<prop key="*">PROPAGATION_REQUIRED</prop>
 			</props>
 		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
 	</bean>
 
 	<!-- ================ Contenedor de servicios =================== -->
