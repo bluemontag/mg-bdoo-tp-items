@@ -3,6 +3,7 @@ package base.service;
 import itemTracker.service.ItemTrackerServiceBI;
 import proyect.service.ProyectServiceBI;
 import user.service.UserServiceBI;
+import user.service.team.TeamServiceBI;
 
 public class ServiceContainer {
 
@@ -10,6 +11,7 @@ public class ServiceContainer {
 	private ItemTrackerServiceBI itemTrackerService;
 	private UserServiceBI userService;
 	private ProyectServiceBI proyectService;
+	private TeamServiceBI teamService;
 
 	/**
 	 * Método estático que permite acceder a la única instancia de esta clase.
@@ -45,5 +47,13 @@ public class ServiceContainer {
 
 	public void setProyectService(ProyectServiceBI userService) {
 		this.proyectService = userService;
+	}
+
+	public TeamServiceBI getTeamService() {
+		return teamService;
+	}
+
+	public void setTeamService(TeamServiceBI teamService) {
+		this.teamService = teamService;
 	}
 }

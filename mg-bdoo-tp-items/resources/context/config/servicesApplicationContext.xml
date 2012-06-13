@@ -82,7 +82,7 @@
 
 	<bean id="teamService"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="target" ref="proyectServiceTarget" />
+		<property name="target" ref="teamServiceTarget" />
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="transactionAttributes">
 			<props>
