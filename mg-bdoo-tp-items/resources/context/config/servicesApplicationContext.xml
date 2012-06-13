@@ -74,6 +74,28 @@
 		</property>			
 	</bean>
 
+	<!-- ==================== Servicio de Equipo =================== -->
+
+	<bean id="teamServiceTarget" class="user.service.team.TeamServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="teamService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="proyectServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
 	<!-- ================ Contenedor de servicios =================== -->
 
 	<bean id="serviceContainer" class="base.service.ServiceContainer"
@@ -81,6 +103,7 @@
 		<property name="userService" ref="userService" />
 		<property name="itemTrackerService" ref="itemTrackerService" />
 		<property name="proyectService" ref="proyectService" />
+		<property name="teamService" ref="teamService" />
 	</bean>
 </beans>
 

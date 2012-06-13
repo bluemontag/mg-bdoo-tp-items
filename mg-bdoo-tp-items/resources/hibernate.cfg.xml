@@ -22,6 +22,7 @@
 		<!-- Mapping files -->
 		<mapping resource="itemTracker/domain/itemTracker.hbm.xml" />
 		<mapping resource="user/domain/user.hbm.xml" />
+		<mapping resource="user/domain/team/team.hbm.xml" />
 		<mapping resource="proyect/domain/proyect.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

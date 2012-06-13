@@ -15,6 +15,9 @@
 		</property>
 		<property name="proyectRepository">
 			<ref bean="memoryProyectRepository"/>
+		</property>
+		<property name="teamRepository">
+			<ref bean="memoryTeamRepository"/>
 		</property>		
 	</bean>
 
@@ -27,7 +30,10 @@
 		</property>
 		<property name="proyectRepository">
 			<ref bean="hibernateProyectRepository"/>
-		</property>			
+		</property>
+		<property name="teamRepository">
+			<ref bean="hibernateTeamRepository"/>
+		</property>		
 	</bean>
 
 		<!-- ==================================================
@@ -50,6 +56,13 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
+	<bean id="hibernateTeamRepository" class="user.repository.team.HibernetTeamRepository">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
 
 	<!-- =====================================================
 		Repositorios para obtener datos desde memoria. 
@@ -58,5 +71,6 @@
 	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/>
 	<bean id="memoryUserRepository" class="user.repository.MemoryUserRepository"/>
 	<bean id="memoryProyectRepository" class="proyect.repository.MemoryProyectRepository"/>
+	<bean id="memoryTeamRepository" class="user.repository.team.MemoryTeamRepository"/>
 	
 </beans>
