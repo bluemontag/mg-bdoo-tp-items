@@ -5,6 +5,7 @@ import org.junit.Before;
 
 import proyect.exception.ProyectAlreadyExistsException;
 import user.exception.UnknownUserException;
+import base.test.TestConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -30,15 +31,15 @@ public class ProyectCreateServiceTest extends ProyectServiceTest {
 	public void testCreateProyect() {
 		this.aCreatedProyectDTO = null;
 		try {
-			this.aCreatedProyectDTO = this.proyectService.createProyect(this.sessionToken, NEW_PROYECT_NAME,
-					this.aCreatedProyectLeaderUserDTO);
+			this.aCreatedProyectDTO = this.proyectService.createProyect(this.sessionToken,
+					TestConstants.NEW_PROYECT_NAME, this.aCreatedProyectLeaderUserDTO);
 		} catch (ProyectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {
 			fail("El usuario que se intenta asignar como lider no existe.");
 		}
 		assertNotNull(this.aCreatedProyectDTO);
-		assertEquals(NEW_PROYECT_NAME, this.aCreatedProyectDTO.getName());
+		assertEquals(TestConstants.NEW_PROYECT_NAME, this.aCreatedProyectDTO.getName());
 		assertEquals(this.aCreatedProyectLeaderUserDTO.getUserName(), this.aCreatedProyectDTO.getLeader().getUserName());
 	}
 }

@@ -18,6 +18,7 @@ import user.exception.UserAlreadyExistsException;
 import user.service.UserServiceBI;
 import base.exception.DTOConcurrencyException;
 import base.service.ServiceContainer;
+import base.test.TestConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -31,11 +32,6 @@ public abstract class ProyectServiceTest extends TestCase {
 	protected UserServiceBI userService;
 	protected ItemTrackerServiceBI itemTrackerService;
 	protected String sessionToken;
-
-	protected final static String NEW_PROYECT_NAME = "A proyect name";
-	protected final static String NEW_USER_NAME = "userProyectLeaderTest";
-	protected final static String ADMIN_USER_NAME = "rodrigo";
-	protected final static String ADMIN_PASSWORD = "rodrigo";
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -51,7 +47,8 @@ public abstract class ProyectServiceTest extends TestCase {
 		this.itemTrackerService = ServiceContainer.getInstance().getItemTrackerService();
 		this.proyectService = ServiceContainer.getInstance().getProyectService();
 		this.userService = ServiceContainer.getInstance().getUserService();
-		this.sessionToken = this.itemTrackerService.loginUser(ADMIN_USER_NAME, ADMIN_PASSWORD);
+		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
+				TestConstants.ADMIN_PASSWORD);
 	}
 
 	@Override
@@ -62,8 +59,8 @@ public abstract class ProyectServiceTest extends TestCase {
 	protected void createProyect() {
 		try {
 			// se crea el proyecto que se va a updetear
-			this.aCreatedProyectDTO = this.proyectService.createProyect(this.sessionToken, NEW_PROYECT_NAME,
-					this.aCreatedProyectLeaderUserDTO);
+			this.aCreatedProyectDTO = this.proyectService.createProyect(this.sessionToken,
+					TestConstants.NEW_PROYECT_NAME, this.aCreatedProyectLeaderUserDTO);
 		} catch (ProyectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {
@@ -74,8 +71,8 @@ public abstract class ProyectServiceTest extends TestCase {
 	protected void createUserProyectLeader() {
 		try {
 			// se crea un usuario para setear como lider del proyecto.
-			this.aCreatedProyectLeaderUserDTO = this.userService.createUser(this.sessionToken, NEW_USER_NAME,
-					"password1");
+			this.aCreatedProyectLeaderUserDTO = this.userService.createUser(this.sessionToken,
+					TestConstants.NEW_USER_NAME, "password1");
 		} catch (UserAlreadyExistsException e) {
 			fail("El usuario que se intenta crear ya existe.");
 		}

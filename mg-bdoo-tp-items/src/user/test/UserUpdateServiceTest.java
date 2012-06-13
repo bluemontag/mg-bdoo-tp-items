@@ -11,6 +11,7 @@ import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import base.exception.DTOConcurrencyException;
+import base.test.TestConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -18,7 +19,6 @@ import base.exception.DTOConcurrencyException;
 public class UserUpdateServiceTest extends UserServiceTest {
 
 	protected UserDTO anCreatedUserDTO;
-	private final static int MASSIVE_AMOUNT = 50;
 
 	@Override
 	@Before
@@ -78,7 +78,7 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		HashSet<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsSetForCheckConcurrency = new HashSet<UserUpdateConcurrencyTest>();
 		UserDTO userDTOForMassiveTestAux = null;
 
-		for (int i = 0; i < MASSIVE_AMOUNT; i++) {
+		for (int i = 0; i < TestConstants.MASSIVE_AMOUNT; i++) {
 
 			try {
 				userDTOForMassiveTestAux = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
