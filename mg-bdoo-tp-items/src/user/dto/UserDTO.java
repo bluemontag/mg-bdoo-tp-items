@@ -8,9 +8,9 @@ import base.dto.AbstractDTO;
  */
 public class UserDTO extends AbstractDTO {
 
-	protected String userName;
-	protected String password;
-	protected boolean removed;
+	private String userName;
+	private String password;
+	private final boolean removed;
 
 	public UserDTO(User anUser) {
 		super(anUser);
