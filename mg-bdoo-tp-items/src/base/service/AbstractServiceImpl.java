@@ -3,6 +3,7 @@ package base.service;
 import itemTracker.repository.ItemTrackerRepositoryBI;
 import proyect.repository.ProyectRepositoryBI;
 import user.repository.UserRepositoryBI;
+import user.repository.team.TeamRepositoryBI;
 import base.domain.BaseDomain;
 import base.dto.AbstractDTO;
 import base.exception.DTOConcurrencyException;
@@ -35,6 +36,10 @@ public class AbstractServiceImpl {
 
 	public ProyectRepositoryBI getProyectRespository() {
 		return this.getRepositoryFinder().getProyectRepository();
+	}
+
+	public TeamRepositoryBI getTeamRespository() {
+		return this.getRepositoryFinder().getTeamRepository();
 	}
 
 	// Chequeo de concurrencia.
