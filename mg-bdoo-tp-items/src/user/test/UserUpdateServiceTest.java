@@ -18,7 +18,7 @@ import base.test.TestConstants;
  */
 public class UserUpdateServiceTest extends UserServiceTest {
 
-	protected UserDTO anCreatedUserDTO;
+	protected UserDTO aCreatedUserDTO;
 
 	@Override
 	@Before
@@ -27,7 +27,7 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		super.setUp();
 		// se crea un usuario para probar el update comun.
 		try {
-			this.anCreatedUserDTO = this.userService.createUser(this.sessionToken, "userUpdateTest", "password1");
+			this.aCreatedUserDTO = this.userService.createUser(this.sessionToken, "userUpdateTest", "password1");
 		} catch (UserAlreadyExistsException e) {
 			fail("El usuario que se intenta crear ya existe.");
 		}
@@ -38,7 +38,7 @@ public class UserUpdateServiceTest extends UserServiceTest {
 	@After
 	public void tearDown() throws Exception {
 		// Se optienen de nuevo los usuarios porque se modificaron..
-		UserDTO anUserDTOToRemove = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
+		UserDTO anUserDTOToRemove = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
 
 		// Se eliminan los usuarios creados, hay que dejar la base como estaba.
 		this.userService.removeUser(this.sessionToken, anUserDTOToRemove);
@@ -47,11 +47,11 @@ public class UserUpdateServiceTest extends UserServiceTest {
 	@Test
 	public void testUpdatePasswordUser() {
 		// se updetean los campos necearios para la prueba
-		this.anCreatedUserDTO.setPassword("password2");
+		this.aCreatedUserDTO.setPassword("password2");
 
 		// Se updatea el usuario
 		try {
-			this.userService.updateUser(this.sessionToken, this.anCreatedUserDTO);
+			this.userService.updateUser(this.sessionToken, this.aCreatedUserDTO);
 		} catch (UnknownUserException e) {
 			fail("El usuario que se intenta editar no existe.");
 		} catch (DTOConcurrencyException e) {
@@ -62,13 +62,13 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		// con el recuperado.
 		UserDTO aRetrivedUserDTO = null;
 		try {
-			aRetrivedUserDTO = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
+			aRetrivedUserDTO = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
 		} catch (UnknownUserException e) {
 			fail("El usuario que edito no se puede recuperar, no puede pasar en este test.");
 		}
 		// el valor updatiado y el valor recuperado deben ser iguales.
 		assertNotNull(aRetrivedUserDTO);
-		assertEquals(this.anCreatedUserDTO.getPassword(), aRetrivedUserDTO.getPassword());
+		assertEquals(this.aCreatedUserDTO.getPassword(), aRetrivedUserDTO.getPassword());
 	}
 
 	@Test
@@ -81,7 +81,7 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		for (int i = 0; i < TestConstants.MASSIVE_AMOUNT; i++) {
 
 			try {
-				userDTOForMassiveTestAux = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
+				userDTOForMassiveTestAux = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
 			} catch (UnknownUserException e) {
 				fail("El usuario que se intenta editar no existe.");
 			}
@@ -139,9 +139,9 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		UserDTO userDTOForFulanoTest = null;
 		UserDTO userDTOForMenganoTest = null;
 		try {
-			userDTOForPepeTest = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
-			userDTOForFulanoTest = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
-			userDTOForMenganoTest = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
+			userDTOForPepeTest = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
+			userDTOForFulanoTest = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
+			userDTOForMenganoTest = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
 		} catch (UnknownUserException e) {
 			fail("El usuario que se intenta editar no existe.");
 		}
@@ -180,7 +180,7 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		// con el recuperado.
 		UserDTO aRetrivedUserDTO = null;
 		try {
-			aRetrivedUserDTO = this.userService.getUser(this.sessionToken, this.anCreatedUserDTO);
+			aRetrivedUserDTO = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
 		} catch (UnknownUserException e) {
 			fail("El usuario que edito no se puede recuperar, no puede pasar en este test.");
 		}
