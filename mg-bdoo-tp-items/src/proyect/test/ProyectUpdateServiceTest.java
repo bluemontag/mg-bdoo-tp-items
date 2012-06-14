@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import proyect.dto.ProyectDTO;
 import proyect.exception.UnknownProyectException;
@@ -13,16 +14,14 @@ import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import base.exception.DTOConcurrencyException;
+import base.test.TestConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
 public class ProyectUpdateServiceTest extends ProyectServiceTest {
 
-	Collection<UserDTO> usuariosAAsignarAProyecto = new HashSet<UserDTO>();
-	protected static final int AMOUNT_OF_USERS_TO_SET_IN_PROYECT = 15;
-	protected static final String BASE_USERS_NAME_TO_SET_IN_PROYECT = "user_setted_on_proyect_";
-	protected static final String UPDATED_PROYECT_NAME = "A proyect name UPDATED";
+	private final Collection<UserDTO> usuariosAAsignarAProyecto = new HashSet<UserDTO>();
 
 	@Override
 	@Before
@@ -46,37 +45,39 @@ public class ProyectUpdateServiceTest extends ProyectServiceTest {
 	}
 
 	protected void createUsersToSetToAProyect() {
-		for (int i = 0; i < AMOUNT_OF_USERS_TO_SET_IN_PROYECT; i++) {
+		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aCreatedUserDTO;
 			try {
-				aCreatedUserDTO = this.userService.createUser(this.sessionToken, BASE_USERS_NAME_TO_SET_IN_PROYECT + i,
-						" no importa");
+				aCreatedUserDTO = this.userService.createUser(this.sessionToken,
+						TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i, " no importa");
 				usuariosAAsignarAProyecto.add(aCreatedUserDTO);
 			} catch (UserAlreadyExistsException e) {
-				fail("El usuario que se intenta crear " + (BASE_USERS_NAME_TO_SET_IN_PROYECT + i) + " ya existe.");
+				fail("El usuario que se intenta crear " + (TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i)
+						+ " ya existe.");
 			}
 		}
 	}
 
 	@SuppressWarnings("deprecation")
 	protected void deleteUsersSettedOnAProyect() {
-		for (int i = 0; i < AMOUNT_OF_USERS_TO_SET_IN_PROYECT; i++) {
+		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aUserDTOToRemove;
 			try {
 				aUserDTOToRemove = this.userService.getUserByUserName(this.sessionToken,
-						BASE_USERS_NAME_TO_SET_IN_PROYECT + i);
+						TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i);
 				this.userService.removeUser(this.sessionToken, aUserDTOToRemove);
 			} catch (UnknownUserException e) {
-				fail("El usuario " + BASE_USERS_NAME_TO_SET_IN_PROYECT + "_" + i + " no existe.");
+				fail("El usuario " + TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + "_" + i + " no existe.");
 			} catch (DTOConcurrencyException e) {
 				fail("Error de concurrencia de DTO: Esto no deberia pasar ya que es un test controlado.");
 			}
 		}
 	}
 
+	@Test
 	public void testUpdateProyect() {
 		this.aCreatedProyectDTO.setUsers(usuariosAAsignarAProyecto);
-		this.aCreatedProyectDTO.setName(UPDATED_PROYECT_NAME);
+		this.aCreatedProyectDTO.setName(TestConstants.UPDATED_PROYECT_NAME);
 		try {
 			this.proyectService.updateProyect(this.sessionToken, this.aCreatedProyectDTO);
 		} catch (UnknownProyectException e) {
