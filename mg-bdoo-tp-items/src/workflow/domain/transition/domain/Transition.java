@@ -1,6 +1,6 @@
-package workflow.domain.transition;
+package workflow.domain.transition.domain;
 
-import workflow.ItemState;
+import workflow.domain.state.domain.ItemState;
 import base.domain.BaseDomain;
 
 public class Transition extends BaseDomain {

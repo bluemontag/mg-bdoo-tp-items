@@ -6,7 +6,7 @@ package item.domain;
 import java.util.Date;
 
 import user.domain.User;
-import workflow.ItemState;
+import workflow.domain.state.domain.ItemState;
 import base.domain.BaseDomain;
 
 /**

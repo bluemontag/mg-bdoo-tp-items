@@ -6,8 +6,8 @@ package item.domain;
 import java.util.Date;
 
 import user.domain.User;
-import workflow.ItemState;
-import workflow.domain.transition.Transition;
+import workflow.domain.state.domain.ItemState;
+import workflow.domain.transition.domain.Transition;
 import base.domain.BaseDomain;
 
 /**

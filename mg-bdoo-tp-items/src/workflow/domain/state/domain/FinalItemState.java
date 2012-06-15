@@ -1,9 +1,9 @@
 /**
  * 
  */
-package workflow;
+package workflow.domain.state.domain;
 
-import workflow.domain.transition.Transition;
+import workflow.domain.transition.domain.Transition;
 
 /**
  * @author igallego

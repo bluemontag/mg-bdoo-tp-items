@@ -1,11 +1,11 @@
 /**
  * 
  */
-package workflow;
+package workflow.domain.state.domain;
 
 import java.util.HashMap;
 
-import workflow.domain.transition.Transition;
+import workflow.domain.transition.domain.Transition;
 import base.domain.BaseDomain;
 
 /**
