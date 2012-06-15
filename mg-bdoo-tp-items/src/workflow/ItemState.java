@@ -4,6 +4,8 @@
 package workflow;
 
 import java.util.HashMap;
+
+import workflow.domain.transition.Transition;
 import base.domain.BaseDomain;
 
 /**

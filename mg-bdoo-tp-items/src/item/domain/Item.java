@@ -7,7 +7,7 @@ import java.util.Date;
 
 import user.domain.User;
 import workflow.ItemState;
-import workflow.Transition;
+import workflow.domain.transition.Transition;
 import base.domain.BaseDomain;
 
 /**

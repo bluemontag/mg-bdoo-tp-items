@@ -3,6 +3,8 @@
  */
 package workflow;
 
+import workflow.domain.transition.Transition;
+
 /**
  * @author igallego
  *

@@ -1,8 +1,9 @@
 /**
  * 
  */
-package workflow;
+package workflow.domain;
 
+import workflow.ItemState;
 import base.domain.BaseDomain;
 
 /**

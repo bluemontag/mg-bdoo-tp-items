@@ -4,7 +4,7 @@
 package item.domain;
 
 import user.domain.Team;
-import workflow.Workflow;
+import workflow.domain.Workflow;
 import base.domain.BaseDomain;
 
 /**
