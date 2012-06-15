@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import user.domain.User;
 import user.domain.team.Team;
-import user.dto.UserDTOForLists;
+import user.dto.UserDTO;
 import user.dto.team.TeamDTO;
 import user.dto.team.TeamDTOFactory;
 import user.exception.UnknownUserException;
@@ -20,11 +20,11 @@ import base.service.AbstractServiceImpl;
 public class TeamServiceImpl extends AbstractServiceImpl implements TeamServiceBI {
 
 	@Override
-	public TeamDTO createTeam(String sessionToken, String aTeamName, Collection<UserDTOForLists> usersDTOs)
+	public TeamDTO createTeam(String sessionToken, String aTeamName, Collection<UserDTO> usersDTOs)
 			throws UnknownUserException {
 
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		Collection<User> users = this.getUserRespository().getUsersByDTOsList(usersDTOs);
+		Collection<User> users = this.getUserRespository().getUsersByDTOs(usersDTOs);
 		Team newTeam = new Team(aTeamName, users);
 		theItemTracker.addTeam(newTeam);
 		return (TeamDTO) TeamDTOFactory.getInstance().getDTO(newTeam);

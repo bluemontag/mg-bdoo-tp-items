@@ -7,8 +7,8 @@ import user.dto.UserDTO;
 import user.dto.UserDTOForLists;
 import user.exception.UnknownUserException;
 
-public interface UserRepositoryBI{
-	
+public interface UserRepositoryBI {
+
 	User getUserByUserName(String anUserName) throws UnknownUserException;
 
 	User getUserByOid(String oid) throws UnknownUserException;
@@ -16,4 +16,6 @@ public interface UserRepositoryBI{
 	User getUserByDTO(UserDTO aUserDTO) throws UnknownUserException;
 
 	Collection<User> getUsersByDTOsList(Collection<UserDTOForLists> usersDTOs) throws UnknownUserException;
+
+	Collection<User> getUsersByDTOs(Collection<UserDTO> usersDTOs) throws UnknownUserException;
 }

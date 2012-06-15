@@ -8,6 +8,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
 import base.service.ServiceContainer;
 import base.test.TestConstants;
@@ -19,6 +20,7 @@ public abstract class TeamServiceTest extends TestCase {
 
 	protected TeamServiceBI teamService;
 	protected ItemTrackerServiceBI itemTrackerService;
+	protected UserServiceBI userService;
 	protected String sessionToken;
 
 	@BeforeClass
@@ -34,6 +36,7 @@ public abstract class TeamServiceTest extends TestCase {
 	public void setUp() throws Exception {
 		this.teamService = ServiceContainer.getInstance().getTeamService();
 		this.itemTrackerService = ServiceContainer.getInstance().getItemTrackerService();
+		this.userService = ServiceContainer.getInstance().getUserService();
 		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
 				TestConstants.ADMIN_PASSWORD);
 	}

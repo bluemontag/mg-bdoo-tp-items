@@ -19,6 +19,12 @@
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="proyect.domain.Proyect" />
 		</set>
+		
+		<set name="team" table="TEAM" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="user.domain.team.Team" />
+		</set>
+		
 		<many-to-one name="adminUser" class="user.domain.User" column="oid_admin_user" not-null="false" cascade="save-update" />		
 	</class>
 </hibernate-mapping>

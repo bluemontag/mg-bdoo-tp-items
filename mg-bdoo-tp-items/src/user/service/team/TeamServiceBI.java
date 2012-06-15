@@ -2,7 +2,7 @@ package user.service.team;
 
 import java.util.Collection;
 
-import user.dto.UserDTOForLists;
+import user.dto.UserDTO;
 import user.dto.team.TeamDTO;
 import user.exception.UnknownUserException;
 import user.exception.team.TeamAlreadyExistsException;
@@ -16,7 +16,7 @@ public interface TeamServiceBI {
 
 	// Creats
 
-	TeamDTO createTeam(String sessionToken, String aTeamName, Collection<UserDTOForLists> usersDTOs)
+	TeamDTO createTeam(String sessionToken, String aTeamName, Collection<UserDTO> usersAsignedToATeam)
 			throws UnknownUserException, TeamAlreadyExistsException;
 
 	// Lists
