@@ -74,27 +74,4 @@ public class HibernetUserRepository extends HibernateBaseRepository implements U
 		return new HashSet<User>(users);
 
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public Collection<User> getUsersByDTOs(Collection<UserDTO> usersDTOs) throws UnknownUserException {
-
-		Collection<String> oids = this.getOidsFromColleccionOfDTOs(usersDTOs);
-
-		Query aQuery = this.getNamedQuery("getUsersByOids");
-
-		aQuery.setParameterList("oids", oids);
-		aQuery.setParameter("isRemoved", false);
-
-		Collection<User> users = aQuery.list();
-
-		if (users == null) {
-			throw new UnknownUserException("No se encontro ningun usuario de la lista.");
-		}
-		if (users.size() != usersDTOs.size()) {
-			throw new UnknownUserException("Alguno de los usuarios de la lista no se encontro o fue eliminado.");
-		}
-		return new HashSet<User>(users);
-
-	}
 }

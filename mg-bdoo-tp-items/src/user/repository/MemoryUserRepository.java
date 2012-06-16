@@ -33,10 +33,4 @@ public class MemoryUserRepository implements UserRepositoryBI {
 	public Collection<User> getUsersByDTOsList(Collection<UserDTOForLists> usersDTOs) {
 		return null;
 	}
-
-	@Override
-	public Collection<User> getUsersByDTOs(Collection<UserDTO> usersDTOs) throws UnknownUserException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

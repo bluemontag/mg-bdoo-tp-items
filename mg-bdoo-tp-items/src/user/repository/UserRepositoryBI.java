@@ -19,6 +19,4 @@ public interface UserRepositoryBI {
 	User getUserByDTO(UserDTO aUserDTO) throws UnknownUserException;
 
 	Collection<User> getUsersByDTOsList(Collection<UserDTOForLists> usersDTOs) throws UnknownUserException;
-
-	Collection<User> getUsersByDTOs(Collection<UserDTO> usersDTOs) throws UnknownUserException;
 }
