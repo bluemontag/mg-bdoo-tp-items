@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="proyect.domain.Proyect" table="PROYECT" optimistic-lock="version">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		<version column="version" name="version" unsaved-value="null"/>		
+		<property name="name" column="name" unique="true" />
+		<property name="creationDate" column="creation_date" />
+		
+		<many-to-one name="leader" class="user.domain.User" column="oid_leader_user" not-null="false" cascade="save-update" />
+		
+		<set name="users" table="PORYECT_USER">
+			<key column="oid_proyect" />
+			<many-to-many column="oid_user" class="user.domain.User" />
+		</set>
+		
+	</class>
+	<!--  Queries for User  -->
+	<query name="getProyectByName">
+        <![CDATA[from Proyect proyect where proyect.name = :aProyectName]]>
+	</query>
+
+</hibernate-mapping>
