@@ -3,8 +3,8 @@ package itemTracker.domain;
 import java.util.Collection;
 import java.util.HashSet;
 
-import proyect.domain.Proyect;
-import proyect.exception.UnknownProyectException;
+import project.domain.Project;
+import project.exception.UnknownProjectException;
 import user.domain.User;
 import user.domain.team.Team;
 import user.exception.UnknownUserException;
@@ -21,12 +21,12 @@ public class ItemTracker extends BaseDomain {
 
 	private Collection<User> users = new HashSet<User>();
 	private User adminUser = null;
-	private Collection<Proyect> proyects = new HashSet<Proyect>();
+	private Collection<Project> projects = new HashSet<Project>();
 	private Collection<Team> teams = new HashSet<Team>();
 
 	public ItemTracker() {
 		this.users = new HashSet<User>();
-		this.setProyects(new HashSet<Proyect>());
+		this.setProjects(new HashSet<Project>());
 	}
 
 	public void addUser(User anUser) {
@@ -51,16 +51,16 @@ public class ItemTracker extends BaseDomain {
 		this.adminUser = theAdminUser;
 	}
 
-	public void setProyects(Collection<Proyect> proyects) {
-		this.proyects = proyects;
+	public void setProjects(Collection<Project> projects) {
+		this.projects = projects;
 	}
 
-	public Collection<Proyect> getProyects() {
-		return proyects;
+	public Collection<Project> getProjects() {
+		return projects;
 	}
 
-	public void addProyect(Proyect aProyect) {
-		this.proyects.add(aProyect);
+	public void addProyect(Project aProyect) {
+		this.projects.add(aProyect);
 	}
 
 	public void logicalRemoveUser(User anUser) {
@@ -76,16 +76,16 @@ public class ItemTracker extends BaseDomain {
 		}
 	}
 
-	public void logicalRemoveProyect(Proyect aProyect) {
+	public void logicalRemoveProyect(Project aProyect) {
 		aProyect.setRemoved(true);
 	}
 
 	// Los proyectos tiene eliminacion fisica.
-	public void removeProyect(Proyect aProyect) throws UnknownProyectException {
+	public void removeProyect(Project aProyect) throws UnknownProjectException {
 
-		boolean removed = this.proyects.remove(aProyect);
+		boolean removed = this.projects.remove(aProyect);
 		if (!removed) {
-			throw new UnknownProyectException("El proyecto que desea eliminar no existe.");
+			throw new UnknownProjectException("El proyecto que desea eliminar no existe.");
 		}
 	}
 
