@@ -1,8 +1,8 @@
 package base.repository;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -54,6 +54,7 @@ public abstract class HibernateBaseRepository {
 		return this.sessionFactory.getCurrentSession();
 	}
 
+	@SuppressWarnings("rawtypes")
 	protected List getAllEntities() {
 		return this.getEntityCriteria().list();
 	}
