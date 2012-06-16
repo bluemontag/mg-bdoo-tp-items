@@ -4,6 +4,9 @@ import project.domain.Project;
 import project.dto.ProjectDTO;
 import project.exception.UnknownProjectException;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public interface ProjectRepositoryBI {
 
 	Project getProjectByName(String aProjectName) throws UnknownProjectException;

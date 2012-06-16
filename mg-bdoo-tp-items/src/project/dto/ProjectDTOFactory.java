@@ -6,6 +6,9 @@ import base.dto.AbstractDTO;
 import base.dto.AbstractDTOForLists;
 import base.dto.DTOFactory;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ProjectDTOFactory extends DTOFactory {
 
 	private ProjectDTOFactory() {

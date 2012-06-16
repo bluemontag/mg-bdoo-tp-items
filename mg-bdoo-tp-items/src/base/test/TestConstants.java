@@ -1,5 +1,8 @@
 package base.test;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class TestConstants {
 
 	public static final String ADMIN_USER_NAME = "rodrigo";

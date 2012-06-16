@@ -2,6 +2,9 @@ package project.exception;
 
 import base.exception.BaseException;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class UnknownProjectException extends BaseException {
 
 	public UnknownProjectException(String msj) {

@@ -12,6 +12,9 @@ import user.exception.UnknownUserException;
 import base.exception.BaseException;
 import base.repository.HibernateBaseRepository;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class HibernetUserRepository extends HibernateBaseRepository implements UserRepositoryBI {
 
 	@SuppressWarnings("rawtypes")

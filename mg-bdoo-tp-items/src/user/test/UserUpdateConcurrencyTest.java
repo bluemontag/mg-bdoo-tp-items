@@ -7,6 +7,9 @@ import user.exception.UnknownUserException;
 import user.service.UserServiceBI;
 import base.exception.DTOConcurrencyException;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class UserUpdateConcurrencyTest extends Thread {
 
 	protected String testName;

@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import user.domain.User;
-
 import base.domain.BaseDomain;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class Team extends BaseDomain {
 
 	private String name;

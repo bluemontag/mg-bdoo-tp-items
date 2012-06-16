@@ -3,6 +3,9 @@ package user.dto.team;
 import user.domain.team.Team;
 import base.dto.AbstractDTOForLists;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class TeamDTOForLists extends AbstractDTOForLists {
 
 	private String name;

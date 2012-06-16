@@ -8,6 +8,9 @@ import user.domain.User;
 import user.exception.UnknownUserException;
 import base.domain.BaseDomain;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class Project extends BaseDomain {
 
 	private String name;

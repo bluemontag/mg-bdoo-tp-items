@@ -3,6 +3,9 @@ package user.dto;
 import user.domain.User;
 import base.dto.AbstractDTOForLists;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class UserDTOForLists extends AbstractDTOForLists {
 
 	private String userName;

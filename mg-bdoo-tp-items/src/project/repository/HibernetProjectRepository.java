@@ -6,6 +6,9 @@ import project.exception.UnknownProjectException;
 import base.exception.BaseException;
 import base.repository.HibernateBaseRepository;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class HibernetProjectRepository extends HibernateBaseRepository implements ProjectRepositoryBI {
 
 	@SuppressWarnings("rawtypes")

@@ -10,6 +10,9 @@ import user.dto.UserDTOFactory;
 import user.dto.UserDTOForLists;
 import base.dto.AbstractDTO;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ProjectDTO extends AbstractDTO {
 
 	private String name;

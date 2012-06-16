@@ -5,6 +5,9 @@ import user.dto.team.TeamDTO;
 import user.exception.team.UnknownTeamException;
 import base.repository.HibernateBaseRepository;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class HibernetTeamRepository extends HibernateBaseRepository implements TeamRepositoryBI {
 
 	@SuppressWarnings("rawtypes")
