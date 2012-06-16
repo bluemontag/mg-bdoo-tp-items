@@ -1,7 +1,7 @@
 package base.service;
 
 import itemTracker.service.ItemTrackerServiceBI;
-import project.service.ProyectServiceBI;
+import project.service.ProjectServiceBI;
 import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
 
@@ -10,7 +10,7 @@ public class ServiceContainer {
 	private static ServiceContainer instance;
 	private ItemTrackerServiceBI itemTrackerService;
 	private UserServiceBI userService;
-	private ProyectServiceBI proyectService;
+	private ProjectServiceBI projectService;
 	private TeamServiceBI teamService;
 
 	/**
@@ -41,12 +41,12 @@ public class ServiceContainer {
 		this.userService = userService;
 	}
 
-	public ProyectServiceBI getProyectService() {
-		return proyectService;
+	public ProjectServiceBI getProjectService() {
+		return projectService;
 	}
 
-	public void setProyectService(ProyectServiceBI userService) {
-		this.proyectService = userService;
+	public void setProjectService(ProjectServiceBI userService) {
+		this.projectService = userService;
 	}
 
 	public TeamServiceBI getTeamService() {

@@ -25,17 +25,17 @@ public class ProjectDTOForLists extends AbstractDTOForLists {
 		return leader;
 	}
 
-	public ProjectDTOForLists(Project aProyect) {
-		super(aProyect);
-		this.name = aProyect.getName();
-		this.creationDate = aProyect.getCreationDate();
-		this.leader = (UserDTO) UserDTOFactory.getInstance().getDTO(aProyect.getLeader());
+	public ProjectDTOForLists(Project aProject) {
+		super(aProject);
+		this.name = aProject.getName();
+		this.creationDate = aProject.getCreationDate();
+		this.leader = (UserDTO) UserDTOFactory.getInstance().getDTO(aProject.getLeader());
 	}
 
-	public ProjectDTOForLists(ProjectDTO aProyectDTO) {
-		super(aProyectDTO);
-		this.name = aProyectDTO.getName();
-		this.creationDate = aProyectDTO.getCreationDate();
-		this.leader = aProyectDTO.getLeader();
+	public ProjectDTOForLists(ProjectDTO aProjectDTO) {
+		super(aProjectDTO);
+		this.name = aProjectDTO.getName();
+		this.creationDate = aProjectDTO.getCreationDate();
+		this.leader = aProjectDTO.getLeader();
 	}
 }

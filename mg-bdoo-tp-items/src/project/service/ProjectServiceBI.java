@@ -13,29 +13,29 @@ import base.exception.DTOConcurrencyException;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public interface ProyectServiceBI {
+public interface ProjectServiceBI {
 
 	// Creats
 
-	ProjectDTO createProyect(String sessionToken, String aProyectName, UserDTO aProyectLeaderUserDTO)
+	ProjectDTO createProject(String sessionToken, String aProjectName, UserDTO aProjectLeaderUserDTO)
 			throws ProjectAlreadyExistsException, UnknownUserException;
 
 	// Lists
 
 	// Retrives
 
-	ProjectDTO getProyect(String sessionToken, ProjectDTO aProyectDTO) throws UnknownProjectException;
+	ProjectDTO getProject(String sessionToken, ProjectDTO aProjectDTO) throws UnknownProjectException;
 
 	// Updates
 
-	void addUsersToProyect(String sessionToken, ProjectDTO aProyectDTO, Collection<UserDTOForLists> users)
+	void addUsersToProject(String sessionToken, ProjectDTO aProjectDTO, Collection<UserDTOForLists> users)
 			throws UnknownProjectException, UnknownUserException, DTOConcurrencyException;
 
-	void updateProyect(String sessionToken, ProjectDTO aCreatedProyectDTO) throws UnknownProjectException,
+	void updateProject(String sessionToken, ProjectDTO aCreatedProjectDTO) throws UnknownProjectException,
 			DTOConcurrencyException, UnknownUserException;
 
 	// Removes
 
-	void removeProyect(String sessionToken, ProjectDTO anProyectDTOToRemove) throws UnknownProjectException,
+	void removeProject(String sessionToken, ProjectDTO anProjectDTOToRemove) throws UnknownProjectException,
 			DTOConcurrencyException;
 }

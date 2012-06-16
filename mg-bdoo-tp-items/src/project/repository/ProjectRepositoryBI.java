@@ -6,10 +6,10 @@ import project.exception.UnknownProjectException;
 
 public interface ProjectRepositoryBI {
 
-	Project getProyectByName(String aProyectName) throws UnknownProjectException;
+	Project getProjectByName(String aProjectName) throws UnknownProjectException;
 
-	Project getProyectByOid(String oid) throws UnknownProjectException;
+	Project getProjectByOid(String oid) throws UnknownProjectException;
 
-	Project getProyectByDTO(ProjectDTO aProyectDTO) throws UnknownProjectException;
+	Project getProjectByDTO(ProjectDTO aProjectDTO) throws UnknownProjectException;
 
 }

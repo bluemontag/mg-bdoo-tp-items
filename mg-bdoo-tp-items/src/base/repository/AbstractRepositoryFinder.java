@@ -13,7 +13,7 @@ public abstract class AbstractRepositoryFinder {
 
 	private ItemTrackerRepositoryBI itemTrackerRepository;
 	private UserRepositoryBI userRepository;
-	private ProjectRepositoryBI proyectRepository;
+	private ProjectRepositoryBI projectRepository;
 	private TeamRepositoryBI teamRepository;
 	private WorkflowRepositoryBI workflowRepository;
 
@@ -33,12 +33,12 @@ public abstract class AbstractRepositoryFinder {
 		this.userRepository = userRepository;
 	}
 
-	public ProjectRepositoryBI getProyectRepository() {
-		return this.proyectRepository;
+	public ProjectRepositoryBI getProjectRepository() {
+		return this.projectRepository;
 	}
 
-	public void setProyectRepository(ProjectRepositoryBI proyectRepository) {
-		this.proyectRepository = proyectRepository;
+	public void setProjectRepository(ProjectRepositoryBI projectRepository) {
+		this.projectRepository = projectRepository;
 	}
 
 	public TeamRepositoryBI getTeamRepository() {

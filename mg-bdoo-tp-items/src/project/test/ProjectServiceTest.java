@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import project.dto.ProjectDTO;
 import project.exception.ProjectAlreadyExistsException;
 import project.exception.UnknownProjectException;
-import project.service.ProyectServiceBI;
+import project.service.ProjectServiceBI;
 import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
@@ -25,10 +25,10 @@ import base.test.TestConstants;
  */
 public abstract class ProjectServiceTest extends TestCase {
 
-	protected ProjectDTO aCreatedProyectDTO;
-	protected UserDTO aCreatedProyectLeaderUserDTO;
+	protected ProjectDTO aCreatedProjectDTO;
+	protected UserDTO aCreatedProjectLeaderUserDTO;
 
-	protected ProyectServiceBI proyectService;
+	protected ProjectServiceBI projectService;
 	protected UserServiceBI userService;
 	protected ItemTrackerServiceBI itemTrackerService;
 	protected String sessionToken;
@@ -45,7 +45,7 @@ public abstract class ProjectServiceTest extends TestCase {
 	@Before
 	public void setUp() throws Exception {
 		this.itemTrackerService = ServiceContainer.getInstance().getItemTrackerService();
-		this.proyectService = ServiceContainer.getInstance().getProyectService();
+		this.projectService = ServiceContainer.getInstance().getProjectService();
 		this.userService = ServiceContainer.getInstance().getUserService();
 		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
 				TestConstants.ADMIN_PASSWORD);
@@ -56,11 +56,11 @@ public abstract class ProjectServiceTest extends TestCase {
 	public void tearDown() throws Exception {
 	}
 
-	protected void createProyect() {
+	protected void createProject() {
 		try {
 			// se crea el proyecto que se va a updetear
-			this.aCreatedProyectDTO = this.proyectService.createProyect(this.sessionToken,
-					TestConstants.NEW_PROYECT_NAME, this.aCreatedProyectLeaderUserDTO);
+			this.aCreatedProjectDTO = this.projectService.createProject(this.sessionToken,
+					TestConstants.NEW_PROJECT_NAME, this.aCreatedProjectLeaderUserDTO);
 		} catch (ProjectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {
@@ -68,10 +68,10 @@ public abstract class ProjectServiceTest extends TestCase {
 		}
 	}
 
-	protected void createUserProyectLeader() {
+	protected void createUserProjectLeader() {
 		try {
 			// se crea un usuario para setear como lider del proyecto.
-			this.aCreatedProyectLeaderUserDTO = this.userService.createUser(this.sessionToken,
+			this.aCreatedProjectLeaderUserDTO = this.userService.createUser(this.sessionToken,
 					TestConstants.NEW_USER_NAME, "password1");
 		} catch (UserAlreadyExistsException e) {
 			fail("El usuario que se intenta crear ya existe.");
@@ -79,15 +79,15 @@ public abstract class ProjectServiceTest extends TestCase {
 	}
 
 	@SuppressWarnings("deprecation")
-	protected void deleteCreatedUserProyectLeader() throws UnknownUserException, DTOConcurrencyException {
+	protected void deleteCreatedUserProjectLeader() throws UnknownUserException, DTOConcurrencyException {
 		// Se eliminan los usuarios creados, hay que dejar la base como estaba.
-		UserDTO anUserDTOToRemove = this.userService.getUser(this.sessionToken, this.aCreatedProyectLeaderUserDTO);
+		UserDTO anUserDTOToRemove = this.userService.getUser(this.sessionToken, this.aCreatedProjectLeaderUserDTO);
 		this.userService.removeUser(this.sessionToken, anUserDTOToRemove);
 	}
 
-	protected void deleteCreatedProyect() throws UnknownProjectException, DTOConcurrencyException {
-		ProjectDTO aProyectDTOToRemove = this.proyectService.getProyect(this.sessionToken, this.aCreatedProyectDTO);
+	protected void deleteCreatedProject() throws UnknownProjectException, DTOConcurrencyException {
+		ProjectDTO aProjectDTOToRemove = this.projectService.getProject(this.sessionToken, this.aCreatedProjectDTO);
 		// Se elimina el proyecto para dejar la base como estaba.
-		this.proyectService.removeProyect(this.sessionToken, aProyectDTOToRemove);
+		this.projectService.removeProject(this.sessionToken, aProjectDTOToRemove);
 	}
 }

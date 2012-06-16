@@ -16,8 +16,8 @@ public class ProjectDTOFactory extends DTOFactory {
 	}
 
 	@Override
-	public AbstractDTO getDTO(BaseDomain aProyect) {
-		return new ProjectDTO((Project) aProyect);
+	public AbstractDTO getDTO(BaseDomain aProject) {
+		return new ProjectDTO((Project) aProject);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class ProjectDTOFactory extends DTOFactory {
 	}
 
 	@Override
-	protected AbstractDTOForLists getDTOForListInstance(AbstractDTO aProyectDTO) {
-		return new ProjectDTOForLists((ProjectDTO) aProyectDTO);
+	protected AbstractDTOForLists getDTOForListInstance(AbstractDTO aProjectDTO) {
+		return new ProjectDTOForLists((ProjectDTO) aProjectDTO);
 	}
 }

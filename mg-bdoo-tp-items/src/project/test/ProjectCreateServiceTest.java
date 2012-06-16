@@ -17,29 +17,29 @@ public class ProjectCreateServiceTest extends ProjectServiceTest {
 	public void setUp() throws Exception {
 
 		super.setUp();
-		this.createUserProyectLeader();
+		this.createUserProjectLeader();
 	}
 
 	@Override
 	@After
 	public void tearDown() throws Exception {
 		// ojo que no se puede eliminar primero el usuario!
-		this.deleteCreatedProyect();
-		this.deleteCreatedUserProyectLeader();
+		this.deleteCreatedProject();
+		this.deleteCreatedUserProjectLeader();
 	}
 
-	public void testCreateProyect() {
-		this.aCreatedProyectDTO = null;
+	public void testCreateProject() {
+		this.aCreatedProjectDTO = null;
 		try {
-			this.aCreatedProyectDTO = this.proyectService.createProyect(this.sessionToken,
-					TestConstants.NEW_PROYECT_NAME, this.aCreatedProyectLeaderUserDTO);
+			this.aCreatedProjectDTO = this.projectService.createProject(this.sessionToken,
+					TestConstants.NEW_PROJECT_NAME, this.aCreatedProjectLeaderUserDTO);
 		} catch (ProjectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {
 			fail("El usuario que se intenta asignar como lider no existe.");
 		}
-		assertNotNull(this.aCreatedProyectDTO);
-		assertEquals(TestConstants.NEW_PROYECT_NAME, this.aCreatedProyectDTO.getName());
-		assertEquals(this.aCreatedProyectLeaderUserDTO.getUserName(), this.aCreatedProyectDTO.getLeader().getUserName());
+		assertNotNull(this.aCreatedProjectDTO);
+		assertEquals(TestConstants.NEW_PROJECT_NAME, this.aCreatedProjectDTO.getName());
+		assertEquals(this.aCreatedProjectLeaderUserDTO.getUserName(), this.aCreatedProjectDTO.getLeader().getUserName());
 	}
 }

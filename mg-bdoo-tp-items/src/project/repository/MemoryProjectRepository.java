@@ -7,18 +7,18 @@ import project.exception.UnknownProjectException;
 public class MemoryProjectRepository implements ProjectRepositoryBI {
 
 	@Override
-	public Project getProyectByName(String anUserName) throws UnknownProjectException {
+	public Project getProjectByName(String anUserName) throws UnknownProjectException {
 		return null;
 	}
 
 	@Override
-	public Project getProyectByOid(String oid) throws UnknownProjectException {
+	public Project getProjectByOid(String oid) throws UnknownProjectException {
 		return null;
 	}
 
 	@Override
-	public Project getProyectByDTO(ProjectDTO aProyectDTO) throws UnknownProjectException {
-		return this.getProyectByOid(aProyectDTO.getOid());
+	public Project getProjectByDTO(ProjectDTO aProjectDTO) throws UnknownProjectException {
+		return this.getProjectByOid(aProjectDTO.getOid());
 	}
 
 }

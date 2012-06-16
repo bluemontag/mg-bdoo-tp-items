@@ -35,7 +35,7 @@ public class TeamUpdateServiceTest extends TeamServiceTest {
 	@After
 	public void tearDown() throws Exception {
 		this.deleteCreatedTeam();
-		this.deleteUsersSettedOnAProyect();
+		this.deleteUsersSettedOnAProject();
 	}
 
 	public void testCreateTeam() {
@@ -69,7 +69,7 @@ public class TeamUpdateServiceTest extends TeamServiceTest {
 	}
 
 	@SuppressWarnings("deprecation")
-	protected void deleteUsersSettedOnAProyect() {
+	protected void deleteUsersSettedOnAProject() {
 		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aUserDTOToRemove;
 			try {

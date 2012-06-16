@@ -21,16 +21,16 @@ import base.test.TestConstants;
  */
 public class ProjectUpdateServiceTest extends ProjectServiceTest {
 
-	private final Collection<UserDTO> usuariosAAsignarAProyecto = new HashSet<UserDTO>();
+	private final Collection<UserDTO> usuariosAAsignarAProjecto = new HashSet<UserDTO>();
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 
 		super.setUp();
-		this.createUserProyectLeader();
-		this.createProyect();
-		this.createUsersToSetToAProyect();
+		this.createUserProjectLeader();
+		this.createProject();
+		this.createUsersToSetToAProject();
 	}
 
 	@Override
@@ -39,18 +39,18 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 		// ojo que no se puede eliminar primero el usuario!
 		// no es necesario eliminar la relacion usuarios-proyecto, se eliminana
 		// en cascada.
-		this.deleteCreatedProyect();
-		this.deleteCreatedUserProyectLeader();
-		this.deleteUsersSettedOnAProyect();
+		this.deleteCreatedProject();
+		this.deleteCreatedUserProjectLeader();
+		this.deleteUsersSettedOnAProject();
 	}
 
-	protected void createUsersToSetToAProyect() {
+	protected void createUsersToSetToAProject() {
 		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aCreatedUserDTO;
 			try {
 				aCreatedUserDTO = this.userService.createUser(this.sessionToken,
 						TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i, " no importa");
-				usuariosAAsignarAProyecto.add(aCreatedUserDTO);
+				usuariosAAsignarAProjecto.add(aCreatedUserDTO);
 			} catch (UserAlreadyExistsException e) {
 				fail("El usuario que se intenta crear " + (TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i)
 						+ " ya existe.");
@@ -59,7 +59,7 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 	}
 
 	@SuppressWarnings("deprecation")
-	protected void deleteUsersSettedOnAProyect() {
+	protected void deleteUsersSettedOnAProject() {
 		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aUserDTOToRemove;
 			try {
@@ -75,11 +75,11 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 	}
 
 	@Test
-	public void testUpdateProyect() {
-		this.aCreatedProyectDTO.setUsers(usuariosAAsignarAProyecto);
-		this.aCreatedProyectDTO.setName(TestConstants.UPDATED_PROYECT_NAME);
+	public void testUpdateProject() {
+		this.aCreatedProjectDTO.setUsers(usuariosAAsignarAProjecto);
+		this.aCreatedProjectDTO.setName(TestConstants.UPDATED_PROJECT_NAME);
 		try {
-			this.proyectService.updateProyect(this.sessionToken, this.aCreatedProyectDTO);
+			this.projectService.updateProject(this.sessionToken, this.aCreatedProjectDTO);
 		} catch (UnknownProjectException e) {
 			fail("El proyecto que se quiere modificar no existe.");
 		} catch (DTOConcurrencyException e) {
@@ -87,27 +87,27 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 		} catch (UnknownUserException e) {
 			fail("Alguno de los usuarios no existe.");
 		}
-		this.assertsOnUpdateProyectService();
+		this.assertsOnUpdateProjectService();
 	}
 
-	private void assertsOnUpdateProyectService() {
+	private void assertsOnUpdateProjectService() {
 
-		ProjectDTO anUpdatedProyectDTO = null;
+		ProjectDTO anUpdatedProjectDTO = null;
 
 		try {
-			anUpdatedProyectDTO = this.proyectService.getProyect(this.sessionToken, this.aCreatedProyectDTO);
+			anUpdatedProjectDTO = this.projectService.getProject(this.sessionToken, this.aCreatedProjectDTO);
 		} catch (UnknownProjectException e) {
 			fail("No deberia pasar esto!");
 		}
 
-		assertEquals(this.aCreatedProyectDTO.getName(), anUpdatedProyectDTO.getName());
-		assertNotSame(this.aCreatedProyectDTO.getVersion(), anUpdatedProyectDTO.getVersion());
+		assertEquals(this.aCreatedProjectDTO.getName(), anUpdatedProjectDTO.getName());
+		assertNotSame(this.aCreatedProjectDTO.getVersion(), anUpdatedProjectDTO.getVersion());
 
 		boolean existe = false;
-		for (UserDTOForLists userDTOForList : this.aCreatedProyectDTO.getUsers()) {
+		for (UserDTOForLists userDTOForList : this.aCreatedProjectDTO.getUsers()) {
 			existe = false;
-			for (UserDTOForLists userDTOForListOnUpdateProyect : anUpdatedProyectDTO.getUsers()) {
-				if (userDTOForList.equals(userDTOForListOnUpdateProyect)) {
+			for (UserDTOForLists userDTOForListOnUpdateProject : anUpdatedProjectDTO.getUsers()) {
+				if (userDTOForList.equals(userDTOForListOnUpdateProject)) {
 					existe = true;
 					break;
 				}

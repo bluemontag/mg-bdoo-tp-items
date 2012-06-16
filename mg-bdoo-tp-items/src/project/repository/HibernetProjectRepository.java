@@ -15,32 +15,32 @@ public class HibernetProjectRepository extends HibernateBaseRepository implement
 	}
 
 	@Override
-	public Project getProyectByOid(String anId) throws UnknownProjectException {
-		Project aProyect = (Project) this.findeByOid(this.getEntityClass(), anId);
-		if (aProyect == null) {
-			throw new UnknownProjectException("El proyecto no existe.");
+	public Project getProjectByOid(String anId) throws UnknownProjectException {
+		Project aProject = (Project) this.findeByOid(this.getEntityClass(), anId);
+		if (aProject == null) {
+			throw new UnknownProjectException("El projecto no existe.");
 		}
-		return aProyect;
+		return aProject;
 	}
 
 	@Override
-	public Project getProyectByName(String aProyectName) throws UnknownProjectException {
+	public Project getProjectByName(String aProjectName) throws UnknownProjectException {
 
-		Project proyect = null;
+		Project project = null;
 		try {
-			proyect = (Project) this.getEntityByUniqueField("getProyectByName", "aProyectName", aProyectName);
+			project = (Project) this.getEntityByUniqueField("getProjectByName", "aProjectName", aProjectName);
 		} catch (BaseException e) {
 			// TODO ver que hacer!!
 		}
-		if (proyect == null) {
-			throw new UnknownProjectException("El proyecto " + aProyectName + " no existe.");
+		if (project == null) {
+			throw new UnknownProjectException("El projecto " + aProjectName + " no existe.");
 		}
-		return proyect;
+		return project;
 	}
 
 	@Override
-	public Project getProyectByDTO(ProjectDTO aProyectDTO) throws UnknownProjectException {
-		return this.getProyectByOid(aProyectDTO.getOid());
+	public Project getProjectByDTO(ProjectDTO aProjectDTO) throws UnknownProjectException {
+		return this.getProjectByOid(aProjectDTO.getOid());
 	}
 
 }

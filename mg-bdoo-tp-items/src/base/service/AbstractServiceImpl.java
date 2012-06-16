@@ -35,8 +35,8 @@ public class AbstractServiceImpl {
 		return this.getRepositoryFinder().getUserRepository();
 	}
 
-	public ProjectRepositoryBI getProyectRespository() {
-		return this.getRepositoryFinder().getProyectRepository();
+	public ProjectRepositoryBI getProjectRespository() {
+		return this.getRepositoryFinder().getProjectRepository();
 	}
 
 	public TeamRepositoryBI getTeamRespository() {

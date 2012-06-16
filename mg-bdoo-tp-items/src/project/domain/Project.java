@@ -19,9 +19,9 @@ public class Project extends BaseDomain {
 		// Si no esta este contructor, hibernate no funciona.
 	}
 
-	public Project(String aProyectName, User aProyectLeader) {
-		this.name = aProyectName;
-		this.leader = aProyectLeader;
+	public Project(String aProjectName, User aProjectLeader) {
+		this.name = aProjectName;
+		this.leader = aProjectLeader;
 	}
 
 	public String getName() {

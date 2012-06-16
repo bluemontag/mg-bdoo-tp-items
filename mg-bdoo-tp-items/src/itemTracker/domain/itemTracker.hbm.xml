@@ -17,7 +17,7 @@
 		
 		<set name="projects" table="PROJECT" cascade="all-delete-orphan" >
 			<key column="oid_item_tracker" not-null="true"/>
-			<one-to-many class="project.domain.Proyect" />
+			<one-to-many class="project.domain.Project" />
 		</set>
 		
 		<set name="team" table="TEAM" cascade="all-delete-orphan">

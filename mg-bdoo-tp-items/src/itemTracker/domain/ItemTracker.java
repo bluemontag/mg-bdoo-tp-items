@@ -59,8 +59,8 @@ public class ItemTracker extends BaseDomain {
 		return projects;
 	}
 
-	public void addProyect(Project aProyect) {
-		this.projects.add(aProyect);
+	public void addProject(Project aProject) {
+		this.projects.add(aProject);
 	}
 
 	public void logicalRemoveUser(User anUser) {
@@ -76,16 +76,16 @@ public class ItemTracker extends BaseDomain {
 		}
 	}
 
-	public void logicalRemoveProyect(Project aProyect) {
-		aProyect.setRemoved(true);
+	public void logicalRemoveProject(Project aProject) {
+		aProject.setRemoved(true);
 	}
 
-	// Los proyectos tiene eliminacion fisica.
-	public void removeProyect(Project aProyect) throws UnknownProjectException {
+	// Los projectos tiene eliminacion fisica.
+	public void removeProject(Project aProject) throws UnknownProjectException {
 
-		boolean removed = this.projects.remove(aProyect);
+		boolean removed = this.projects.remove(aProject);
 		if (!removed) {
-			throw new UnknownProjectException("El proyecto que desea eliminar no existe.");
+			throw new UnknownProjectException("El projecto que desea eliminar no existe.");
 		}
 	}
 

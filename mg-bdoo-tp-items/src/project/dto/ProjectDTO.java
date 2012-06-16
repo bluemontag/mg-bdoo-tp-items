@@ -18,12 +18,12 @@ public class ProjectDTO extends AbstractDTO {
 	private Collection<UserDTOForLists> users = new HashSet<UserDTOForLists>();
 
 	@SuppressWarnings("unchecked")
-	public ProjectDTO(Project aProyect) {
-		super(aProyect);
-		this.name = aProyect.getName();
-		this.creationDate = aProyect.getCreationDate();
-		this.leader = (UserDTO) UserDTOFactory.getInstance().getDTO(aProyect.getLeader());
-		this.users = (Collection<UserDTOForLists>) UserDTOFactory.getInstance().getDTOList(aProyect.getUsers());
+	public ProjectDTO(Project aProject) {
+		super(aProject);
+		this.name = aProject.getName();
+		this.creationDate = aProject.getCreationDate();
+		this.leader = (UserDTO) UserDTOFactory.getInstance().getDTO(aProject.getLeader());
+		this.users = (Collection<UserDTOForLists>) UserDTOFactory.getInstance().getDTOList(aProject.getUsers());
 	}
 
 	public String getName() {

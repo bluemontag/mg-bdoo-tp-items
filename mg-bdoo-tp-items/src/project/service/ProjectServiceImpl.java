@@ -22,65 +22,65 @@ import base.service.AbstractServiceImpl;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class ProjectServiceImpl extends AbstractServiceImpl implements ProyectServiceBI {
+public class ProjectServiceImpl extends AbstractServiceImpl implements ProjectServiceBI {
 
 	@Override
-	public ProjectDTO createProyect(String sessionToken, String aProyectName, UserDTO aProyectLeaderUserDTO)
+	public ProjectDTO createProject(String sessionToken, String aProjectName, UserDTO aProjectLeaderUserDTO)
 			throws ProjectAlreadyExistsException, UnknownUserException {
 
 		try {
-			this.getProyectRespository().getProyectByName(aProyectName);
+			this.getProjectRespository().getProjectByName(aProjectName);
 
-		} catch (UnknownProjectException unknownProyectException) {
+		} catch (UnknownProjectException unknownProjectException) {
 			ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
 
-			User aProyectLeaderUser = this.getUserRespository().getUserByDTO(aProyectLeaderUserDTO);
-			Project aProject = new Project(aProyectName, aProyectLeaderUser);
-			theItemTracker.addProyect(aProject);
+			User aProjectLeaderUser = this.getUserRespository().getUserByDTO(aProjectLeaderUserDTO);
+			Project aProject = new Project(aProjectName, aProjectLeaderUser);
+			theItemTracker.addProject(aProject);
 
-			ProjectDTO proyectDTO = (ProjectDTO) ProjectDTOFactory.getInstance().getDTO(aProject);
-			return proyectDTO;
+			ProjectDTO projectDTO = (ProjectDTO) ProjectDTOFactory.getInstance().getDTO(aProject);
+			return projectDTO;
 		}
-		throw new ProjectAlreadyExistsException("El proyecto " + aProyectName + " ya existe.");
+		throw new ProjectAlreadyExistsException("El proyecto " + aProjectName + " ya existe.");
 	}
 
 	@Override
-	public ProjectDTO getProyect(String sessionToken, ProjectDTO aProyectDTO) throws UnknownProjectException {
-		Project aProyect = this.getProyectRespository().getProyectByDTO(aProyectDTO);
-		return (ProjectDTO) ProjectDTOFactory.getInstance().getDTO(aProyect);
+	public ProjectDTO getProject(String sessionToken, ProjectDTO aProjectDTO) throws UnknownProjectException {
+		Project aProject = this.getProjectRespository().getProjectByDTO(aProjectDTO);
+		return (ProjectDTO) ProjectDTOFactory.getInstance().getDTO(aProject);
 	}
 
 	@Override
-	public void addUsersToProyect(String sessionToken, ProjectDTO aProyectDTO, Collection<UserDTOForLists> usersDTOs)
+	public void addUsersToProject(String sessionToken, ProjectDTO aProjectDTO, Collection<UserDTOForLists> usersDTOs)
 			throws UnknownProjectException, UnknownUserException, DTOConcurrencyException {
 
-		Project aProyect = this.getProyectRespository().getProyectByDTO(aProyectDTO);
+		Project aProject = this.getProjectRespository().getProjectByDTO(aProjectDTO);
 		Collection<User> users = this.getUserRespository().getUsersByDTOsList(usersDTOs);
-		this.checkDTOConcurrency(aProyectDTO, aProyect);
-		aProyect.addUsers(users);
+		this.checkDTOConcurrency(aProjectDTO, aProject);
+		aProject.addUsers(users);
 	}
 
 	@Override
-	public void removeProyect(String sessionToken, ProjectDTO aProyectDTOToRemove) throws UnknownProjectException,
+	public void removeProject(String sessionToken, ProjectDTO aProjectDTOToRemove) throws UnknownProjectException,
 			DTOConcurrencyException {
 
 		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		Project aProyectToRemove = this.getProyectRespository().getProyectByDTO(aProyectDTOToRemove);
-		this.checkDTOConcurrency(aProyectDTOToRemove, aProyectToRemove);
-		theItemTracker.removeProyect(aProyectToRemove);
+		Project aProjectToRemove = this.getProjectRespository().getProjectByDTO(aProjectDTOToRemove);
+		this.checkDTOConcurrency(aProjectDTOToRemove, aProjectToRemove);
+		theItemTracker.removeProject(aProjectToRemove);
 	}
 
 	@Override
-	public void updateProyect(String sessionToken, ProjectDTO aProyectDTOToUpdate) throws UnknownProjectException,
+	public void updateProject(String sessionToken, ProjectDTO aProjectDTOToUpdate) throws UnknownProjectException,
 			DTOConcurrencyException, UnknownUserException {
 
-		Project aProyectToUpdate = this.getProyectRespository().getProyectByDTO(aProyectDTOToUpdate);
-		this.checkDTOConcurrency(aProyectDTOToUpdate, aProyectToUpdate);
-		Collection<User> users = this.getUserRespository().getUsersByDTOsList(aProyectDTOToUpdate.getUsers());
-		User userPoyectLeader = this.getUserRespository().getUserByDTO(aProyectDTOToUpdate.getLeader());
-		aProyectToUpdate.updateUsers(users);
-		aProyectToUpdate.setName(aProyectDTOToUpdate.getName());
-		aProyectToUpdate.setLeader(userPoyectLeader);
+		Project aProjectToUpdate = this.getProjectRespository().getProjectByDTO(aProjectDTOToUpdate);
+		this.checkDTOConcurrency(aProjectDTOToUpdate, aProjectToUpdate);
+		Collection<User> users = this.getUserRespository().getUsersByDTOsList(aProjectDTOToUpdate.getUsers());
+		User userPojectLeader = this.getUserRespository().getUserByDTO(aProjectDTOToUpdate.getLeader());
+		aProjectToUpdate.updateUsers(users);
+		aProjectToUpdate.setName(aProjectDTOToUpdate.getName());
+		aProjectToUpdate.setLeader(userPojectLeader);
 
 	}
 }
