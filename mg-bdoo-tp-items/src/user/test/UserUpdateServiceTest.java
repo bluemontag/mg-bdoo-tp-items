@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import user.dto.UserDTO;
 import user.exception.UnknownUserException;
-import user.exception.UserAlreadyExistsException;
 import base.exception.DTOConcurrencyException;
 import base.test.TestConstants;
 
@@ -18,36 +17,23 @@ import base.test.TestConstants;
  */
 public class UserUpdateServiceTest extends UserServiceTest {
 
-	protected UserDTO aCreatedUserDTO;
-
 	@Override
 	@Before
 	public void setUp() throws Exception {
-
 		super.setUp();
-		// se crea un usuario para probar el update comun.
-		try {
-			this.aCreatedUserDTO = this.userService.createUser(this.sessionToken, "userUpdateTest", "password1");
-		} catch (UserAlreadyExistsException e) {
-			fail("El usuario que se intenta crear ya existe.");
-		}
+		this.createUser();
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	@After
 	public void tearDown() throws Exception {
-		// Se optienen de nuevo los usuarios porque se modificaron..
-		UserDTO anUserDTOToRemove = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
-
-		// Se eliminan los usuarios creados, hay que dejar la base como estaba.
-		this.userService.removeUser(this.sessionToken, anUserDTOToRemove);
+		this.deleteCreatedUser();
 	}
 
 	@Test
 	public void testUpdatePasswordUser() {
 		// se updetean los campos necearios para la prueba
-		this.aCreatedUserDTO.setPassword("password2");
+		this.aCreatedUserDTO.setPassword("updatedPassword");
 
 		// Se updatea el usuario
 		try {
@@ -57,7 +43,10 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		} catch (DTOConcurrencyException e) {
 			fail("El usuario que se intenta editar fue modificado por otro usuario, no puede pasar en este test.");
 		}
+		assertUpdateTest();
+	}
 
+	private void assertUpdateTest() {
 		// Se recupera el usuario y se compara el valor que se intento guardar
 		// con el recuperado.
 		UserDTO aRetrivedUserDTO = null;
@@ -74,7 +63,10 @@ public class UserUpdateServiceTest extends UserServiceTest {
 	@Test
 	public void testUserUpdateMassiveConcurrencyTest() {
 
+		// Se completa con todos los threads que se ejecutan y se van
+		// desencolando cuando terminan.
 		Stack<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsStackNotFinisehd = new Stack<UserUpdateConcurrencyTest>();
+
 		HashSet<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsSetForCheckConcurrency = new HashSet<UserUpdateConcurrencyTest>();
 		UserDTO userDTOForMassiveTestAux = null;
 
@@ -123,70 +115,5 @@ public class UserUpdateServiceTest extends UserServiceTest {
 
 		// El test no falla si hubo error de concurrencia de hibernate.
 		assertTrue(errorDeConcurrencia);
-	}
-
-	@Test
-	// Si se configura el servicio update con una determinada secuencia, se
-	// puede establecer que usuario se guardo.
-	// sin embargo hay que meterse en el servicio y queda feo. Por ahora esto no
-	// se usa.
-	public void porAhoraNoSeUsatestUserUpdateControledConcurrencyTest() {
-
-		// Obtengo 3 veces el mismo usuario, no alcanza con usar el mismo DTO
-		// porque se necesitan 3 DTOs diferentes para sumular 3 operaciones
-		// simultaneas.
-		UserDTO userDTOForPepeTest = null;
-		UserDTO userDTOForFulanoTest = null;
-		UserDTO userDTOForMenganoTest = null;
-		try {
-			userDTOForPepeTest = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
-			userDTOForFulanoTest = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
-			userDTOForMenganoTest = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
-		} catch (UnknownUserException e) {
-			fail("El usuario que se intenta editar no existe.");
-		}
-
-		// modificamos los DTOs obtenidos.
-		userDTOForPepeTest.setPassword("password_pepe");
-		userDTOForFulanoTest.setPassword("password_fulano");
-		userDTOForMenganoTest.setPassword("password_mengano");
-
-		// los hilos de ejecucion que simulan las operaciones.
-		UserUpdateConcurrencyTest userUpdateConcurrencyTestPepe = new UserUpdateConcurrencyTest(this.sessionToken,
-				this.userService, userDTOForPepeTest, "Transaccion PEPE");
-		UserUpdateConcurrencyTest userUpdateConcurrencyTestFulano = new UserUpdateConcurrencyTest(this.sessionToken,
-				this.userService, userDTOForFulanoTest, "Transaccion FULANO");
-		UserUpdateConcurrencyTest userUpdateConcurrencyTestMengano = new UserUpdateConcurrencyTest(this.sessionToken,
-				this.userService, userDTOForMenganoTest, "Transaccion MENGANO");
-
-		userUpdateConcurrencyTestPepe.start();
-		userUpdateConcurrencyTestFulano.start();
-		userUpdateConcurrencyTestMengano.start();
-
-		while (!userUpdateConcurrencyTestPepe.isThreadFinished() && !userUpdateConcurrencyTestFulano.isThreadFinished()
-				&& !userUpdateConcurrencyTestMengano.isThreadFinished()) {
-			try {
-				Thread.sleep(1000); // un segundo
-			} catch (InterruptedException e) {
-				fail("Error en la prueba concurrente");
-			}
-		}
-		// El test falla si no hubo error de concurrencia.
-		boolean errorDeConcurrencia = (userUpdateConcurrencyTestPepe.isConcurrencyError()
-				|| userUpdateConcurrencyTestFulano.isConcurrencyError() || userUpdateConcurrencyTestMengano
-				.isConcurrencyError());
-
-		// Se recupera el usuario y se compara el valor que se intento guardar
-		// con el recuperado.
-		UserDTO aRetrivedUserDTO = null;
-		try {
-			aRetrivedUserDTO = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
-		} catch (UnknownUserException e) {
-			fail("El usuario que edito no se puede recuperar, no puede pasar en este test.");
-		}
-		assertTrue(errorDeConcurrencia);
-		// el valor updatiado y el valor recuperado deben ser iguales.
-		assertEquals(userDTOForMenganoTest.getPassword(), aRetrivedUserDTO.getPassword());
-
 	}
 }

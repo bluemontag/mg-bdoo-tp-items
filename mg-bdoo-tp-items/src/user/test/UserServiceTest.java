@@ -1,6 +1,5 @@
 package user.test;
 
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -17,10 +16,5 @@ public abstract class UserServiceTest extends BaseTestCase {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Override
-	@After
-	public void tearDown() throws Exception {
 	}
 }
