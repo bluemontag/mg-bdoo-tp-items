@@ -4,19 +4,15 @@
 package item.domain;
 
 import java.util.Date;
-
-import user.domain.User;
-import workflow.domain.state.domain.ItemState;
 import base.domain.BaseDomain;
 
 /**
- * @author igallego
+ * @author igallego ignaciogallego@gmail.com
  *
  */
 public class HistoricItem extends BaseDomain {
 
 	private String typeName;
-	
 	private Long itemNum;
 	private String stateName;
 	private String responsibleUserName;

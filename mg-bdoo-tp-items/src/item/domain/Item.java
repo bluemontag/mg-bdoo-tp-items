@@ -4,14 +4,13 @@
 package item.domain;
 
 import java.util.Date;
-
 import user.domain.User;
 import workflow.domain.state.domain.ItemState;
 import workflow.domain.transition.domain.Transition;
 import base.domain.BaseDomain;
 
 /**
- * @author igallego
+ * @author igallego ignaciogallego@gmail.com
  *
  */
 public class Item extends BaseDomain {
@@ -24,6 +23,10 @@ public class Item extends BaseDomain {
 	private User responsible; //(se escribe asi "responsible")
 	
 
+	public Item(Long itemNum, String typeName) {
+		this(itemNum, "", 1, new ItemType(typeName, null, null));
+	}
+	
 	public Item(Long itemNum, String description, Integer priority, ItemType type) {
 		this.itemNum = itemNum; 
 		this.description = description;
