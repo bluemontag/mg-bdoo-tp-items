@@ -4,6 +4,9 @@ import java.util.HashMap;
 
 import user.dto.UserDTO;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ItemTrackerSession {
 
 	private final HashMap<String, UserDTO> loggedUsersDTOs = new HashMap<String, UserDTO>();

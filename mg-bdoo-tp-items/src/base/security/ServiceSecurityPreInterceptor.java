@@ -5,6 +5,9 @@ import org.aopalliance.intercept.MethodInvocation;
 
 import base.exception.UserNotLoggedException;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class ServiceSecurityPreInterceptor implements MethodInterceptor {
 
 	@Override

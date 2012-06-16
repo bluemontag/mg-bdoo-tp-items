@@ -1,10 +1,13 @@
 package base.dto;
 
-import java.util.HashSet;
 import java.util.Collection;
+import java.util.HashSet;
 
 import base.domain.BaseDomain;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public abstract class DTOFactory {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

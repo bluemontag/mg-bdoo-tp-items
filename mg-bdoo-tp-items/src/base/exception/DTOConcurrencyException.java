@@ -1,5 +1,8 @@
 package base.exception;
 
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class DTOConcurrencyException extends BaseException {
 
 	public DTOConcurrencyException(String msj) {
