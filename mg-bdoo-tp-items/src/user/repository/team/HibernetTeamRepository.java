@@ -20,7 +20,7 @@ public class HibernetTeamRepository extends HibernateBaseRepository implements T
 	public Team getTeamByOid(String anId) throws UnknownTeamException {
 		Team aTeam = (Team) this.findeByOid(this.getEntityClass(), anId);
 		if (aTeam == null) {
-			throw new UnknownTeamException("El proyecto no existe.");
+			throw new UnknownTeamException("El equipo no existe.");
 		}
 		return aTeam;
 	}
