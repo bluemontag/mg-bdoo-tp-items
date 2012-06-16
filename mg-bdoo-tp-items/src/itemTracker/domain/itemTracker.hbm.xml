@@ -20,7 +20,7 @@
 			<one-to-many class="project.domain.Project" />
 		</set>
 		
-		<set name="team" table="TEAM" cascade="all-delete-orphan">
+		<set name="teams" table="TEAM" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="user.domain.team.Team" />
 		</set>
