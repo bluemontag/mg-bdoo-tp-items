@@ -9,7 +9,7 @@ public class TestConstants {
 	public static final String ADMIN_PASSWORD = "rodrigo";
 
 	public final static String NEW_PROJECT_NAME = "A project name";
-	public final static String NEW_USER_NAME = "userProjectLeaderTest";
+	public final static String NEW_USER_NAME = "new_User";
 
 	public final static int MASSIVE_AMOUNT = 50;
 
