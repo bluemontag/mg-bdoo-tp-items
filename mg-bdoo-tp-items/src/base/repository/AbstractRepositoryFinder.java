@@ -1,7 +1,7 @@
 package base.repository;
 
 import itemTracker.repository.ItemTrackerRepositoryBI;
-import proyect.repository.ProyectRepositoryBI;
+import project.repository.ProjectRepositoryBI;
 import user.repository.UserRepositoryBI;
 import user.repository.team.TeamRepositoryBI;
 import workflow.repository.WorkflowRepositoryBI;
@@ -13,7 +13,7 @@ public abstract class AbstractRepositoryFinder {
 
 	private ItemTrackerRepositoryBI itemTrackerRepository;
 	private UserRepositoryBI userRepository;
-	private ProyectRepositoryBI proyectRepository;
+	private ProjectRepositoryBI proyectRepository;
 	private TeamRepositoryBI teamRepository;
 	private WorkflowRepositoryBI workflowRepository;
 
@@ -33,11 +33,11 @@ public abstract class AbstractRepositoryFinder {
 		this.userRepository = userRepository;
 	}
 
-	public ProyectRepositoryBI getProyectRepository() {
+	public ProjectRepositoryBI getProyectRepository() {
 		return this.proyectRepository;
 	}
 
-	public void setProyectRepository(ProyectRepositoryBI proyectRepository) {
+	public void setProyectRepository(ProjectRepositoryBI proyectRepository) {
 		this.proyectRepository = proyectRepository;
 	}
 

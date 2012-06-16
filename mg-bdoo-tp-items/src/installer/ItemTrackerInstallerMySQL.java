@@ -13,7 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import user.domain.User;
 import user.exception.UnknownUserException;
-import base.contant.BaseContants;
+import base.contant.BaseConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -50,7 +50,7 @@ public class ItemTrackerInstallerMySQL {
 
 		Session session = sessionFactory.openSession();
 		ItemTracker itemTracker = new ItemTracker();
-		User theAdminUser = new User(BaseContants.DEFAULT_ADMIN_USER_NAME, BaseContants.DEFAULT_ADMIN_PASSWORD);
+		User theAdminUser = new User(BaseConstants.DEFAULT_ADMIN_USER_NAME, BaseConstants.DEFAULT_ADMIN_PASSWORD);
 		itemTracker.addUser(theAdminUser);
 
 		session.getTransaction().begin();
@@ -62,7 +62,7 @@ public class ItemTrackerInstallerMySQL {
 	}
 
 	private static void cargarContexto() {
-		String[] contextPaths = new String[] { BaseContants.CONTEXT_FILE };
+		String[] contextPaths = new String[] { BaseConstants.CONTEXT_FILE };
 		new ClassPathXmlApplicationContext(contextPaths);
 	}
 

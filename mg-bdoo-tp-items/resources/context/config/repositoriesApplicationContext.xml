@@ -13,8 +13,8 @@
 		<property name="userRepository">
 			<ref bean="memoryUserRepository"/>
 		</property>
-		<property name="proyectRepository">
-			<ref bean="memoryProyectRepository"/>
+		<property name="projectRepository">
+			<ref bean="memoryProjectRepository"/>
 		</property>
 		<property name="teamRepository">
 			<ref bean="memoryTeamRepository"/>
@@ -31,8 +31,8 @@
 		<property name="userRepository">
 			<ref bean="hibernateUserRepository"/>
 		</property>
-		<property name="proyectRepository">
-			<ref bean="hibernateProyectRepository"/>
+		<property name="projectRepository">
+			<ref bean="hibernateProjectRepository"/>
 		</property>
 		<property name="teamRepository">
 			<ref bean="hibernateTeamRepository"/>
@@ -57,7 +57,7 @@
 		</property>
 	</bean>
 	
-	<bean id="hibernateProyectRepository" class="proyect.repository.HibernetProyectRepository">
+	<bean id="hibernateProjectRepository" class="project.repository.HibernetProjectRepository">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -81,7 +81,7 @@
 
 	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/>
 	<bean id="memoryUserRepository" class="user.repository.MemoryUserRepository"/>
-	<bean id="memoryProyectRepository" class="proyect.repository.MemoryProyectRepository"/>
+	<bean id="memoryProjectRepository" class="project.repository.MemoryProjectRepository"/>
 	<bean id="memoryTeamRepository" class="user.repository.team.MemoryTeamRepository"/>
 	<bean id="memoryWorkflowRepository" class="workflow.repository.MemoryWorkflowRepository"/>
 	

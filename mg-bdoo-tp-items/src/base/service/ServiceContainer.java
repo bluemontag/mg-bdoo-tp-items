@@ -1,7 +1,7 @@
 package base.service;
 
 import itemTracker.service.ItemTrackerServiceBI;
-import proyect.service.ProyectServiceBI;
+import project.service.ProyectServiceBI;
 import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
 

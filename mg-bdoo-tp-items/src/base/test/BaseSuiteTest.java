@@ -5,10 +5,10 @@ import junit.framework.TestSuite;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import proyect.test.ProyectCreateServiceTest;
-import proyect.test.ProyectUpdateServiceTest;
+import project.test.ProjectCreateServiceTest;
+import project.test.ProjectUpdateServiceTest;
 import user.test.UserUpdateServiceTest;
-import base.contant.BaseContants;
+import base.contant.BaseConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -27,14 +27,14 @@ public abstract class BaseSuiteTest {
 	}
 
 	private static void loadApplicationContext() {
-		String[] contextPaths = new String[] { BaseContants.CONTEXT_FILE };
+		String[] contextPaths = new String[] { BaseConstants.CONTEXT_FILE };
 		new ClassPathXmlApplicationContext(contextPaths);
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected static Class[] getTestsToPerform() {
-		Class[] testClasses = { UserUpdateServiceTest.class, ProyectCreateServiceTest.class,
-				ProyectUpdateServiceTest.class };
+		Class[] testClasses = { UserUpdateServiceTest.class, ProjectCreateServiceTest.class,
+				ProjectUpdateServiceTest.class };
 		return testClasses;
 	}
 

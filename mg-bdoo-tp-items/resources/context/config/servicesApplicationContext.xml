@@ -54,13 +54,13 @@
 
 	<!-- ==================== Servicio de Proyecto =================== -->
 
-	<bean id="proyectServiceTarget" class="proyect.service.ProyectServiceImpl"
+	<bean id="projectServiceTarget" class="project.service.ProjectServiceImpl"
 		parent="abstractServiceImpl">
 	</bean>
 
-	<bean id="proyectService"
+	<bean id="projectService"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="target" ref="proyectServiceTarget" />
+		<property name="target" ref="projectServiceTarget" />
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="transactionAttributes">
 			<props>
@@ -124,7 +124,7 @@
 		factory-method="getInstance">
 		<property name="userService" ref="userService" />
 		<property name="itemTrackerService" ref="itemTrackerService" />
-		<property name="proyectService" ref="proyectService" />
+		<property name="projectService" ref="projectService" />
 		<property name="teamService" ref="teamService" />
 		<property name="workflowService" ref="workflowService" />
 	</bean>
