@@ -18,7 +18,10 @@
 		</property>
 		<property name="teamRepository">
 			<ref bean="memoryTeamRepository"/>
-		</property>		
+		</property>
+		<property name="workflowRepository">
+			<ref bean="memoryWorkflowRepository"/>
+		</property>	
 	</bean>
 
 	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
@@ -33,6 +36,9 @@
 		</property>
 		<property name="teamRepository">
 			<ref bean="hibernateTeamRepository"/>
+		</property>
+		<property name="workflowRepository">
+			<ref bean="hibernateWorkflowRepository"/>
 		</property>		
 	</bean>
 
@@ -63,6 +69,11 @@
 		</property>
 	</bean>
 	
+	<bean id="hibernateWorkflowRepository" class="workflow.repository.HibernetWorkflowRepository">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
 	<!-- =====================================================
 		Repositorios para obtener datos desde memoria. 
@@ -72,5 +83,6 @@
 	<bean id="memoryUserRepository" class="user.repository.MemoryUserRepository"/>
 	<bean id="memoryProyectRepository" class="proyect.repository.MemoryProyectRepository"/>
 	<bean id="memoryTeamRepository" class="user.repository.team.MemoryTeamRepository"/>
+	<bean id="memoryWorkflowRepository" class="workflow.repository.MemoryWorkflowRepository"/>
 	
 </beans>
