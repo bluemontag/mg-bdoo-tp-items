@@ -1,7 +1,7 @@
 package itemTracker.repository;
 
-import base.repository.HibernateBaseRepository;
 import itemTracker.domain.ItemTracker;
+import base.repository.HibernateBaseRepository;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
