@@ -5,7 +5,6 @@ import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 
 import project.dto.ProjectDTO;
@@ -17,7 +16,6 @@ import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import user.service.UserServiceBI;
 import base.exception.DTOConcurrencyException;
-import base.service.ServiceContainer;
 import base.test.TestConstants;
 
 /**
@@ -39,16 +37,6 @@ public abstract class ProjectServiceTest extends TestCase {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Override
-	@Before
-	public void setUp() throws Exception {
-		this.itemTrackerService = ServiceContainer.getInstance().getItemTrackerService();
-		this.projectService = ServiceContainer.getInstance().getProjectService();
-		this.userService = ServiceContainer.getInstance().getUserService();
-		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
-				TestConstants.ADMIN_PASSWORD);
 	}
 
 	@Override

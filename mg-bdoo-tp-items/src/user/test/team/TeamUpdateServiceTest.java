@@ -25,10 +25,8 @@ public class TeamUpdateServiceTest extends TeamServiceTest {
 	@Override
 	@Before
 	public void setUp() throws Exception {
-
 		super.setUp();
 		this.createUsersToSetToATeam();
-
 	}
 
 	@Override

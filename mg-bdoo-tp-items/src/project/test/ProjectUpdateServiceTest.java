@@ -26,7 +26,6 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 	@Override
 	@Before
 	public void setUp() throws Exception {
-
 		super.setUp();
 		this.createUserProjectLeader();
 		this.createProject();
