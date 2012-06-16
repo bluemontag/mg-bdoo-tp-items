@@ -4,6 +4,7 @@ import itemTracker.service.ItemTrackerServiceBI;
 import project.service.ProjectServiceBI;
 import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
+import workflow.service.WorkflowServiceBI;
 
 public class ServiceContainer {
 
@@ -12,6 +13,7 @@ public class ServiceContainer {
 	private UserServiceBI userService;
 	private ProjectServiceBI projectService;
 	private TeamServiceBI teamService;
+	private WorkflowServiceBI workflowService;
 
 	/**
 	 * Método estático que permite acceder a la única instancia de esta clase.
@@ -55,5 +57,13 @@ public class ServiceContainer {
 
 	public void setTeamService(TeamServiceBI teamService) {
 		this.teamService = teamService;
+	}
+
+	public void setWorkflowService(WorkflowServiceBI workflowService) {
+		this.workflowService = workflowService;
+	}
+
+	public WorkflowServiceBI getWorkflowService() {
+		return workflowService;
 	}
 }
