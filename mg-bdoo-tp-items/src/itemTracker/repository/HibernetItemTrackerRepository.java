@@ -8,6 +8,7 @@ import base.repository.HibernateBaseRepository;
  */
 public class HibernetItemTrackerRepository extends HibernateBaseRepository implements ItemTrackerRepositoryBI{
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Class getEntityClass() {
 		return ItemTracker.class;
