@@ -1,5 +1,8 @@
 package project.domain;
 
+import item.domain.Item;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -17,6 +20,7 @@ public class Project extends BaseDomain {
 	private Date creationDate;
 	private User leader;
 	private Collection<User> users = new HashSet<User>();
+	private Collection<Item> items = new ArrayList<Item>();
 
 	public Project() {
 		// Si no esta este contructor, hibernate no funciona.
@@ -77,5 +81,19 @@ public class Project extends BaseDomain {
 	public void updateUsers(Collection<User> users) {
 		this.users.clear();
 		this.users.addAll(users);
+	}
+
+	/**
+	 * @return the items
+	 */
+	public Collection<Item> getItems() {
+		return items;
+	}
+
+	/**
+	 * @param items the items to set
+	 */
+	public void setItems(Collection<Item> items) {
+		this.items = items;
 	}
 }

@@ -3,7 +3,11 @@
  */
 package item.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 import user.domain.User;
 import workflow.domain.state.domain.ItemState;
 import workflow.domain.transition.domain.Transition;
@@ -21,6 +25,7 @@ public class Item extends BaseDomain {
 	private ItemState currentState;
 	private ItemType type;
 	private User responsible; //(se escribe asi "responsible")
+	private Collection<HistoricItem> history = new ArrayList<HistoricItem>();
 	
 
 	public Item(Long itemNum, String typeName) {
@@ -52,7 +57,8 @@ public class Item extends BaseDomain {
 		hi.setStateName(this.getCurrentState().getName());
 		hi.setTypeName(this.getType().getTypeName());
 		
-		//guardar en base aca???
+		//save in history
+		this.history.add(hi);
 		
 		return hi;
 		
@@ -150,6 +156,20 @@ public class Item extends BaseDomain {
 	 */
 	public void setResponsible(User responsible) {
 		this.responsible = responsible;
+	}
+
+	/**
+	 * @return the history
+	 */
+	public Collection<HistoricItem> getHistory() {
+		return history;
+	}
+
+	/**
+	 * @param history the history to set
+	 */
+	public void setHistory(List<HistoricItem> history) {
+		this.history = history;
 	}
 	
 }
