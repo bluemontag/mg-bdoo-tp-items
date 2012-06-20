@@ -5,32 +5,36 @@ import base.dto.AbstractDTO;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public abstract class BaseDomain implements IPersistentObject{
+public abstract class BaseDomain implements IPersistentObject {
 
 	// se genera un UUID para cada objeto del dominio.
-	protected String oid=OidGenerator.createId();
+	protected String oid = OidGenerator.createId();
 	protected Integer version;
-	
+
 	// se utiliza para saber si un objeto base fue eliminado.
 	// Solo lo utilizan objetos que puedan ser elminados logicamente.
 	private boolean removed = false;
-	
+
+	@Override
 	public void setOid(String anOid) {
 		this.oid = anOid;
 	}
 
+	@Override
 	public String getOid() {
 		return oid;
 	}
 
+	@Override
 	public void setVersion(Integer aVersion) {
 		this.version = aVersion;
 	}
 
+	@Override
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	public void setRemoved(boolean removed) {
 		this.removed = removed;
 	}
@@ -38,35 +42,41 @@ public abstract class BaseDomain implements IPersistentObject{
 	public boolean isRemoved() {
 		return removed;
 	}
-	
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null ||
-            !(obj instanceof IPersistentObject)) {
-            return false;
-        }
 
-        IPersistentObject other
-            = (IPersistentObject)obj;
-        
-        if (oid == null) return false;
-        return oid.equals(other.getOid());
-    }
-    
-    public boolean equalsToDTO(AbstractDTO aBaseDTO) {
-        return oid.equals(aBaseDTO.getOid());
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || !(this.isAPersistenObject(obj))) {
+			return false;
+		}
 
-    public int hashCode() {
-        if (oid != null) {
-            return oid.hashCode();
-        } else {
-            return super.hashCode();
-        }
-    }
+		IPersistentObject other = (IPersistentObject) obj;
 
-    public String toString() {
-        return this.getClass().getName()
-            + " [id=" + oid + "]";
-    }
+		if (oid == null)
+			return false;
+		return oid.equals(other.getOid());
+	}
+
+	private boolean isAPersistenObject(Object obj) {
+		return obj instanceof IPersistentObject;
+	}
+
+	public boolean equalsToDTO(AbstractDTO aBaseDTO) {
+		return oid.equals(aBaseDTO.getOid());
+	}
+
+	@Override
+	public int hashCode() {
+		if (oid != null) {
+			return oid.hashCode();
+		} else {
+			return super.hashCode();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getName() + " [id=" + oid + "]";
+	}
 }
