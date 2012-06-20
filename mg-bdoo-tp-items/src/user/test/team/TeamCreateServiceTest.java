@@ -13,7 +13,7 @@ import base.test.TestConstants;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class TeamUpdateServiceTest extends TeamServiceTest {
+public class TeamCreateServiceTest extends TeamServiceTest {
 
 	protected TeamDTO aCreatedTeamDTO;
 
@@ -44,7 +44,9 @@ public class TeamUpdateServiceTest extends TeamServiceTest {
 
 	protected void deleteCreatedTeam() {
 		try {
+			System.out.println("Empieza el GETTEAM");
 			TeamDTO aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aCreatedTeamDTO);
+			System.out.println("Empieza el REMOVETEAM");
 			this.teamService.removeTeam(this.sessionToken, aTeamDTO);
 		} catch (DTOConcurrencyException e) {
 			fail("El equipo que intenta eliminar fue modificado por otro usuario.");
