@@ -1,7 +1,7 @@
 /**
  * 
  */
-package item.domain;
+package item.domain.itemType;
 
 import user.domain.team.Team;
 import workflow.domain.Workflow;

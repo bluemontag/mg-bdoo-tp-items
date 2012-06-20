@@ -3,13 +3,16 @@
  */
 package item.service;
 
-import item.domain.ItemType;
+import item.domain.itemType.ItemType;
 import item.dto.ItemDTO;
 import item.exception.ItemAlreadyExistsException;
 import item.exception.UnknownItemException;
 
 import java.util.Collection;
 
+import workflow.domain.transition.domain.Transition;
+import workflow.dto.state.ItemStateDTO;
+import workflow.exception.transition.BadTransitionException;
 import base.exception.DTOConcurrencyException;
 
 /**
@@ -27,11 +30,12 @@ public interface ItemServiceBI {
 	
 	//Retrieving
 	public ItemDTO getItemByName(String sessionToken, String itemName) throws UnknownItemException;
-	public ItemDTO getItemByItemNum(String sessionToken, Long itemNum) throws UnknownItemException;
+	public ItemDTO getItemByNum(String sessionToken, Long itemNum) throws UnknownItemException;
 	public ItemDTO getItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException;
 	
 	//Updating
 	public void updateItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException, DTOConcurrencyException;
+	public ItemStateDTO executeTransition(String sessionToken, Long itemNum, Transition t) throws BadTransitionException, UnknownItemException;
 	
 	//Removing
 	public void logicalRemoveItemByName(String sessionToken, String itemName) throws UnknownItemException;

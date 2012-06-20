@@ -3,6 +3,8 @@
  */
 package item.domain;
 
+import item.domain.itemType.ItemType;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.List;
 import user.domain.User;
 import workflow.domain.state.domain.ItemState;
 import workflow.domain.transition.domain.Transition;
+import workflow.exception.transition.BadTransitionException;
 import base.domain.BaseDomain;
 
 /**
@@ -69,10 +72,12 @@ public class Item extends BaseDomain {
 	 *  obtained from the transition.
 	 * 
 	 * @param t
-	 * @throws Exception
+	 * @throws BadTransitionException
 	 */
-	public void executeTransition(Transition t) throws Exception {
-		this.setCurrentState(this.getCurrentState().executeTransition(t));
+	public ItemState executeTransition(Transition t) throws BadTransitionException {
+		ItemState newState = this.getCurrentState().executeTransition(t);
+		this.setCurrentState(newState);
+		return newState;
 	}
 	/**
 	 * @return the type

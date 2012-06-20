@@ -4,7 +4,7 @@
 package item.service;
 
 import item.domain.Item;
-import item.domain.ItemType;
+import item.domain.itemType.ItemType;
 import item.dto.ItemDTO;
 import item.dto.ItemDTOFactory;
 import item.exception.ItemAlreadyExistsException;
@@ -12,6 +12,12 @@ import item.exception.UnknownItemException;
 import itemTracker.domain.ItemTracker;
 
 import java.util.Collection;
+
+import workflow.domain.state.domain.ItemState;
+import workflow.domain.transition.domain.Transition;
+import workflow.dto.state.ItemStateDTO;
+import workflow.dto.state.ItemStateDTOFactory;
+import workflow.exception.transition.BadTransitionException;
 
 import base.exception.DTOConcurrencyException;
 import base.service.AbstractServiceImpl;
@@ -24,8 +30,10 @@ import base.service.AbstractServiceImpl;
 public class ItemServiceImpl extends AbstractServiceImpl implements
 		ItemServiceBI {
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#createItem(java.lang.String, java.lang.String)
+	/* ______________________________________________________________________________________
+	 * 
+	 * Creating 
+	 * ______________________________________________________________________________________
 	 */
 	@Override
 	public ItemDTO createItem(String sessionToken, Long itemNum, String description, Integer priority, ItemType type)
@@ -48,8 +56,10 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#listItems(java.lang.String)
+	/* ______________________________________________________________________________________
+	 * 
+	 * Listing 
+	 * ______________________________________________________________________________________
 	 */
 	@Override
 	public Collection<ItemDTO> listItems(String sessionToken) {
@@ -67,19 +77,18 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#getItemByItemNum(java.lang.String, java.lang.Long)
+	/* ______________________________________________________________________________________
+	 * 
+	 * Retrieving 
+	 * ______________________________________________________________________________________
 	 */
 	@Override
-	public ItemDTO getItemByItemNum(String sessionToken, Long itemNum)
+	public ItemDTO getItemByNum(String sessionToken, Long itemNum)
 			throws UnknownItemException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#getItem(java.lang.String, item.dto.ItemDTO)
-	 */
 	@Override
 	public ItemDTO getItem(String sessionToken, ItemDTO itemDTO)
 			throws UnknownItemException {
@@ -87,8 +96,10 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#updateItem(java.lang.String, item.dto.ItemDTO)
+	/* ______________________________________________________________________________________
+	 * 
+	 * Updating 
+	 * ______________________________________________________________________________________
 	 */
 	@Override
 	public void updateItem(String sessionToken, ItemDTO itemDTO)
@@ -96,9 +107,20 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 		// TODO Auto-generated method stub
 
 	}
+	
+	public ItemStateDTO executeTransition(String sessionToken, Long itemNum, Transition t) throws BadTransitionException, UnknownItemException {
+		//first, we get the item
+		Item i = this.getItemRepository().getItemByNum(itemNum);
+		ItemState newState = i.executeTransition(t);
+		
+		ItemStateDTO newStateDTO = (ItemStateDTO) ItemStateDTOFactory.getInstance().getDTO(newState);
+		return newStateDTO;
+	}
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#logicalRemoveItemByName(java.lang.String, java.lang.String)
+	/* ______________________________________________________________________________________
+	 * 
+	 * Removing 
+	 * ______________________________________________________________________________________
 	 */
 	@Override
 	public void logicalRemoveItemByName(String sessionToken, String itemName)
@@ -107,9 +129,6 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 
 	}
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#logicalRemoveItem(java.lang.String, item.dto.ItemDTO)
-	 */
 	@Override
 	public void logicalRemoveItem(String sessionToken, ItemDTO itemDTO)
 			throws UnknownItemException {
@@ -117,9 +136,6 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 
 	}
 
-	/* (non-Javadoc)
-	 * @see item.service.ItemServiceBI#removeItem(java.lang.String, item.dto.ItemDTO)
-	 */
 	@Override
 	public void removeItem(String sessionToken, ItemDTO itemDTO)
 			throws UnknownItemException {

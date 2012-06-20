@@ -1,7 +1,7 @@
 package itemTracker.domain;
 
 import item.domain.Item;
-import item.domain.ItemType;
+import item.domain.itemType.ItemType;
 
 import java.util.Collection;
 import java.util.HashSet;

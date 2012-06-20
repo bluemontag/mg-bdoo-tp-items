@@ -6,6 +6,7 @@ package workflow.domain.state.domain;
 import java.util.HashMap;
 
 import workflow.domain.transition.domain.Transition;
+import workflow.exception.transition.BadTransitionException;
 import base.domain.BaseDomain;
 
 /**
@@ -32,7 +33,7 @@ public class ItemState extends BaseDomain {
 	 * @param t
 	 * @throws Exception
 	 */
-	public ItemState executeTransition(Transition t) throws Exception {
+	public ItemState executeTransition(Transition t) throws BadTransitionException {
 		//si se aplica al estado propio:
 		if (t.getInitialState().getName().equals(this.name)) {
 			String finalState = t.getFinalState().getName();
@@ -42,10 +43,10 @@ public class ItemState extends BaseDomain {
 				this.nextStates.containsKey(finalState)) {
 				return t.getFinalState();//retorno el estado final
 			} else {
-				throw new Exception("Final state not found in state:"+this.getName());
+				throw new BadTransitionException("Final state not found in state:"+this.getName());
 			}
 		} else {
-			throw new Exception("Initial state not found in state:"+this.getName());
+			throw new BadTransitionException("Initial state not found in state:"+this.getName());
 		}
 	}
 	
