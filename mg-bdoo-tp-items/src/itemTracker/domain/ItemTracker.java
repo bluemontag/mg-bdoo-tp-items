@@ -2,8 +2,10 @@ package itemTracker.domain;
 
 import item.domain.Item;
 import item.domain.ItemType;
+
 import java.util.Collection;
 import java.util.HashSet;
+
 import project.domain.Project;
 import project.exception.UnknownProjectException;
 import user.domain.User;
@@ -40,7 +42,7 @@ public class ItemTracker extends BaseDomain {
 
 	@Deprecated
 	// solo se usa por hibernate
-	public void setUsers(Collection<User> users) {
+	protected void setUsers(Collection<User> users) {
 		this.users = users;
 	}
 
@@ -56,7 +58,7 @@ public class ItemTracker extends BaseDomain {
 		this.adminUser = theAdminUser;
 	}
 
-	public void setProjects(Collection<Project> projects) {
+	protected void setProjects(Collection<Project> projects) {
 		this.projects = projects;
 	}
 
@@ -94,18 +96,17 @@ public class ItemTracker extends BaseDomain {
 		}
 	}
 
-/*
-	public ItemType createItemType(String typeName, Workflow w, Team t) {
-		return new ItemType(typeName, w, t);
-	}
-	
-	public Item createItem(ItemType t, Long itemNum, String description, Integer priority){
-		return new Item(itemNum, description, priority, t);
-	}
-*/
+	/*
+	 * public ItemType createItemType(String typeName, Workflow w, Team t) {
+	 * return new ItemType(typeName, w, t); }
+	 * 
+	 * public Item createItem(ItemType t, Long itemNum, String description,
+	 * Integer priority){ return new Item(itemNum, description, priority, t); }
+	 */
 	public void addItem(Item i) {
 		this.items.add(i);
 	}
+
 	/**
 	 * @return the itemTypes
 	 */
@@ -114,29 +115,24 @@ public class ItemTracker extends BaseDomain {
 	}
 
 	/**
-	 * @param itemTypes the itemTypes to set
+	 * @param itemTypes
+	 *            the itemTypes to set
 	 */
-	public void setItemTypes(Collection<ItemType> itemTypes) {
+	protected void setItemTypes(Collection<ItemType> itemTypes) {
 		this.itemTypes = itemTypes;
 	}
 
-	/**
-	 * @return the items
-	 */
 	public Collection<Item> getItems() {
 		return items;
 	}
 
-	/**
-	 * @param items the items to set
-	 */
-	public void setItems(Collection<Item> items) {
+	protected void setItems(Collection<Item> items) {
 		this.items = items;
 	}
 
 	@Deprecated
 	// solo se usa por hibernate
-	public void setTeams(Collection<Team> teams) {
+	protected void setTeams(Collection<Team> teams) {
 		this.teams = teams;
 	}
 
