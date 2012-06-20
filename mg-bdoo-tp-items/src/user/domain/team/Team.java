@@ -34,7 +34,7 @@ public class Team extends BaseDomain {
 		return users;
 	}
 
-	public void setUsers(Collection<User> users) {
+	protected void setUsers(Collection<User> users) {
 		this.users.addAll(users);
 	}
 
