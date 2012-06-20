@@ -39,14 +39,9 @@ public abstract class ProjectServiceTest extends BaseTestCase {
 	}
 
 	protected void deleteCreatedProject() {
-		ProjectDTO aProjectDTOToRemove = null;
-		// se optiene el proyecto por su fue modificado.
 		try {
-			aProjectDTOToRemove = this.projectService.getProject(this.sessionToken, this.aCreatedProjectDTO);
-		} catch (UnknownProjectException e) {
-			fail("El proyecto que desea obtener no existe.");
-		}
-		try {
+			// se optiene el proyecto por su fue modificado.
+			ProjectDTO aProjectDTOToRemove = this.projectService.getProject(this.sessionToken, this.aCreatedProjectDTO);
 			this.projectService.removeProject(this.sessionToken, aProjectDTOToRemove);
 		} catch (UnknownProjectException e) {
 			fail("El proyecto que desea eliminar no existe.");
