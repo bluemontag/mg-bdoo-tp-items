@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import project.test.ProjectCreateServiceTest;
 import project.test.ProjectUpdateServiceTest;
 import user.test.UserUpdateServiceTest;
-import user.test.team.TeamUpdateServiceTest;
+import user.test.team.TeamCreateServiceTest;
 import base.contant.BaseConstants;
 
 /**
@@ -35,7 +35,7 @@ public abstract class BaseSuiteTest {
 	@SuppressWarnings("rawtypes")
 	protected static Class[] getTestsToPerform() {
 		Class[] testClasses = { UserUpdateServiceTest.class, ProjectCreateServiceTest.class,
-				ProjectUpdateServiceTest.class, TeamUpdateServiceTest.class };
+				ProjectUpdateServiceTest.class, TeamCreateServiceTest.class };
 		return testClasses;
 	}
 
