@@ -1,6 +1,7 @@
 package base.service;
 
 import item.repository.ItemRepositoryBI;
+import item.repository.itemType.ItemTypeRepositoryBI;
 import itemTracker.repository.ItemTrackerRepositoryBI;
 import project.repository.ProjectRepositoryBI;
 import user.repository.UserRepositoryBI;
@@ -46,6 +47,10 @@ public class AbstractServiceImpl {
 
 	public ItemRepositoryBI getItemRepository() {
 		return this.getRepositoryFinder().getItemRepository();
+	}
+	
+	public ItemTypeRepositoryBI getItemTypeRepository() {
+		return this.getRepositoryFinder().getItemTypeRepository();
 	}
 	
 	public WorkflowRepositoryBI getWorkflowRespository() {

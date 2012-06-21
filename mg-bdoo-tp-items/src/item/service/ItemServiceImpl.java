@@ -18,7 +18,6 @@ import workflow.domain.transition.domain.Transition;
 import workflow.dto.state.ItemStateDTO;
 import workflow.dto.state.ItemStateDTOFactory;
 import workflow.exception.transition.BadTransitionException;
-
 import base.exception.DTOConcurrencyException;
 import base.service.AbstractServiceImpl;
 

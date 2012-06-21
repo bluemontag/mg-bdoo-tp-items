@@ -122,6 +122,10 @@ public class ItemTracker extends BaseDomain {
 		this.itemTypes = itemTypes;
 	}
 
+	public void addItemType(ItemType it) {
+		this.itemTypes.add(it);
+	}
+	
 	public Collection<Item> getItems() {
 		return items;
 	}
