@@ -14,7 +14,7 @@
 		
 		<many-to-one name="leader" class="user.domain.User" column="oid_leader_user" not-null="false" cascade="save-update" />
 		
-		<set name="users" table="PORYECT_USER">
+		<set name="users" table="PROJECT_USER">
 			<key column="oid_project" />
 			<many-to-many column="oid_user" class="user.domain.User" />
 		</set>
