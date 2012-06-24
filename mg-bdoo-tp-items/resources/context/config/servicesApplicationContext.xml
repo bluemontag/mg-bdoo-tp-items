@@ -118,6 +118,30 @@
 		</property>			
 	</bean>
 
+
+		<!-- ==================== Servicio de Items =================== -->
+
+	<bean id="itemServiceTarget" class="item.service.ItemServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="itemService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="itemServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+
 	<!-- ================ Contenedor de servicios =================== -->
 
 	<bean id="serviceContainer" class="base.service.ServiceContainer"
@@ -127,6 +151,7 @@
 		<property name="projectService" ref="projectService" />
 		<property name="teamService" ref="teamService" />
 		<property name="workflowService" ref="workflowService" />
+		<property name="itemService" ref="itemService" />
 	</bean>
 </beans>
 
