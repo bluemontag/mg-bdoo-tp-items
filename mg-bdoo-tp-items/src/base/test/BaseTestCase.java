@@ -1,5 +1,6 @@
 package base.test;
 
+import item.service.ItemServiceBI;
 import itemTracker.service.ItemTrackerServiceBI;
 
 import java.util.Collection;
@@ -34,6 +35,7 @@ public abstract class BaseTestCase extends TestCase {
 	protected ProjectServiceBI projectService;
 	protected TeamServiceBI teamService;
 	protected WorkflowServiceBI workflowService;
+	protected ItemServiceBI itemService;
 
 	// propiedades usadas por algunos tests.
 	protected Collection<UserDTOForLists> aUserDTOForListCollection = new HashSet<UserDTOForLists>();
@@ -106,5 +108,19 @@ public abstract class BaseTestCase extends TestCase {
 		} catch (DTOConcurrencyException e) {
 			fail("El usuario que intenta eliminar fue modificado por otro usuario.");
 		}
+	}
+
+	/**
+	 * @return the itemService
+	 */
+	public ItemServiceBI getItemService() {
+		return itemService;
+	}
+
+	/**
+	 * @param itemService the itemService to set
+	 */
+	public void setItemService(ItemServiceBI itemService) {
+		this.itemService = itemService;
 	}
 }
