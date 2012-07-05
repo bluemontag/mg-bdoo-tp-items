@@ -9,7 +9,7 @@ import base.repository.HibernateBaseRepository;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class HibernetProjectRepository extends HibernateBaseRepository implements ProjectRepositoryBI {
+public class HibernateProjectRepository extends HibernateBaseRepository implements ProjectRepositoryBI {
 
 	@SuppressWarnings("rawtypes")
 	@Override

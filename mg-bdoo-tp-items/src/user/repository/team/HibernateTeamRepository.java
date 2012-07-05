@@ -8,7 +8,7 @@ import base.repository.HibernateBaseRepository;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class HibernetTeamRepository extends HibernateBaseRepository implements TeamRepositoryBI {
+public class HibernateTeamRepository extends HibernateBaseRepository implements TeamRepositoryBI {
 
 	@SuppressWarnings("rawtypes")
 	@Override

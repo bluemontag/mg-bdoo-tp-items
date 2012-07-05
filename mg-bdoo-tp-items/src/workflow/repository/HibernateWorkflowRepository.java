@@ -7,7 +7,7 @@ import base.repository.HibernateBaseRepository;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class HibernetWorkflowRepository extends HibernateBaseRepository implements WorkflowRepositoryBI {
+public class HibernateWorkflowRepository extends HibernateBaseRepository implements WorkflowRepositoryBI {
 
 	@SuppressWarnings("rawtypes")
 	@Override

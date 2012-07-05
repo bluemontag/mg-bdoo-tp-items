@@ -14,7 +14,6 @@ import itemTracker.domain.ItemTracker;
 import java.util.Collection;
 
 import workflow.domain.state.domain.ItemState;
-import workflow.domain.transition.domain.Transition;
 import workflow.dto.state.ItemStateDTO;
 import workflow.dto.state.ItemStateDTOFactory;
 import workflow.exception.transition.BadTransitionException;
@@ -107,10 +106,10 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 
 	}
 	
-	public ItemStateDTO executeTransition(String sessionToken, Long itemNum, Transition t) throws BadTransitionException, UnknownItemException {
+	public ItemStateDTO executeTransition(String sessionToken, Long itemNum, String transition) throws BadTransitionException, UnknownItemException {
 		//first, we get the item
 		Item i = this.getItemRepository().getItemByNum(itemNum);
-		ItemState newState = i.executeTransition(t);
+		ItemState newState = i.executeTransition(transition);
 		
 		ItemStateDTO newStateDTO = (ItemStateDTO) ItemStateDTOFactory.getInstance().getDTO(newState);
 		return newStateDTO;

@@ -12,7 +12,6 @@ import java.util.List;
 
 import user.domain.User;
 import workflow.domain.state.domain.ItemState;
-import workflow.domain.transition.domain.Transition;
 import workflow.exception.transition.BadTransitionException;
 import base.domain.BaseDomain;
 
@@ -74,7 +73,7 @@ public class Item extends BaseDomain {
 	 * @param t
 	 * @throws BadTransitionException
 	 */
-	public ItemState executeTransition(Transition t) throws BadTransitionException {
+	public ItemState executeTransition(String t) throws BadTransitionException {
 		ItemState newState = this.getCurrentState().executeTransition(t);
 		this.setCurrentState(newState);
 		return newState;

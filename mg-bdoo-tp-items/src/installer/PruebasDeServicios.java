@@ -1,6 +1,6 @@
 package installer;
 
-import itemTracker.repository.HibernetItemTrackerRepository;
+import itemTracker.repository.HibernateItemTrackerRepository;
 import itemTracker.repository.MemoryItemTrackerRepository;
 import itemTracker.service.ItemTrackerServiceBI;
 
@@ -16,7 +16,7 @@ import user.dto.UserDTOForLists;
 import user.exception.IncorrectPasswordException;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
-import user.repository.HibernetUserRepository;
+import user.repository.HibernateUserRepository;
 import user.repository.MemoryUserRepository;
 import user.service.UserServiceBI;
 import base.exception.DTOConcurrencyException;
@@ -153,11 +153,11 @@ public class PruebasDeServicios {
 
 		// REPOSITORIOS HIBERNATE
 
-		HibernetItemTrackerRepository hibernateItemTrackerRepository = (HibernetItemTrackerRepository) ctx
+		HibernateItemTrackerRepository hibernateItemTrackerRepository = (HibernateItemTrackerRepository) ctx
 				.getBean("hibernateItemTrackerRepository");
 		System.out.println("hibernateItemTrackerRepository: " + hibernateItemTrackerRepository);
 
-		HibernetUserRepository hibernateUserRepository = (HibernetUserRepository) ctx
+		HibernateUserRepository hibernateUserRepository = (HibernateUserRepository) ctx
 				.getBean("hibernateUserRepository");
 		System.out.println("hibernateUserRepository: " + hibernateUserRepository);
 

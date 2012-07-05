@@ -15,7 +15,7 @@ import base.repository.HibernateBaseRepository;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class HibernetUserRepository extends HibernateBaseRepository implements UserRepositoryBI {
+public class HibernateUserRepository extends HibernateBaseRepository implements UserRepositoryBI {
 
 	@SuppressWarnings("rawtypes")
 	@Override

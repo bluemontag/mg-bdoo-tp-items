@@ -10,7 +10,6 @@ import item.exception.UnknownItemException;
 
 import java.util.Collection;
 
-import workflow.domain.transition.domain.Transition;
 import workflow.dto.state.ItemStateDTO;
 import workflow.exception.transition.BadTransitionException;
 import base.exception.DTOConcurrencyException;
@@ -35,7 +34,7 @@ public interface ItemServiceBI {
 	
 	//Updating
 	public void updateItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException, DTOConcurrencyException;
-	public ItemStateDTO executeTransition(String sessionToken, Long itemNum, Transition t) throws BadTransitionException, UnknownItemException;
+	public ItemStateDTO executeTransition(String sessionToken, Long itemNum, String transition) throws BadTransitionException, UnknownItemException;
 	
 	//Removing
 	public void logicalRemoveItemByName(String sessionToken, String itemName) throws UnknownItemException;

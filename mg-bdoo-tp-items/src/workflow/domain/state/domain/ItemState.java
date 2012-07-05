@@ -5,7 +5,6 @@ package workflow.domain.state.domain;
 
 import java.util.HashMap;
 
-import workflow.domain.transition.domain.Transition;
 import workflow.exception.transition.BadTransitionException;
 import base.domain.BaseDomain;
 
@@ -30,23 +29,29 @@ public class ItemState extends BaseDomain {
 	 * y devuelve el estado resultante de aplicar la transicion.
 	 * En caso de que no se aplique , se levanta una excepcion.
 	 * 
+	 * El string "t" debe ser por ejemplo "aDesarrollo", si el existe un estado final llamado "Desarrollo"
+	 * 
 	 * @param t
 	 * @throws Exception
 	 */
-	public ItemState executeTransition(Transition t) throws BadTransitionException {
-		//si se aplica al estado propio:
-		if (t.getInitialState().getName().equals(this.name)) {
-			String finalState = t.getFinalState().getName();
+	public ItemState executeTransition(String t) throws BadTransitionException {
+		if (t.toUpperCase().equals("A"+this.name.toUpperCase())) {
+			return this;//no se aplica la transicion, es decir, queda en el mismo estado
+		} else {
+			String finalState = null;
+			try {
+				finalState = t.substring(1);//quito la "a"
+			} catch (StringIndexOutOfBoundsException e) {
+				//controlo que el string empiece con "a"
+				throw new BadTransitionException("Bad transition name: "+t);
+			}
 			
 			//si el estado final existe en la lista de estados finales del estado "this":
-			if (finalState!=null &&
-				this.nextStates.containsKey(finalState)) {
-				return t.getFinalState();//retorno el estado final
+			if (finalState!=null &&	this.nextStates.containsKey(finalState)) {
+				return this.nextStates.get(finalState);//retorno el estado final
 			} else {
 				throw new BadTransitionException("Final state not found in state:"+this.getName());
 			}
-		} else {
-			throw new BadTransitionException("Initial state not found in state:"+this.getName());
 		}
 	}
 	

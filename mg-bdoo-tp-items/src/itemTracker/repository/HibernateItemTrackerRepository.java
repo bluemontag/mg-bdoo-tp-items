@@ -6,7 +6,7 @@ import base.repository.HibernateBaseRepository;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class HibernetItemTrackerRepository extends HibernateBaseRepository implements ItemTrackerRepositoryBI{
+public class HibernateItemTrackerRepository extends HibernateBaseRepository implements ItemTrackerRepositoryBI{
 
 	@SuppressWarnings("rawtypes")
 	@Override
