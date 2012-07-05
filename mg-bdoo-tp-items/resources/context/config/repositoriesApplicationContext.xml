@@ -21,7 +21,11 @@
 		</property>
 		<property name="workflowRepository">
 			<ref bean="memoryWorkflowRepository"/>
+		</property>
+		<property name="itemRepository">
+			<ref bean="memoryItemRepository"/>
 		</property>	
+			
 	</bean>
 
 	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
@@ -39,42 +43,50 @@
 		</property>
 		<property name="workflowRepository">
 			<ref bean="hibernateWorkflowRepository"/>
-		</property>		
+		</property>
+		<property name="itemRepository">
+			<ref bean="hibernateItemRepository"/>
+		</property>
 	</bean>
 
 		<!-- ==================================================
 	 Repositorios para obtener datos desde hibernate.
 		================================================== -->
-	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository">
+	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernateItemTrackerRepository">
 		<property name="sessionFactory">
 			 <ref bean="sessionFactory"/>
 		</property>
 	</bean>
 
-	<bean id="hibernateUserRepository" class="user.repository.HibernetUserRepository">
+	<bean id="hibernateUserRepository" class="user.repository.HibernateUserRepository">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
 	
-	<bean id="hibernateProjectRepository" class="project.repository.HibernetProjectRepository">
+	<bean id="hibernateProjectRepository" class="project.repository.HibernateProjectRepository">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
 	
-	<bean id="hibernateTeamRepository" class="user.repository.team.HibernetTeamRepository">
+	<bean id="hibernateTeamRepository" class="user.repository.team.HibernateTeamRepository">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
 	
-	<bean id="hibernateWorkflowRepository" class="workflow.repository.HibernetWorkflowRepository">
+	<bean id="hibernateWorkflowRepository" class="workflow.repository.HibernateWorkflowRepository">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
 
+	<bean id="hibernateItemRepository" class="item.repository.HibernateItemRepository">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 	<!-- =====================================================
 		Repositorios para obtener datos desde memoria. 
 		======================================================= -->
@@ -84,5 +96,6 @@
 	<bean id="memoryProjectRepository" class="project.repository.MemoryProjectRepository"/>
 	<bean id="memoryTeamRepository" class="user.repository.team.MemoryTeamRepository"/>
 	<bean id="memoryWorkflowRepository" class="workflow.repository.MemoryWorkflowRepository"/>
+	<bean id="memoryItemRepository" class="item.repository.MemoryItemRepository"/>
 	
 </beans>
