@@ -103,6 +103,8 @@ public class ItemTest extends BaseTestCase {
 		}
 		try {
 			assertEquals(iDTO.getDescription(), this.anItem.getDescription());
+			this.getItemService().updateItem(this.sessionToken, iDTO);
+			System.out.println("El test finalizo exitosamente.");
 		} catch (Exception e) {
 			fail("No se pudo obtener la descripcion del item");
 		}

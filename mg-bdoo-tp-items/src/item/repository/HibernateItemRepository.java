@@ -37,7 +37,7 @@ public class HibernateItemRepository extends HibernateBaseRepository implements 
 	public Item getItemByNum(Long itemNum) throws UnknownItemException {
 		Item item = null;
 		try {
-			item = (Item) this.getEntityByUniqueField("getItemByNum", "itemNum", itemNum);
+			item = (Item) this.getEntityByUniqueField("getItemByNum", "anItemNum", itemNum);
 		} catch (BaseException aBaseException) {
 			// TODO ver que hacer!!
 		}

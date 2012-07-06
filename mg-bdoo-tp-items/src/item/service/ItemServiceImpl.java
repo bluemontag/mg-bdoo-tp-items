@@ -102,7 +102,7 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 	@Override
 	public void updateItem(String sessionToken, ItemDTO itemDTO)
 			throws UnknownItemException, DTOConcurrencyException {
-		// TODO Auto-generated method stub
+		// TODO IGNACIO: SEGUIR POR ACA.
 
 	}
 	
