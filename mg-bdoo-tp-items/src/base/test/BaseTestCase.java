@@ -63,7 +63,7 @@ public abstract class BaseTestCase extends TestCase {
 			UserDTO aCreatedUserDTO;
 			try {
 				aCreatedUserDTO = this.userService.createUser(this.sessionToken,
-						TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i, " no importa");
+						TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i, "no importa");
 
 				this.aUserDTOForListCollection.add(new UserDTOForLists(aCreatedUserDTO));
 			} catch (UserAlreadyExistsException e) {
