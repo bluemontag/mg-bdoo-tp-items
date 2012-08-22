@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<import resource="context/config/dataSourcesApplicationContext.xml"/>
+	<import resource="context/config/repositoriesApplicationContext.xml" />
+	<import resource="context/config/transactionManagerApplicationContext.xml" />
+	<import resource="context/config/servicesApplicationContext.xml"/>
+
+</beans>

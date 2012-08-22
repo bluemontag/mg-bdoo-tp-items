@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="item.domain.Item" table="item" optimistic-lock="version">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		<version column="version" name="version" unsaved-value="null"/>		
+		
+		<!-- propiedades simples -->
+		<property name="itemNum"/>
+		<property name="description"/>
+		<property name="priority"/>
+		
+		<!-- objetos -->
+		<one-to-one name="responsible" class="user.domain.User"/>
+
+		<!-- colecciones o relaciones -->
+		<set name="history" table="item_history" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="item.domain.HistoricItem" />
+		</set>
+
+
+		<property name="removed" column="removed" />
+	</class>
+
+	<!-- Named queries for Item -->
+	<query name="getItemByNum">
+        <![CDATA[from Item i where i.itemNum = :anItemNum]]>
+	</query>
+	<query name="getItemsByOids">
+        <![CDATA[from Item i where i.removed = :isRemoved and i.oid IN (:oids)]]>
+	</query>	
+
+</hibernate-mapping>
