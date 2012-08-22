@@ -10,20 +10,20 @@
 		</id>
 		<version column="version" name="version" unsaved-value="null"/>	
 		
-		<set name="users" table="USUARIO" cascade="all-delete-orphan">
+		<bag name="users" table="USUARIO" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="user.domain.User" />
-		</set>
+		</bag>
 		
-		<set name="projects" table="PROJECT" cascade="all-delete-orphan" >
+		<bag name="projects" table="PROJECT" cascade="all-delete-orphan" >
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="project.domain.Project" />
-		</set>
+		</bag>
 		
-		<set name="teams" table="TEAM" cascade="all-delete-orphan">
+		<bag name="teams" table="TEAM" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="user.domain.team.Team" />
-		</set>
+		</bag>
 		
 		<many-to-one name="adminUser" class="user.domain.User" column="oid_admin_user" not-null="false" cascade="save-update" />		
 	</class>

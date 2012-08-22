@@ -3,8 +3,8 @@ package itemTracker.domain;
 import item.domain.Item;
 import item.domain.itemType.ItemType;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import project.domain.Project;
 import project.exception.UnknownProjectException;
@@ -22,18 +22,18 @@ public class ItemTracker extends BaseDomain {
 	public final static String Name = "Seguimiento de items";
 	public final static String DESCRIPTION = "Trabajo practico - Mg. Ing. de Softare - BDOO";
 
-	private Collection<User> users = new HashSet<User>();
+	private Collection<User> users = new ArrayList<User>();
 	private User adminUser = null;
-	private Collection<Project> projects = new HashSet<Project>();
-	private Collection<Team> teams = new HashSet<Team>();
-	private Collection<ItemType> itemTypes = new HashSet<ItemType>();
-	private Collection<Item> items = new HashSet<Item>();
+	private Collection<Project> projects = new ArrayList<Project>();
+	private Collection<Team> teams = new ArrayList<Team>();
+	private Collection<ItemType> itemTypes = new ArrayList<ItemType>();
+	private Collection<Item> items = new ArrayList<Item>();
 
 	public ItemTracker() {
-		this.setUsers(new HashSet<User>());
-		this.setProjects(new HashSet<Project>());
-		this.setItems(new HashSet<Item>());
-		this.setItemTypes(new HashSet<ItemType>());
+		this.setUsers(new ArrayList<User>());
+		this.setProjects(new ArrayList<Project>());
+		this.setItems(new ArrayList<Item>());
+		this.setItemTypes(new ArrayList<ItemType>());
 	}
 
 	public void addUser(User anUser) {
@@ -125,7 +125,7 @@ public class ItemTracker extends BaseDomain {
 	public void addItemType(ItemType it) {
 		this.itemTypes.add(it);
 	}
-	
+
 	public Collection<Item> getItems() {
 		return items;
 	}
