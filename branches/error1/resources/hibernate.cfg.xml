@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/mg-tp-bd</property>
+		<property name="hibernate.connection.username">mg-tp-bd</property>
+		<property name="hibernate.connection.password">mg-tp-bd</property>		<property name="hibernate.connection.pool_size">10</property>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>		
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+ 		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>		
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<!-- Para recrear la base de datos -->
+<!--         <property name="hibernate.hbm2ddl.auto">create-drop</property> -->
+		<!-- Mapping files -->
+		<mapping resource="itemTracker/domain/itemTracker.hbm.xml" />
+		<mapping resource="user/domain/user.hbm.xml" />
+		<mapping resource="user/domain/team/team.hbm.xml" />
+		<mapping resource="project/domain/project.hbm.xml" />
+		<mapping resource="item/domain/item.hbm.xml"/>
+		<mapping resource="item/domain/historicItem.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>
