@@ -12,10 +12,10 @@
 		<version column="version" name="version" unsaved-value="null"/>		
 		<property name="name" column="name" unique="true" />
 		
-		<set name="users" table="TEAM_USER">
+		<bag name="users" table="TEAM_USER" inverse="true" cascade="all">
 			<key column="oid_team" />
-			<many-to-many column="oid_user" class="user.domain.User" />
-		</set>
+			<many-to-many column="oid_user" class="user.domain.User"/>
+		</bag>
 	</class>
 
 	<!-- Queries for User -->
