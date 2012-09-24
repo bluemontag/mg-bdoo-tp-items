@@ -24,16 +24,17 @@ public class ItemTracker extends BaseDomain {
 
 	private Collection<User> users = new ArrayList<User>();
 	private User adminUser = null;
-	private Collection<Project> projects = new ArrayList<Project>();
-	private Collection<Team> teams = new ArrayList<Team>();
-	private Collection<ItemType> itemTypes = new ArrayList<ItemType>();
-	private Collection<Item> items = new ArrayList<Item>();
+	private Collection<Project> projects;
+	private Collection<Team> teams;
+	private Collection<ItemType> itemTypes;
+	private Collection<Item> items;
 
 	public ItemTracker() {
-		this.setUsers(new ArrayList<User>());
-		this.setProjects(new ArrayList<Project>());
-		this.setItems(new ArrayList<Item>());
-		this.setItemTypes(new ArrayList<ItemType>());
+		this.users = new ArrayList<User>();
+		this.projects = new ArrayList<Project>();
+		this.items = new ArrayList<Item>();
+		this.itemTypes = new ArrayList<ItemType>();
+		this.teams = new ArrayList<Team>();
 	}
 
 	public void addUser(User anUser) {
