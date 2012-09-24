@@ -12,6 +12,11 @@
 		<property name="userName" column="user_name" unique="true" />
 		<property name="password" column="password" />
 		<property name="removed" column="removed" />
+		
+		<bag name="teams" lazy="extra" table="TEAM_USER" cascade="none">
+			<key column="oid_user" not-null="false"/>
+			<many-to-many column="oid_team" class="user.domain.team.Team"/>
+		</bag>
 	</class>
 
 	<!-- Queries for User -->
