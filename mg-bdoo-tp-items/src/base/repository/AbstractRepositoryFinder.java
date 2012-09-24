@@ -7,6 +7,7 @@ import project.repository.ProjectRepositoryBI;
 import user.repository.UserRepositoryBI;
 import user.repository.team.TeamRepositoryBI;
 import workflow.repository.WorkflowRepositoryBI;
+import workflow.repository.state.ItemStateRepositoryBI;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -20,6 +21,7 @@ public abstract class AbstractRepositoryFinder {
 	private ItemRepositoryBI itemRepository;
 	private ItemTypeRepositoryBI itemTypeRepository;
 	private WorkflowRepositoryBI workflowRepository;
+	private ItemStateRepositoryBI itemStateRepository;
 
 	public ItemTrackerRepositoryBI getItemTrackerRepository() {
 		return this.itemTrackerRepository;
@@ -75,5 +77,13 @@ public abstract class AbstractRepositoryFinder {
 
 	public void setItemTypeRepository(ItemTypeRepositoryBI itemTypeRepository) {
 		this.itemTypeRepository = itemTypeRepository;
+	}
+
+	public ItemStateRepositoryBI getItemStateRepository() {
+		return itemStateRepository;
+	}
+
+	public void setItemStateRepository(ItemStateRepositoryBI itemStateRepository) {
+		this.itemStateRepository = itemStateRepository;
 	}
 }

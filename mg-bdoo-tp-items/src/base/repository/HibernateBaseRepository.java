@@ -38,7 +38,7 @@ public abstract class HibernateBaseRepository {
 		return queryToReturn;
 	}
 
-	public Object findeByOid(Class<?> aClass, String anOid) {
+	public Object findByOid(Class<?> aClass, String anOid) {
 		return this.getEntityById(anOid);
 	}
 
