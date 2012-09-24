@@ -142,6 +142,30 @@
 	</bean>
 
 
+		<!-- ==================== Servicio de ItemState =================== -->
+
+	<bean id="itemStateServiceTarget" class="workflow.service.state.ItemStateServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="itemStateService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="itemStateServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+
+
 	<!-- ================ Contenedor de servicios =================== -->
 
 	<bean id="serviceContainer" class="base.service.ServiceContainer"
@@ -152,6 +176,7 @@
 		<property name="teamService" ref="teamService" />
 		<property name="workflowService" ref="workflowService" />
 		<property name="itemService" ref="itemService" />
+		<property name="itemStateService" ref="itemStateService"/>
 	</bean>
 </beans>
 
