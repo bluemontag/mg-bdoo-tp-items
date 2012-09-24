@@ -7,6 +7,7 @@ import project.repository.ProjectRepositoryBI;
 import user.repository.UserRepositoryBI;
 import user.repository.team.TeamRepositoryBI;
 import workflow.repository.WorkflowRepositoryBI;
+import workflow.repository.state.ItemStateRepositoryBI;
 import base.domain.BaseDomain;
 import base.dto.AbstractDTO;
 import base.exception.DTOConcurrencyException;
@@ -29,19 +30,19 @@ public class AbstractServiceImpl {
 	}
 
 	// Repositorios
-	public ItemTrackerRepositoryBI getItemTrackerRespository() {
+	public ItemTrackerRepositoryBI getItemTrackerRepository() {
 		return this.getRepositoryFinder().getItemTrackerRepository();
 	}
 
-	public UserRepositoryBI getUserRespository() {
+	public UserRepositoryBI getUserRepository() {
 		return this.getRepositoryFinder().getUserRepository();
 	}
 
-	public ProjectRepositoryBI getProjectRespository() {
+	public ProjectRepositoryBI getProjectRepository() {
 		return this.getRepositoryFinder().getProjectRepository();
 	}
 
-	public TeamRepositoryBI getTeamRespository() {
+	public TeamRepositoryBI getTeamRepository() {
 		return this.getRepositoryFinder().getTeamRepository();
 	}
 
@@ -53,8 +54,12 @@ public class AbstractServiceImpl {
 		return this.getRepositoryFinder().getItemTypeRepository();
 	}
 	
-	public WorkflowRepositoryBI getWorkflowRespository() {
+	public WorkflowRepositoryBI getWorkflowRepository() {
 		return this.getRepositoryFinder().getWorkflowRepository();
+	}
+	
+	public ItemStateRepositoryBI getItemStateRepository() {
+		return this.getRepositoryFinder().getItemStateRepository();
 	}
 
 	// Chequeo de concurrencia.
