@@ -18,6 +18,7 @@ import user.exception.UserAlreadyExistsException;
 import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
 import workflow.service.WorkflowServiceBI;
+import workflow.service.state.ItemStateServiceBI;
 import base.exception.DTOConcurrencyException;
 import base.service.ServiceContainer;
 
@@ -36,6 +37,7 @@ public abstract class BaseTestCase extends TestCase {
 	protected TeamServiceBI teamService;
 	protected WorkflowServiceBI workflowService;
 	protected ItemServiceBI itemService;
+	protected ItemStateServiceBI itemStateService;
 
 	// propiedades usadas por algunos tests.
 	protected Collection<UserDTOForLists> aUserDTOForListCollection = new HashSet<UserDTOForLists>();
@@ -51,6 +53,7 @@ public abstract class BaseTestCase extends TestCase {
 		this.projectService = ServiceContainer.getInstance().getProjectService();
 		this.teamService = ServiceContainer.getInstance().getTeamService();
 		this.workflowService = ServiceContainer.getInstance().getWorkflowService();
+		this.itemService = ServiceContainer.getInstance().getItemService();
 
 		// se loggea en la aplicacion
 		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
@@ -122,5 +125,21 @@ public abstract class BaseTestCase extends TestCase {
 	 */
 	public void setItemService(ItemServiceBI itemService) {
 		this.itemService = itemService;
+	}
+
+	public WorkflowServiceBI getWorkflowService() {
+		return workflowService;
+	}
+
+	public void setWorkflowService(WorkflowServiceBI workflowService) {
+		this.workflowService = workflowService;
+	}
+
+	public ItemStateServiceBI getItemStateService() {
+		return itemStateService;
+	}
+
+	public void setItemStateService(ItemStateServiceBI itemStateService) {
+		this.itemStateService = itemStateService;
 	}
 }
