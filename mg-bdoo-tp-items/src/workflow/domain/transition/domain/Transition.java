@@ -3,6 +3,7 @@ package workflow.domain.transition.domain;
 import workflow.domain.state.domain.ItemState;
 import base.domain.BaseDomain;
 
+@Deprecated
 public class Transition extends BaseDomain {
 
 	private String name;//nombre de la transicion, en caso de necesitarlo.

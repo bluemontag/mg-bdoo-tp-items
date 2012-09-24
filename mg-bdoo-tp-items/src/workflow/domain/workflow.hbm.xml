@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="workflow.domain.Workflow" table="workflow" optimistic-lock="version">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		<version column="version" name="version" unsaved-value="null"/>		
+		
+		<!-- propiedades simples -->
+		<property name="name"/>
+		
+		<!-- objetos -->
+		<!-- one-to-one name="responsible" class="user.domain.User"/-->
+		<!--  es una relacion uno a uno, pero se mapea asi ("many-to-one") -->
+		<many-to-one name="initialState" class="workflow.domain.state.domain.ItemState" update="true" unique="false"/>
+		
+		<!-- many-to-one name="currentState" class="workflow.domain.state.domain.ItemState" update="true" unique="false"/-->
+		
+		<!-- colecciones o relaciones -->
+	    <!-- bag name="history" table="historicItem" cascade="all-delete-orphan">
+     	   <key column="oid"/>
+        	<one-to-many class="item.domain.HistoricItem" />
+    	</bag-->
+
+		<property name="removed" column="removed" />
+	</class>
+
+	<!-- Named queries for Item -->
+	<query name="getWorkflowByName">
+        <![CDATA[from Workflow w where w.name = :aWorkflowName]]>
+	</query>
+	<query name="getWorkflowsByOids">
+        <![CDATA[from Workflow w where w.removed = :isRemoved and w.oid IN (:oids)]]>
+	</query>	
+
+</hibernate-mapping>

@@ -3,7 +3,7 @@ package workflow.exception;
 import base.exception.BaseException;
 
 /**
- * @author Rodrigo Itursarry (itursarry@gmail.com)
+ * @author Ignacio Gallego
  */
 public class UnknownWorkflowException extends BaseException {
 

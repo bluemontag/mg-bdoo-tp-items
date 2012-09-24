@@ -4,6 +4,7 @@
 package workflow.domain.state.domain;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import workflow.exception.transition.BadTransitionException;
 import base.domain.BaseDomain;
@@ -15,13 +16,18 @@ import base.domain.BaseDomain;
 public class ItemState extends BaseDomain {
 
 	private String name;
-	private HashMap<String, ItemState> nextStates;
+	private Map<String, ItemState> nextStates;
+	private Map<String, ItemState> parentStates;
 
-
+	public ItemState() {
+		this("");
+	}
+	
 	public ItemState(String name) {
 		super();
 		this.name = name;
 		this.nextStates = new HashMap<String, ItemState>();
+		this.parentStates = new HashMap<String, ItemState>();
 	}
 	
 	/**
@@ -84,5 +90,26 @@ public class ItemState extends BaseDomain {
 	 */
 	public void addNextState(ItemState s) {
 		this.nextStates.put(s.getName(), s);
+		s.addParentState(this);
+	}
+
+	public void addParentState(ItemState s) {
+		this.parentStates.put(s.getName(), s);
+	}
+	
+	public Map<String, ItemState> getChildStates() {
+		return nextStates;
+	}
+
+	public void setChildStates(Map<String, ItemState> nextStates) {
+		this.nextStates = nextStates;
+	}
+	
+	public Map<String, ItemState> getParentStates() {
+		return parentStates;
+	}
+
+	public void setParentStates(Map<String, ItemState> nextStates) {
+		this.parentStates = nextStates;
 	}
 }
