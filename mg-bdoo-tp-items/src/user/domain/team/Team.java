@@ -1,7 +1,7 @@
 package user.domain.team;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import user.domain.User;
 import base.domain.BaseDomain;
@@ -12,13 +12,15 @@ import base.domain.BaseDomain;
 public class Team extends BaseDomain {
 
 	private String name;
-	private final Collection<User> users = new HashSet<User>();
+	private final Collection<User> users;
 
 	public Team() {
+		this.users = new ArrayList<User>();
 	}
 
 	public Team(String aName, Collection<User> users) {
 		this.name = aName;
+		this.users = new ArrayList<User>();
 		this.users.addAll(users);
 	}
 
