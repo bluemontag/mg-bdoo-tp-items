@@ -25,7 +25,7 @@ public class HibernateUserRepository extends HibernateBaseRepository implements 
 
 	@Override
 	public User getUserByOid(String anOid) throws UnknownUserException {
-		User anUser = (User) this.findeByOid(this.getEntityClass(), anOid);
+		User anUser = (User) this.findByOid(this.getEntityClass(), anOid);
 		if (anUser == null) {
 			throw new UnknownUserException();
 		}

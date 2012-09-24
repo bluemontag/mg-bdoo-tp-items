@@ -18,7 +18,7 @@ public class HibernateTeamRepository extends HibernateBaseRepository implements 
 
 	@Override
 	public Team getTeamByOid(String anId) throws UnknownTeamException {
-		Team aTeam = (Team) this.findeByOid(this.getEntityClass(), anId);
+		Team aTeam = (Team) this.findByOid(this.getEntityClass(), anId);
 		if (aTeam == null) {
 			throw new UnknownTeamException("El equipo no existe.");
 		}

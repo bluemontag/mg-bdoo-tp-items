@@ -26,9 +26,9 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 			throws UserAlreadyExistsException {
 
 		try {
-			this.getUserRespository().getUserByUserName(anUserName);
+			this.getUserRepository().getUserByUserName(anUserName);
 		} catch (UnknownUserException unknownUserException) {
-			ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+			ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 			String aPasswordEncrypted = aPassword; // TODO: encriptar
 			User aUser = new User(anUserName, aPasswordEncrypted);
 			theItemTracker.addUser(aUser);
@@ -42,7 +42,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	@Override
 	@SuppressWarnings("unchecked")
 	public Collection<UserDTOForLists> listUsers(String sessionToken) {
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 
 		Collection<User> users = theItemTracker.getUsers();
 		Collection<UserDTOForLists> usersDTOForLists = (Collection<UserDTOForLists>) UserDTOFactory.getInstance()
@@ -54,7 +54,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	@Override
 	public UserDTO getUserByUserName(String sessionToken, String anUserName) throws UnknownUserException {
 		User userToReturn = null;
-		userToReturn = this.getUserRespository().getUserByUserName(anUserName);
+		userToReturn = this.getUserRepository().getUserByUserName(anUserName);
 		UserDTO userDTO = (UserDTO) UserDTOFactory.getInstance().getDTO(userToReturn);
 		return userDTO;
 	}
@@ -68,7 +68,7 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	public void updateUser(String sessionToken, UserDTO userToUpdateDTO) throws UnknownUserException,
 			DTOConcurrencyException {
 
-		User userToUpdate = this.getUserRespository().getUserByOid(userToUpdateDTO.getOid());
+		User userToUpdate = this.getUserRepository().getUserByOid(userToUpdateDTO.getOid());
 		this.checkDTOConcurrency(userToUpdateDTO, userToUpdate);
 		userToUpdate.setPassword(userToUpdateDTO.getPassword());
 	}
@@ -76,8 +76,8 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	@Override
 	public void logicalRemoveUserByUserName(String sessionToken, String anUserName) throws UnknownUserException {
 
-		User userToRemove = this.getUserRespository().getUserByUserName(anUserName);
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		User userToRemove = this.getUserRepository().getUserByUserName(anUserName);
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 		theItemTracker.logicalRemoveUser(userToRemove);
 	}
 
@@ -92,16 +92,16 @@ public class UserServiceImpl extends AbstractServiceImpl implements UserServiceB
 	@Override
 	public void removeUser(String sessionToken, UserDTO anUserDTO) throws UnknownUserException, DTOConcurrencyException {
 
-		User userToRemove = this.getUserRespository().getUserByUserName(anUserDTO.getUserName());
+		User userToRemove = this.getUserRepository().getUserByUserName(anUserDTO.getUserName());
 		this.checkDTOConcurrency(anUserDTO, userToRemove);
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 		theItemTracker.removeUser(userToRemove);
 	}
 
 	@Override
 	public void setUserAsAdmin(String sessionToken, UserDTO anUserDTO) throws UnknownUserException {
-		User userToSetAsAdmin = this.getUserRespository().getUserByOid(anUserDTO.getOid());
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+		User userToSetAsAdmin = this.getUserRepository().getUserByOid(anUserDTO.getOid());
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 		theItemTracker.setAdminUser(userToSetAsAdmin);
 	}
 }

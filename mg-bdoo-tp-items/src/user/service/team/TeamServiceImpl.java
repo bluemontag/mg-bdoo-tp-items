@@ -24,8 +24,8 @@ public class TeamServiceImpl extends AbstractServiceImpl implements TeamServiceB
 	public TeamDTO createTeam(String sessionToken, String aTeamName, Collection<UserDTOForLists> usersDTOs)
 			throws UnknownUserException, TeamAlreadyExistsException {
 
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		Collection<User> users = this.getUserRespository().getUsersByDTOsList(usersDTOs);
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
+		Collection<User> users = this.getUserRepository().getUsersByDTOsList(usersDTOs);
 		Team newTeam = new Team(aTeamName, users);
 		theItemTracker.addTeam(newTeam);
 		return (TeamDTO) TeamDTOFactory.getInstance().getDTO(newTeam);
@@ -34,8 +34,8 @@ public class TeamServiceImpl extends AbstractServiceImpl implements TeamServiceB
 	@Override
 	public void removeTeam(String sessionToken, TeamDTO aTeamDTOToRemove) throws DTOConcurrencyException,
 			UnknownTeamException {
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		Team aTeam = this.getTeamRespository().getTeamByDTO(aTeamDTOToRemove);
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
+		Team aTeam = this.getTeamRepository().getTeamByDTO(aTeamDTOToRemove);
 		this.checkDTOConcurrency(aTeamDTOToRemove, aTeam);
 		theItemTracker.removeTeam(aTeam);
 
@@ -43,7 +43,7 @@ public class TeamServiceImpl extends AbstractServiceImpl implements TeamServiceB
 
 	@Override
 	public TeamDTO getTeam(String sessionToken, TeamDTO aTeamDTO) throws UnknownTeamException {
-		Team ateam = this.getTeamRespository().getTeamByDTO(aTeamDTO);
+		Team ateam = this.getTeamRepository().getTeamByDTO(aTeamDTO);
 		return (TeamDTO) TeamDTOFactory.getInstance().getDTO(ateam);
 	}
 }
