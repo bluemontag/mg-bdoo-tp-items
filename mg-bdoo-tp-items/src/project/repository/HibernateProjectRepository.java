@@ -19,7 +19,7 @@ public class HibernateProjectRepository extends HibernateBaseRepository implemen
 
 	@Override
 	public Project getProjectByOid(String anId) throws UnknownProjectException {
-		Project aProject = (Project) this.findeByOid(this.getEntityClass(), anId);
+		Project aProject = (Project) this.findByOid(this.getEntityClass(), anId);
 		if (aProject == null) {
 			throw new UnknownProjectException("El projecto no existe.");
 		}

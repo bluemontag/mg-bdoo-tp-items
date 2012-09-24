@@ -29,12 +29,12 @@ public class ProjectServiceImpl extends AbstractServiceImpl implements ProjectSe
 			throws ProjectAlreadyExistsException, UnknownUserException {
 
 		try {
-			this.getProjectRespository().getProjectByName(aProjectName);
+			this.getProjectRepository().getProjectByName(aProjectName);
 
 		} catch (UnknownProjectException unknownProjectException) {
-			ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+			ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 
-			User aProjectLeaderUser = this.getUserRespository().getUserByDTO(aProjectLeaderUserDTO);
+			User aProjectLeaderUser = this.getUserRepository().getUserByDTO(aProjectLeaderUserDTO);
 			Project aProject = new Project(aProjectName, aProjectLeaderUser);
 			theItemTracker.addProject(aProject);
 
@@ -46,7 +46,7 @@ public class ProjectServiceImpl extends AbstractServiceImpl implements ProjectSe
 
 	@Override
 	public ProjectDTO getProject(String sessionToken, ProjectDTO aProjectDTO) throws UnknownProjectException {
-		Project aProject = this.getProjectRespository().getProjectByDTO(aProjectDTO);
+		Project aProject = this.getProjectRepository().getProjectByDTO(aProjectDTO);
 		return (ProjectDTO) ProjectDTOFactory.getInstance().getDTO(aProject);
 	}
 
@@ -54,8 +54,8 @@ public class ProjectServiceImpl extends AbstractServiceImpl implements ProjectSe
 	public void addUsersToProject(String sessionToken, ProjectDTO aProjectDTO, Collection<UserDTOForLists> usersDTOs)
 			throws UnknownProjectException, UnknownUserException, DTOConcurrencyException {
 
-		Project aProject = this.getProjectRespository().getProjectByDTO(aProjectDTO);
-		Collection<User> users = this.getUserRespository().getUsersByDTOsList(usersDTOs);
+		Project aProject = this.getProjectRepository().getProjectByDTO(aProjectDTO);
+		Collection<User> users = this.getUserRepository().getUsersByDTOsList(usersDTOs);
 		this.checkDTOConcurrency(aProjectDTO, aProject);
 		aProject.addUsers(users);
 	}
@@ -64,8 +64,8 @@ public class ProjectServiceImpl extends AbstractServiceImpl implements ProjectSe
 	public void removeProject(String sessionToken, ProjectDTO aProjectDTOToRemove) throws UnknownProjectException,
 			DTOConcurrencyException {
 
-		ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
-		Project aProjectToRemove = this.getProjectRespository().getProjectByDTO(aProjectDTOToRemove);
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
+		Project aProjectToRemove = this.getProjectRepository().getProjectByDTO(aProjectDTOToRemove);
 		this.checkDTOConcurrency(aProjectDTOToRemove, aProjectToRemove);
 		theItemTracker.removeProject(aProjectToRemove);
 	}
@@ -74,10 +74,10 @@ public class ProjectServiceImpl extends AbstractServiceImpl implements ProjectSe
 	public void updateProject(String sessionToken, ProjectDTO aProjectDTOToUpdate) throws UnknownProjectException,
 			DTOConcurrencyException, UnknownUserException {
 
-		Project aProjectToUpdate = this.getProjectRespository().getProjectByDTO(aProjectDTOToUpdate);
+		Project aProjectToUpdate = this.getProjectRepository().getProjectByDTO(aProjectDTOToUpdate);
 		this.checkDTOConcurrency(aProjectDTOToUpdate, aProjectToUpdate);
-		Collection<User> users = this.getUserRespository().getUsersByDTOsList(aProjectDTOToUpdate.getUsers());
-		User userPojectLeader = this.getUserRespository().getUserByDTO(aProjectDTOToUpdate.getLeader());
+		Collection<User> users = this.getUserRepository().getUsersByDTOsList(aProjectDTOToUpdate.getUsers());
+		User userPojectLeader = this.getUserRepository().getUserByDTO(aProjectDTOToUpdate.getLeader());
 		aProjectToUpdate.updateUsers(users);
 		aProjectToUpdate.setName(aProjectDTOToUpdate.getName());
 		aProjectToUpdate.setLeader(userPojectLeader);
