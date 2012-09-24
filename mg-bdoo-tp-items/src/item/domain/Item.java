@@ -30,10 +30,15 @@ public class Item extends BaseDomain {
 	private Collection<HistoricItem> history = new ArrayList<HistoricItem>();
 	
 
+	@Deprecated
 	public Item(Long itemNum, String typeName) {
+		/* Creation of an item without workflow... is useless! */
 		this(itemNum, "", 1, new ItemType(typeName, null, null));
 	}
 	
+	public Item() {
+		//para hibernate
+	}
 	public Item(Long itemNum, String description, Integer priority, ItemType type) {
 		this.itemNum = itemNum; 
 		this.description = description;
@@ -175,5 +180,4 @@ public class Item extends BaseDomain {
 	public void setHistory(List<HistoricItem> history) {
 		this.history = history;
 	}
-	
 }

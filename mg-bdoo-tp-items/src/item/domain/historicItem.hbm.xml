@@ -22,7 +22,7 @@
 
 	<!-- Named queries for Item -->
 	<query name="getHistoricItemByNum">
-        <![CDATA[from HistoricItem hi where hi.itemNum = :aNum]]>
+        <![CDATA[from HistoricItem hi where hi.itemNum = :anItemNum]]>
 	</query>
 	<query name="getHistoricItemsByOids">
         <![CDATA[from HistoricItem hi where hi.removed = :isRemoved and hi.oid IN (:oids)]]>

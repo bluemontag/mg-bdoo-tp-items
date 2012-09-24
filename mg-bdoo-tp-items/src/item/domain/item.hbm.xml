@@ -16,14 +16,18 @@
 		<property name="priority"/>
 		
 		<!-- objetos -->
-		<one-to-one name="responsible" class="user.domain.User"/>
-
+		<!-- one-to-one name="responsible" class="user.domain.User"/-->
+		<!--  es una relacion uno a uno, pero se mapea asi ("many-to-one") -->
+		<many-to-one name="responsible" class="user.domain.User" update="true" unique="false"/>
+		
+		<!-- many-to-one name="currentState" class="workflow.domain.state.domain.ItemState" update="true" unique="false"/-->
+		
+		
 		<!-- colecciones o relaciones -->
-		<set name="history" table="item_history" cascade="all-delete-orphan">
-			<key column="oid_item_tracker" not-null="true"/>
-			<one-to-many class="item.domain.HistoricItem" />
-		</set>
-
+	    <bag name="history" table="historicItem" cascade="all-delete-orphan">
+     	   <key column="oid"/>
+        	<one-to-many class="item.domain.HistoricItem" />
+    	</bag>
 
 		<property name="removed" column="removed" />
 	</class>
