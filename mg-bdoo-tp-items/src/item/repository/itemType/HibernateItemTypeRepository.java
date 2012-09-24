@@ -26,7 +26,7 @@ public class HibernateItemTypeRepository extends HibernateBaseRepository impleme
 
 	@Override
 	public ItemType getItemTypeByOid(String anOid) throws UnknownItemTypeException {
-		ItemType anItemType = (ItemType)this.findeByOid(this.getEntityClass(), anOid);
+		ItemType anItemType = (ItemType)this.findByOid(this.getEntityClass(), anOid);
 		if (anItemType == null) {
 			throw new UnknownItemTypeException();
 		}

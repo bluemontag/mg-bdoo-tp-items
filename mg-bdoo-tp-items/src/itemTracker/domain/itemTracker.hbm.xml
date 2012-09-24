@@ -25,6 +25,21 @@
 			<one-to-many class="user.domain.team.Team" />
 		</bag>
 		
+		<bag name="items" table="ITEM" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="item.domain.Item" />
+		</bag>
+
+		<bag name="workflows" table="workflow" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="workflow.domain.Workflow" />
+		</bag>
+
+		<bag name="itemStates" table="itemStates" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="workflow.domain.state.domain.ItemState" />
+		</bag>
+		
 		<many-to-one name="adminUser" class="user.domain.User" column="oid_admin_user" not-null="false" cascade="save-update" />		
 	</class>
 </hibernate-mapping>

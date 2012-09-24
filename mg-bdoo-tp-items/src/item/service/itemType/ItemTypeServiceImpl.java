@@ -33,7 +33,7 @@ public class ItemTypeServiceImpl extends AbstractServiceImpl implements ItemType
 		try {//first verify if it exists in the repository
 			this.getItemTypeRepository().getItemTypeByName(typeName);
 		} catch (UnknownItemTypeException unknownItemTypeException) {
-			ItemTracker theItemTracker = this.getItemTrackerRespository().getItemTracker();
+			ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 			
 			//responsibility of creating an item type is in services layer.
 			ItemType itemType = new ItemType(typeName, w, initialTeam);

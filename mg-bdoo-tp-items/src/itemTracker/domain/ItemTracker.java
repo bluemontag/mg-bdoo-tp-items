@@ -2,6 +2,7 @@ package itemTracker.domain;
 
 import item.domain.Item;
 import item.domain.itemType.ItemType;
+import item.exception.UnknownItemException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +13,10 @@ import user.domain.User;
 import user.domain.team.Team;
 import user.exception.UnknownUserException;
 import user.exception.team.UnknownTeamException;
+import workflow.domain.Workflow;
+import workflow.domain.state.domain.ItemState;
+import workflow.exception.UnknownWorkflowException;
+import workflow.exception.state.UnknownItemStateException;
 import base.domain.BaseDomain;
 
 /**
@@ -28,13 +33,16 @@ public class ItemTracker extends BaseDomain {
 	private Collection<Team> teams;
 	private Collection<ItemType> itemTypes;
 	private Collection<Item> items;
-
+	private Collection<ItemState> itemStates;
+	private Collection<Workflow> workflows;
+	
 	public ItemTracker() {
 		this.users = new ArrayList<User>();
 		this.projects = new ArrayList<Project>();
 		this.items = new ArrayList<Item>();
 		this.itemTypes = new ArrayList<ItemType>();
 		this.teams = new ArrayList<Team>();
+		this.workflows = new ArrayList<Workflow>();
 	}
 
 	public void addUser(User anUser) {
@@ -70,6 +78,10 @@ public class ItemTracker extends BaseDomain {
 	public void addProject(Project aProject) {
 		this.projects.add(aProject);
 	}
+	
+	public void addWorkflow(Workflow wf) {
+		this.workflows.add(wf);
+	}
 
 	public void logicalRemoveUser(User anUser) {
 		anUser.setRemoved(true);
@@ -84,6 +96,16 @@ public class ItemTracker extends BaseDomain {
 		}
 	}
 
+	// usado solo por los tests para dejar la base como estaba
+	@Deprecated
+	public void removeItem(Item item) throws UnknownItemException {
+		boolean removed = this.items.remove(item);
+		if (!removed) {
+			throw new UnknownItemException();
+		}
+	}
+	
+	
 	public void logicalRemoveProject(Project aProject) {
 		aProject.setRemoved(true);
 	}
@@ -108,6 +130,22 @@ public class ItemTracker extends BaseDomain {
 		this.items.add(i);
 	}
 
+	public void addItemState(ItemState itemState) {
+		this.itemStates.add(itemState);
+	}
+	
+	@Deprecated
+	public void removeItemState(ItemState itemState) throws UnknownItemStateException {
+		boolean removed = this.itemStates.remove(itemState);
+		if (!removed) {
+			throw new UnknownItemStateException();
+		}
+	}
+	
+	public void logicalRemoveItemState(ItemState itemState) {
+		itemState.setRemoved(true);
+	}
+	
 	/**
 	 * @return the itemTypes
 	 */
@@ -155,4 +193,32 @@ public class ItemTracker extends BaseDomain {
 			throw new UnknownTeamException("El equipo que desea eliminar no existe.");
 		}
 	}
+
+	public Collection<Workflow> getWorkflows() {
+		return workflows;
+	}
+
+	public void setWorkflows(Collection<Workflow> workflows) {
+		this.workflows = workflows;
+	}
+	
+	public void logicalRemoveWorkflow(Workflow w) {
+		w.setRemoved(true);
+	}
+	
+	@Deprecated
+	public void removeWorkflow(Workflow w) throws UnknownWorkflowException {
+		boolean removed = this.workflows.remove(w);
+		if (!removed) 
+			throw new UnknownWorkflowException("El workflow que desea eliminar no existe");
+	}
+
+	public Collection<ItemState> getItemStates() {
+		return itemStates;
+	}
+
+	public void setItemStates(Collection<ItemState> itemStates) {
+		this.itemStates = itemStates;
+	}
+	
 }

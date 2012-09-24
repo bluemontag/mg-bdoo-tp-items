@@ -26,7 +26,7 @@ public class HibernateItemRepository extends HibernateBaseRepository implements 
 
 	@Override
 	public Item getItemByOid(String anOid) throws UnknownItemException {
-		Item anItem = (Item) this.findeByOid(this.getEntityClass(), anOid);
+		Item anItem = (Item) this.findByOid(this.getEntityClass(), anOid);
 		if (anItem == null) {
 			throw new UnknownItemException();
 		}

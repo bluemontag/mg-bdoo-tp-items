@@ -33,7 +33,10 @@ public class ItemDTO extends AbstractDTO {
 		else
 			this.currentState = anItem.getCurrentState().getName();
 		
-		this.type = anItem.getType().getTypeName();
+		if (anItem.getType()!=null) {
+			this.type = anItem.getType().getTypeName();	
+		}
+		
 		if (anItem.getResponsible()!=null) {
 			UserDTO uDTO = new UserDTO(anItem.getResponsible());
 			this.responsible = uDTO;

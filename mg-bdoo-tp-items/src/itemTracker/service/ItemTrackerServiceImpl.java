@@ -20,7 +20,7 @@ public class ItemTrackerServiceImpl extends AbstractServiceImpl implements ItemT
 	@Override
 	public String loginUser(String anUserName, String aPassword) throws UnknownUserException,
 			IncorrectPasswordException {
-		User userToBeLogged = this.getUserRespository().getUserByUserName(anUserName);
+		User userToBeLogged = this.getUserRepository().getUserByUserName(anUserName);
 		String aPasswordEncrypted = aPassword; // TODO: encriptar
 		if (!userToBeLogged.getPassword().equals(aPasswordEncrypted)) {
 			throw new IncorrectPasswordException("Contraseña incorrecta.");
