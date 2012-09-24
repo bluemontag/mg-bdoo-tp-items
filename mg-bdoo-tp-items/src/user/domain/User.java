@@ -1,24 +1,30 @@
 package user.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import user.domain.team.Team;
 import base.domain.BaseDomain;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class User extends BaseDomain{
+public class User extends BaseDomain {
 
 	protected String userName;
 	protected String password;
-	
+	protected Collection<Team> teams;
+
 	public User() {
-		// Si no esta este contructor, hibernate no funciona.
+		this.teams = new ArrayList<Team>();
 	}
-	
+
 	public User(String anUserName, String aPassword) {
+		this.teams = new ArrayList<Team>();
 		this.userName = anUserName;
 		this.password = aPassword;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
@@ -33,5 +39,13 @@ public class User extends BaseDomain{
 
 	public void setPassword(String aPassword) {
 		this.password = aPassword;
+	}
+
+	public Collection<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Collection<Team> teams) {
+		this.teams = teams;
 	}
 }
