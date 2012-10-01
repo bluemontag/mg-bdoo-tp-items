@@ -24,6 +24,8 @@ import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import workflow.domain.Workflow;
 import workflow.domain.state.domain.ItemState;
+import workflow.service.WorkflowServiceBI;
+import workflow.service.state.ItemStateServiceBI;
 import base.test.BaseTestCase;
 
 /**
@@ -55,24 +57,15 @@ public class ItemTest extends BaseTestCase {
 		ItemServiceBI itemService = (ItemServiceBI) ctx.getBean("itemService");
 		this.setItemService(itemService);
 		
+		WorkflowServiceBI wfService = (WorkflowServiceBI) ctx.getBean("workflowService");
+		this.setWorkflowService(wfService);
+
+		ItemStateServiceBI itemStateService = (ItemStateServiceBI) ctx.getBean("itemStateService");
+		this.setItemStateService(itemStateService);
+		
 		super.setUp(); //crea y loguea  usuario
 	}
 
-/*	@Deprecated
-	public void testItemChangeStateInMemory() {
-		/* testea para un item que se encuentra en memoria, si se puede 
-		 * ejecutar una transaccion simple.
-		 *
-		try {
-			this.item.executeTransition("aEn desarrollo");
-		} catch (BadTransitionException e) {
-			fail("La transaccion es incorrecta");
-		}
-
-		assertTrue(this.item.getCurrentState().getName().equals("En desarrollo"));
-		System.out.println("El item cambio de estado como se esperaba");
-	}*/
-	
 	public void testItemChangeState() {
 
 		

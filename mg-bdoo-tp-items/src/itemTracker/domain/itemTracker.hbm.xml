@@ -40,6 +40,10 @@
 			<one-to-many class="workflow.domain.state.domain.ItemState" />
 		</bag>
 		
+		<bag name="itemTypes" table="itemTypes" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="item.domain.itemType.ItemType" />
+		</bag>
 		<many-to-one name="adminUser" class="user.domain.User" column="oid_admin_user" not-null="false" cascade="save-update" />		
 	</class>
 </hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="item.domain.itemType.ItemType" table="itemType" optimistic-lock="version">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		<version column="version" name="version" unsaved-value="null"/>		
+		
+		<!-- propiedades simples -->
+		<property name="typeName"/>
+		
+		<!--  es una relacion uno a uno, pero se mapea asi ("many-to-one") -->
+		<many-to-one name="initialTeam" column="initialTeam" class="user.domain.team.Team" unique="true" not-null="true" />
+		<many-to-one name="workflow" column="workflow" class="workflow.domain.Workflow" unique="true" not-null="true" />
+		
+		<property name="removed" column="removed" />
+	</class>
+
+	<!-- Named queries for Item -->
+	<query name="getItemTypeByName">
+        <![CDATA[from ItemType i where i.typeName= :itemTypeName]]>
+	</query>
+
+</hibernate-mapping>

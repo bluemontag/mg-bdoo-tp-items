@@ -8,8 +8,11 @@ import item.exception.itemType.ItemTypeAlreadyExistsException;
 import item.exception.itemType.UnknownItemTypeException;
 
 import java.util.Collection;
-import user.domain.team.Team;
-import workflow.domain.Workflow;
+
+import user.dto.team.TeamDTO;
+import user.exception.team.UnknownTeamException;
+import workflow.dto.WorkflowDTO;
+import workflow.exception.UnknownWorkflowException;
 import base.exception.DTOConcurrencyException;
 
 /**
@@ -19,8 +22,8 @@ import base.exception.DTOConcurrencyException;
  */
 public interface ItemTypeServiceBI {
 	//Creation
-	public ItemTypeDTO createItemType(String sessionToken, String typeName, Team initialTeam, Workflow w) 
-			throws ItemTypeAlreadyExistsException; 
+	public ItemTypeDTO createItemType(String sessionToken, String typeName, TeamDTO initialTeamDTO, WorkflowDTO wDTO) 
+			throws ItemTypeAlreadyExistsException, UnknownTeamException, UnknownWorkflowException; 
 	
 	//Listing
 	public Collection<ItemTypeDTO> listItemTypes(String sessionToken);
@@ -35,5 +38,5 @@ public interface ItemTypeServiceBI {
 	//Removing
 	public void logicalRemoveItemTypeByName(String sessionToken, String itemTypeName) throws UnknownItemTypeException;
 	public void logicalRemoveItemType(String sessionToken, ItemTypeDTO itemTypeDTO) throws UnknownItemTypeException;
-	public void removeItemType(String sessionToken, ItemTypeDTO itemTypeDTO) throws UnknownItemTypeException;
+	public void removeItemType(String sessionToken, ItemTypeDTO itemTypeDTO) throws UnknownItemTypeException, DTOConcurrencyException;
 }

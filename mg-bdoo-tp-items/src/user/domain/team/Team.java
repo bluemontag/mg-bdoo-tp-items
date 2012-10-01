@@ -2,6 +2,7 @@ package user.domain.team;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import user.domain.User;
 import base.domain.BaseDomain;
@@ -22,6 +23,15 @@ public class Team extends BaseDomain {
 		this.name = aName;
 		this.users = new ArrayList<User>();
 		this.users.addAll(users);
+		/* 
+		 * la relacion es bidireccional, 
+		 * por lo tanto tengo que decirles a los usuarios que estan en este team tambien
+		 */
+		Iterator<User> i = this.users.iterator();
+		while (i.hasNext()) {
+			User u = i.next();
+			u.addTeam(this);
+		}
 	}
 
 	public String getName() {

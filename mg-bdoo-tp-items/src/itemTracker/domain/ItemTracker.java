@@ -164,6 +164,9 @@ public class ItemTracker extends BaseDomain {
 	public void addItemType(ItemType it) {
 		this.itemTypes.add(it);
 	}
+	public void removeItemType(ItemType it) {
+		this.itemTypes.remove(it);
+	}
 
 	public Collection<Item> getItems() {
 		return items;

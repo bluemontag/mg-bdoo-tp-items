@@ -48,4 +48,10 @@ public class User extends BaseDomain {
 	public void setTeams(Collection<Team> teams) {
 		this.teams = teams;
 	}
+	
+	public void addTeam(Team t) {
+		//agrego siempre que no este ya.
+		if (!this.teams.contains(t))
+			this.teams.add(t);
+	}
 }

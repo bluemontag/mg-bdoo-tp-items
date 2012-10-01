@@ -13,7 +13,11 @@ import itemTracker.domain.ItemTracker;
 import java.util.Collection;
 
 import user.domain.team.Team;
+import user.dto.team.TeamDTO;
+import user.exception.team.UnknownTeamException;
 import workflow.domain.Workflow;
+import workflow.dto.WorkflowDTO;
+import workflow.exception.UnknownWorkflowException;
 import base.exception.DTOConcurrencyException;
 import base.service.AbstractServiceImpl;
 
@@ -28,11 +32,15 @@ public class ItemTypeServiceImpl extends AbstractServiceImpl implements ItemType
 	 * Creation
 	 * ________________________________________________________
 	 */
-	public ItemTypeDTO createItemType(String sessionToken, String typeName, Team initialTeam, Workflow w) 
-				throws ItemTypeAlreadyExistsException {
+	public ItemTypeDTO createItemType(String sessionToken, String typeName, TeamDTO initialTeamDTO, WorkflowDTO wDTO) 
+				throws ItemTypeAlreadyExistsException, UnknownTeamException, UnknownWorkflowException {
 		try {//first verify if it exists in the repository
 			this.getItemTypeRepository().getItemTypeByName(typeName);
 		} catch (UnknownItemTypeException unknownItemTypeException) {
+			//tomo los objetos para crear el ItemType
+			Team initialTeam = this.getTeamRepository().getTeamByDTO(initialTeamDTO);
+			Workflow w = this.getWorkflowRepository().getWorkflowByDTO(wDTO);
+			
 			ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 			
 			//responsibility of creating an item type is in services layer.
@@ -61,13 +69,18 @@ public class ItemTypeServiceImpl extends AbstractServiceImpl implements ItemType
 	 * Retrieving
 	 * ________________________________________________________
 	 */
-	public ItemTypeDTO getItemTypeByName(String sessionToken, String itemTypeName) throws UnknownItemTypeException {
-		return null;
+	public ItemTypeDTO getItemTypeByName(String sessionToken, String typeName) throws UnknownItemTypeException {
+		ItemType it = this.getItemTypeRepository().getItemTypeByName(typeName);
+		ItemTypeDTO itDTO = (ItemTypeDTO) ItemTypeDTOFactory.getInstance().getDTO(it);
+		return itDTO;
 	}
+	
 	public ItemTypeDTO getItemType(String sessionToken, ItemTypeDTO itemTypeDTO) throws UnknownItemTypeException {
-		return null;
+		ItemType it = this.getItemTypeRepository().getItemTypeByOid(itemTypeDTO.getOid());
+		ItemTypeDTO itDTO = (ItemTypeDTO) ItemTypeDTOFactory.getInstance().getDTO(it);
+		return itDTO;
 	}
-		
+	
 	/* ________________________________________________________
 	 * 
 	 * Updating
@@ -88,7 +101,10 @@ public class ItemTypeServiceImpl extends AbstractServiceImpl implements ItemType
 	public void logicalRemoveItemType(String sessionToken, ItemTypeDTO itemTypeDTO) throws UnknownItemTypeException {
 		
 	}
-	public void removeItemType(String sessionToken, ItemTypeDTO itemTypeDTO) throws UnknownItemTypeException {
-		
+	public void removeItemType(String sessionToken, ItemTypeDTO itemTypeDTO) throws UnknownItemTypeException, DTOConcurrencyException {
+		ItemType it = this.getItemTypeRepository().getItemTypeByOid(itemTypeDTO.getOid());
+		this.checkDTOConcurrency(itemTypeDTO, it);
+		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
+		theItemTracker.removeItemType(it);
 	}
 }

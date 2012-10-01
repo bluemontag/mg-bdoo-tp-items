@@ -12,7 +12,7 @@
 		<version column="version" name="version" unsaved-value="null"/>		
 		<property name="name" column="name" unique="true" />
 		
-		<bag name="users" table="TEAM_USER" inverse="true" cascade="all">
+		<bag name="users" table="TEAM_USER" inverse="true" cascade="delete">
 			<key column="oid_team" />
 			<many-to-many column="oid_user" class="user.domain.User"/>
 		</bag>
