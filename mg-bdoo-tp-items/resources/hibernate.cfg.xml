@@ -8,7 +8,8 @@
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/mg-tp-bd</property>
 		<property name="hibernate.connection.username">mg-tp-bd</property>
-		<property name="hibernate.connection.password">mg-tp-bd</property>		<property name="hibernate.connection.pool_size">10</property>
+		<property name="hibernate.connection.password">mg-tp-bd</property>
+		<property name="hibernate.connection.pool_size">10</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>		
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
@@ -26,5 +27,6 @@
 		<mapping resource="item/domain/historicItem.hbm.xml"/>
 		<mapping resource="workflow/domain/state/domain/itemState.hbm.xml"/>
 		<mapping resource="workflow/domain/workflow.hbm.xml"/>
+		<mapping resource="item/domain/itemType/itemType.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>
