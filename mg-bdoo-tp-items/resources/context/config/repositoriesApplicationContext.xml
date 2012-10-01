@@ -28,7 +28,9 @@
 		<property name="itemStateRepository">
 			<ref bean="memoryItemStateRepository"/>
 		</property>	
-			
+		<property name="itemTypeRepository">
+			<ref bean="memoryItemTypeRepository"/>
+		</property>	
 	</bean>
 
 	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
@@ -53,7 +55,9 @@
 		<property name="itemStateRepository">
 			<ref bean="hibernateItemStateRepository"/>
 		</property>	
-		
+		<property name="itemTypeRepository">
+			<ref bean="hibernateItemTypeRepository"/>
+		</property>	
 	</bean>
 
 		<!-- ==================================================
@@ -100,6 +104,12 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>	
+
+	<bean id="hibernateItemTypeRepository" class="item.repository.itemType.HibernateItemTypeRepository">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
 	<!-- =====================================================
 		Repositorios para obtener datos desde memoria. 
 		======================================================= -->
@@ -111,4 +121,5 @@
 	<bean id="memoryWorkflowRepository" class="workflow.repository.MemoryWorkflowRepository"/>
 	<bean id="memoryItemRepository" class="item.repository.MemoryItemRepository"/>
 	<bean id="memoryItemStateRepository" class="workflow.repository.state.MemoryItemStateRepository"/>
+	<bean id="memoryItemTypeRepository" class="item.repository.itemType.MemoryItemTypeRepository"/>
 </beans>
