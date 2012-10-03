@@ -10,6 +10,7 @@ import java.util.HashSet;
 import junit.framework.TestCase;
 
 import org.junit.Before;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import project.service.ProjectServiceBI;
 import user.dto.UserDTO;
@@ -51,6 +52,9 @@ public abstract class BaseTestCase extends TestCase {
 	@Override
 	@Before
 	public void setUp() throws Exception {
+
+		String[] contextPaths = new String[] { BaseTestCase.CONTEXT };
+		new ClassPathXmlApplicationContext(contextPaths);
 
 		// se guardan los servicios para que sea mas corta la sentencia.
 		this.itemTrackerService = ServiceContainer.getInstance().getItemTrackerService();
