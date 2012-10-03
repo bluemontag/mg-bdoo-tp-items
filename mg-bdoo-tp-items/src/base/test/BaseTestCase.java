@@ -10,7 +10,6 @@ import java.util.HashSet;
 import junit.framework.TestCase;
 
 import org.junit.Before;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import project.service.ProjectServiceBI;
@@ -45,42 +44,20 @@ public abstract class BaseTestCase extends TestCase {
 	protected ItemServiceBI itemService;
 	protected ItemStateServiceBI itemStateService;
 	protected ItemTypeServiceBI itemTypeService;
-	
+
 	// propiedades usadas por algunos tests.
 	protected Collection<UserDTOForLists> aUserDTOForListCollection = new HashSet<UserDTOForLists>();
 	protected UserDTO aCreatedUserDTO;
 
 	private final static String CONTEXT = "applicationContext.xml";
-	private AbstractApplicationContext ctx; 
-	
-	
-	protected void setServices() {
-		//levanto el contexto del xml
-		String[] contextPaths = new String[] { BaseTestCase.CONTEXT };
-		ctx = new ClassPathXmlApplicationContext(contextPaths);
 
-		UserServiceBI userService = (UserServiceBI)ctx.getBean("userService");
-		this.setUserService(userService);
-		
-		WorkflowServiceBI wfService = (WorkflowServiceBI) ctx.getBean("workflowService");
-		this.setWorkflowService(wfService);
-
-		ItemStateServiceBI itemStateService = (ItemStateServiceBI) ctx.getBean("itemStateService");
-		this.setItemStateService(itemStateService);
-		
-		TeamServiceBI teamService = (TeamServiceBI)ctx.getBean("teamService");
-		this.setTeamService(teamService);
-		
-		ItemTypeServiceBI itService = (ItemTypeServiceBI)ctx.getBean("itemTypeService");
-		this.setItemTypeService(itService);
-		
-		ItemTrackerServiceBI itemTrackerService = (ItemTrackerServiceBI)ctx.getBean("itemTrackerService");
-		this.setItemTrackerService(itemTrackerService);
-	}
-	
 	@Override
 	@Before
-	public void setUp() throws Exception {		
+	public void setUp() throws Exception {
+
+		String[] contextPaths = new String[] { BaseTestCase.CONTEXT };
+		new ClassPathXmlApplicationContext(contextPaths);
+
 		// se guardan los servicios para que sea mas corta la sentencia.
 		this.itemTrackerService = ServiceContainer.getInstance().getItemTrackerService();
 		this.userService = ServiceContainer.getInstance().getUserService();
@@ -149,6 +126,8 @@ public abstract class BaseTestCase extends TestCase {
 	}
 
 	protected ItemStateDTO getItemState(String name) {
+		// Ignacio: en BaseTestCase solo va lo que es muy generico, este metodo
+		// se va a usar en otros lados?
 		ItemStateDTO stateDTO = null;
 		try {
 			stateDTO = this.getItemStateService().createItemState(this.sessionToken, name);
@@ -157,82 +136,52 @@ public abstract class BaseTestCase extends TestCase {
 				stateDTO = this.getItemStateService().getItemStateByName(this.sessionToken, name);
 			} catch (UnknownItemStateException e1) {
 				e1.printStackTrace();
-				fail("No se pudo recuperar o crear el estado: no existe el estado:"+name);
+				fail("No se pudo recuperar o crear el estado: no existe el estado:" + name);
 			}
 		}
 		return stateDTO;
 	}
-	
+
 	protected void addNextState(ItemStateDTO parent, ItemStateDTO child) {
+		// Ignacio: en BaseTestCase solo va lo que es muy generico, este metodo
+		// se va a usar en otros lados?
 		try {
 			this.getItemStateService().addNextState(this.sessionToken, parent, child);
 		} catch (UnknownItemStateException e) {
 			e.printStackTrace();
-			fail("No se pudo setear el proximo estado: no existe el estado "+parent.getOid()+" o el estado "+child.getOid());
+			fail("No se pudo setear el proximo estado: no existe el estado " + parent.getOid() + " o el estado "
+					+ child.getOid());
 		} catch (DTOConcurrencyException e) {
 			e.printStackTrace();
 			fail("Error de concurrencia al tratar de setear proximo estado");
 		}
 	}
-	/**
-	 * @return the itemService
-	 */
+
 	public ItemServiceBI getItemService() {
 		return itemService;
-	}
-
-	/**
-	 * @param itemService the itemService to set
-	 */
-	public void setItemService(ItemServiceBI itemService) {
-		this.itemService = itemService;
 	}
 
 	public WorkflowServiceBI getWorkflowService() {
 		return workflowService;
 	}
 
-	public void setWorkflowService(WorkflowServiceBI workflowService) {
-		this.workflowService = workflowService;
-	}
-
 	public ItemStateServiceBI getItemStateService() {
 		return itemStateService;
-	}
-
-	public void setItemStateService(ItemStateServiceBI itemStateService) {
-		this.itemStateService = itemStateService;
 	}
 
 	public TeamServiceBI getTeamService() {
 		return teamService;
 	}
 
-	public void setTeamService(TeamServiceBI teamService) {
-		this.teamService = teamService;
-	}
-
 	public UserServiceBI getUserService() {
 		return userService;
-	}
-
-	public void setUserService(UserServiceBI userService) {
-		this.userService = userService;
 	}
 
 	public ItemTrackerServiceBI getItemTrackerService() {
 		return itemTrackerService;
 	}
 
-	public void setItemTrackerService(ItemTrackerServiceBI itemTrackerService) {
-		this.itemTrackerService = itemTrackerService;
-	}
-
 	public ItemTypeServiceBI getItemTypeService() {
 		return itemTypeService;
-	}
-
-	public void setItemTypeService(ItemTypeServiceBI itemTypeService) {
-		this.itemTypeService = itemTypeService;
 	}
 }
