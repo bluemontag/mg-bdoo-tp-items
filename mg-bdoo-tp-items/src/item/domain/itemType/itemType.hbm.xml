@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="item.domain.itemType.ItemType" table="itemType" optimistic-lock="version">
+	<class name="item.domain.itemType.ItemType" table="ITEM_TYPE" optimistic-lock="version">
 		<id name="oid" column="OID">
 			<generator class="assigned" />
 		</id>

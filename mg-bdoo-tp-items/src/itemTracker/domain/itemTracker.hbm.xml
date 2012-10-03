@@ -30,17 +30,17 @@
 			<one-to-many class="item.domain.Item" />
 		</bag>
 
-		<bag name="workflows" table="workflow" cascade="all-delete-orphan">
+		<bag name="workflows" table="WORKFLOW" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="workflow.domain.Workflow" />
 		</bag>
 
-		<bag name="itemStates" table="itemStates" cascade="all-delete-orphan">
+		<bag name="itemStates" table="ITEM_STATE" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="workflow.domain.state.domain.ItemState" />
 		</bag>
 		
-		<bag name="itemTypes" table="itemTypes" cascade="all-delete-orphan">
+		<bag name="itemTypes" table="ITEM_TYPES" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="item.domain.itemType.ItemType" />
 		</bag>

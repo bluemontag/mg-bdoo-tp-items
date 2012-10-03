@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="item.domain.HistoricItem" table="historicItem" optimistic-lock="version">
+	<class name="item.domain.HistoricItem" table="HISTORIC_ITEM" optimistic-lock="version">
 		<id name="oid" column="OID">
 			<generator class="assigned" />
 		</id>
@@ -16,7 +16,6 @@
 		<property name="stateName" type="java.lang.String"/>
 		<property name="responsibleUserName" type="java.lang.String"/>
 		<property name="date" type="java.util.Date"/>
-		
 		<property name="removed" column="removed" />
 	</class>
 

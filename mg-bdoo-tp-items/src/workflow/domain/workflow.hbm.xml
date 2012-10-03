@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="workflow.domain.Workflow" table="workflow" optimistic-lock="version">
+	<class name="workflow.domain.Workflow" table="WORKFLOW" optimistic-lock="version">
 		<id name="oid" column="OID">
 			<generator class="assigned" />
 		</id>
@@ -21,7 +21,7 @@
 		<!-- many-to-one name="currentState" class="workflow.domain.state.domain.ItemState" update="true" unique="false"/-->
 		
 		<!-- colecciones o relaciones -->
-	    <!-- bag name="history" table="historicItem" cascade="all-delete-orphan">
+	    <!-- bag name="history" table="HISTORIC_ITEM" cascade="all-delete-orphan">
      	   <key column="oid"/>
         	<one-to-many class="item.domain.HistoricItem" />
     	</bag-->
