@@ -10,7 +10,6 @@ import java.util.HashSet;
 import junit.framework.TestCase;
 
 import org.junit.Before;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import project.service.ProjectServiceBI;
 import user.dto.UserDTO;
@@ -49,14 +48,9 @@ public abstract class BaseTestCase extends TestCase {
 	protected Collection<UserDTOForLists> aUserDTOForListCollection = new HashSet<UserDTOForLists>();
 	protected UserDTO aCreatedUserDTO;
 
-	private final static String CONTEXT = "applicationContext.xml";
-
 	@Override
 	@Before
 	public void setUp() throws Exception {
-
-		String[] contextPaths = new String[] { BaseTestCase.CONTEXT };
-		new ClassPathXmlApplicationContext(contextPaths);
 
 		// se guardan los servicios para que sea mas corta la sentencia.
 		this.itemTrackerService = ServiceContainer.getInstance().getItemTrackerService();
