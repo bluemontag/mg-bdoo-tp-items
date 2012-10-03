@@ -1,17 +1,12 @@
 package user.test.team;
 
-import itemTracker.service.ItemTrackerServiceBI;
-
 import org.junit.After;
 import org.junit.Before;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import user.dto.team.TeamDTO;
 import user.exception.UnknownUserException;
 import user.exception.team.TeamAlreadyExistsException;
 import user.exception.team.UnknownTeamException;
-import user.service.team.TeamServiceBI;
 import base.exception.DTOConcurrencyException;
 import base.test.TestConstants;
 
@@ -21,19 +16,10 @@ import base.test.TestConstants;
 public class TeamCreateServiceTest extends TeamServiceTest {
 
 	protected TeamDTO aCreatedTeamDTO;
-	private final static String CONTEXT = "applicationContext.xml";
-	private AbstractApplicationContext ctx;
-	
+
 	@Override
 	@Before
 	public void setUp() throws Exception {
-		String[] contextPaths = new String[] { TeamCreateServiceTest.CONTEXT };
-		ctx = new ClassPathXmlApplicationContext(contextPaths);
-		TeamServiceBI teamService = (TeamServiceBI) ctx.getBean("teamService");
-		this.setTeamService(teamService);
-
-		ItemTrackerServiceBI its = (ItemTrackerServiceBI)ctx.getBean("itemTrackerService");
-		this.setItemTrackerService(its);
 		super.setUp();
 		this.createAUserCollection();
 	}
@@ -42,7 +28,7 @@ public class TeamCreateServiceTest extends TeamServiceTest {
 	@After
 	public void tearDown() throws Exception {
 		this.deleteCreatedTeam();
-		this.deleteTheUserCollection();
+		// this.deleteTheUserCollection();
 	}
 
 	public void testCreateTeam() {
