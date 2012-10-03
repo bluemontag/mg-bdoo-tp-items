@@ -3,10 +3,10 @@ Delete From project_user;
 Delete From usuario Where user_name not like 'rodrigo';
 Delete From project;
 Delete From team;
-Delete From historicitem;
+Delete From historic_item;
 Delete From item;
-Delete From itemtype;
-Delete From transitiontable;
+Delete From item_type;
+Delete From transition;
 Delete From workflow;
 
 Update item_tracker 
