@@ -36,9 +36,8 @@ public class TeamServiceImpl extends AbstractServiceImpl implements TeamServiceB
 			UnknownTeamException {
 		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 		Team aTeam = this.getTeamRepository().getTeamByDTO(aTeamDTOToRemove);
-		/* Deshabilito este check porque da excepcion cuando no deberia
-		 * this.checkDTOConcurrency(aTeamDTOToRemove, aTeam);
-		 */
+		aTeam.removeUsers();
+	    this.checkDTOConcurrency(aTeamDTOToRemove, aTeam);
 		theItemTracker.removeTeam(aTeam);
 
 	}
