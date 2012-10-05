@@ -1,6 +1,5 @@
 package base.test;
 
-import item.test.itemType.ItemTypeTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -32,7 +31,7 @@ public abstract class BaseSuiteTest {
 
 	@SuppressWarnings("rawtypes")
 	protected static Class[] getTestsToPerform() {
-		Class[] testClasses = { TeamCreateServiceTest.class, ItemTypeTest.class };
+		Class[] testClasses = { TeamCreateServiceTest.class, };
 		return testClasses;
 	}
 
