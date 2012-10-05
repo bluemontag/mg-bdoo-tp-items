@@ -5,8 +5,6 @@ package item.test.itemType;
 
 import item.dto.itemType.ItemTypeDTO;
 import item.exception.itemType.ItemTypeAlreadyExistsException;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 import user.dto.team.TeamDTO;
 import user.exception.UnknownUserException;
 import user.exception.team.TeamAlreadyExistsException;
@@ -16,24 +14,23 @@ import workflow.dto.state.ItemStateDTO;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.WorkflowAlreadyExistsException;
 import workflow.exception.state.UnknownItemStateException;
-import base.test.BaseTestCase;
 
 /**
  * @author igallego ignaciogallego@gmail.com
  * 
  *         03/07/2012
  */
-public class ItemTypeTest extends BaseTestCase {
+public class ItemTypeTest extends ItemTypeServiceTest {
 
 	private ItemStateDTO pendiente;
 	private TeamDTO tDTO;
 	private WorkflowDTO wDTO;
 	private ItemTypeDTO itemTypeDTO;
 
-	public static Test suite() {
-		/* Crea el test para ejecutarlo desde el IDE */
+	/*public static Test suite() {
+		/* Crea el test para ejecutarlo desde el IDE 
 		return new TestSuite(ItemTypeTest.class);
-	}
+	}*/
 
 	@Override
 	public void setUp() throws Exception {
