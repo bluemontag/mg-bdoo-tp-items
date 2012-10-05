@@ -23,9 +23,9 @@ public class Team extends BaseDomain {
 		this.name = aName;
 		this.users = new ArrayList<User>();
 		this.users.addAll(users);
-		/* 
-		 * la relacion es bidireccional, 
-		 * por lo tanto tengo que decirles a los usuarios que estan en este team tambien
+		/*
+		 * la relacion es bidireccional, por lo tanto tengo que decirles a los
+		 * usuarios que estan en este team tambien
 		 */
 		Iterator<User> i = this.users.iterator();
 		while (i.hasNext()) {
@@ -52,5 +52,11 @@ public class Team extends BaseDomain {
 
 	public void addUser(User anUser) {
 		this.users.add(anUser);
+	}
+
+	public void removeUsers() {
+		for (User user : this.users) {
+			user.removeFromTeam(this);
+		}
 	}
 }
