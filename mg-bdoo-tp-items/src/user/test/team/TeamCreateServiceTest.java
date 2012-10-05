@@ -28,7 +28,7 @@ public class TeamCreateServiceTest extends TeamServiceTest {
 	@After
 	public void tearDown() throws Exception {
 		this.deleteCreatedTeam();
-		// this.deleteTheUserCollection();
+		this.deleteTheUserCollection();
 	}
 
 	public void testCreateTeam() {
