@@ -60,6 +60,7 @@ public abstract class BaseTestCase extends TestCase {
 		this.workflowService = ServiceContainer.getInstance().getWorkflowService();
 		this.itemService = ServiceContainer.getInstance().getItemService();
 		this.itemTypeService = ServiceContainer.getInstance().getItemTypeService();
+		this.itemStateService = ServiceContainer.getInstance().getItemStateService();
 
 		// se loggea en la aplicacion
 		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
@@ -119,7 +120,7 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
-	protected ItemStateDTO getItemState(String name) {
+	protected ItemStateDTO createOrGetItemState(String name) {
 		// Ignacio: en BaseTestCase solo va lo que es muy generico, este metodo
 		// se va a usar en otros lados?
 		ItemStateDTO stateDTO = null;
@@ -137,8 +138,7 @@ public abstract class BaseTestCase extends TestCase {
 	}
 
 	protected void addNextState(ItemStateDTO parent, ItemStateDTO child) {
-		// Ignacio: en BaseTestCase solo va lo que es muy generico, este metodo
-		// se va a usar en otros lados?
+		//Este metodo se usa en los test cases de ItemState, Workflow e ItemType
 		try {
 			this.getItemStateService().addNextState(this.sessionToken, parent, child);
 		} catch (UnknownItemStateException e) {
