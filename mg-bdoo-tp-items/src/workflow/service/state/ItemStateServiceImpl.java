@@ -4,7 +4,7 @@
 package workflow.service.state;
 
 import itemTracker.domain.ItemTracker;
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import workflow.dto.state.ItemStateDTO;
 import workflow.dto.state.ItemStateDTOFactory;
 import workflow.exception.state.ItemStateAlreadyExistsException;

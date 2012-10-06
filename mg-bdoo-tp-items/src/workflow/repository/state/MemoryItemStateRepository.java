@@ -1,6 +1,6 @@
 package workflow.repository.state;
 
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import workflow.dto.state.ItemStateDTO;
 import workflow.exception.state.UnknownItemStateException;
 
