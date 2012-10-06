@@ -5,7 +5,7 @@ package workflow.service;
 
 import itemTracker.domain.ItemTracker;
 import workflow.domain.Workflow;
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import workflow.dto.WorkflowDTO;
 import workflow.dto.WorkflowDTOFactory;
 import workflow.dto.state.ItemStateDTO;
