@@ -3,7 +3,7 @@
  */
 package workflow.domain;
 
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import base.domain.BaseDomain;
 
 /**

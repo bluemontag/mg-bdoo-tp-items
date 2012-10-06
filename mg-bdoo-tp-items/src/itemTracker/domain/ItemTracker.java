@@ -14,7 +14,7 @@ import user.domain.team.Team;
 import user.exception.UnknownUserException;
 import user.exception.team.UnknownTeamException;
 import workflow.domain.Workflow;
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.state.UnknownItemStateException;
 import base.domain.BaseDomain;

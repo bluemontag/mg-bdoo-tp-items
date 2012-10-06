@@ -1,7 +1,7 @@
 package workflow.dto.state;
 
 
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import base.dto.AbstractDTOForLists;
 
 /**

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package workflow.domain.state.domain;
+package workflow.domain.state;
 
 import java.util.HashMap;
 import java.util.Map;

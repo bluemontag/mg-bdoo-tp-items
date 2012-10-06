@@ -1,6 +1,6 @@
-package workflow.domain.transition.domain;
+package workflow.domain.transition;
 
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import base.domain.BaseDomain;
 
 @Deprecated
