@@ -21,7 +21,7 @@ import user.domain.team.Team;
 import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import workflow.domain.Workflow;
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import base.test.BaseTestCase;
 
 /**

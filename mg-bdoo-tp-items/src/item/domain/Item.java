@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import user.domain.User;
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import workflow.exception.transition.BadTransitionException;
 import base.domain.BaseDomain;
 

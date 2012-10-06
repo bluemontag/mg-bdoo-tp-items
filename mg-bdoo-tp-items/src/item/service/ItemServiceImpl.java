@@ -14,7 +14,7 @@ import itemTracker.domain.ItemTracker;
 
 import java.util.Collection;
 
-import workflow.domain.state.domain.ItemState;
+import workflow.domain.state.ItemState;
 import workflow.dto.state.ItemStateDTO;
 import workflow.dto.state.ItemStateDTOFactory;
 import workflow.exception.transition.BadTransitionException;

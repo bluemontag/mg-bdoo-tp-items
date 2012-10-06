@@ -20,7 +20,7 @@ import workflow.exception.state.UnknownItemStateException;
  * 
  *         03/07/2012
  */
-public class ItemTypeTest extends ItemTypeServiceTest {
+public class ItemTypeCreationTest extends ItemTypeServiceTest {
 
 	private ItemStateDTO pendiente;
 	private TeamDTO tDTO;
@@ -41,14 +41,14 @@ public class ItemTypeTest extends ItemTypeServiceTest {
 	public void testItemTypeCreation() throws UnknownUserException, TeamAlreadyExistsException,
 			WorkflowAlreadyExistsException {
 
-		tDTO = this.teamService.createTeam(this.sessionToken, "Equipo Ignacio", this.aUserDTOForListCollection);
-
-		wDTO = this.workflowService.createWorkflow(this.sessionToken, "WF Ignacio");
+		//
+		tDTO = this.getTeamService().createTeam(this.sessionToken, "Equipo Ignacio", this.aUserDTOForListCollection);
+		wDTO = this.getWorkflowService().createWorkflow(this.sessionToken, "WF Ignacio");
 
 		// agrego estados
-		pendiente = this.getItemState("Pendiente");
-		ItemStateDTO desa = this.getItemState("En desarrollo");
-		ItemStateDTO finalizado = this.getItemState("Finalizado");
+		pendiente = this.createOrGetItemState("Pendiente");
+		ItemStateDTO desa = this.createOrGetItemState("En desarrollo");
+		ItemStateDTO finalizado = this.createOrGetItemState("Finalizado");
 
 		// Intento setear los proximos estados
 		this.addNextState(pendiente, desa);
@@ -83,17 +83,15 @@ public class ItemTypeTest extends ItemTypeServiceTest {
 	protected void tearDown() throws Exception {
 		// leo el DTO antes de borrar para evitar el DTOConcurrencyException
 		itemTypeDTO = this.getItemTypeService().getItemType(this.sessionToken, itemTypeDTO);
-		this.itemTypeService.removeItemType(this.sessionToken, itemTypeDTO);
+		this.getItemTypeService().removeItemType(this.sessionToken, itemTypeDTO);
 
 		this.wDTO = this.getWorkflowService().getWorkflowByDTO(this.sessionToken, wDTO);
 		this.getWorkflowService().removeWorkflow(this.sessionToken, this.wDTO);
 
 		this.tDTO = this.getTeamService().getTeam(this.sessionToken, tDTO);
-		this.teamService.removeTeam(this.sessionToken, tDTO);
+		this.getTeamService().removeTeam(this.sessionToken, tDTO);
 
-		// no es necesario la siguiente linea, porque borro en cascada en la
-		// coleccion de usuarios
-		// this.deleteTheUserCollection();
+		this.deleteTheUserCollection();
 		super.tearDown();
 	}
 }
