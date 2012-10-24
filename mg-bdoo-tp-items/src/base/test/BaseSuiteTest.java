@@ -31,7 +31,7 @@ public abstract class BaseSuiteTest {
 
 	@SuppressWarnings("rawtypes")
 	protected static Class[] getTestsToPerform() {
-		Class[] testClasses = { TeamCreateServiceTest.class, };
+		Class[] testClasses = { TeamCreateServiceTest.class };
 		return testClasses;
 	}
 
