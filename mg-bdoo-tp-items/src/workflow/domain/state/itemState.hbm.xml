@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="workflow.domain.state.domain.ItemState" table="ITEM_STATE" optimistic-lock="version">
+	<class name="workflow.domain.state.ItemState" table="ITEM_STATE" optimistic-lock="version">
 		<id name="oid" column="OID">
 			<generator class="assigned" />
 		</id>
@@ -17,13 +17,13 @@
 		<map name="childStates" table="TRANSITION" cascade="delete, delete-orphan">
    			<key column="parent_oid" />
    			<index column="name" type="java.lang.String"/>
-   			<many-to-many not-found="ignore" column="child_oid" class="workflow.domain.state.domain.ItemState"/>
+   			<many-to-many not-found="ignore" column="child_oid" class="workflow.domain.state.ItemState"/>
 		</map>
 		
 		<map name="parentStates" inverse="true" table="TRANSITION" cascade="delete, delete-orphan">
 			<key column="child_oid"/>
 			<index column="name" type="java.lang.String"/>
-			<many-to-many not-found="ignore" column="parent_oid" class="workflow.domain.state.domain.ItemState"/>
+			<many-to-many not-found="ignore" column="parent_oid" class="workflow.domain.state.ItemState"/>
 		</map>
 				
 		<property name="removed" column="removed" />

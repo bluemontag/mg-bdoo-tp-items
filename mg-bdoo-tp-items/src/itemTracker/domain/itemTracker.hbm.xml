@@ -37,7 +37,7 @@
 
 		<bag name="itemStates" table="ITEM_STATE" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
-			<one-to-many class="workflow.domain.state.domain.ItemState" />
+			<one-to-many class="workflow.domain.state.ItemState" />
 		</bag>
 		
 		<bag name="itemTypes" table="ITEM_TYPES" cascade="all-delete-orphan">

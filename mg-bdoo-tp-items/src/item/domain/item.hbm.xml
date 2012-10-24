@@ -20,7 +20,7 @@
 		<!--  es una relacion uno a uno, pero se mapea asi ("many-to-one") -->
 		<many-to-one name="responsible" class="user.domain.User" update="true" unique="false"/>
 		
-		<!-- many-to-one name="currentState" class="workflow.domain.state.domain.ItemState" update="true" unique="false"/-->
+		<!-- many-to-one name="currentState" class="workflow.domain.state.ItemState" update="true" unique="false"/-->
 		
 		
 		<!-- colecciones o relaciones -->

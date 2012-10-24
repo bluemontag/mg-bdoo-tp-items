@@ -16,9 +16,9 @@
 		<!-- objetos -->
 		<!-- one-to-one name="responsible" class="user.domain.User"/-->
 		<!--  es una relacion uno a uno, pero se mapea asi ("many-to-one") -->
-		<many-to-one name="initialState" class="workflow.domain.state.domain.ItemState" update="true" unique="false"/>
+		<many-to-one name="initialState" class="workflow.domain.state.ItemState" update="true" unique="false"/>
 		
-		<!-- many-to-one name="currentState" class="workflow.domain.state.domain.ItemState" update="true" unique="false"/-->
+		<!-- many-to-one name="currentState" class="workflow.domain.state.ItemState" update="true" unique="false"/-->
 		
 		<!-- colecciones o relaciones -->
 	    <!-- bag name="history" table="HISTORIC_ITEM" cascade="all-delete-orphan">
