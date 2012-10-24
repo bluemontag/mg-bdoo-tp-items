@@ -40,6 +40,15 @@ public class TeamCreateServiceTest extends TeamServiceTest {
 		} catch (UnknownUserException e) {
 			fail("Alguno de los usuarios que se quieren setear no existe.");
 		}
+		
+		try {
+			TeamDTO aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aCreatedTeamDTO);
+			
+			//El team que se creo y el team que se lee de la base tienen la misma version
+			assertEquals(this.aCreatedTeamDTO.getVersion(), aTeamDTO.getVersion());
+		} catch (UnknownTeamException e) {
+			fail("El team no existe");
+		}
 	}
 
 	protected void deleteCreatedTeam() {
