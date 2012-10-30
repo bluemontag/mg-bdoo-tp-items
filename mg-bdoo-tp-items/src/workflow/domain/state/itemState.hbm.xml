@@ -14,13 +14,13 @@
 		<property name="name" type="java.lang.String"/>
 		
 		<!-- colecciones o relaciones -->
-		<map name="childStates" table="TRANSITION" cascade="delete, delete-orphan">
+		<map name="childStates" table="TRANSITION" cascade="delete, delete-orphan" optimistic-lock="false">
    			<key column="parent_oid" />
    			<index column="name" type="java.lang.String"/>
    			<many-to-many not-found="ignore" column="child_oid" class="workflow.domain.state.ItemState"/>
 		</map>
 		
-		<map name="parentStates" inverse="true" table="TRANSITION" cascade="delete, delete-orphan">
+		<map name="parentStates" inverse="true" table="TRANSITION" cascade="delete, delete-orphan" optimistic-lock="false">
 			<key column="child_oid"/>
 			<index column="name" type="java.lang.String"/>
 			<many-to-many not-found="ignore" column="parent_oid" class="workflow.domain.state.ItemState"/>

@@ -1,11 +1,12 @@
 package base.test;
 
+import item.test.ItemChangePropertiesTest;
+import item.test.ItemChangeStateTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import user.test.team.TeamCreateServiceTest;
 import base.contant.BaseConstants;
 
 /**
@@ -31,7 +32,7 @@ public abstract class BaseSuiteTest {
 
 	@SuppressWarnings("rawtypes")
 	protected static Class[] getTestsToPerform() {
-		Class[] testClasses = { TeamCreateServiceTest.class };
+		Class[] testClasses = { ItemChangePropertiesTest.class, ItemChangeStateTest.class };
 		return testClasses;
 	}
 

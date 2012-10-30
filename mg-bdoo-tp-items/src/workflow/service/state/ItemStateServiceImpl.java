@@ -63,7 +63,7 @@ public class ItemStateServiceImpl extends AbstractServiceImpl implements ItemSta
 		ItemState itemState = this.getItemStateRepository().getItemStateByOid(itemStateDTO.getOid());
 		ItemState nextItemState = this.getItemStateRepository().getItemStateByOid(next.getOid());
 		
-		//this.checkDTOConcurrency(itemStateDTO, itemState);
+		this.checkDTOConcurrency(itemStateDTO, itemState);
 		itemState.addNextState(nextItemState);
 	}
 

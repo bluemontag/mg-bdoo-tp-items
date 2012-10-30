@@ -7,6 +7,7 @@ import item.domain.Item;
 import item.domain.itemType.ItemType;
 import item.dto.ItemDTO;
 import item.dto.ItemDTOFactory;
+import item.dto.itemType.ItemTypeDTO;
 import item.exception.ItemAlreadyExistsException;
 import item.exception.UnknownItemException;
 import item.exception.itemType.UnknownItemTypeException;
@@ -35,20 +36,26 @@ public class ItemServiceImpl extends AbstractServiceImpl implements
 	 * ______________________________________________________________________________________
 	 */
 	@Override
-	public ItemDTO createItem(String sessionToken, Long itemNum, String description, Integer priority, ItemType type)
-			throws ItemAlreadyExistsException {
+	public ItemDTO createItem(String sessionToken, Long itemNum, String description, Integer priority, ItemTypeDTO typeDTO)
+			throws ItemAlreadyExistsException, UnknownItemTypeException {
 
 		try {//first verify if it exists in the repository
 			this.getItemRepository().getItemByNum(itemNum);
 		} catch (UnknownItemException unknownItemException) {
 			ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 			
+			//tomo el item type del repositorio para crear el item:
+			ItemType type = this.getItemTypeRepository().getItemTypeByDTO(typeDTO);
+			
 			//responsibility of creating an item is in services layer.
 			Item item = new Item(itemNum, description, priority, type);
 			
 			//set initial state:
 			item.setCurrentState(type.getWorkflow().getInitialState());
-			item.setResponsible(type.getInitialTeam().getUsers().iterator().next()); //pongo como responsable al primer usuario del team
+			
+			//pongo como responsable al primer usuario del team (tambien se podria pasar como parametro)
+			item.setResponsible(type.getInitialTeam().getUsers().iterator().next()); 
+			
 			//add to root object
 			theItemTracker.addItem(item);
 

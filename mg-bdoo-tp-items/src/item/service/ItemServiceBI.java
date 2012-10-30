@@ -3,10 +3,11 @@
  */
 package item.service;
 
-import item.domain.itemType.ItemType;
 import item.dto.ItemDTO;
+import item.dto.itemType.ItemTypeDTO;
 import item.exception.ItemAlreadyExistsException;
 import item.exception.UnknownItemException;
+import item.exception.itemType.UnknownItemTypeException;
 
 import java.util.Collection;
 
@@ -21,8 +22,8 @@ import base.exception.DTOConcurrencyException;
  */
 public interface ItemServiceBI {
 	//Creation
-	public ItemDTO createItem(String sessionToken, Long itemNum, String description, Integer priority, ItemType type) 
-			throws ItemAlreadyExistsException; 
+	public ItemDTO createItem(String sessionToken, Long itemNum, String description, Integer priority, ItemTypeDTO type) 
+			throws ItemAlreadyExistsException, UnknownItemTypeException; 
 	
 	//Listing
 	public Collection<ItemDTO> listItems(String sessionToken);

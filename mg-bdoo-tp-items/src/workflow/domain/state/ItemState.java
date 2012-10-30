@@ -16,7 +16,7 @@ import base.domain.BaseDomain;
 public class ItemState extends BaseDomain {
 
 	private String name;
-	private Map<String, ItemState> nextStates;
+	private Map<String, ItemState> childStates;
 	private Map<String, ItemState> parentStates;
 
 	public ItemState() {
@@ -26,7 +26,7 @@ public class ItemState extends BaseDomain {
 	public ItemState(String name) {
 		super();
 		this.name = name;
-		this.nextStates = new HashMap<String, ItemState>();
+		this.childStates = new HashMap<String, ItemState>();
 		this.parentStates = new HashMap<String, ItemState>();
 	}
 	
@@ -37,24 +37,18 @@ public class ItemState extends BaseDomain {
 	 * 
 	 * El string "t" debe ser por ejemplo "aDesarrollo", si el existe un estado final llamado "Desarrollo"
 	 * 
-	 * @param t
+	 * @param finalState
 	 * @throws Exception
 	 */
-	public ItemState executeTransition(String t) throws BadTransitionException {
-		if (t.toUpperCase().equals("A"+this.name.toUpperCase())) {
+	public ItemState executeTransition(String finalState) throws BadTransitionException {
+		if (finalState!=null && finalState.toUpperCase().equals(this.name.toUpperCase())) {
+			//si estoy ya en ese estado, no hago nada
 			return this;//no se aplica la transicion, es decir, queda en el mismo estado
 		} else {
-			String finalState = null;
-			try {
-				finalState = t.substring(1);//quito la "a"
-			} catch (StringIndexOutOfBoundsException e) {
-				//controlo que el string empiece con "a"
-				throw new BadTransitionException("Bad transition name: "+t);
-			}
-			
 			//si el estado final existe en la lista de estados finales del estado "this":
-			if (finalState!=null &&	this.nextStates.containsKey(finalState)) {
-				return this.nextStates.get(finalState);//retorno el estado final
+			if (finalState!=null &&	this.childStates.containsKey(finalState.toUpperCase())) {
+				ItemState next = this.getChildStates().get(finalState.toUpperCase());
+				return next;//retorno el estado final
 			} else {
 				throw new BadTransitionException("Final state not found in state:"+this.getName());
 			}
@@ -89,27 +83,27 @@ public class ItemState extends BaseDomain {
 	 * 
 	 */
 	public void addNextState(ItemState s) {
-		this.nextStates.put(s.getName(), s);
+		this.childStates.put(s.getName().toUpperCase(), s);
 		s.addParentState(this);
 	}
 
 	public void addParentState(ItemState s) {
-		this.parentStates.put(s.getName(), s);
+		this.parentStates.put(s.getName().toUpperCase(), s);
 	}
 	
 	public Map<String, ItemState> getChildStates() {
-		return nextStates;
+		return childStates;
 	}
 
-	public void setChildStates(Map<String, ItemState> nextStates) {
-		this.nextStates = nextStates;
+	public void setChildStates(Map<String, ItemState> childStates) {
+		this.childStates = childStates;
 	}
 	
 	public Map<String, ItemState> getParentStates() {
 		return parentStates;
 	}
 
-	public void setParentStates(Map<String, ItemState> nextStates) {
-		this.parentStates = nextStates;
+	public void setParentStates(Map<String, ItemState> parentStates) {
+		this.parentStates = parentStates;
 	}
 }
