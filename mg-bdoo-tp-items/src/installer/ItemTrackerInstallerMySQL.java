@@ -22,10 +22,12 @@ public class ItemTrackerInstallerMySQL {
 	public static void main(String[] args) throws InstallingErrorException {
 		System.out.println("Begin: Instalando ItemTracker");
 		try {
-			installItemTracker();
-			setAdminUser();
-		} catch (UnknownUserException e) {
-			throw new InstallingErrorException("No se pudo crear el usuario administrador. Se cancela la instalacion");
+			cargarContexto();
+			// installItemTracker();
+			// setAdminUser();
+			// } catch (UnknownUserException e) {
+			// throw new
+			// InstallingErrorException("No se pudo crear el usuario administrador. Se cancela la instalacion");
 		} catch (Exception e) {
 			throw new InstallingErrorException("Error desconocido. Se cancela la instalacion");
 		}
@@ -34,8 +36,6 @@ public class ItemTrackerInstallerMySQL {
 	}
 
 	private static void setAdminUser() throws UnknownUserException {
-
-		cargarContexto();
 
 		// UserServiceBI userService =
 		// ServiceContainer.getInstance().getUserService();
