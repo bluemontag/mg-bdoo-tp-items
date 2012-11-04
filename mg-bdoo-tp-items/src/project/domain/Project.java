@@ -27,7 +27,7 @@ public class Project extends BaseDomain {
 	}
 
 	public Project(String aProjectName, User aProjectLeader) {
-		this.generarOid();
+		super();
 		this.users = new ArrayList<User>();
 		this.items = new ArrayList<Item>();
 		this.name = aProjectName;
