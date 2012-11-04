@@ -8,14 +8,21 @@ import base.domain.BaseDomain;
 
 /**
  * @author igallego ignaciogallego@gmail.com
- *  
- * 13/06/2012
+ * 
+ *         13/06/2012
  */
 public class Workflow extends BaseDomain {
 
 	private String name;
 	private ItemState initialState;
-	
+
+	public Workflow() {
+	}
+
+	public Workflow(String name) {
+		super();
+		this.name = name;
+	}
 
 	/**
 	 * @return the name
@@ -25,7 +32,8 @@ public class Workflow extends BaseDomain {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -39,7 +47,8 @@ public class Workflow extends BaseDomain {
 	}
 
 	/**
-	 * @param initialState the initialState to set
+	 * @param initialState
+	 *            the initialState to set
 	 */
 	public void setInitialState(ItemState initialState) {
 		this.initialState = initialState;
