@@ -35,7 +35,7 @@ public class ItemTracker extends BaseDomain {
 	private Collection<Item> items;
 	private Collection<ItemState> itemStates;
 	private Collection<Workflow> workflows;
-	
+
 	public ItemTracker() {
 		this.users = new ArrayList<User>();
 		this.projects = new ArrayList<Project>();
@@ -78,7 +78,7 @@ public class ItemTracker extends BaseDomain {
 	public void addProject(Project aProject) {
 		this.projects.add(aProject);
 	}
-	
+
 	public void addWorkflow(Workflow wf) {
 		this.workflows.add(wf);
 	}
@@ -104,8 +104,7 @@ public class ItemTracker extends BaseDomain {
 			throw new UnknownItemException();
 		}
 	}
-	
-	
+
 	public void logicalRemoveProject(Project aProject) {
 		aProject.setRemoved(true);
 	}
@@ -133,7 +132,7 @@ public class ItemTracker extends BaseDomain {
 	public void addItemState(ItemState itemState) {
 		this.itemStates.add(itemState);
 	}
-	
+
 	@Deprecated
 	public void removeItemState(ItemState itemState) throws UnknownItemStateException {
 		boolean removed = this.itemStates.remove(itemState);
@@ -141,11 +140,11 @@ public class ItemTracker extends BaseDomain {
 			throw new UnknownItemStateException();
 		}
 	}
-	
+
 	public void logicalRemoveItemState(ItemState itemState) {
 		itemState.setRemoved(true);
 	}
-	
+
 	/**
 	 * @return the itemTypes
 	 */
@@ -164,6 +163,7 @@ public class ItemTracker extends BaseDomain {
 	public void addItemType(ItemType it) {
 		this.itemTypes.add(it);
 	}
+
 	public void removeItemType(ItemType it) {
 		this.itemTypes.remove(it);
 	}
@@ -204,15 +204,15 @@ public class ItemTracker extends BaseDomain {
 	public void setWorkflows(Collection<Workflow> workflows) {
 		this.workflows = workflows;
 	}
-	
+
 	public void logicalRemoveWorkflow(Workflow w) {
 		w.setRemoved(true);
 	}
-	
+
 	@Deprecated
 	public void removeWorkflow(Workflow w) throws UnknownWorkflowException {
 		boolean removed = this.workflows.remove(w);
-		if (!removed) 
+		if (!removed)
 			throw new UnknownWorkflowException("El workflow que desea eliminar no existe");
 	}
 
@@ -223,5 +223,5 @@ public class ItemTracker extends BaseDomain {
 	public void setItemStates(Collection<ItemState> itemStates) {
 		this.itemStates = itemStates;
 	}
-	
+
 }
