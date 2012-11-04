@@ -1,5 +1,8 @@
 package project.test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -24,6 +27,15 @@ public abstract class ProjectServiceTest extends BaseTestCase {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static Collection<Class> getClassesTestToPerform() {
+		// en este metodo se agregan todos los test a realizar relacionados
+		Collection<Class> projectTestsClasses = new ArrayList<Class>();
+		projectTestsClasses.add(ProjectCreateServiceTest.class);
+		projectTestsClasses.add(ProjectUpdateServiceTest.class);
+		return projectTestsClasses;
 	}
 
 	protected void createProject() {
