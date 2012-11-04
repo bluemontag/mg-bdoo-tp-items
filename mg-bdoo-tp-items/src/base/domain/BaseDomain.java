@@ -7,8 +7,8 @@ import base.dto.AbstractDTO;
  */
 public abstract class BaseDomain implements IPersistentObject {
 
-	// se genera un UUID para cada objeto del dominio.
-	protected String oid = OidGenerator.createId();
+	// llamar al metodo "generarOid()" en cada constructor base.
+	protected String oid;
 	protected Integer version;
 
 	// se utiliza para saber si un objeto base fue eliminado.
@@ -78,5 +78,9 @@ public abstract class BaseDomain implements IPersistentObject {
 	@Override
 	public String toString() {
 		return this.getClass().getName() + " [id=" + oid + "]";
+	}
+
+	protected void generarOid() {
+		this.oid = OidGenerator.createId();
 	}
 }
