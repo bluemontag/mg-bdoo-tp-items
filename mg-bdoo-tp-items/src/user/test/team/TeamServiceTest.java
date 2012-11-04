@@ -1,5 +1,8 @@
 package user.test.team;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -16,5 +19,13 @@ public abstract class TeamServiceTest extends BaseTestCase {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static Collection<Class> getClassesTestToPerform() {
+		// en este metodo se agregan todos los test a realizar relacionados
+		Collection<Class> teamTestsClasses = new ArrayList<Class>();
+		teamTestsClasses.add(TeamCreateServiceTest.class);
+		return teamTestsClasses;
 	}
 }
