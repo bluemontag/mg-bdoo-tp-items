@@ -68,6 +68,34 @@ public abstract class BaseTestCase extends TestCase {
 
 	}
 
+	public ItemServiceBI getItemService() {
+		return itemService;
+	}
+
+	public WorkflowServiceBI getWorkflowService() {
+		return workflowService;
+	}
+
+	public ItemStateServiceBI getItemStateService() {
+		return itemStateService;
+	}
+
+	public TeamServiceBI getTeamService() {
+		return teamService;
+	}
+
+	public UserServiceBI getUserService() {
+		return userService;
+	}
+
+	public ItemTrackerServiceBI getItemTrackerService() {
+		return itemTrackerService;
+	}
+
+	public ItemTypeServiceBI getItemTypeService() {
+		return itemTypeService;
+	}
+
 	protected void createAUserCollection() {
 		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aCreatedUserDTO;
@@ -138,7 +166,8 @@ public abstract class BaseTestCase extends TestCase {
 	}
 
 	protected void addNextState(ItemStateDTO parent, ItemStateDTO child) {
-		//Este metodo se usa en los test cases de ItemState, Workflow e ItemType
+		// Este metodo se usa en los test cases de ItemState, Workflow e
+		// ItemType
 		try {
 			this.getItemStateService().addNextState(this.sessionToken, parent, child);
 		} catch (UnknownItemStateException e) {
@@ -149,33 +178,5 @@ public abstract class BaseTestCase extends TestCase {
 			e.printStackTrace();
 			fail("Error de concurrencia al tratar de setear proximo estado");
 		}
-	}
-
-	public ItemServiceBI getItemService() {
-		return itemService;
-	}
-
-	public WorkflowServiceBI getWorkflowService() {
-		return workflowService;
-	}
-
-	public ItemStateServiceBI getItemStateService() {
-		return itemStateService;
-	}
-
-	public TeamServiceBI getTeamService() {
-		return teamService;
-	}
-
-	public UserServiceBI getUserService() {
-		return userService;
-	}
-
-	public ItemTrackerServiceBI getItemTrackerService() {
-		return itemTrackerService;
-	}
-
-	public ItemTypeServiceBI getItemTypeService() {
-		return itemTypeService;
 	}
 }
