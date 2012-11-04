@@ -1,4 +1,4 @@
-package workflow.test.state;
+package workflow.test.transition;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,7 +11,7 @@ import base.test.BaseTestCase;
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
-public class ItemStateServiceTest extends BaseTestCase {
+public class TransitionServiceTest extends BaseTestCase {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -23,9 +23,7 @@ public class ItemStateServiceTest extends BaseTestCase {
 	@SuppressWarnings("rawtypes")
 	public static Collection<Class> getClassesTestToPerform() {
 		// en este metodo se agregan todos los test a realizar relacionados
-		Collection<Class> itemStateTestsClasses = new ArrayList<Class>();
-		itemStateTestsClasses.add(ItemStateCreationTest.class);
-		return itemStateTestsClasses;
+		Collection<Class> transitionTestsClasses = new ArrayList<Class>();
+		return transitionTestsClasses;
 	}
-
 }
