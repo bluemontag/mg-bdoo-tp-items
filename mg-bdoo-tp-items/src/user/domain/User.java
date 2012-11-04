@@ -20,7 +20,7 @@ public class User extends BaseDomain {
 	}
 
 	public User(String anUserName, String aPassword) {
-		this.generarOid();
+		super();
 		this.teams = new ArrayList<Team>();
 		this.userName = anUserName;
 		this.password = aPassword;
