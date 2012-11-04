@@ -20,6 +20,7 @@ public class Team extends BaseDomain {
 	}
 
 	public Team(String aName, Collection<User> users) {
+		this.generarOid();
 		this.name = aName;
 		this.users = new ArrayList<User>();
 		this.users.addAll(users);
@@ -58,5 +59,10 @@ public class Team extends BaseDomain {
 		for (User user : this.users) {
 			user.removeFromTeam(this);
 		}
+		this.users.clear();
+	}
+
+	public void removeUser(User user) {
+		this.users.remove(user);
 	}
 }
