@@ -15,6 +15,10 @@ public abstract class BaseDomain implements IPersistentObject {
 	// Solo lo utilizan objetos que puedan ser elminados logicamente.
 	private boolean removed = false;
 
+	public BaseDomain() {
+		this.generarOid();
+	}
+
 	@Override
 	public void setOid(String anOid) {
 		this.oid = anOid;
