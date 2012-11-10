@@ -158,7 +158,6 @@ public abstract class BaseTestCase extends TestCase {
 			try {
 				stateDTO = this.getItemStateService().getItemStateByName(this.sessionToken, name);
 			} catch (UnknownItemStateException e1) {
-				e1.printStackTrace();
 				fail("No se pudo recuperar o crear el estado: no existe el estado:" + name);
 			}
 		}
@@ -171,11 +170,9 @@ public abstract class BaseTestCase extends TestCase {
 		try {
 			this.getItemStateService().addNextState(this.sessionToken, parent, child);
 		} catch (UnknownItemStateException e) {
-			e.printStackTrace();
 			fail("No se pudo setear el proximo estado: no existe el estado " + parent.getOid() + " o el estado "
 					+ child.getOid());
 		} catch (DTOConcurrencyException e) {
-			e.printStackTrace();
 			fail("Error de concurrencia al tratar de setear proximo estado");
 		}
 	}
