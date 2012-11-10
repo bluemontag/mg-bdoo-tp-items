@@ -19,4 +19,13 @@ public class TestConstants {
 	public static final String NEW_TEAM_NAME = "Nuevo equipo creado";
 	public static final int AMOUNT_OF_USERS_TO_SET = 5;
 
+	public static final String TEAM_ITEM_TYPE = "Equipo Ignacio";
+	public static final String WORKFLOW_NAME = "WF Ignacio";
+
+	// ESTADOS
+	public static final String PENDIENTE = "Pendiente";
+	public static final String IN_DEVELOPMENT = "En desarrollo";
+	public static final String FINAL = "Finalizado";
+	public static final String ITEM_TYPE_1 = "Tipo Basico";
+
 }
