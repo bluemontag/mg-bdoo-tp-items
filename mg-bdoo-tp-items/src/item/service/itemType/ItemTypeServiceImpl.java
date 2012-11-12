@@ -32,26 +32,26 @@ public class ItemTypeServiceImpl extends AbstractServiceImpl implements ItemType
 	 * Creation
 	 * ________________________________________________________
 	 */
-	public ItemTypeDTO createItemType(String sessionToken, String typeName, TeamDTO initialTeamDTO, WorkflowDTO wDTO) 
+	public ItemTypeDTO createItemType(String sessionToken, String aTypeName, TeamDTO initialTeamDTO, WorkflowDTO wDTO) 
 				throws ItemTypeAlreadyExistsException, UnknownTeamException, UnknownWorkflowException {
 		try {//first verify if it exists in the repository
-			this.getItemTypeRepository().getItemTypeByName(typeName);
+			this.getItemTypeRepository().getItemTypeByName(aTypeName);
 		} catch (UnknownItemTypeException unknownItemTypeException) {
 			//tomo los objetos para crear el ItemType
-			Team initialTeam = this.getTeamRepository().getTeamByDTO(initialTeamDTO);
-			Workflow w = this.getWorkflowRepository().getWorkflowByDTO(wDTO);
+			Team aInitialTeam = this.getTeamRepository().getTeamByDTO(initialTeamDTO);
+			Workflow aWorkFlow = this.getWorkflowRepository().getWorkflowByDTO(wDTO);
 			
 			ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 			
 			//responsibility of creating an item type is in services layer.
-			ItemType itemType = new ItemType(typeName, w, initialTeam);
+			ItemType itemType = new ItemType(aTypeName, aWorkFlow, aInitialTeam);
 			
 			theItemTracker.addItemType(itemType);
 
 			ItemTypeDTO itemTypeDTO = (ItemTypeDTO) ItemTypeDTOFactory.getInstance().getDTO(itemType);
 			return itemTypeDTO;
 		}
-		throw new ItemTypeAlreadyExistsException("El tipo de item " + typeName + " ya existe.");		
+		throw new ItemTypeAlreadyExistsException("El tipo de item " + aTypeName + " ya existe.");		
 
 	}
 		
