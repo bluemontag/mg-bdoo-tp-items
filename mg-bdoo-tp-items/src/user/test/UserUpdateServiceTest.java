@@ -85,6 +85,18 @@ public class UserUpdateServiceTest extends UserServiceTest {
 			massiveUserUpdateConcurrencyTestsSetForCheckConcurrency.add(userUpdateConcurrencyTestAux);
 		}
 
+		this.runAndWaitThreadsToFinish(massiveUserUpdateConcurrencyTestsStackNotFinisehd);
+
+		boolean errorDeConcurrencia = this
+				.checkThreadThrowsConcurrencyError(massiveUserUpdateConcurrencyTestsSetForCheckConcurrency);
+
+		// El test no falla si hubo error de concurrencia de hibernate.
+		assertTrue(errorDeConcurrencia);
+	}
+
+	protected void runAndWaitThreadsToFinish(
+			Stack<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsStackNotFinisehd) {
+
 		for (UserUpdateConcurrencyTest userUpdateConcurrencyTest : massiveUserUpdateConcurrencyTestsStackNotFinisehd) {
 			userUpdateConcurrencyTest.start();
 		}
@@ -103,7 +115,10 @@ public class UserUpdateServiceTest extends UserServiceTest {
 				}
 			}
 		}
+	}
 
+	protected boolean checkThreadThrowsConcurrencyError(
+			HashSet<UserUpdateConcurrencyTest> massiveUserUpdateConcurrencyTestsSetForCheckConcurrency) {
 		// Chequeamos que al menos falle
 		boolean errorDeConcurrencia = false;
 		for (UserUpdateConcurrencyTest userUpdateConcurrencyTest : massiveUserUpdateConcurrencyTestsSetForCheckConcurrency) {
@@ -112,8 +127,6 @@ public class UserUpdateServiceTest extends UserServiceTest {
 				break;
 			}
 		}
-
-		// El test no falla si hubo error de concurrencia de hibernate.
-		assertTrue(errorDeConcurrencia);
+		return errorDeConcurrencia;
 	}
 }
