@@ -29,7 +29,7 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 
 	@Override
 	public void setUp() throws Exception {
-		super.setUp(); // crea y loguea usuario
+		super.setUp(); // crea los servicios y loguea usuario
 		this.createAUserCollection();
 		this.createATeam();
 		this.createAWorkFlow();
@@ -50,6 +50,9 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 		} catch (UnknownTeamException e) {
 			fail("Team desconocido");
 		}
+
+		assertEquals(TestConstants.ITEM_TYPE_1, itemTypeDTO.getName());
+		assertEquals(aWorkFlowDTO, itemTypeDTO.getWorkflowDTO());
 	}
 
 	@Override
