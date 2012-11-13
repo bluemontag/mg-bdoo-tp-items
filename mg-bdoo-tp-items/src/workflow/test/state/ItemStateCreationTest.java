@@ -4,6 +4,7 @@
 package workflow.test.state;
 
 import workflow.dto.state.ItemStateDTO;
+import base.test.TestConstants;
 
 /**
  * @author igallego ignaciogallego@gmail.com
@@ -21,24 +22,20 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 
 	public void testItemStateCreation() {
 
-		// ESTADO PENDIENTE
-		ItemStateDTO pendiente = this.createOrGetItemState("Pendiente");
-		ItemStateDTO desa = this.createOrGetItemState("En desarrollo");
-		ItemStateDTO finalizado = this.createOrGetItemState("Finalizado");
+		ItemStateDTO pendingState = this.createOrGetItemState(TestConstants.PENDING);
+		ItemStateDTO inDevelopmentState = this.createOrGetItemState(TestConstants.IN_DEVELOPMENT);
+		ItemStateDTO finalState = this.createOrGetItemState(TestConstants.FINAL);
 
-		// guardo estado inicial para borrar luego el grafo en el tearDown()
-		initialState = pendiente;
+		initialState = pendingState;
 
-		this.addNextState(pendiente, desa);
-		this.addNextState(desa, finalizado);
-		this.addNextState(finalizado, pendiente);
+		this.addNextState(pendingState, inDevelopmentState);
+		this.addNextState(inDevelopmentState, finalState);
+		this.addNextState(finalState, pendingState);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
 		try {
-			// leo de nuevo el estado inicial para que no me de
-			// DTOConcurrencyException
 			initialState = this.getItemStateService().getItemStateByDTO(this.sessionToken, initialState);
 			this.getItemStateService().removeItemState(this.sessionToken, initialState);
 		} catch (Exception e) {
