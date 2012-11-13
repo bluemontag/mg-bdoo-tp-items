@@ -23,7 +23,7 @@ public class TestConstants {
 	public static final String WORKFLOW_NAME = "WF Ignacio";
 
 	// ESTADOS
-	public static final String PENDIENTE = "Pendiente";
+	public static final String PENDING = "Pendiente";
 	public static final String IN_DEVELOPMENT = "En desarrollo";
 	public static final String FINAL = "Finalizado";
 	public static final String ITEM_TYPE_1 = "Tipo Basico";
