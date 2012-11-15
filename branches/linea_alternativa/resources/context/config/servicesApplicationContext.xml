@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<!-- ==================== Servicios =================== -->
+
+	<bean id="abstractServiceImpl" class="base.service.AbstractServiceImpl"
+		abstract="true">
+		<property name="repositoryFinder" ref="hibernateRepositoryFinder" />
+		<!-- Si se quiere usar el repositorio de memoria se deben descomentar la 
+			siguiente linea y comentar la anterior! -->
+		<!-- <property name="repositoryFinder" ref="memoryRepositoryFinder" /> -->			
+	</bean>
+
+
+	<!-- ==================== Servicio de ItemTracker =================== -->
+
+	<bean id="itemTrackerServiceTarget" class="itemTracker.service.ItemTrackerServiceImpl"
+		parent="abstractServiceImpl"/>
+
+	<bean id="itemTrackerService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="itemTrackerServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- ==================== Servicio de User =================== -->
+
+	<bean id="userServiceTarget" class="user.service.UserServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="userService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="userServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+	<!-- ==================== Servicio de Proyecto =================== -->
+
+	<bean id="projectServiceTarget" class="project.service.ProjectServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="projectService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="projectServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+	<!-- ==================== Servicio de Equipo =================== -->
+
+	<bean id="teamServiceTarget" class="user.service.team.TeamServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="teamService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="teamServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+	
+		<!-- ==================== Servicio de Workflow =================== -->
+
+	<bean id="workflowServiceTarget" class="workflow.service.WorkflowServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="workflowService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="workflowServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+
+		<!-- ==================== Servicio de Items =================== -->
+
+	<bean id="itemServiceTarget" class="item.service.ItemServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="itemService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="itemServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+
+		<!-- ==================== Servicio de ItemState =================== -->
+
+	<bean id="itemStateServiceTarget" class="workflow.service.state.ItemStateServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="itemStateService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="itemStateServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+
+		<!-- ==================== Servicio de ItemType =================== -->
+
+	<bean id="itemTypeServiceTarget" class="item.service.itemType.ItemTypeServiceImpl"
+		parent="abstractServiceImpl">
+	</bean>
+
+	<bean id="itemTypeService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="itemTypeServiceTarget" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="preInterceptors">
+			<list>
+				<bean class="base.security.ServiceSecurityPreInterceptor" />
+			</list>
+		</property>			
+	</bean>
+
+	<!-- ================ Contenedor de servicios =================== -->
+
+	<bean id="serviceContainer" class="base.service.ServiceContainer"
+		factory-method="getInstance">
+		<property name="userService" ref="userService" />
+		<property name="itemTrackerService" ref="itemTrackerService" />
+		<property name="projectService" ref="projectService" />
+		<property name="teamService" ref="teamService" />
+		<property name="workflowService" ref="workflowService" />
+		<property name="itemService" ref="itemService" />
+		<property name="itemStateService" ref="itemStateService"/>
+		<property name="itemTypeService" ref="itemTypeService"/>
+	</bean>
+</beans>
+

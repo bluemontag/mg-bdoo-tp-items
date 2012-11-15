@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- <hibernate-mapping> -->
+<!-- 	<class name="base.domain.BaseDomain" abstract="true" optimistic-lock="version"> -->
+<!-- 		<id name="id" type="long" unsaved-value="null"> -->
+<!-- 		    <column name="id" not-null="true"/> -->
+<!-- 		    <generator class="native"/> -->
+<!-- 		</id> -->
+<!-- 		<version name="version"/> -->
+<!-- 	</class> -->
+<!-- </hibernate-mapping> -->
