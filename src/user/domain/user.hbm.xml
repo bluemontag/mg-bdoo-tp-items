@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="user.domain.User" table="USUARIO" optimistic-lock="version">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		<version column="version" name="version" unsaved-value="null"/>		
+		<property name="userName" column="user_name" unique="true" />
+		<property name="password" column="password" />
+		<property name="removed" column="removed" />
+		
+		
+		<bag name="teams" lazy="extra" table="TEAM_USER" optimistic-lock="false">
+			<key column="oid_user" not-null="false"/>
+			<many-to-many column="oid_team" class="user.domain.team.Team"/>
+		</bag>
+	</class>
+
+	<!-- Queries for User -->
+	<query name="getUserByUserName">
+        <![CDATA[from User user where user.userName = :anUserName]]>
+	</query>
+	<query name="getUsersByOids">
+        <![CDATA[from User user where user.removed = :isRemoved and user.oid IN (:oids)]]>
+	</query>	
+
+</hibernate-mapping>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="itemTracker.domain.ItemTracker" table="ITEM_TRACKER">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		<version column="version" name="version" unsaved-value="null"/>	
+		
+		<bag name="users" table="USUARIO" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="user.domain.User" />
+		</bag>
+		
+		<bag name="projects" table="PROJECT" cascade="all-delete-orphan" >
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="project.domain.Project" />
+		</bag>
+		
+		<bag name="teams" table="TEAM" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="user.domain.team.Team" />
+		</bag>
+		
+		<bag name="items" table="ITEM" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="item.domain.Item" />
+		</bag>
+
+		<bag name="workflows" table="WORKFLOW" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="workflow.domain.Workflow" />
+		</bag>
+
+		<bag name="itemStates" table="ITEM_STATE" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="workflow.domain.state.ItemState" />
+		</bag>
+		
+		<bag name="itemTypes" table="ITEM_TYPES" cascade="all-delete-orphan">
+			<key column="oid_item_tracker" not-null="true"/>
+			<one-to-many class="item.domain.itemType.ItemType" />
+		</bag>
+		<many-to-one name="adminUser" class="user.domain.User" column="oid_admin_user" not-null="false" cascade="save-update" />		
+	</class>
+</hibernate-mapping>

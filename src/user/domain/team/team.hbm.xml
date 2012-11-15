@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="user.domain.team.Team" table="TEAM" optimistic-lock="version">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		
+		<version column="version" name="version" unsaved-value="null"/>		
+		<property name="name" column="name" unique="true" />
+		
+		<bag name="users" table="TEAM_USER" inverse="true" optimistic-lock="false">
+			<key column="oid_team" />
+			<many-to-many column="oid_user" class="user.domain.User"/>
+		</bag>
+	</class>
+
+	<!-- Queries for User -->
+	<query name="getTeamByName">
+        <![CDATA[from Team team where team.name = :aName]]>
+	</query>
+</hibernate-mapping>

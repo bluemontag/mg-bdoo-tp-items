@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="item.domain.Item" table="ITEM" optimistic-lock="version">
+		<id name="oid" column="OID">
+			<generator class="assigned" />
+		</id>
+		<version column="version" name="version" unsaved-value="null"/>		
+		
+		<!-- propiedades simples -->
+		<property name="itemNum"/>
+		<property name="description"/>
+		<property name="priority"/>
+		
+		<!-- objetos -->
+		<!-- one-to-one name="responsible" class="user.domain.User"/-->
+		<!--  es una relacion uno a uno, pero se mapea asi ("many-to-one") -->
+		<many-to-one name="responsible" class="user.domain.User" update="true" unique="false"/>
+		<many-to-one name="currentState" class="workflow.domain.state.ItemState" update="true" unique="false"/>
+		<many-to-one name="type" class="item.domain.itemType.ItemType" update="true" unique="false"/>
+		
+		
+		<!-- colecciones o relaciones -->
+	    <bag name="history" table="HISTORIC_ITEM" cascade="all-delete-orphan">
+     	   <key column="oid"/>
+        	<one-to-many class="item.domain.HistoricItem" />
+    	</bag>
+
+		<property name="removed" column="removed" />
+	</class>
+
+	<!-- Named queries for Item -->
+	<query name="getItemByNum">
+        <![CDATA[from Item i where i.itemNum = :anItemNum]]>
+	</query>
+	<query name="getItemsByOids">
+        <![CDATA[from Item i where i.removed = :isRemoved and i.oid IN (:oids)]]>
+	</query>	
+
+</hibernate-mapping>
