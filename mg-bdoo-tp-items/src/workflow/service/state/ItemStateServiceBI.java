@@ -1,6 +1,9 @@
 package workflow.service.state;
 
+import workflow.dto.WorkflowDTO;
 import workflow.dto.state.ItemStateDTO;
+import workflow.dto.transition.TransitionDTO;
+import workflow.exception.UnknownWorkflowException;
 import workflow.exception.state.ItemStateAlreadyExistsException;
 import workflow.exception.state.UnknownItemStateException;
 import base.exception.DTOConcurrencyException;
@@ -12,22 +15,29 @@ public interface ItemStateServiceBI {
 
 	// Creats
 
-	public ItemStateDTO createItemState(String sessionToken, String itemStateName) throws ItemStateAlreadyExistsException;
-	
+	public ItemStateDTO createItemStateOnWorkflow(String sessionToken, WorkflowDTO aWorkflowDTO, String itemStateName,
+			boolean firstSatate) throws ItemStateAlreadyExistsException, UnknownWorkflowException,
+			DTOConcurrencyException;
+
+	public TransitionDTO createTransitionOnItemState(String sessionToken, ItemStateDTO anInitialItemStateDTO,
+			ItemStateDTO aFinalItemStateDTO, String aTransitionName, String aTransitionCode)
+			throws UnknownItemStateException, DTOConcurrencyException;
+
 	// Lists
 
 	// Retrives
-	public ItemStateDTO getItemStateByName(String sessionToken, String itemStateName) throws UnknownItemStateException;
-	public ItemStateDTO getItemStateByOid(String sessionToken, String anOid) throws UnknownItemStateException;
-	public ItemStateDTO getItemStateByDTO(String sessionToken, ItemStateDTO itemStateDTO) throws UnknownItemStateException;
-	
-	// Updates
-	public void addNextState(String sessionToken, ItemStateDTO itemStateDTO, ItemStateDTO next) throws UnknownItemStateException,	DTOConcurrencyException;
-	
-	// Removes
-	public void removeItemState(String sessionToken, ItemStateDTO itemStateDTO) throws UnknownItemStateException, DTOConcurrencyException;
-	public void logicalRemoveItemState(String sessionToken, ItemStateDTO itemStateDTO) throws UnknownItemStateException;
+	public ItemStateDTO getItemStateByNameAndWorkflow(String sessionToken, WorkflowDTO aWorkflowDTO,
+			String itemStateName) throws UnknownItemStateException;
 
-	
-	
+	public ItemStateDTO getItemStateByOid(String sessionToken, String anOid) throws UnknownItemStateException;
+
+	public ItemStateDTO getItemStateByDTO(String sessionToken, ItemStateDTO itemStateDTO)
+			throws UnknownItemStateException;
+
+	// Updates
+
+	// Removes
+	public void removeItemStateFromWorkflow(String sessionToken, WorkflowDTO aWorkflowDTO, ItemStateDTO itemStateDTO)
+			throws UnknownItemStateException, DTOConcurrencyException, UnknownWorkflowException;
+
 }
