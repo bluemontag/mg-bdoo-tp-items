@@ -3,47 +3,53 @@ package workflow.domain.transition;
 import workflow.domain.state.ItemState;
 import base.domain.BaseDomain;
 
-@Deprecated
+/**
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
+ */
 public class Transition extends BaseDomain {
 
-	private String name;//nombre de la transicion, en caso de necesitarlo.
-	private ItemState initialState;
-	private ItemState finalState;
-	/**
-	 * @return the initialState
-	 */
-	public ItemState getInitialState() {
-		return initialState;
+	protected String name;
+	protected String transitionCode;
+	protected ItemState nextState;
+
+	public Transition() {
+		// hibernate
 	}
-	/**
-	 * @param initialState the initialState to set
-	 */
-	public void setInitialState(ItemState initialState) {
-		this.initialState = initialState;
+
+	public Transition(String name, String transitionCode, ItemState nextState) {
+		super();
+		this.name = name;
+		this.transitionCode = transitionCode;
+		this.nextState = nextState;
 	}
-	/**
-	 * @return the finalState
-	 */
-	public ItemState getFinalState() {
-		return finalState;
+
+	public ItemState getNextState() {
+		return nextState;
 	}
-	/**
-	 * @param finalState the finalState to set
-	 */
-	public void setFinalState(ItemState finalState) {
-		this.finalState = finalState;
+
+	public void setNextState(ItemState nextState) {
+		this.nextState = nextState;
 	}
-	/**
-	 * @return the name
-	 */
+
 	public String getName() {
 		return name;
 	}
-	/**
-	 * @param name the name to set
-	 */
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public String getTransitionCode() {
+		return transitionCode;
+	}
+
+	public void setTransitionCode(String transitionCode) {
+		this.transitionCode = transitionCode;
+	}
+
+	public boolean isThisTransition(String aTransitionCode) {
+		boolean isTransition = this.transitionCode.equals(aTransitionCode);
+		return isTransition;
+	}
+
 }
