@@ -18,9 +18,11 @@ import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
 import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
+import workflow.dto.WorkflowDTO;
 import workflow.dto.state.ItemStateDTO;
+import workflow.exception.UnknownWorkflowException;
+import workflow.exception.WorkflowAlreadyExistsException;
 import workflow.exception.state.ItemStateAlreadyExistsException;
-import workflow.exception.state.UnknownItemStateException;
 import workflow.service.WorkflowServiceBI;
 import workflow.service.state.ItemStateServiceBI;
 import base.exception.DTOConcurrencyException;
@@ -47,6 +49,7 @@ public abstract class BaseTestCase extends TestCase {
 	// propiedades usadas por algunos tests.
 	protected Collection<UserDTOForLists> aUserDTOForListCollection = new HashSet<UserDTOForLists>();
 	protected UserDTO aCreatedUserDTO;
+	protected WorkflowDTO aWorkflowDTO;
 
 	@Override
 	@Before
@@ -148,32 +151,37 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
-	protected ItemStateDTO createOrGetItemState(String name) {
-		// Ignacio: en BaseTestCase solo va lo que es muy generico, este metodo
-		// se va a usar en otros lados?
-		ItemStateDTO stateDTO = null;
+	protected ItemStateDTO createItemStateOnWorkflow(WorkflowDTO aWorkflowDTO, String name, boolean firstSatate) {
+		ItemStateDTO anItemStateDTO = null;
 		try {
-			stateDTO = this.getItemStateService().createItemState(this.sessionToken, name);
+			anItemStateDTO = this.getItemStateService().createItemStateOnWorkflow(this.sessionToken, aWorkflowDTO,
+					name, firstSatate);
 		} catch (ItemStateAlreadyExistsException e) {
-			try {
-				stateDTO = this.getItemStateService().getItemStateByName(this.sessionToken, name);
-			} catch (UnknownItemStateException e1) {
-				fail("No se pudo recuperar o crear el estado: no existe el estado:" + name);
-			}
+			fail("EL estado " + name + " ya existe en el workflow " + aWorkflowDTO.getName());
+		} catch (UnknownWorkflowException e) {
+			fail("EL workflow " + aWorkflowDTO.getName() + " no existe.");
+		} catch (DTOConcurrencyException e) {
+			fail("DTOConcurrencyException: No deberia pasar en un test.");
 		}
-		return stateDTO;
+		return anItemStateDTO;
 	}
 
-	protected void addNextState(ItemStateDTO parent, ItemStateDTO child) {
-		// Este metodo se usa en los test cases de ItemState, Workflow e
-		// ItemType
+	protected void createWorkflow(String aWorkflowName) {
 		try {
-			this.getItemStateService().addNextState(this.sessionToken, parent, child);
-		} catch (UnknownItemStateException e) {
-			fail("No se pudo setear el proximo estado: no existe el estado " + parent.getOid() + " o el estado "
-					+ child.getOid());
+			this.aWorkflowDTO = this.getWorkflowService().createWorkflow(this.sessionToken, aWorkflowName);
+		} catch (WorkflowAlreadyExistsException e) {
+			fail("El workflow " + aWorkflowName + " ya existe");
+		}
+	}
+
+	protected void eliminarWorkflow(WorkflowDTO aWorkflowDTO) {
+		try {
+			WorkflowDTO aWorkflowDTOAux = this.getWorkflowService().getWorkflowByDTO(this.sessionToken, aWorkflowDTO);
+			this.getWorkflowService().removeWorkflow(this.sessionToken, aWorkflowDTOAux);
+		} catch (UnknownWorkflowException e) {
+			fail("No existe el workflow de nombre " + aWorkflowDTO.getName());
 		} catch (DTOConcurrencyException e) {
-			fail("Error de concurrencia al tratar de setear proximo estado");
+			fail("DTOConcurrencyException: no deberia ocurrir esto.");
 		}
 	}
 }
