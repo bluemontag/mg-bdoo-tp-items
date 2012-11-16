@@ -1,9 +1,9 @@
 package workflow.repository.state;
 
 import workflow.domain.state.ItemState;
+import workflow.dto.WorkflowDTO;
 import workflow.dto.state.ItemStateDTO;
 import workflow.exception.state.UnknownItemStateException;
-
 
 /**
  * @author Ignacio Gallego
@@ -16,7 +16,8 @@ public class MemoryItemStateRepository implements ItemStateRepositoryBI {
 	}
 
 	@Override
-	public ItemState getItemStateByName(String workflowName) throws UnknownItemStateException {
+	public ItemState getItemStateByNameAndWorkflow(WorkflowDTO aWorkflowDTO, String workflowName)
+			throws UnknownItemStateException {
 		// TODO Auto-generated method stub
 		return null;
 	}
