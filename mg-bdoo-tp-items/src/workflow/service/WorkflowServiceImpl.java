@@ -73,32 +73,30 @@ public class WorkflowServiceImpl extends AbstractServiceImpl implements Workflow
 	}
 
 	@Override
-	public void setInitialState(String sessionToken, WorkflowDTO wfDTO, ItemStateDTO itemStateDTO)
+	public void setInitialState(String sessionToken, WorkflowDTO aWorkflowDTO, ItemStateDTO itemStateDTO)
 			throws UnknownWorkflowException, UnknownItemStateException {
-		Workflow wf = this.getWorkflowRepository().getWorkflowByDTO(wfDTO);
+		Workflow wf = this.getWorkflowRepository().getWorkflowByDTO(aWorkflowDTO);
 		ItemState itemState = null;
-		itemState = this.getItemStateRepository().getItemStateByName(itemStateDTO.getName());
+		itemState = this.getItemStateRepository().getItemStateByOid(itemStateDTO.getOid());
 		wf.setInitialState(itemState);
 
 	}
 
 	@Override
-	public void logicalRemoveWorkflow(String sessionToken, WorkflowDTO wfDTO) throws UnknownWorkflowException {
-		Workflow wf = this.getWorkflowRepository().getWorkflowByDTO(wfDTO);
+	public void logicalRemoveWorkflow(String sessionToken, WorkflowDTO aWorkflowDTO) throws UnknownWorkflowException {
+		Workflow aWorkflow = this.getWorkflowRepository().getWorkflowByDTO(aWorkflowDTO);
 		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
-		theItemTracker.logicalRemoveWorkflow(wf);
+		theItemTracker.logicalRemoveWorkflow(aWorkflow);
 	}
 
 	// usado solo por los tests para dejar la base como estaba
 	@Deprecated
 	@Override
 	public void removeWorkflow(String sessionToken, WorkflowDTO aWorkflowDTO) throws UnknownWorkflowException,
-			DTOConcurrencyException, UnknownItemStateException {
-		Workflow wf = this.getWorkflowRepository().getWorkflowByDTO(aWorkflowDTO);
-		this.checkDTOConcurrency(aWorkflowDTO, wf);
+			DTOConcurrencyException {
+		Workflow aWorkflow = this.getWorkflowRepository().getWorkflowByDTO(aWorkflowDTO);
+		this.checkDTOConcurrency(aWorkflowDTO, aWorkflow);
 		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
-		// borrando el estado inicial, se borran todos los estados
-		theItemTracker.removeItemState(wf.getInitialState());
-		theItemTracker.removeWorkflow(wf);
+		theItemTracker.removeWorkflow(aWorkflow);
 	}
 }
