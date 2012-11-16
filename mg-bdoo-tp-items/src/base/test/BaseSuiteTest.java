@@ -1,7 +1,5 @@
 package base.test;
 
-import item.test.ItemServiceTest;
-import item.test.itemType.ItemTypeServiceTest;
 import itemTracker.test.ItemTrackerTest;
 
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ import user.test.UserServiceTest;
 import user.test.team.TeamServiceTest;
 import workflow.test.WorkflowServiceTest;
 import workflow.test.state.ItemStateServiceTest;
-import workflow.test.transition.TransitionServiceTest;
 import base.contant.BaseConstants;
 
 /**
@@ -45,13 +42,13 @@ public abstract class BaseSuiteTest {
 		ArrayList<Class> testClasses = new ArrayList<Class>();
 		testClasses.addAll(ItemTrackerTest.getClassesTestToPerform());
 		testClasses.addAll(ProjectServiceTest.getClassesTestToPerform());
-		testClasses.addAll(ItemServiceTest.getClassesTestToPerform());
-		testClasses.addAll(ItemTypeServiceTest.getClassesTestToPerform());
+		// testClasses.addAll(ItemServiceTest.getClassesTestToPerform());
+		// testClasses.addAll(ItemTypeServiceTest.getClassesTestToPerform());
 		testClasses.addAll(UserServiceTest.getClassesTestToPerform());
 		testClasses.addAll(TeamServiceTest.getClassesTestToPerform());
 		testClasses.addAll(WorkflowServiceTest.getClassesTestToPerform());
 		testClasses.addAll(ItemStateServiceTest.getClassesTestToPerform());
-		testClasses.addAll(TransitionServiceTest.getClassesTestToPerform());
+		// testClasses.addAll(TransitionServiceTest.getClassesTestToPerform());
 		Class[] testClassesArray = testClasses.toArray(new Class[testClasses.size()]);
 		return testClassesArray;
 	}
