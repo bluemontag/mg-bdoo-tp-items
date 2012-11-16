@@ -12,19 +12,13 @@
 		
 		<!-- propiedades simples -->
 		<property name="name"/>
-		
-		<!-- objetos -->
-		<!-- one-to-one name="responsible" class="user.domain.User"/-->
-		<!--  es una relacion uno a uno, pero se mapea asi ("many-to-one") -->
-		<many-to-one name="initialState" class="workflow.domain.state.ItemState" update="true" unique="false"/>
-		
-		<!-- many-to-one name="currentState" class="workflow.domain.state.ItemState" update="true" unique="false"/-->
-		
-		<!-- colecciones o relaciones -->
-	    <!-- bag name="history" table="HISTORIC_ITEM" cascade="all-delete-orphan">
-     	   <key column="oid"/>
-        	<one-to-many class="item.domain.HistoricItem" />
-    	</bag-->
+
+		<many-to-one name="initialState" class="workflow.domain.state.ItemState" not-null="false" update="true" unique="false"/>
+
+		<bag name="itemStates" table="ITEM_STATE" cascade="all-delete-orphan" optimistic-lock="false">
+			<key column="oid_workflow" not-null="true"/>
+			<one-to-many class="workflow.domain.state.ItemState" />
+		</bag>
 
 		<property name="removed" column="removed" />
 	</class>
