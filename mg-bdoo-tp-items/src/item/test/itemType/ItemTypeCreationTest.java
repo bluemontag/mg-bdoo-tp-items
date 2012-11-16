@@ -95,14 +95,17 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 	// Devuelve el primer estado del WorkFlow
 	protected ItemStateDTO createStatesForWorkFlow() {
 		// agrego estados
-		ItemStateDTO aStatePendingDTO = this.createOrGetItemState(TestConstants.PENDING);
-		ItemStateDTO aStateInDevelopmentDTO = this.createOrGetItemState(TestConstants.IN_DEVELOPMENT);
-		ItemStateDTO aStateFinalDTO = this.createOrGetItemState(TestConstants.FINAL);
+		// ItemStateDTO aStatePendingDTO =
+		// this.createOrGetItemState(TestConstants.PENDING);
+		// ItemStateDTO aStateInDevelopmentDTO =
+		// this.createOrGetItemState(TestConstants.IN_DEVELOPMENT);
+		// ItemStateDTO aStateFinalDTO =
+		// this.createOrGetItemState(TestConstants.FINAL);
 
 		// Intento setear los proximos estados
-		this.addNextState(aStatePendingDTO, aStateInDevelopmentDTO);
-		this.addNextState(aStateInDevelopmentDTO, aStateFinalDTO);
-		this.addNextState(aStatePendingDTO, aStateFinalDTO);
-		return aStatePendingDTO;
+		// this.addNextState(aStatePendingDTO, aStateInDevelopmentDTO);
+		// this.addNextState(aStateInDevelopmentDTO, aStateFinalDTO);
+		// this.addNextState(aStatePendingDTO, aStateFinalDTO);
+		return null;
 	}
 }
