@@ -32,7 +32,7 @@ public class ItemChangeStateTest extends ItemServiceTest {
 	private WorkflowDTO wDTO;
 	private ItemTypeDTO itemTypeDTO;
 	protected ItemDTO itemDTO;
-	
+
 	@Override
 	public void setUp() throws Exception {
 		super.setUp(); // crea y loguea usuario
@@ -40,20 +40,20 @@ public class ItemChangeStateTest extends ItemServiceTest {
 	}
 
 	public void testItemChangeState() throws UnknownUserException, TeamAlreadyExistsException,
-	WorkflowAlreadyExistsException {
+			WorkflowAlreadyExistsException {
 
 		tDTO = this.getTeamService().createTeam(this.sessionToken, "Equipo Ignacio", this.aUserDTOForListCollection);
 		wDTO = this.getWorkflowService().createWorkflow(this.sessionToken, "WF Ignacio");
 
 		// agrego estados
-		pendiente = this.createOrGetItemState("Pendiente");
-		ItemStateDTO desa = this.createOrGetItemState("En desarrollo");
-		ItemStateDTO finalizado = this.createOrGetItemState("Finalizado");
+		// pendiente = this.createOrGetItemState("Pendiente");
+		// ItemStateDTO desa = this.createOrGetItemState("En desarrollo");
+		// ItemStateDTO finalizado = this.createOrGetItemState("Finalizado");
 
 		// Intento setear los proximos estados
-		this.addNextState(pendiente, desa);
-		this.addNextState(desa, finalizado);
-		this.addNextState(pendiente, finalizado);
+		// this.addNextState(pendiente, desa);
+		// this.addNextState(desa, finalizado);
+		// this.addNextState(pendiente, finalizado);
 
 		// Seteo el estado inicial al WF
 		try {
@@ -77,11 +77,12 @@ public class ItemChangeStateTest extends ItemServiceTest {
 			e.printStackTrace();
 			fail("Team desconocido");
 		}
-		
+
 		// intento crear el item.
 		try {
 			// creo el item
-			this.itemDTO = this.getItemService().createItem(this.sessionToken, new Long(1),	"Desarrollo de aplicacion web", 1, itemTypeDTO);
+			this.itemDTO = this.getItemService().createItem(this.sessionToken, "Desarrollo de aplicacion web", 1,
+					itemTypeDTO);
 		} catch (ItemAlreadyExistsException e) {
 			// fail("No se pudo crear el item: El item ya existe");
 			try {
@@ -95,11 +96,13 @@ public class ItemChangeStateTest extends ItemServiceTest {
 			fail("No se encontro el tipo de item para crear el item.");
 		}
 
-
-		//Cambio el estado del item
+		// Cambio el estado del item
 		try {
 			this.itemDTO = this.getItemService().getItemByNum(this.sessionToken, new Long(1));
-			this.getItemService().executeTransition(this.sessionToken, new Long(1), "EN Desarrollo");//No importa el case
+			this.getItemService().executeTransition(this.sessionToken, new Long(1), "EN Desarrollo");// No
+																										// importa
+																										// el
+																										// case
 		} catch (UnknownItemException e1) {
 			e1.printStackTrace();
 			fail("No se pudo recuperar o crear el item");
@@ -108,7 +111,7 @@ public class ItemChangeStateTest extends ItemServiceTest {
 			e.printStackTrace();
 			fail("No se pudo ejecutar la transicion");
 		}
-		
+
 		try {
 			this.itemDTO = this.getItemService().getItemByNum(this.sessionToken, new Long(1));
 			assertTrue("El item cambió de estado", this.itemDTO.getCurrentState().equalsIgnoreCase("En Desarrollo"));
@@ -121,24 +124,24 @@ public class ItemChangeStateTest extends ItemServiceTest {
 
 	@Override
 	protected void tearDown() throws Exception {
-		//Item
+		// Item
 		this.itemDTO = this.getItemService().getItem(this.sessionToken, itemDTO);
 		this.itemService.removeItem(this.sessionToken, this.itemDTO);
 
-		//Item type
+		// Item type
 		itemTypeDTO = this.getItemTypeService().getItemType(this.sessionToken, itemTypeDTO);
 		this.getItemTypeService().removeItemType(this.sessionToken, itemTypeDTO);
 
-		//Workflow
+		// Workflow
 		this.wDTO = this.getWorkflowService().getWorkflowByDTO(this.sessionToken, wDTO);
 		this.getWorkflowService().removeWorkflow(this.sessionToken, this.wDTO);
 
-		//Team
+		// Team
 		this.tDTO = this.getTeamService().getTeam(this.sessionToken, tDTO);
 		this.getTeamService().removeTeam(this.sessionToken, tDTO);
-		
-		//Users
-		this.deleteTheUserCollection();		
+
+		// Users
+		this.deleteTheUserCollection();
 		super.tearDown();
 	}
 }

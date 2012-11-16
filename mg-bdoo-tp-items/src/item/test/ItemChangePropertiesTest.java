@@ -18,6 +18,7 @@ import workflow.dto.state.ItemStateDTO;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.WorkflowAlreadyExistsException;
 import workflow.exception.state.UnknownItemStateException;
+import base.test.TestConstants;
 
 /**
  * @author igallego ignaciogallego@gmail.com
@@ -26,37 +27,26 @@ import workflow.exception.state.UnknownItemStateException;
  */
 public class ItemChangePropertiesTest extends ItemServiceTest {
 
-	private ItemStateDTO pendiente;
-	private TeamDTO tDTO;
+	private TeamDTO aTeamDTO;
 	private WorkflowDTO wDTO;
 	private ItemTypeDTO itemTypeDTO;
 	protected ItemDTO itemDTO;
-	
+	protected WorkflowDTO aWorkFlowDTO;
+	private ItemStateDTO aPendingState;
+	protected ItemStateDTO anInDevelopmentState;
+	protected ItemStateDTO anFinalState;
+
 	@Override
 	public void setUp() throws Exception {
 		super.setUp(); // crea y loguea usuario
 		this.createAUserCollection();
-	}
-
-	public void testItemChangeBasicProperties() throws UnknownUserException, TeamAlreadyExistsException,
-	WorkflowAlreadyExistsException {
-
-		tDTO = this.getTeamService().createTeam(this.sessionToken, "Equipo Ignacio", this.aUserDTOForListCollection);
-		wDTO = this.getWorkflowService().createWorkflow(this.sessionToken, "WF Ignacio");
-
-		// agrego estados
-		pendiente = this.createOrGetItemState("Pendiente");
-		ItemStateDTO desa = this.createOrGetItemState("En desarrollo");
-		ItemStateDTO finalizado = this.createOrGetItemState("Finalizado");
-
-		// Intento setear los proximos estados
-		this.addNextState(pendiente, desa);
-		this.addNextState(desa, finalizado);
-		this.addNextState(pendiente, finalizado);
+		aTeamDTO = this.getTeamService()
+				.createTeam(this.sessionToken, "Equipo Ignacio", this.aUserDTOForListCollection);
+		this.createWorkflowStructure();
 
 		// Seteo el estado inicial al WF
 		try {
-			this.getWorkflowService().setInitialState(this.sessionToken, wDTO, pendiente);
+			this.getWorkflowService().setInitialState(this.sessionToken, wDTO, aPendingState);
 		} catch (UnknownWorkflowException e) {
 			System.out.println("El workflow es desconocido.");
 		} catch (UnknownItemStateException e) {
@@ -65,7 +55,7 @@ public class ItemChangePropertiesTest extends ItemServiceTest {
 
 		// intento crear el IT
 		try {
-			itemTypeDTO = this.getItemTypeService().createItemType(this.sessionToken, "Tipo Basico", tDTO, wDTO);
+			itemTypeDTO = this.getItemTypeService().createItemType(this.sessionToken, "Tipo Basico", aTeamDTO, wDTO);
 		} catch (UnknownWorkflowException e) {
 			e.printStackTrace();
 			fail("UnknownWorkflow");
@@ -76,11 +66,24 @@ public class ItemChangePropertiesTest extends ItemServiceTest {
 			e.printStackTrace();
 			fail("Team desconocido");
 		}
-		
+	}
+
+	protected void createWorkflowStructure() throws WorkflowAlreadyExistsException {
+		aWorkFlowDTO = this.getWorkflowService().createWorkflow(this.sessionToken, TestConstants.WORKFLOW_NAME);
+
+		aPendingState = this.createItemStateOnWorkflow(aWorkFlowDTO, TestConstants.PENDING, true);
+		anInDevelopmentState = this.createItemStateOnWorkflow(aWorkFlowDTO, TestConstants.IN_DEVELOPMENT, false);
+		anFinalState = this.createItemStateOnWorkflow(aWorkFlowDTO, TestConstants.FINAL, false);
+	}
+
+	public void testItemChangeBasicProperties() throws UnknownUserException, TeamAlreadyExistsException,
+			WorkflowAlreadyExistsException {
+
 		// intento crear el item.
 		try {
 			// creo el item
-			this.itemDTO = this.getItemService().createItem(this.sessionToken, new Long(1),	"Desarrollo de aplicacion web", 1, itemTypeDTO);
+			this.itemDTO = this.getItemService().createItem(this.sessionToken, "Desarrollo de aplicacion web", 1,
+					itemTypeDTO);
 		} catch (ItemAlreadyExistsException e) {
 			// fail("No se pudo crear el item: El item ya existe");
 			try {
@@ -90,7 +93,6 @@ public class ItemChangePropertiesTest extends ItemServiceTest {
 				fail("No se pudo recuperar o crear el item");
 			}
 		} catch (UnknownItemTypeException e) {
-			e.printStackTrace();
 			fail("No se encontro el tipo de item para crear el item.");
 		}
 
@@ -103,16 +105,15 @@ public class ItemChangePropertiesTest extends ItemServiceTest {
 			assertTrue(otherItemDTO.getDescription().equals(this.itemDTO.getDescription()));
 
 		} catch (UnknownItemException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			// TODO
 		}
 
 		try {
-			//Cambio algunas propiedades basicas del item:
+			// Cambio algunas propiedades basicas del item:
 			this.itemDTO.setDescription("Otra descripcion");
 			this.itemDTO.setItemNum(new Long(222));
 			this.itemDTO.setPriority(3);
-			
+
 			this.getItemService().updateItem(this.sessionToken, this.itemDTO);
 		} catch (Exception e) {
 			fail("No se pudo actualizar el item");
@@ -123,24 +124,24 @@ public class ItemChangePropertiesTest extends ItemServiceTest {
 
 	@Override
 	protected void tearDown() throws Exception {
-		//Item
+		// Item
 		this.itemDTO = this.getItemService().getItem(this.sessionToken, itemDTO);
 		this.itemService.removeItem(this.sessionToken, this.itemDTO);
 
-		//Item type
+		// Item type
 		itemTypeDTO = this.getItemTypeService().getItemType(this.sessionToken, itemTypeDTO);
 		this.getItemTypeService().removeItemType(this.sessionToken, itemTypeDTO);
 
-		//Workflow
+		// Workflow
 		this.wDTO = this.getWorkflowService().getWorkflowByDTO(this.sessionToken, wDTO);
 		this.getWorkflowService().removeWorkflow(this.sessionToken, this.wDTO);
 
-		//Team
-		this.tDTO = this.getTeamService().getTeam(this.sessionToken, tDTO);
-		this.getTeamService().removeTeam(this.sessionToken, tDTO);
-		
-		//Users
-		this.deleteTheUserCollection();		
+		// Team
+		this.aTeamDTO = this.getTeamService().getTeam(this.sessionToken, aTeamDTO);
+		this.getTeamService().removeTeam(this.sessionToken, aTeamDTO);
+
+		// Users
+		this.deleteTheUserCollection();
 		super.tearDown();
 	}
 }
