@@ -26,6 +26,7 @@
 		<mapping resource="item/domain/item.hbm.xml"/>
 		<mapping resource="item/domain/historicItem.hbm.xml"/>
 		<mapping resource="workflow/domain/state/itemState.hbm.xml"/>
+		<mapping resource="workflow/domain/transition/transition.hbm.xml"/>
 		<mapping resource="workflow/domain/workflow.hbm.xml"/>
 		<mapping resource="item/domain/itemType/itemType.hbm.xml"/>
 	</session-factory>
