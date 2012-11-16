@@ -18,7 +18,7 @@ public class ItemType extends BaseDomain {
 	private Team initialTeam;
 	private Workflow workflow;
 
-	public ItemType() { // para que funcione la NamedQuery al traer de la base
+	public ItemType() {
 		this.typeName = "";
 		this.initialTeam = null;
 		this.workflow = null;
