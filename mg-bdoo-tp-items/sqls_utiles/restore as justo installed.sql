@@ -1,5 +1,8 @@
 use `mg-tp-bd`;
 delete from item;
+Delete From transition;
+Update workflow set initialState = null;
+Delete From item_state;
 Delete From workflow;
 Delete From team_user;
 Delete From project_user;
@@ -8,8 +11,6 @@ Delete From project;
 Delete From item_type;
 Delete From team;
 Delete From historic_item;
-Delete From transition;
-Delete From item_state;
 
 
 
