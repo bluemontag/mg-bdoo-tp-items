@@ -3,22 +3,20 @@
  */
 package item.dto;
 
-import base.dto.AbstractDTO;
+import item.domain.Item;
 import base.dto.AbstractDTOForLists;
 
 /**
- * @author igallego ignaciogallego@gmail.com
- * 
- *         15/06/2012
+ * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
+
 public class ItemDTOForLists extends AbstractDTOForLists {
 
-	/**
-	 * @param anAbstractDTO
-	 */
-	public ItemDTOForLists(AbstractDTO anAbstractDTO) {
-		super(anAbstractDTO);
-		// TODO Auto-generated constructor stub
+	public ItemDTOForLists(ItemDTO anItemDTO) {
+		super(anItemDTO);
 	}
 
+	public ItemDTOForLists(Item aBaseDomainObject) {
+		super(aBaseDomainObject);
+	}
 }
