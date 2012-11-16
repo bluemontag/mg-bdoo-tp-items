@@ -20,32 +20,25 @@ import base.domain.BaseDomain;
  */
 public class Item extends BaseDomain {
 
-	private Long itemNum;
-	private String description;
-	private Integer priority;
-	private ItemState currentState;
-	private ItemType type;
-	private User responsible; // (se escribe asi "responsible")
-	private Collection<HistoricItem> history = new ArrayList<HistoricItem>();
-
-	@Deprecated
-	public Item(Long itemNum, String typeName) {
-		/* Creation of an item without workflow... is useless! */
-		this(itemNum, "", 1, new ItemType(typeName, null, null));
-	}
+	protected Long itemNum;
+	protected String description;
+	protected Integer priority;
+	protected ItemState currentState;
+	protected ItemType type;
+	protected User responsible; // (se escribe asi "responsible")
+	protected Collection<HistoricItem> history = new ArrayList<HistoricItem>();
 
 	public Item() {
 		// para hibernate
 	}
 
-	public Item(Long itemNum, String description, Integer priority, ItemType type) {
+	public Item(String description, Integer priority, ItemType type, User responsible, ItemState firstState) {
 		super();
-		this.itemNum = itemNum;
 		this.description = description;
 		this.priority = priority;
 		this.type = type;
-		this.responsible = null;
-		this.currentState = null; // new ItemState("new");
+		this.responsible = responsible;
+		this.currentState = firstState;
 	}
 
 	/**
@@ -68,119 +61,64 @@ public class Item extends BaseDomain {
 	}
 
 	/**
-	 * Executes the transition and saves the new current state, obtained from
-	 * the transition.
-	 * 
-	 * @param t
 	 * @throws BadTransitionException
 	 */
-	public ItemState executeTransition(String t) throws BadTransitionException {
-		ItemState newState = this.getCurrentState().executeTransition(t);
-		this.setCurrentState(newState);
-		return newState;
+	public void executeTransition(String transitionCode) throws BadTransitionException {
+		this.getCurrentState().executeTransition(transitionCode, this);
 	}
 
-	/**
-	 * @return the type
-	 */
 	public ItemType getType() {
 		return type;
 	}
 
-	/**
-	 * @param type
-	 *            the type to set
-	 */
 	public void setType(ItemType type) {
 		this.type = type;
 	}
 
-	/**
-	 * @return the itemNum
-	 */
 	public Long getItemNum() {
 		return itemNum;
 	}
 
-	/**
-	 * @param itemNum
-	 *            the itemNum to set
-	 */
 	public void setItemNum(Long itemNum) {
 		this.itemNum = itemNum;
 	}
 
-	/**
-	 * @return the description
-	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @param description
-	 *            the description to set
-	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	/**
-	 * @return the priority
-	 */
 	public Integer getPriority() {
 		return priority;
 	}
 
-	/**
-	 * @param priority
-	 *            the priority to set
-	 */
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
 
-	/**
-	 * @return the state
-	 */
 	public ItemState getCurrentState() {
 		return currentState;
 	}
 
-	/**
-	 * @param state
-	 *            the state to set
-	 */
 	public void setCurrentState(ItemState state) {
 		this.currentState = state;
 	}
 
-	/**
-	 * @return the responsible
-	 */
 	public User getResponsible() {
 		return responsible;
 	}
 
-	/**
-	 * @param responsible
-	 *            the responsible to set
-	 */
 	public void setResponsible(User responsible) {
 		this.responsible = responsible;
 	}
 
-	/**
-	 * @return the history
-	 */
 	public Collection<HistoricItem> getHistory() {
 		return history;
 	}
 
-	/**
-	 * @param history
-	 *            the history to set
-	 */
 	public void setHistory(List<HistoricItem> history) {
 		this.history = history;
 	}
