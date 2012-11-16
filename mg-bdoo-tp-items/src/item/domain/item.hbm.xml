@@ -11,7 +11,9 @@
 		<version column="version" name="version" unsaved-value="null"/>		
 		
 		<!-- propiedades simples -->
-		<property name="itemNum"/>
+		<property name="itemNum" type="java.lang.Long" generated="insert">
+		  <column name="itemNum"/>
+		</property>		
 		<property name="description"/>
 		<property name="priority"/>
 		
