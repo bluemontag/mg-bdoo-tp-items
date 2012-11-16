@@ -14,9 +14,8 @@ import user.domain.team.Team;
 import user.exception.UnknownUserException;
 import user.exception.team.UnknownTeamException;
 import workflow.domain.Workflow;
-import workflow.domain.state.ItemState;
+import workflow.dto.WorkflowDTO;
 import workflow.exception.UnknownWorkflowException;
-import workflow.exception.state.UnknownItemStateException;
 import base.domain.BaseDomain;
 
 /**
@@ -33,7 +32,6 @@ public class ItemTracker extends BaseDomain {
 	private Collection<Team> teams;
 	private Collection<ItemType> itemTypes;
 	private Collection<Item> items;
-	private Collection<ItemState> itemStates;
 	private Collection<Workflow> workflows;
 
 	public ItemTracker() {
@@ -111,51 +109,20 @@ public class ItemTracker extends BaseDomain {
 
 	// Los projectos tiene eliminacion fisica.
 	public void removeProject(Project aProject) throws UnknownProjectException {
-
 		boolean removed = this.projects.remove(aProject);
 		if (!removed) {
 			throw new UnknownProjectException("El projecto que desea eliminar no existe.");
 		}
 	}
 
-	/*
-	 * public ItemType createItemType(String typeName, Workflow w, Team t) {
-	 * return new ItemType(typeName, w, t); }
-	 * 
-	 * public Item createItem(ItemType t, Long itemNum, String description,
-	 * Integer priority){ return new Item(itemNum, description, priority, t); }
-	 */
 	public void addItem(Item i) {
 		this.items.add(i);
 	}
 
-	public void addItemState(ItemState itemState) {
-		this.itemStates.add(itemState);
-	}
-
-	@Deprecated
-	public void removeItemState(ItemState itemState) throws UnknownItemStateException {
-		boolean removed = this.itemStates.remove(itemState);
-		if (!removed) {
-			throw new UnknownItemStateException();
-		}
-	}
-
-	public void logicalRemoveItemState(ItemState itemState) {
-		itemState.setRemoved(true);
-	}
-
-	/**
-	 * @return the itemTypes
-	 */
 	public Collection<ItemType> getItemTypes() {
 		return itemTypes;
 	}
 
-	/**
-	 * @param itemTypes
-	 *            the itemTypes to set
-	 */
 	protected void setItemTypes(Collection<ItemType> itemTypes) {
 		this.itemTypes = itemTypes;
 	}
@@ -210,18 +177,18 @@ public class ItemTracker extends BaseDomain {
 	}
 
 	@Deprecated
-	public void removeWorkflow(Workflow w) throws UnknownWorkflowException {
-		boolean removed = this.workflows.remove(w);
+	public void removeWorkflow(Workflow aWorkflow) throws UnknownWorkflowException {
+		boolean removed = this.workflows.remove(aWorkflow);
 		if (!removed)
 			throw new UnknownWorkflowException("El workflow que desea eliminar no existe");
 	}
 
-	public Collection<ItemState> getItemStates() {
-		return itemStates;
+	public Workflow findWorkflowByOid(WorkflowDTO aWorkflowDTO) {
+		for (Workflow aWorkflow : this.getWorkflows()) {
+			if (aWorkflow.equalsToDTO(aWorkflowDTO)) {
+				return aWorkflow;
+			}
+		}
+		return null;
 	}
-
-	public void setItemStates(Collection<ItemState> itemStates) {
-		this.itemStates = itemStates;
-	}
-
 }
