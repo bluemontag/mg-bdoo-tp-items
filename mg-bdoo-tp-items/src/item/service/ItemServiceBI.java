@@ -45,5 +45,5 @@ public interface ItemServiceBI {
 
 	public void logicalRemoveItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException;
 
-	public void removeItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException;
+	public void removeItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException, DTOConcurrencyException;
 }

@@ -93,7 +93,7 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 
 		// intento actualizar el tipo
 		try {
-			ItemType newType = this.getItemTypeRepository().getItemTypeByName(itemToUpdateDTO.getType());
+			ItemType newType = this.getItemTypeRepository().getItemTypeByName(itemToUpdateDTO.getType().getName());
 			itemToUpdate.setType(newType);
 		} catch (UnknownItemTypeException e) {
 			System.out.println("No se pudo cambiar el tipo del item " + itemToUpdate.getItemNum() + ".");
@@ -126,10 +126,9 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 
 	@Deprecated
 	@Override
-	public void removeItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException {
+	public void removeItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException, DTOConcurrencyException {
 
 		Item item = this.getItemRepository().getItemByNum(itemDTO.getItemNum());
-
 		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 		theItemTracker.removeItem(item);
 	}
