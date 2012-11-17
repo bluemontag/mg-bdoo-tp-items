@@ -1,7 +1,5 @@
 package item.test;
 
-import item.dto.ItemDTO;
-
 import org.junit.After;
 import org.junit.Before;
 
@@ -11,8 +9,6 @@ import base.test.TestConstants;
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
 public class ItemCreateTest extends ItemServiceTest {
-
-	protected ItemDTO anItemDTO;
 
 	@Override
 	@Before
@@ -28,22 +24,12 @@ public class ItemCreateTest extends ItemServiceTest {
 	@Override
 	@After
 	public void tearDown() throws Exception {
-		this.deleteItem();
+		this.removeItem();
+		this.removeItemType();
 		this.removeWorkflow();
 		this.removeTeam();
-		this.deleteTheUserCollection();
+		this.removeTheUserCollection();
 	}
-
-	// protected void deleteWorkflow() {
-	// try {
-	// this.workflowService.removeWorkflow(sessionToken, this.aWorkflowDTO);
-	// } catch (UnknownWorkflowException e) {
-	// fail("El workflow que de");
-	// } catch (DTOConcurrencyException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
 
 	public void testCreateItem() {
 		this.createItem();
