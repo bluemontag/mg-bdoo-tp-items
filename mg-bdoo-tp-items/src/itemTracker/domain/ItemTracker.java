@@ -33,6 +33,7 @@ public class ItemTracker extends BaseDomain {
 	private Collection<ItemType> itemTypes;
 	private Collection<Item> items;
 	private Collection<Workflow> workflows;
+	private long lastItemNum;
 
 	public ItemTracker() {
 		this.users = new ArrayList<User>();
@@ -79,6 +80,14 @@ public class ItemTracker extends BaseDomain {
 
 	public void addWorkflow(Workflow wf) {
 		this.workflows.add(wf);
+	}
+
+	public void setLastItemNum(long lastItemNum) {
+		this.lastItemNum = lastItemNum;
+	}
+
+	public long getLastItemNum() {
+		return lastItemNum;
 	}
 
 	public void logicalRemoveUser(User anUser) {
@@ -190,5 +199,11 @@ public class ItemTracker extends BaseDomain {
 			}
 		}
 		return null;
+	}
+
+	public long getNextItemNum() {
+		long nextItemNum = this.lastItemNum;
+		this.lastItemNum++;
+		return nextItemNum;
 	}
 }

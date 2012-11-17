@@ -30,6 +30,8 @@
 			<one-to-many class="item.domain.Item" />
 		</bag>
 
+		<property name="lastItemNum" type="java.lang.Long" not-null="true"/>
+
 		<bag name="workflows" table="WORKFLOW" cascade="all-delete-orphan">
 			<key column="oid_item_tracker" not-null="true"/>
 			<one-to-many class="workflow.domain.Workflow" />
