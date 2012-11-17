@@ -1,13 +1,10 @@
 package item.test;
 
+import item.dto.ItemDTO;
+
 import org.junit.After;
 import org.junit.Before;
 
-import user.dto.team.TeamDTO;
-import user.exception.UnknownUserException;
-import user.exception.team.TeamAlreadyExistsException;
-import user.exception.team.UnknownTeamException;
-import base.exception.DTOConcurrencyException;
 import base.test.TestConstants;
 
 /**
@@ -15,49 +12,43 @@ import base.test.TestConstants;
  */
 public class ItemCreateTest extends ItemServiceTest {
 
-	protected TeamDTO aCreatedTeamDTO;
+	protected ItemDTO anItemDTO;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		this.createAUserCollection();
+		this.createTeam();
+		this.createWorkflow();
+		this.createItemType();
+
 	}
 
 	@Override
 	@After
 	public void tearDown() throws Exception {
-		this.deleteCreatedTeam();
+		this.deleteItem();
+		this.removeWorkflow();
+		this.removeTeam();
 		this.deleteTheUserCollection();
 	}
 
-	public void testCreateTeam() {
-		try {
-			this.aCreatedTeamDTO = this.teamService.createTeam(this.sessionToken, TestConstants.NEW_TEAM_NAME,
-					this.aUserDTOForListCollection);
-		} catch (TeamAlreadyExistsException e) {
-			fail("El equipo que se intenta crear ya existe.");
-		} catch (UnknownUserException e) {
-			fail("Alguno de los usuarios que se quieren setear no existe.");
-		}
+	// protected void deleteWorkflow() {
+	// try {
+	// this.workflowService.removeWorkflow(sessionToken, this.aWorkflowDTO);
+	// } catch (UnknownWorkflowException e) {
+	// fail("El workflow que de");
+	// } catch (DTOConcurrencyException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
 
-		try {
-			TeamDTO aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aCreatedTeamDTO);
-			assertEquals(this.aCreatedTeamDTO.getVersion(), aTeamDTO.getVersion());
-		} catch (UnknownTeamException e) {
-			fail("El team no existe");
-		}
+	public void testCreateItem() {
+		this.createItem();
+		assertEquals(this.anItemDTO.getDescription(), TestConstants.ITEM_DESCRIPTION);
+		assertEquals(this.anItemDTO.getPriority(), TestConstants.PRIORITY);
+		assertEquals(this.anItemDTO.getType().getOid(), this.anItemTypeDTO.getOid());
 	}
-
-	protected void deleteCreatedTeam() {
-		try {
-			TeamDTO aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aCreatedTeamDTO);
-			this.teamService.removeTeam(this.sessionToken, aTeamDTO);
-		} catch (DTOConcurrencyException e) {
-			fail("El equipo que intenta eliminar fue modificado por otro usuario.");
-		} catch (UnknownTeamException e) {
-			fail("El equipo que se desea eliminar no existe.");
-		}
-	}
-
 }
