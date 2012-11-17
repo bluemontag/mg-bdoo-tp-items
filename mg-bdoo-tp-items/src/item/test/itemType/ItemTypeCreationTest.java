@@ -14,6 +14,7 @@ import workflow.dto.state.ItemStateDTO;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.WorkflowAlreadyExistsException;
 import workflow.exception.state.UnknownItemStateException;
+import base.exception.DTOConcurrencyException;
 import base.test.TestConstants;
 
 /**
@@ -41,7 +42,7 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 			WorkflowAlreadyExistsException {
 
 		try {
-			itemTypeDTO = this.getItemTypeService().createItemType(this.sessionToken, TestConstants.ITEM_TYPE_1,
+			itemTypeDTO = this.itemTypeService.createItemType(this.sessionToken, TestConstants.ITEM_TYPE_NAME,
 					aTeamDTO, aWorkFlowDTO);
 		} catch (UnknownWorkflowException e) {
 			fail("UnknownWorkflow");
@@ -49,22 +50,24 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 			fail("Item existe");
 		} catch (UnknownTeamException e) {
 			fail("Team desconocido");
+		} catch (DTOConcurrencyException e) {
+			fail("DTOConcurrencyException: no deberia pasar.");
 		}
 
-		assertEquals(TestConstants.ITEM_TYPE_1, itemTypeDTO.getName());
+		assertEquals(TestConstants.ITEM_TYPE_NAME, itemTypeDTO.getName());
 		assertEquals(aWorkFlowDTO, itemTypeDTO.getWorkflowDTO());
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		itemTypeDTO = this.getItemTypeService().getItemType(this.sessionToken, itemTypeDTO);
-		this.getItemTypeService().removeItemType(this.sessionToken, itemTypeDTO);
+		itemTypeDTO = this.itemTypeService.getItemType(this.sessionToken, itemTypeDTO);
+		this.itemTypeService.removeItemType(this.sessionToken, itemTypeDTO);
 
-		this.aWorkFlowDTO = this.getWorkflowService().getWorkflowByDTO(this.sessionToken, aWorkFlowDTO);
-		this.getWorkflowService().removeWorkflow(this.sessionToken, this.aWorkFlowDTO);
+		this.aWorkFlowDTO = this.workflowService.getWorkflowByDTO(this.sessionToken, aWorkFlowDTO);
+		this.workflowService.removeWorkflow(this.sessionToken, this.aWorkFlowDTO);
 
-		this.aTeamDTO = this.getTeamService().getTeam(this.sessionToken, aTeamDTO);
-		this.getTeamService().removeTeam(this.sessionToken, aTeamDTO);
+		this.aTeamDTO = this.teamService.getTeam(this.sessionToken, aTeamDTO);
+		this.teamService.removeTeam(this.sessionToken, aTeamDTO);
 
 		this.deleteTheUserCollection();
 		super.tearDown();
@@ -75,7 +78,7 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 	protected void setInitialStateForWorkFlow(ItemStateDTO aWorkFlowfirstStateDTO) {
 		// Seteo el estado inicial al WF
 		try {
-			this.getWorkflowService().setInitialState(this.sessionToken, aWorkFlowDTO, aWorkFlowfirstStateDTO);
+			this.workflowService.setInitialState(this.sessionToken, aWorkFlowDTO, aWorkFlowfirstStateDTO);
 		} catch (UnknownWorkflowException e) {
 			System.out.println("El workflow es desconocido.");
 		} catch (UnknownItemStateException e) {
@@ -84,11 +87,11 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 	}
 
 	protected void createAWorkFlow() throws WorkflowAlreadyExistsException {
-		aWorkFlowDTO = this.getWorkflowService().createWorkflow(this.sessionToken, TestConstants.WORKFLOW_NAME);
+		aWorkFlowDTO = this.workflowService.createWorkflow(this.sessionToken, TestConstants.WORKFLOW_NAME);
 	}
 
 	protected void createATeam() throws UnknownUserException, TeamAlreadyExistsException {
-		aTeamDTO = this.getTeamService().createTeam(this.sessionToken, TestConstants.TEAM_ITEM_TYPE,
+		aTeamDTO = this.teamService.createTeam(this.sessionToken, TestConstants.TEAM_ITEM_TYPE,
 				this.aUserDTOForListCollection);
 	}
 
