@@ -34,7 +34,7 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 		super.tearDown();
 		this.deleteCreatedProject();
 		this.deleteUser();
-		this.deleteTheUserCollection();
+		this.removeTheUserCollection();
 	}
 
 	@Test
