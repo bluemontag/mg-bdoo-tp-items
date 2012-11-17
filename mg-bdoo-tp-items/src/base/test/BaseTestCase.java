@@ -32,6 +32,7 @@ import workflow.dto.state.ItemStateDTO;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.WorkflowAlreadyExistsException;
 import workflow.exception.state.ItemStateAlreadyExistsException;
+import workflow.exception.state.UnknownItemStateException;
 import workflow.service.WorkflowServiceBI;
 import workflow.service.state.ItemStateServiceBI;
 import base.exception.DTOConcurrencyException;
@@ -61,6 +62,8 @@ public abstract class BaseTestCase extends TestCase {
 	protected TeamDTO aTeamDTO;
 	protected ItemTypeDTO anItemTypeDTO;
 	protected ItemDTO anItemDTO;
+
+	protected ItemStateDTO anItemStateDTO;
 
 	@Override
 	@Before
@@ -133,11 +136,10 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
-	protected ItemStateDTO createItemStateOnWorkflow(WorkflowDTO aWorkflowDTO, String name, boolean firstSatate) {
-		ItemStateDTO anItemStateDTO = null;
+	protected void createItemStateOnWorkflow(String name, boolean isFirstSatate) {
 		try {
-			anItemStateDTO = this.itemStateService.createItemStateOnWorkflow(this.sessionToken, aWorkflowDTO, name,
-					firstSatate);
+			this.anItemStateDTO = this.itemStateService.createItemStateOnWorkflow(this.sessionToken, aWorkflowDTO,
+					name, isFirstSatate);
 		} catch (ItemStateAlreadyExistsException e) {
 			fail("EL estado " + name + " ya existe en el workflow " + aWorkflowDTO.getName());
 		} catch (UnknownWorkflowException e) {
@@ -145,7 +147,18 @@ public abstract class BaseTestCase extends TestCase {
 		} catch (DTOConcurrencyException e) {
 			fail("DTOConcurrencyException: No deberia pasar en un test.");
 		}
-		return anItemStateDTO;
+	}
+
+	protected void removeItemStateFromWorkflow(ItemStateDTO anItemStateDTO) {
+		try {
+			this.itemStateService.removeItemStateFromWorkflow(sessionToken, this.aWorkflowDTO, anItemStateDTO);
+		} catch (UnknownItemStateException e) {
+			fail("No se puede eliminar el estado" + this.anItemStateDTO.getName() + " ya que no existe.");
+		} catch (DTOConcurrencyException e) {
+			fail("DTOConcurrencyException: no deberia tirar esta excepcion en un test controlado.");
+		} catch (UnknownWorkflowException e) {
+			fail("No existe el workflow de nombre " + this.aWorkflowDTO.getName());
+		}
 	}
 
 	protected void createWorkflow() {
@@ -153,6 +166,14 @@ public abstract class BaseTestCase extends TestCase {
 			this.aWorkflowDTO = this.workflowService.createWorkflow(this.sessionToken, TestConstants.WORKFLOW_NAME);
 		} catch (WorkflowAlreadyExistsException e) {
 			fail("El workflow " + TestConstants.WORKFLOW_NAME + " ya existe");
+		}
+	}
+
+	protected void refreshWorkflow() {
+		try {
+			this.aWorkflowDTO = this.workflowService.getWorkflowByDTO(sessionToken, this.aWorkflowDTO);
+		} catch (UnknownWorkflowException e) {
+			fail("El workflow " + this.aWorkflowDTO.getName() + " no existe.");
 		}
 	}
 
