@@ -1,6 +1,3 @@
-/**
- * @author igallego 
- */
 package workflow.test.state;
 
 import base.test.TestConstants;
