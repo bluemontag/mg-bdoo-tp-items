@@ -32,8 +32,10 @@ public class Item extends BaseDomain {
 		// para hibernate
 	}
 
-	public Item(String description, Integer priority, ItemType type, User responsible, ItemState firstState) {
+	public Item(long itemNum, String description, Integer priority, ItemType type, User responsible,
+			ItemState firstState) {
 		super();
+		this.itemNum = itemNum;
 		this.description = description;
 		this.priority = priority;
 		this.type = type;
