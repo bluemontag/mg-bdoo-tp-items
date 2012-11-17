@@ -28,9 +28,6 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 	@Override
 	@After
 	public void tearDown() throws Exception {
-		// ojo que no se puede eliminar primero el usuario!
-		// no es necesario eliminar la relacion usuarios-proyecto, se eliminana
-		// en cascada.
 		super.tearDown();
 		this.deleteCreatedProject();
 		this.deleteUser();
