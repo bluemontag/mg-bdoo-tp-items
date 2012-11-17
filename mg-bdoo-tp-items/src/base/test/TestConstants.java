@@ -22,10 +22,12 @@ public class TestConstants {
 	public static final String TEAM_ITEM_TYPE = "Equipo Ignacio";
 	public static final String WORKFLOW_NAME = "WF Ignacio";
 
-	// ESTADOS
 	public static final String PENDING = "Pendiente";
 	public static final String IN_DEVELOPMENT = "En desarrollo";
 	public static final String FINAL = "Finalizado";
-	public static final String ITEM_TYPE_1 = "Tipo Basico";
+
+	public static final String ITEM_TYPE_NAME = "Tipo Basico";
+	public static final String ITEM_DESCRIPTION = "Descripcion de un item.";
+	public static final Integer PRIORITY = 1;
 
 }
