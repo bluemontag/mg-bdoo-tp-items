@@ -4,18 +4,12 @@ import org.junit.After;
 import org.junit.Before;
 
 import user.dto.team.TeamDTO;
-import user.exception.UnknownUserException;
-import user.exception.team.TeamAlreadyExistsException;
 import user.exception.team.UnknownTeamException;
-import base.exception.DTOConcurrencyException;
-import base.test.TestConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
 public class TeamCreateServiceTest extends TeamServiceTest {
-
-	protected TeamDTO aCreatedTeamDTO;
 
 	@Override
 	@Before
@@ -27,38 +21,19 @@ public class TeamCreateServiceTest extends TeamServiceTest {
 	@Override
 	@After
 	public void tearDown() throws Exception {
-		this.deleteCreatedTeam();
+		this.removeTeam();
 		this.deleteTheUserCollection();
 	}
 
 	public void testCreateTeam() {
+		this.createTeam();
+		TeamDTO aTeamDTO = null;
 		try {
-			this.aCreatedTeamDTO = this.teamService.createTeam(this.sessionToken, TestConstants.NEW_TEAM_NAME,
-					this.aUserDTOForListCollection);
-		} catch (TeamAlreadyExistsException e) {
-			fail("El equipo que se intenta crear ya existe.");
-		} catch (UnknownUserException e) {
-			fail("Alguno de los usuarios que se quieren setear no existe.");
-		}
-		
-		try {
-			TeamDTO aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aCreatedTeamDTO);
-			
-			//El team que se creo y el team que se lee de la base tienen la misma version
-			assertEquals(this.aCreatedTeamDTO.getVersion(), aTeamDTO.getVersion());
+			aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aTeamDTO);
 		} catch (UnknownTeamException e) {
 			fail("El team no existe");
 		}
+		assertEquals(this.aTeamDTO.getVersion(), aTeamDTO.getVersion());
 	}
 
-	protected void deleteCreatedTeam() {
-		try {
-			TeamDTO aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aCreatedTeamDTO);
-			this.teamService.removeTeam(this.sessionToken, aTeamDTO);
-		} catch (DTOConcurrencyException e) {
-			fail("El equipo que intenta eliminar fue modificado por otro usuario.");
-		} catch (UnknownTeamException e) {
-			fail("El equipo que se desea eliminar no existe.");
-		}
-	}
 }

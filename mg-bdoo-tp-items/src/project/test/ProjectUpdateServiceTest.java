@@ -33,7 +33,7 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 		// en cascada.
 		super.tearDown();
 		this.deleteCreatedProject();
-		this.deleteCreatedUser();
+		this.deleteUser();
 		this.deleteTheUserCollection();
 	}
 

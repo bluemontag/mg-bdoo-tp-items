@@ -27,17 +27,17 @@ public class UserUpdateServiceTest extends UserServiceTest {
 	@Override
 	@After
 	public void tearDown() throws Exception {
-		this.deleteCreatedUser();
+		this.deleteUser();
 	}
 
 	@Test
 	public void testUpdatePasswordUser() {
 		// se updetean los campos necearios para la prueba
-		this.aCreatedUserDTO.setPassword("updatedPassword");
+		this.anUserDTO.setPassword("updatedPassword");
 
 		// Se updatea el usuario
 		try {
-			this.userService.updateUser(this.sessionToken, this.aCreatedUserDTO);
+			this.userService.updateUser(this.sessionToken, this.anUserDTO);
 		} catch (UnknownUserException e) {
 			fail("El usuario que se intenta editar no existe.");
 		} catch (DTOConcurrencyException e) {
@@ -51,13 +51,13 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		// con el recuperado.
 		UserDTO aRetrivedUserDTO = null;
 		try {
-			aRetrivedUserDTO = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
+			aRetrivedUserDTO = this.userService.getUser(this.sessionToken, this.anUserDTO);
 		} catch (UnknownUserException e) {
 			fail("El usuario que edito no se puede recuperar, no puede pasar en este test.");
 		}
 		// el valor updatiado y el valor recuperado deben ser iguales.
 		assertNotNull(aRetrivedUserDTO);
-		assertEquals(this.aCreatedUserDTO.getPassword(), aRetrivedUserDTO.getPassword());
+		assertEquals(this.anUserDTO.getPassword(), aRetrivedUserDTO.getPassword());
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class UserUpdateServiceTest extends UserServiceTest {
 		for (int i = 0; i < TestConstants.MASSIVE_AMOUNT; i++) {
 
 			try {
-				userDTOForMassiveTestAux = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
+				userDTOForMassiveTestAux = this.userService.getUser(this.sessionToken, this.anUserDTO);
 			} catch (UnknownUserException e) {
 				fail("El usuario que se intenta editar no existe.");
 			}

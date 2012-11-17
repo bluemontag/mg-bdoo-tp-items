@@ -23,14 +23,14 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		this.createWorkflow(TestConstants.WORKFLOW_NAME);
+		this.createWorkflow();
 
 	}
 
 	public void testItemStateCreation() {
 
 		try {
-			this.anItemPendingStateDTO = this.getItemStateService().createItemStateOnWorkflow(sessionToken,
+			this.anItemPendingStateDTO = this.itemStateService.createItemStateOnWorkflow(sessionToken,
 					this.aWorkflowDTO, TestConstants.PENDING, true);
 		} catch (ItemStateAlreadyExistsException e) {
 			fail("El estado de nombre " + TestConstants.PENDING + " ya existe.");
@@ -41,7 +41,7 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 		}
 		// se recupera nuevamente el workflow para refrescar.
 		try {
-			this.aWorkflowDTO = this.getWorkflowService().getWorkflowByDTO(sessionToken, this.aWorkflowDTO);
+			this.aWorkflowDTO = this.workflowService.getWorkflowByDTO(sessionToken, this.aWorkflowDTO);
 		} catch (UnknownWorkflowException e) {
 			fail("El workflow " + this.aWorkflowDTO.getName() + " no existe.");
 		}
@@ -53,7 +53,7 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 	@Override
 	protected void tearDown() throws Exception {
 		try {
-			this.getItemStateService().removeItemStateFromWorkflow(sessionToken, this.aWorkflowDTO,
+			this.itemStateService.removeItemStateFromWorkflow(sessionToken, this.aWorkflowDTO,
 					this.anItemPendingStateDTO);
 		} catch (UnknownItemStateException e) {
 			fail("No se puede eliminar el estado" + this.anItemPendingStateDTO.getName() + " ya que no existe.");

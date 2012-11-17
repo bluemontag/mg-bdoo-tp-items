@@ -24,14 +24,14 @@ public class ProjectCreateServiceTest extends ProjectServiceTest {
 	public void tearDown() throws Exception {
 		// ojo que no se puede eliminar primero el usuario!
 		this.deleteCreatedProject();
-		this.deleteCreatedUser();
+		this.deleteUser();
 	}
 
 	public void testCreateProject() {
 		this.aCreatedProjectDTO = null;
 		try {
 			this.aCreatedProjectDTO = this.projectService.createProject(this.sessionToken,
-					TestConstants.NEW_PROJECT_NAME, this.aCreatedUserDTO);
+					TestConstants.NEW_PROJECT_NAME, this.anUserDTO);
 		} catch (ProjectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {
@@ -39,6 +39,6 @@ public class ProjectCreateServiceTest extends ProjectServiceTest {
 		}
 		assertNotNull(this.aCreatedProjectDTO);
 		assertEquals(TestConstants.NEW_PROJECT_NAME, this.aCreatedProjectDTO.getName());
-		assertEquals(this.aCreatedUserDTO.getUserName(), this.aCreatedProjectDTO.getLeader().getUserName());
+		assertEquals(this.anUserDTO.getUserName(), this.aCreatedProjectDTO.getLeader().getUserName());
 	}
 }

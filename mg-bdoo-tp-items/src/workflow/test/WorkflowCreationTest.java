@@ -17,14 +17,14 @@ public class WorkflowCreationTest extends BaseTestCase {
 	}
 
 	public void testWorkflowCreation() {
-		this.createWorkflow(TestConstants.WORKFLOW_NAME);
+		this.createWorkflow();
 		assertEquals(TestConstants.WORKFLOW_NAME, this.aWorkflowDTO.getName());
 		assertTrue(aWorkflowDTO.getItemStates().isEmpty());
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		this.eliminarWorkflow(this.aWorkflowDTO);
+		this.removeWorkflow();
 		super.tearDown();
 	}
 }

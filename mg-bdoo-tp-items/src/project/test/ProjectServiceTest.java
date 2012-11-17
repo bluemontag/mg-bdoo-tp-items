@@ -42,7 +42,7 @@ public abstract class ProjectServiceTest extends BaseTestCase {
 		try {
 			// se crea el proyecto que se va a updetear
 			this.aCreatedProjectDTO = this.projectService.createProject(this.sessionToken,
-					TestConstants.NEW_PROJECT_NAME, this.aCreatedUserDTO);
+					TestConstants.NEW_PROJECT_NAME, this.anUserDTO);
 		} catch (ProjectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {
