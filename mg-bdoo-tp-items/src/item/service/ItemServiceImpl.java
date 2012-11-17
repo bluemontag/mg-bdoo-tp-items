@@ -36,8 +36,9 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 		// pongo como responsable al primer usuario del team.
 		User firstUser = itemType.getInitialTeam().getUsers().iterator().next();
 		ItemState initialState = itemType.getWorkflow().getInitialState();
+		long itemNum = theItemTracker.getNextItemNum();
 
-		Item item = new Item(description, priority, itemType, firstUser, initialState);
+		Item item = new Item(itemNum, description, priority, itemType, firstUser, initialState);
 
 		theItemTracker.addItem(item);
 
