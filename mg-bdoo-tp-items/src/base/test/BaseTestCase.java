@@ -98,7 +98,7 @@ public abstract class BaseTestCase extends TestCase {
 	}
 
 	@SuppressWarnings("deprecation")
-	protected void deleteTheUserCollection() {
+	protected void removeTheUserCollection() {
 		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aUserDTOToRemove;
 			try {
@@ -203,6 +203,16 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
+	protected void removeItemType() {
+		try {
+			this.itemTypeService.removeItemType(sessionToken, this.anItemTypeDTO);
+		} catch (UnknownItemTypeException e) {
+			fail("El tipo de item " + this.anItemTypeDTO.getName() + " no existe.");
+		} catch (DTOConcurrencyException e) {
+			fail("DTOConcurrencyException: no deberia pasar.");
+		}
+	}
+
 	protected void createItem() {
 		try {
 			this.anItemDTO = this.itemService.createItem(sessionToken, TestConstants.ITEM_DESCRIPTION,
@@ -214,7 +224,7 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
-	protected void deleteItem() {
+	protected void removeItem() {
 		try {
 			this.itemService.removeItem(sessionToken, this.anItemDTO);
 		} catch (UnknownItemException e) {
