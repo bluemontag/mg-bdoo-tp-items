@@ -69,7 +69,7 @@ public class ItemTypeCreationTest extends ItemTypeServiceTest {
 		this.aTeamDTO = this.teamService.getTeam(this.sessionToken, aTeamDTO);
 		this.teamService.removeTeam(this.sessionToken, aTeamDTO);
 
-		this.deleteTheUserCollection();
+		this.removeTheUserCollection();
 		super.tearDown();
 	}
 
