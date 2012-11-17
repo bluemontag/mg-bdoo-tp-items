@@ -33,6 +33,7 @@ public class ItemCreateTest extends ItemServiceTest {
 
 	public void testCreateItem() {
 		this.createItem();
+		assertNotNull(this.anItemDTO.getItemNum());
 		assertEquals(this.anItemDTO.getDescription(), TestConstants.ITEM_DESCRIPTION);
 		assertEquals(this.anItemDTO.getPriority(), TestConstants.PRIORITY);
 		assertEquals(this.anItemDTO.getType().getOid(), this.anItemTypeDTO.getOid());
