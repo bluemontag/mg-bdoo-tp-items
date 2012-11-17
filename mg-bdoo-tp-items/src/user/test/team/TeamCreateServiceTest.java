@@ -22,7 +22,7 @@ public class TeamCreateServiceTest extends TeamServiceTest {
 	@After
 	public void tearDown() throws Exception {
 		this.removeTeam();
-		this.deleteTheUserCollection();
+		this.removeTheUserCollection();
 	}
 
 	public void testCreateTeam() {
