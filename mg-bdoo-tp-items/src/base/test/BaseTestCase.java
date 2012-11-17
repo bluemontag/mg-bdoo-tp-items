@@ -1,5 +1,11 @@
 package base.test;
 
+import item.dto.ItemDTO;
+import item.dto.itemType.ItemTypeDTO;
+import item.exception.ItemAlreadyExistsException;
+import item.exception.UnknownItemException;
+import item.exception.itemType.ItemTypeAlreadyExistsException;
+import item.exception.itemType.UnknownItemTypeException;
 import item.service.ItemServiceBI;
 import item.service.itemType.ItemTypeServiceBI;
 import itemTracker.service.ItemTrackerServiceBI;
@@ -14,8 +20,11 @@ import org.junit.Before;
 import project.service.ProjectServiceBI;
 import user.dto.UserDTO;
 import user.dto.UserDTOForLists;
+import user.dto.team.TeamDTO;
 import user.exception.UnknownUserException;
 import user.exception.UserAlreadyExistsException;
+import user.exception.team.TeamAlreadyExistsException;
+import user.exception.team.UnknownTeamException;
 import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
 import workflow.dto.WorkflowDTO;
@@ -46,10 +55,12 @@ public abstract class BaseTestCase extends TestCase {
 	protected ItemStateServiceBI itemStateService;
 	protected ItemTypeServiceBI itemTypeService;
 
-	// propiedades usadas por algunos tests.
 	protected Collection<UserDTOForLists> aUserDTOForListCollection = new HashSet<UserDTOForLists>();
-	protected UserDTO aCreatedUserDTO;
+	protected UserDTO anUserDTO;
 	protected WorkflowDTO aWorkflowDTO;
+	protected TeamDTO aTeamDTO;
+	protected ItemTypeDTO anItemTypeDTO;
+	protected ItemDTO anItemDTO;
 
 	@Override
 	@Before
@@ -69,34 +80,6 @@ public abstract class BaseTestCase extends TestCase {
 		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
 				TestConstants.ADMIN_PASSWORD);
 
-	}
-
-	public ItemServiceBI getItemService() {
-		return itemService;
-	}
-
-	public WorkflowServiceBI getWorkflowService() {
-		return workflowService;
-	}
-
-	public ItemStateServiceBI getItemStateService() {
-		return itemStateService;
-	}
-
-	public TeamServiceBI getTeamService() {
-		return teamService;
-	}
-
-	public UserServiceBI getUserService() {
-		return userService;
-	}
-
-	public ItemTrackerServiceBI getItemTrackerService() {
-		return itemTrackerService;
-	}
-
-	public ItemTypeServiceBI getItemTypeService() {
-		return itemTypeService;
 	}
 
 	protected void createAUserCollection() {
@@ -132,17 +115,16 @@ public abstract class BaseTestCase extends TestCase {
 
 	protected void createUser() {
 		try {
-			this.aCreatedUserDTO = this.userService.createUser(this.sessionToken, TestConstants.NEW_USER_NAME,
-					"anyPassword");
+			this.anUserDTO = this.userService.createUser(this.sessionToken, TestConstants.NEW_USER_NAME, "anyPassword");
 		} catch (UserAlreadyExistsException e) {
 			fail("El usuario que se intenta crear ya existe.");
 		}
 	}
 
 	@SuppressWarnings("deprecation")
-	protected void deleteCreatedUser() {
+	protected void deleteUser() {
 		try {
-			UserDTO anUserDTOToRemove = this.userService.getUser(this.sessionToken, this.aCreatedUserDTO);
+			UserDTO anUserDTOToRemove = this.userService.getUser(this.sessionToken, this.anUserDTO);
 			this.userService.removeUser(this.sessionToken, anUserDTOToRemove);
 		} catch (UnknownUserException e) {
 			fail("El usuario que desea eliminar no existe.");
@@ -154,8 +136,8 @@ public abstract class BaseTestCase extends TestCase {
 	protected ItemStateDTO createItemStateOnWorkflow(WorkflowDTO aWorkflowDTO, String name, boolean firstSatate) {
 		ItemStateDTO anItemStateDTO = null;
 		try {
-			anItemStateDTO = this.getItemStateService().createItemStateOnWorkflow(this.sessionToken, aWorkflowDTO,
-					name, firstSatate);
+			anItemStateDTO = this.itemStateService.createItemStateOnWorkflow(this.sessionToken, aWorkflowDTO, name,
+					firstSatate);
 		} catch (ItemStateAlreadyExistsException e) {
 			fail("EL estado " + name + " ya existe en el workflow " + aWorkflowDTO.getName());
 		} catch (UnknownWorkflowException e) {
@@ -166,22 +148,80 @@ public abstract class BaseTestCase extends TestCase {
 		return anItemStateDTO;
 	}
 
-	protected void createWorkflow(String aWorkflowName) {
+	protected void createWorkflow() {
 		try {
-			this.aWorkflowDTO = this.getWorkflowService().createWorkflow(this.sessionToken, aWorkflowName);
+			this.aWorkflowDTO = this.workflowService.createWorkflow(this.sessionToken, TestConstants.WORKFLOW_NAME);
 		} catch (WorkflowAlreadyExistsException e) {
-			fail("El workflow " + aWorkflowName + " ya existe");
+			fail("El workflow " + TestConstants.WORKFLOW_NAME + " ya existe");
 		}
 	}
 
-	protected void eliminarWorkflow(WorkflowDTO aWorkflowDTO) {
+	protected void removeWorkflow() {
 		try {
-			WorkflowDTO aWorkflowDTOAux = this.getWorkflowService().getWorkflowByDTO(this.sessionToken, aWorkflowDTO);
-			this.getWorkflowService().removeWorkflow(this.sessionToken, aWorkflowDTOAux);
+			this.workflowService.removeWorkflow(this.sessionToken, this.aWorkflowDTO);
 		} catch (UnknownWorkflowException e) {
-			fail("No existe el workflow de nombre " + aWorkflowDTO.getName());
+			fail("No existe el workflow de nombre " + this.aWorkflowDTO.getName());
 		} catch (DTOConcurrencyException e) {
 			fail("DTOConcurrencyException: no deberia ocurrir esto.");
 		}
+	}
+
+	protected void createTeam() {
+		try {
+			this.aTeamDTO = this.teamService.createTeam(this.sessionToken, TestConstants.NEW_TEAM_NAME,
+					this.aUserDTOForListCollection);
+		} catch (TeamAlreadyExistsException e) {
+			fail("El equipo que se intenta crear ya existe.");
+		} catch (UnknownUserException e) {
+			fail("Alguno de los usuarios que se quieren setear no existe.");
+		}
+	}
+
+	protected void removeTeam() {
+		try {
+			TeamDTO aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aTeamDTO);
+			this.teamService.removeTeam(this.sessionToken, aTeamDTO);
+		} catch (DTOConcurrencyException e) {
+			fail("El equipo que intenta eliminar fue modificado por otro usuario.");
+		} catch (UnknownTeamException e) {
+			fail("El equipo que se desea eliminar no existe.");
+		}
+	}
+
+	protected void createItemType() {
+		try {
+			this.anItemTypeDTO = this.itemTypeService.createItemType(sessionToken, TestConstants.ITEM_TYPE_NAME,
+					this.aTeamDTO, this.aWorkflowDTO);
+		} catch (ItemTypeAlreadyExistsException e) {
+			fail("El tipo de item " + TestConstants.ITEM_TYPE_NAME + " ya existe.");
+		} catch (UnknownTeamException e) {
+			fail("El equipo " + this.aTeamDTO.getName() + " no existe.");
+		} catch (UnknownWorkflowException e) {
+			fail("El workflow " + this.aWorkflowDTO.getName() + " no existe.");
+		} catch (DTOConcurrencyException e) {
+			fail("El equipo que intenta eliminar fue modificado por otro usuario.");
+		}
+	}
+
+	protected void createItem() {
+		try {
+			this.anItemDTO = this.itemService.createItem(sessionToken, TestConstants.ITEM_DESCRIPTION,
+					TestConstants.PRIORITY, this.anItemTypeDTO);
+		} catch (ItemAlreadyExistsException e1) {
+			fail("El item que desea crear ya existe.");
+		} catch (UnknownItemTypeException e1) {
+			fail("El typo de item seleccionado no existe.");
+		}
+	}
+
+	protected void deleteItem() {
+		try {
+			this.itemService.removeItem(sessionToken, this.anItemDTO);
+		} catch (UnknownItemException e) {
+			fail("El item numero " + this.anItemDTO.getItemNum() + " no existe.");
+		} catch (DTOConcurrencyException e) {
+			fail("DTOConcurrencyException: no deberia ocurrir.");
+		}
+
 	}
 }
