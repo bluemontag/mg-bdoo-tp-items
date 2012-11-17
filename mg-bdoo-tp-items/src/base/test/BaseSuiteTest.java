@@ -1,6 +1,7 @@
 package base.test;
 
 import item.test.ItemServiceTest;
+import item.test.itemType.ItemTypeServiceTest;
 import itemTracker.test.ItemTrackerTest;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public abstract class BaseSuiteTest {
 		testClasses.addAll(ItemTrackerTest.getClassesTestToPerform());
 		testClasses.addAll(ProjectServiceTest.getClassesTestToPerform());
 		testClasses.addAll(ItemServiceTest.getClassesTestToPerform());
-		// testClasses.addAll(ItemTypeServiceTest.getClassesTestToPerform());
+		testClasses.addAll(ItemTypeServiceTest.getClassesTestToPerform());
 		testClasses.addAll(UserServiceTest.getClassesTestToPerform());
 		testClasses.addAll(TeamServiceTest.getClassesTestToPerform());
 		testClasses.addAll(WorkflowServiceTest.getClassesTestToPerform());
