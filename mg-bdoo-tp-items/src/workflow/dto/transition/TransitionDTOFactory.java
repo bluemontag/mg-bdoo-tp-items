@@ -1,6 +1,5 @@
 package workflow.dto.transition;
 
-import workflow.domain.Workflow;
 import workflow.domain.transition.Transition;
 import base.domain.BaseDomain;
 import base.dto.AbstractDTO;
@@ -8,7 +7,7 @@ import base.dto.AbstractDTOForLists;
 import base.dto.DTOFactory;
 
 /**
- * @author Ignacio Gallego
+ * @author Rodrigo Itursarry itursarry@gmail.com
  */
 public class TransitionDTOFactory extends DTOFactory {
 
@@ -20,18 +19,18 @@ public class TransitionDTOFactory extends DTOFactory {
 	}
 
 	@Override
-	public AbstractDTO getDTO(BaseDomain aWorkflow) {
-		return new TransitionDTO((Workflow) aWorkflow);
+	public AbstractDTO getDTO(BaseDomain aTransition) {
+		return new TransitionDTO((Transition) aTransition);
 	}
 
 	@Override
-	public AbstractDTOForLists getDTOForLists(BaseDomain aBaseDomainObject) {
-		return new TransitionDTOForLists((Transition) aBaseDomainObject);
+	public AbstractDTOForLists getDTOForLists(BaseDomain aTransition) {
+		return new TransitionDTOForLists((Transition) aTransition);
 	}
 
 	@Override
-	protected AbstractDTOForLists getDTOForListInstance(AbstractDTO anTransitionDTO) {
-		return new TransitionDTOForLists((TransitionDTO) anTransitionDTO);
+	protected AbstractDTOForLists getDTOForListInstance(AbstractDTO aTransitionDTO) {
+		return new TransitionDTOForLists((TransitionDTO) aTransitionDTO);
 	}
 
 }
