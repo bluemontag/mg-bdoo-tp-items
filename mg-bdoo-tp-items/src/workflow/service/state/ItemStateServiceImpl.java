@@ -14,6 +14,7 @@ import workflow.dto.transition.TransitionDTOFactory;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.state.ItemStateAlreadyExistsException;
 import workflow.exception.state.UnknownItemStateException;
+import workflow.exception.transition.UnknownTransitionException;
 import base.exception.DTOConcurrencyException;
 import base.service.AbstractServiceImpl;
 
@@ -93,5 +94,14 @@ public class ItemStateServiceImpl extends AbstractServiceImpl implements ItemSta
 		anInitialItemState.addTransition(aTransition);
 		TransitionDTO aTransitionDTO = (TransitionDTO) TransitionDTOFactory.getInstance().getDTO(aTransition);
 		return aTransitionDTO;
+	}
+
+	@Override
+	public void removeTransition(ItemStateDTO anItemStateDTO, TransitionDTO aTransitionDTO)
+			throws UnknownItemStateException, DTOConcurrencyException, UnknownTransitionException {
+		ItemState anItemState = this.getItemStateRepository().getItemStateByDTO(anItemStateDTO);
+		this.checkDTOConcurrency(anItemStateDTO, anItemState);
+		Transition aTransition = anItemState.getTransitionByTransitionCode(aTransitionDTO.getTransitionCode());
+		anItemState.removeTransition(aTransition);
 	}
 }

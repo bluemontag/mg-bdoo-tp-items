@@ -6,6 +6,7 @@ import workflow.dto.transition.TransitionDTO;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.state.ItemStateAlreadyExistsException;
 import workflow.exception.state.UnknownItemStateException;
+import workflow.exception.transition.UnknownTransitionException;
 import base.exception.DTOConcurrencyException;
 
 /**
@@ -33,6 +34,9 @@ public interface ItemStateServiceBI {
 
 	public ItemStateDTO getItemStateByDTO(String sessionToken, ItemStateDTO itemStateDTO)
 			throws UnknownItemStateException;
+
+	public void removeTransition(ItemStateDTO itemStateDTO, TransitionDTO aTransitionDTO)
+			throws UnknownItemStateException, DTOConcurrencyException, UnknownTransitionException;
 
 	// Updates
 
