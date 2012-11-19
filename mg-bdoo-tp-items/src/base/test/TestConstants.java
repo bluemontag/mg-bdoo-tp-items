@@ -11,7 +11,7 @@ public class TestConstants {
 	public final static String NEW_PROJECT_NAME = "A project name";
 	public final static String NEW_USER_NAME = "new_User";
 
-	public final static int MASSIVE_AMOUNT = 120;
+	public final static int MASSIVE_AMOUNT = 500;
 
 	public static final String BASE_USERS_NAME_TO_SET_IN_COLLECTION = "user_name_for_collection_";
 	public static final String UPDATED_PROJECT_NAME = "A project name UPDATED";
@@ -29,5 +29,6 @@ public class TestConstants {
 	public static final String ITEM_TYPE_NAME = "Tipo Basico";
 	public static final String ITEM_DESCRIPTION = "Descripcion de un item.";
 	public static final Integer PRIORITY = 1;
+	public static final String TRANSITION_IN_DEVELOPMENT = "EnDesarrollo";
 
 }
