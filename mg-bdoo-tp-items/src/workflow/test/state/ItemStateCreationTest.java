@@ -13,7 +13,6 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		this.createWorkflow();
-
 	}
 
 	public void testItemStateCreation() {
