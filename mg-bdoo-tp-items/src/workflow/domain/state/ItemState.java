@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import workflow.domain.transition.Transition;
 import workflow.exception.transition.BadTransitionException;
+import workflow.exception.transition.UnknownTransitionException;
 import base.domain.BaseDomain;
 
 /**
@@ -61,20 +62,41 @@ public class ItemState extends BaseDomain {
 	 */
 	public void executeTransition(String aTransitionCode, Item anItem) throws BadTransitionException {
 
+		boolean transicionExecuted = false;
 		if (aTransitionCode != null) {
 			for (Transition transition : this.transitions) {
 				if (transition.isThisTransition(aTransitionCode)) {
-					this.changeState(transition, anItem);
+					transicionExecuted = this.changeState(transition, anItem);
 					break;
 				}
 			}
-		} else {
+		}
+		if (!transicionExecuted) {
 			throw new BadTransitionException("El codigo de traniscion: " + aTransitionCode
 					+ " no se encontro en el estado" + this.name);
 		}
 	}
 
-	public void changeState(Transition transition, Item anItem) {
+	public boolean changeState(Transition transition, Item anItem) {
 		anItem.setCurrentState(transition.getNextState());
+		return true;
+	}
+
+	public Transition getTransitionByTransitionCode(String aTransitionCode) {
+		Collection<Transition> transitions = this.getTransitions();
+		for (Transition transition : transitions) {
+			if (transition.isThisTransition(aTransitionCode)) {
+				return transition;
+			}
+		}
+		return null;
+	}
+
+	public void removeTransition(Transition aTransition) throws UnknownTransitionException {
+		boolean removed = this.transitions.remove(aTransition);
+		if (!removed) {
+			throw new UnknownTransitionException("La transicion no se puedo eliminar.");
+		}
+		aTransition.setNextState(null);
 	}
 }
