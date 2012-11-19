@@ -1,6 +1,5 @@
 package item.test;
 
-import org.junit.After;
 import org.junit.Before;
 
 import base.test.TestConstants;
@@ -22,7 +21,6 @@ public class ItemCreateTest extends ItemServiceTest {
 	}
 
 	@Override
-	@After
 	public void tearDown() throws Exception {
 		this.removeItem();
 		this.removeItemType();
