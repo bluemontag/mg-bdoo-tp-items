@@ -87,7 +87,8 @@ public class UserUpdateServiceTest extends UserServiceTest {
 
 		this.runAndWaitThreadsToFinish(massiveUserUpdateConcurrencyTestsStackNotFinisehd);
 
-		boolean errorDeConcurrencia = this
+		boolean errorDeConcurrencia = false;
+		errorDeConcurrencia = this
 				.checkThreadThrowsConcurrencyError(massiveUserUpdateConcurrencyTestsSetForCheckConcurrency);
 
 		// El test no falla si hubo error de concurrencia de hibernate.
