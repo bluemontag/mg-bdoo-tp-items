@@ -29,10 +29,12 @@ import user.service.UserServiceBI;
 import user.service.team.TeamServiceBI;
 import workflow.dto.WorkflowDTO;
 import workflow.dto.state.ItemStateDTO;
+import workflow.dto.transition.TransitionDTO;
 import workflow.exception.UnknownWorkflowException;
 import workflow.exception.WorkflowAlreadyExistsException;
 import workflow.exception.state.ItemStateAlreadyExistsException;
 import workflow.exception.state.UnknownItemStateException;
+import workflow.exception.transition.UnknownTransitionException;
 import workflow.service.WorkflowServiceBI;
 import workflow.service.state.ItemStateServiceBI;
 import base.exception.DTOConcurrencyException;
@@ -78,7 +80,6 @@ public abstract class BaseTestCase extends TestCase {
 		this.itemService = ServiceContainer.getInstance().getItemService();
 		this.itemTypeService = ServiceContainer.getInstance().getItemTypeService();
 		this.itemStateService = ServiceContainer.getInstance().getItemStateService();
-
 		// se loggea en la aplicacion
 		this.sessionToken = this.itemTrackerService.loginUser(TestConstants.ADMIN_USER_NAME,
 				TestConstants.ADMIN_PASSWORD);
@@ -253,6 +254,31 @@ public abstract class BaseTestCase extends TestCase {
 		} catch (DTOConcurrencyException e) {
 			fail("DTOConcurrencyException: no deberia ocurrir.");
 		}
+	}
 
+	protected TransitionDTO createTransition(ItemStateDTO anStartItemStateDTO, ItemStateDTO anItemEndStateDTO,
+			String transitionName, String transitionCode) {
+		TransitionDTO aTransitionDTO = null;
+		try {
+			aTransitionDTO = this.itemStateService.createTransitionOnItemState(sessionToken, anStartItemStateDTO,
+					anItemEndStateDTO, transitionName, transitionCode);
+		} catch (UnknownItemStateException e) {
+			fail("Alguno de los estados que intenta relacionar no existe.");
+		} catch (DTOConcurrencyException e) {
+			fail("DTOConcurrencyException: Esto no deberia ocurrir.");
+		}
+		return aTransitionDTO;
+	}
+
+	protected void removeTransition(ItemStateDTO anItemStateDTO, TransitionDTO aTransitionDTO) {
+		try {
+			this.itemStateService.removeTransition(anItemStateDTO, aTransitionDTO);
+		} catch (UnknownItemStateException e) {
+			fail("El estado " + anItemStateDTO.getName() + " no existe.");
+		} catch (DTOConcurrencyException e) {
+			fail("DTOConcurrencyException: no deberia ocurrir.");
+		} catch (UnknownTransitionException e) {
+			fail("La traniscion " + aTransitionDTO.getName() + " no existe en el estado " + anItemStateDTO.getName());
+		}
 	}
 }
