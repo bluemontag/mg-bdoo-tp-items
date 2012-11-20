@@ -99,4 +99,8 @@ public class ItemState extends BaseDomain {
 		}
 		aTransition.setNextState(null);
 	}
+
+	public void removeAllTransitions() {
+		this.transitions.clear();
+	}
 }
