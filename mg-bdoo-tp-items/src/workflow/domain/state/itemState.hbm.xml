@@ -14,12 +14,11 @@
 		<property name="name" type="java.lang.String"/>
 		
 		<!-- colecciones o relaciones -->
-		<bag name="transitions" table="TRANSITION" inverse="true" cascade="all-delete-orphan" optimistic-lock="false">
-			<key column="oid_transition" />
+		<bag name="transitions" table="TRANSITION" inverse="false" cascade="all-delete-orphan" optimistic-lock="false">
+			<key column="oid_item_state" />
 			<one-to-many class="workflow.domain.transition.Transition" />
 		</bag>
-		
-				
+
 		<property name="removed" column="removed" />
 	</class>
 
