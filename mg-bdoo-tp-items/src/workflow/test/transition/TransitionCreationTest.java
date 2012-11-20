@@ -1,6 +1,3 @@
-/**
- * @author igallego 
- */
 package workflow.test.transition;
 
 import workflow.dto.state.ItemStateDTO;
