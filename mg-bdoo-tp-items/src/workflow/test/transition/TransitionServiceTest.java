@@ -24,6 +24,7 @@ public class TransitionServiceTest extends BaseTestCase {
 	public static Collection<Class> getClassesTestToPerform() {
 		// en este metodo se agregan todos los test a realizar relacionados
 		Collection<Class> transitionTestsClasses = new ArrayList<Class>();
+		transitionTestsClasses.add(TransitionCreationTest.class);
 		return transitionTestsClasses;
 	}
 }
