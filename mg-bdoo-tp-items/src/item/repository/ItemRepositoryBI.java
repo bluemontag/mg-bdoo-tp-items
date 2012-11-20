@@ -7,13 +7,17 @@ import item.exception.UnknownItemException;
 
 import java.util.Collection;
 
+/**
+ * @author Rodrigo Itursarry itursarry@gmail.com
+ */
+
 public interface ItemRepositoryBI {
-	
-	public Item getItemByNum(Long itemNum) throws UnknownItemException;
+
+	public Item getItemByNum(Long anItemNum) throws UnknownItemException;
 
 	public Item getItemByOid(String oid) throws UnknownItemException;
 
-	public Item getItemByDTO(ItemDTO aItemDTO) throws UnknownItemException;
+	public Item getItemByDTO(ItemDTO anIntemDTO) throws UnknownItemException;
 
 	public Collection<Item> getItemsByDTOsList(Collection<ItemDTOForLists> itemsDTOs) throws UnknownItemException;
 }
