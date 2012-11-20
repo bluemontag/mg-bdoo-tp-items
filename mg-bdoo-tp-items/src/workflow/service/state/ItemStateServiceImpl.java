@@ -97,7 +97,7 @@ public class ItemStateServiceImpl extends AbstractServiceImpl implements ItemSta
 	}
 
 	@Override
-	public void removeTransition(ItemStateDTO anItemStateDTO, TransitionDTO aTransitionDTO)
+	public void removeTransition(String sessionToken, ItemStateDTO anItemStateDTO, TransitionDTO aTransitionDTO)
 			throws UnknownItemStateException, DTOConcurrencyException, UnknownTransitionException {
 		ItemState anItemState = this.getItemStateRepository().getItemStateByDTO(anItemStateDTO);
 		this.checkDTOConcurrency(anItemStateDTO, anItemState);

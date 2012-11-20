@@ -35,7 +35,7 @@ public interface ItemStateServiceBI {
 	public ItemStateDTO getItemStateByDTO(String sessionToken, ItemStateDTO itemStateDTO)
 			throws UnknownItemStateException;
 
-	public void removeTransition(ItemStateDTO itemStateDTO, TransitionDTO aTransitionDTO)
+	public void removeTransition(String sessionToken, ItemStateDTO itemStateDTO, TransitionDTO aTransitionDTO)
 			throws UnknownItemStateException, DTOConcurrencyException, UnknownTransitionException;
 
 	// Updates
