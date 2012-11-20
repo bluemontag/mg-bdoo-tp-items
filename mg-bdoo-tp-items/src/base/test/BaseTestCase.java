@@ -86,7 +86,7 @@ public abstract class BaseTestCase extends TestCase {
 
 	}
 
-	protected void refreshWorkflow() {
+	protected void refreshWorkflowDTO() {
 		try {
 			this.aWorkflowDTO = this.workflowService.getWorkflowByDTO(sessionToken, this.aWorkflowDTO);
 		} catch (UnknownWorkflowException e) {
@@ -94,7 +94,7 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
-	protected void refreshItemType() {
+	protected void refreshItemTypeDTO() {
 		try {
 			this.anItemTypeDTO = this.itemTypeService.getItemType(sessionToken, this.anItemTypeDTO);
 		} catch (UnknownItemTypeException e) {
@@ -102,7 +102,7 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
-	protected void refreshItemState() {
+	protected void refreshItemStateDTO() {
 		try {
 			this.anItemStateDTO = this.itemStateService.getItemStateByDTO(sessionToken, this.anItemStateDTO);
 		} catch (UnknownItemStateException e) {
@@ -110,7 +110,7 @@ public abstract class BaseTestCase extends TestCase {
 		}
 	}
 
-	protected void refreshItem() {
+	protected void refreshItemDTO() {
 		try {
 			this.anItemDTO = this.itemService.getItem(sessionToken, this.anItemDTO);
 		} catch (UnknownItemException e) {

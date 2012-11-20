@@ -26,27 +26,27 @@ public class ItemTransitionTest extends ItemServiceTest {
 		this.createItemType();
 		this.createItemStateOnWorkflow(TestConstants.PENDING, true);
 		this.anItemPendingStateDTO = this.anItemStateDTO;
-		this.refreshWorkflow();
+		this.refreshWorkflowDTO();
 		this.createItemStateOnWorkflow(TestConstants.IN_DEVELOPMENT, false);
 		this.anItemInDevelopmentStateDTO = this.anItemStateDTO;
 		this.aTransitionDTO = this.createTransition(this.anItemPendingStateDTO, this.anItemInDevelopmentStateDTO,
 				TestConstants.TRANSITION_IN_DEVELOPMENT, TestConstants.TRANSITION_IN_DEVELOPMENT);
-		this.refreshItemType();
+		this.refreshItemTypeDTO();
 		this.createItem();
 	}
 
 	@Override
 	public void tearDown() throws Exception {
-		this.refreshItem();
-		this.refreshWorkflow();
-		this.refreshItemState();
+		this.refreshItemDTO();
+		this.refreshWorkflowDTO();
+		this.refreshItemStateDTO();
 
 		this.removeTransition(this.anItemPendingStateDTO, this.aTransitionDTO);
 		this.removeItem();
 		this.removeItemStateFromWorkflow(anItemInDevelopmentStateDTO);
-		this.refreshWorkflow();
+		this.refreshWorkflowDTO();
 		this.removeItemStateFromWorkflow(anItemPendingStateDTO);
-		this.refreshWorkflow();
+		this.refreshWorkflowDTO();
 		this.removeItemType();
 		this.removeWorkflow();
 		this.removeTeam();
@@ -65,12 +65,12 @@ public class ItemTransitionTest extends ItemServiceTest {
 		} catch (DTOConcurrencyException e) {
 			fail("DTOConcurrencyException: no deberia pasar.");
 		}
-		this.refreshItem();
+		this.refreshItemDTO();
 		assertEquals(this.anItemDTO.getCurrentState(), this.anItemInDevelopmentStateDTO.getName());
 	}
 
 	@Override
-	protected void refreshItemState() {
+	protected void refreshItemStateDTO() {
 		try {
 			this.anItemInDevelopmentStateDTO = this.itemStateService.getItemStateByDTO(sessionToken,
 					this.anItemInDevelopmentStateDTO);

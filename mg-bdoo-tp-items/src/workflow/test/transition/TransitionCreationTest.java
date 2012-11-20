@@ -23,20 +23,20 @@ public class TransitionCreationTest extends TransitionServiceTest {
 		this.createItemType();
 		this.createItemStateOnWorkflow(TestConstants.PENDING, true);
 		this.anItemPendingStateDTO = this.anItemStateDTO;
-		this.refreshWorkflow();
+		this.refreshWorkflowDTO();
 		this.createItemStateOnWorkflow(TestConstants.IN_DEVELOPMENT, false);
 		this.anItemInDevelopmentStateDTO = this.anItemStateDTO;
 	}
 
 	@Override
 	public void tearDown() throws Exception {
-		this.refreshItemState();
-		this.refreshWorkflow();
+		this.refreshItemStateDTO();
+		this.refreshWorkflowDTO();
 
 		this.removeTransition(this.anItemPendingStateDTO, this.aTransitionDTO);
 		this.removeItemStateFromWorkflow(anItemInDevelopmentStateDTO);
 		this.removeItemStateFromWorkflow(anItemPendingStateDTO);
-		this.refreshWorkflow();
+		this.refreshWorkflowDTO();
 		this.removeItemType();
 		this.removeWorkflow();
 		this.removeTeam();
@@ -53,7 +53,7 @@ public class TransitionCreationTest extends TransitionServiceTest {
 	}
 
 	@Override
-	protected void refreshItemState() {
+	protected void refreshItemStateDTO() {
 		try {
 			this.anItemInDevelopmentStateDTO = this.itemStateService.getItemStateByDTO(sessionToken,
 					this.anItemInDevelopmentStateDTO);

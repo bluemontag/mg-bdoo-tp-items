@@ -18,7 +18,7 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 	public void testItemStateCreation() {
 
 		this.createItemStateOnWorkflow(TestConstants.PENDING, true);
-		this.refreshWorkflow();
+		this.refreshWorkflowDTO();
 		assertEquals(this.aWorkflowDTO.getInitialState().getOid(), this.anItemStateDTO.getOid());
 		assertEquals(TestConstants.PENDING, this.anItemStateDTO.getName());
 	}
@@ -26,7 +26,7 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 	@Override
 	protected void tearDown() throws Exception {
 		this.removeItemStateFromWorkflow(this.anItemStateDTO);
-		this.refreshWorkflow();
+		this.refreshWorkflowDTO();
 		this.removeWorkflow();
 		super.tearDown();
 	}
