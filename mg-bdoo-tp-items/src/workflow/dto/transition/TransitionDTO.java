@@ -1,6 +1,8 @@
 package workflow.dto.transition;
 
 import workflow.domain.transition.Transition;
+import workflow.dto.state.ItemStateDTO;
+import workflow.dto.state.ItemStateDTOFactory;
 import base.dto.AbstractDTO;
 
 /**
@@ -11,11 +13,13 @@ public class TransitionDTO extends AbstractDTO {
 	private String name;
 	private final String transitionCode;
 	private boolean removed;
+	private final ItemStateDTO nextState;
 
 	public TransitionDTO(Transition aTransition) {
 		super(aTransition);
 		this.name = aTransition.getName();
 		this.transitionCode = aTransition.getTransitionCode();
+		this.nextState = (ItemStateDTO) ItemStateDTOFactory.getInstance().getDTO(aTransition.getNextState());
 		this.removed = aTransition.isRemoved();
 	}
 
@@ -37,6 +41,10 @@ public class TransitionDTO extends AbstractDTO {
 
 	public String getTransitionCode() {
 		return transitionCode;
+	}
+
+	public ItemStateDTO getNextState() {
+		return nextState;
 	}
 
 }
