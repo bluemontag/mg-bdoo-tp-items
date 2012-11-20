@@ -37,8 +37,8 @@ public interface ItemServiceBI {
 	// Updating
 	public void updateItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException, DTOConcurrencyException;
 
-	public void executeTransition(String sessionToken, Long itemNum, String transition) throws BadTransitionException,
-			UnknownItemException;
+	public void executeTransition(String sessionToken, ItemDTO anItemDTO, String transitionCode)
+			throws BadTransitionException, UnknownItemException, DTOConcurrencyException;
 
 	// Removing
 	public void logicalRemoveItemByName(String sessionToken, String itemName) throws UnknownItemException;

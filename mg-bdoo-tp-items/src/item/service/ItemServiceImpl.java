@@ -105,11 +105,12 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 	}
 
 	@Override
-	public void executeTransition(String sessionToken, Long itemNum, String transition) throws BadTransitionException,
-			UnknownItemException {
+	public void executeTransition(String sessionToken, ItemDTO anItemDTO, String transitionCode)
+			throws BadTransitionException, UnknownItemException, DTOConcurrencyException {
 
-		Item anItem = this.getItemRepository().getItemByNum(itemNum);
-		anItem.executeTransition(transition);
+		Item anItem = this.getItemRepository().getItemByDTO(anItemDTO);
+		this.checkDTOConcurrency(anItemDTO, anItem);
+		anItem.executeTransition(transitionCode);
 	}
 
 	// Removing
