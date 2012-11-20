@@ -86,6 +86,38 @@ public abstract class BaseTestCase extends TestCase {
 
 	}
 
+	protected void refreshWorkflow() {
+		try {
+			this.aWorkflowDTO = this.workflowService.getWorkflowByDTO(sessionToken, this.aWorkflowDTO);
+		} catch (UnknownWorkflowException e) {
+			fail("Error al actualizar la instancia del workflow.");
+		}
+	}
+
+	protected void refreshItemType() {
+		try {
+			this.anItemTypeDTO = this.itemTypeService.getItemType(sessionToken, this.anItemTypeDTO);
+		} catch (UnknownItemTypeException e) {
+			fail("Error al actualizar la instancia del itemType.");
+		}
+	}
+
+	protected void refreshItemState() {
+		try {
+			this.anItemStateDTO = this.itemStateService.getItemStateByDTO(sessionToken, this.anItemStateDTO);
+		} catch (UnknownItemStateException e) {
+			fail("Error al actualizar la instancia del itemState.");
+		}
+	}
+
+	protected void refreshItem() {
+		try {
+			this.anItemDTO = this.itemService.getItem(sessionToken, this.anItemDTO);
+		} catch (UnknownItemException e) {
+			fail("Error al actualizar la instancia del item.");
+		}
+	}
+
 	protected void createAUserCollection() {
 		for (int i = 0; i < TestConstants.AMOUNT_OF_USERS_TO_SET; i++) {
 			UserDTO aCreatedUserDTO;
@@ -167,14 +199,6 @@ public abstract class BaseTestCase extends TestCase {
 			this.aWorkflowDTO = this.workflowService.createWorkflow(this.sessionToken, TestConstants.WORKFLOW_NAME);
 		} catch (WorkflowAlreadyExistsException e) {
 			fail("El workflow " + TestConstants.WORKFLOW_NAME + " ya existe");
-		}
-	}
-
-	protected void refreshWorkflow() {
-		try {
-			this.aWorkflowDTO = this.workflowService.getWorkflowByDTO(sessionToken, this.aWorkflowDTO);
-		} catch (UnknownWorkflowException e) {
-			fail("El workflow " + this.aWorkflowDTO.getName() + " no existe.");
 		}
 	}
 
@@ -272,7 +296,7 @@ public abstract class BaseTestCase extends TestCase {
 
 	protected void removeTransition(ItemStateDTO anItemStateDTO, TransitionDTO aTransitionDTO) {
 		try {
-			this.itemStateService.removeTransition(anItemStateDTO, aTransitionDTO);
+			this.itemStateService.removeTransition(sessionToken, anItemStateDTO, aTransitionDTO);
 		} catch (UnknownItemStateException e) {
 			fail("El estado " + anItemStateDTO.getName() + " no existe.");
 		} catch (DTOConcurrencyException e) {
