@@ -26,7 +26,7 @@ public class ItemServiceTest extends BaseTestCase {
 		// en este metodo se agregan todos los test a realizar relacionados
 		Collection<Class> itemTestsClasses = new ArrayList<Class>();
 		itemTestsClasses.add(ItemCreateTest.class);
-		// itemTestsClasses.add(.class);
+		itemTestsClasses.add(ItemTransitionTest.class);
 		return itemTestsClasses;
 	}
 }
