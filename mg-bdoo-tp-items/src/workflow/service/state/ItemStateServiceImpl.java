@@ -80,6 +80,7 @@ public class ItemStateServiceImpl extends AbstractServiceImpl implements ItemSta
 		ItemState anItemState = this.getItemStateRepository().getItemStateByDTO(anItemStateDTO);
 		this.checkDTOConcurrency(aWorkflowDTO, aWorkflow);
 		this.checkDTOConcurrency(anItemStateDTO, anItemState);
+		anItemState.removeAllTransitions();
 		aWorkflow.removeItemState(anItemState);
 	}
 
