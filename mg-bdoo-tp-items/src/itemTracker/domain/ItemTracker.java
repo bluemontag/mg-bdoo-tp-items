@@ -106,6 +106,7 @@ public class ItemTracker extends BaseDomain {
 	// usado solo por los tests para dejar la base como estaba
 	@Deprecated
 	public void removeItem(Item item) throws UnknownItemException {
+		item.historyEmpty();
 		boolean removed = this.items.remove(item);
 		if (!removed) {
 			throw new UnknownItemException();
