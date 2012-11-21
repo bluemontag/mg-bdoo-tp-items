@@ -17,7 +17,7 @@ public interface ItemRepositoryBI {
 
 	public Item getItemByOid(String oid) throws UnknownItemException;
 
-	public Item getItemByDTO(ItemDTO anIntemDTO) throws UnknownItemException;
+	public Item getItemByDTO(ItemDTO anItemDTO) throws UnknownItemException;
 
 	public Collection<Item> getItemsByDTOsList(Collection<ItemDTOForLists> itemsDTOs) throws UnknownItemException;
 }
