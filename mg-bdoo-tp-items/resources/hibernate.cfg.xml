@@ -24,7 +24,7 @@
 		<mapping resource="user/domain/team/team.hbm.xml" />
 		<mapping resource="project/domain/project.hbm.xml" />
 		<mapping resource="item/domain/item.hbm.xml"/>
-		<mapping resource="item/domain/historicItem.hbm.xml"/>
+		<mapping resource="item/domain/historicItem/historicItem.hbm.xml"/>
 		<mapping resource="workflow/domain/state/itemState.hbm.xml"/>
 		<mapping resource="workflow/domain/transition/transition.hbm.xml"/>
 		<mapping resource="workflow/domain/workflow.hbm.xml"/>
