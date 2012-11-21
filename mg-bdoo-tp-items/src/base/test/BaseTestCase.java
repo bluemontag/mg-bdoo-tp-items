@@ -38,6 +38,7 @@ import workflow.exception.transition.UnknownTransitionException;
 import workflow.service.WorkflowServiceBI;
 import workflow.service.state.ItemStateServiceBI;
 import base.exception.DTOConcurrencyException;
+import base.exception.UserNotLoggedException;
 import base.service.ServiceContainer;
 
 /**
@@ -267,6 +268,8 @@ public abstract class BaseTestCase extends TestCase {
 			fail("El item que desea crear ya existe.");
 		} catch (UnknownItemTypeException e1) {
 			fail("El typo de item seleccionado no existe.");
+		} catch (UserNotLoggedException e) {
+			fail("Algo muy malo paso.");
 		}
 	}
 
