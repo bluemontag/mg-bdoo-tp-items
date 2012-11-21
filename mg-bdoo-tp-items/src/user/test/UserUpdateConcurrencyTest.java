@@ -1,11 +1,10 @@
 package user.test;
 
-import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
-
 import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import user.service.UserServiceBI;
 import base.exception.DTOConcurrencyException;
+import base.exception.StoreConcurrencyException;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -37,7 +36,7 @@ public class UserUpdateConcurrencyTest extends Thread {
 		} catch (DTOConcurrencyException e) {
 			System.out.println(this.testName + ": '" + this.anUserDTOToUpdate.getUserName()
 					+ "' tuvo error de concurrencia pero de DTO.");
-		} catch (HibernateOptimisticLockingFailureException hibernateLokingException) {
+		} catch (StoreConcurrencyException storeConcurrencyException) {
 			System.out.println(this.testName + ": '" + this.anUserDTOToUpdate.getUserName()
 					+ "' tuvo error de concurrencia de Hibernate!!.");
 			this.concurrencyError = true;
