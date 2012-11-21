@@ -3,6 +3,7 @@
  */
 package item.domain;
 
+import item.domain.historicItem.HistoricItem;
 import item.domain.itemType.ItemType;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Item extends BaseDomain {
 	protected ItemState currentState;
 	protected ItemType type;
 	protected User responsible; // (se escribe asi "responsible")
-	protected Collection<HistoricItem> history = new ArrayList<HistoricItem>();
+	protected Collection<HistoricItem> history;
 
 	public Item() {
 		// para hibernate
@@ -41,30 +42,16 @@ public class Item extends BaseDomain {
 		this.type = type;
 		this.responsible = responsible;
 		this.currentState = firstState;
+		this.history = new ArrayList<HistoricItem>();
 	}
 
-	/**
-	 * Takes a snapshot of the current state of the Item, and saves it for
-	 * further reference.
-	 * 
-	 * Toma una instantanea del estado actual del Item, y la guarda para futura
-	 * referencia.
-	 * 
-	 * @throws Exception
-	 */
-	public HistoricItem saveItem() throws Exception {
-		HistoricItem hi = new HistoricItem(this);
-
-		// save in history
+	public HistoricItem saveItem(User anUser) {
+		HistoricItem hi = new HistoricItem(this, anUser);
 		this.history.add(hi);
-
 		return hi;
 
 	}
 
-	/**
-	 * @throws BadTransitionException
-	 */
 	public void executeTransition(String transitionCode) throws BadTransitionException {
 		this.getCurrentState().executeTransition(transitionCode, this);
 	}
@@ -123,5 +110,9 @@ public class Item extends BaseDomain {
 
 	public void setHistory(List<HistoricItem> history) {
 		this.history = history;
+	}
+
+	public void historyEmpty() {
+		this.history.clear();
 	}
 }
