@@ -1,5 +1,7 @@
 package item.test;
 
+import item.test.historicItem.ListHistoricItemsTest;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,6 +29,7 @@ public class ItemServiceTest extends BaseTestCase {
 		Collection<Class> itemTestsClasses = new ArrayList<Class>();
 		itemTestsClasses.add(ItemCreateTest.class);
 		itemTestsClasses.add(ItemTransitionTest.class);
+		itemTestsClasses.add(ListHistoricItemsTest.class);
 		return itemTestsClasses;
 	}
 }

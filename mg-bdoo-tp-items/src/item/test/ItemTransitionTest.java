@@ -6,6 +6,7 @@ import workflow.dto.transition.TransitionDTO;
 import workflow.exception.state.UnknownItemStateException;
 import workflow.exception.transition.BadTransitionException;
 import base.exception.DTOConcurrencyException;
+import base.exception.UserNotLoggedException;
 import base.test.TestConstants;
 
 /**
@@ -64,6 +65,8 @@ public class ItemTransitionTest extends ItemServiceTest {
 			fail("El item que intenta modificar no existe.");
 		} catch (DTOConcurrencyException e) {
 			fail("DTOConcurrencyException: no deberia pasar.");
+		} catch (UserNotLoggedException e) {
+			fail("Algo muy malo paso!");
 		}
 		this.refreshItemDTO();
 		assertEquals(this.anItemDTO.getCurrentState(), this.anItemInDevelopmentStateDTO.getName());
