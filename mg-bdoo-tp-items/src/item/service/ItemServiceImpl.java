@@ -1,9 +1,12 @@
 package item.service;
 
 import item.domain.Item;
+import item.domain.historicItem.HistoricItem;
 import item.domain.itemType.ItemType;
 import item.dto.ItemDTO;
 import item.dto.ItemDTOFactory;
+import item.dto.historicItem.HistoricItemDTOFactory;
+import item.dto.historicItem.HistoricItemDTOForLists;
 import item.dto.itemType.ItemTypeDTO;
 import item.exception.ItemAlreadyExistsException;
 import item.exception.UnknownItemException;
@@ -16,6 +19,7 @@ import user.domain.User;
 import workflow.domain.state.ItemState;
 import workflow.exception.transition.BadTransitionException;
 import base.exception.DTOConcurrencyException;
+import base.exception.UserNotLoggedException;
 import base.service.AbstractServiceImpl;
 
 /**
@@ -28,7 +32,7 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 	// Creation
 	@Override
 	public ItemDTO createItem(String sessionToken, String description, Integer priority, ItemTypeDTO typeDTO)
-			throws ItemAlreadyExistsException, UnknownItemTypeException {
+			throws ItemAlreadyExistsException, UnknownItemTypeException, UserNotLoggedException {
 
 		ItemTracker theItemTracker = this.getItemTrackerRepository().getItemTracker();
 
@@ -39,7 +43,8 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 		long itemNum = theItemTracker.getNextItemNum();
 
 		Item item = new Item(itemNum, description, priority, itemType, firstUser, initialState);
-
+		User anUser = this.getCurrentUser(sessionToken);
+		item.saveItem(anUser);
 		theItemTracker.addItem(item);
 
 		ItemDTO itemDTO = (ItemDTO) ItemDTOFactory.getInstance().getDTO(item);
@@ -55,6 +60,17 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
+	public Collection<? extends HistoricItemDTOForLists> listHistoricItems(String sessionToken, ItemDTO anItemDTO)
+			throws UnknownItemException {
+		Item item = this.getItemRepository().getItemByDTO(anItemDTO);
+		Collection<HistoricItem> history = item.getHistory();
+		Collection<HistoricItemDTOForLists> historyDTO = (Collection<HistoricItemDTOForLists>) HistoricItemDTOFactory
+				.getInstance().getDTOList(history);
+		return historyDTO;
+	}
+
+	@Override
 	public ItemDTO getItemByName(String sessionToken, String itemName) throws UnknownItemException {
 		// TODO Auto-generated method stub
 		return null;
@@ -63,26 +79,24 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 	// Retrieving
 	@Override
 	public ItemDTO getItemByNum(String sessionToken, Long itemNum) throws UnknownItemException {
+
 		Item item = this.getItemRepository().getItemByNum(itemNum);
-
 		ItemDTO dto = (ItemDTO) ItemDTOFactory.getInstance().getDTO(item);
-
 		return dto;
 	}
 
 	@Override
 	public ItemDTO getItem(String sessionToken, ItemDTO itemDTO) throws UnknownItemException {
+
 		Item item = this.getItemRepository().getItemByNum(itemDTO.getItemNum());
-
 		ItemDTO dto = (ItemDTO) ItemDTOFactory.getInstance().getDTO(item);
-
 		return dto;
 	}
 
 	// Updating
 	@Override
 	public void updateItem(String sessionToken, ItemDTO itemToUpdateDTO) throws UnknownItemException,
-			DTOConcurrencyException {
+			DTOConcurrencyException, UnknownItemTypeException {
 
 		Item itemToUpdate = this.getItemRepository().getItemByOid(itemToUpdateDTO.getOid());
 		this.checkDTOConcurrency(itemToUpdateDTO, itemToUpdate);
@@ -92,25 +106,19 @@ public class ItemServiceImpl extends AbstractServiceImpl implements ItemServiceB
 		itemToUpdate.setItemNum(itemToUpdateDTO.getItemNum());
 		itemToUpdate.setPriority(itemToUpdateDTO.getPriority());
 
-		// intento actualizar el tipo
-		try {
-			ItemType newType = this.getItemTypeRepository().getItemTypeByName(itemToUpdateDTO.getType().getName());
-			itemToUpdate.setType(newType);
-		} catch (UnknownItemTypeException e) {
-			System.out.println("No se pudo cambiar el tipo del item " + itemToUpdate.getItemNum() + ".");
-		} catch (Exception e) {
-			System.out.println("No se pudo cambiar el tipo del item " + itemToUpdate.getItemNum()
-					+ ".  EXCEPCION DESCONOCIDA.");
-		}
+		ItemType newType = this.getItemTypeRepository().getItemTypeByName(itemToUpdateDTO.getType().getName());
+		itemToUpdate.setType(newType);
 	}
 
 	@Override
 	public void executeTransition(String sessionToken, ItemDTO anItemDTO, String transitionCode)
-			throws BadTransitionException, UnknownItemException, DTOConcurrencyException {
+			throws BadTransitionException, UnknownItemException, DTOConcurrencyException, UserNotLoggedException {
 
 		Item anItem = this.getItemRepository().getItemByDTO(anItemDTO);
 		this.checkDTOConcurrency(anItemDTO, anItem);
 		anItem.executeTransition(transitionCode);
+		User anUser = this.getCurrentUser(sessionToken);
+		anItem.saveItem(anUser);
 	}
 
 	// Removing
