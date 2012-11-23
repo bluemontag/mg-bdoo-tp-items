@@ -1,4 +1,5 @@
 use `mg-tp-bd`;
+Delete From historic_item;
 delete from item;
 Delete From transition;
 Update workflow set initialState = null;
@@ -9,7 +10,6 @@ Delete From project;
 Delete From usuario Where user_name not like 'rodrigo';
 Delete From item_type;
 Delete From team;
-Delete From historic_item;
 Delete From workflow;
 
 
