@@ -12,7 +12,6 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import user.domain.User;
-import user.exception.UnknownUserException;
 import base.contant.BaseConstants;
 
 /**
@@ -33,15 +32,6 @@ public class ItemTrackerInstallerMySQL {
 		}
 		System.out.println("End: Instalando ItemTracker");
 
-	}
-
-	private static void setAdminUser() throws UnknownUserException {
-
-		// UserServiceBI userService =
-		// ServiceContainer.getInstance().getUserService();
-		// UserDTO theFirstUser =
-		// userService.getUserByUserName(BaseContants.DEFAULT_ADMIN_USER_NAME);
-		// userService.setUserAsAdmin(theFirstUser);
 	}
 
 	protected static void installItemTracker() {

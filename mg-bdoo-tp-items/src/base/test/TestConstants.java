@@ -10,6 +10,7 @@ public class TestConstants {
 
 	public final static String NEW_PROJECT_NAME = "A project name";
 	public final static String NEW_USER_NAME = "new_User";
+	public static final String USER_PASSWORD = "Password";
 
 	public final static int MASSIVE_AMOUNT = 500;
 

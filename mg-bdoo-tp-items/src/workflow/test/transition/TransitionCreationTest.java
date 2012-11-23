@@ -1,8 +1,10 @@
 package workflow.test.transition;
 
+import item.dto.itemType.ItemTypeDTO;
+import user.dto.team.TeamDTO;
+import workflow.dto.WorkflowDTO;
 import workflow.dto.state.ItemStateDTO;
 import workflow.dto.transition.TransitionDTO;
-import workflow.exception.state.UnknownItemStateException;
 import base.test.TestConstants;
 
 /**
@@ -10,37 +12,40 @@ import base.test.TestConstants;
  */
 public class TransitionCreationTest extends TransitionServiceTest {
 
-	protected ItemStateDTO anItemPendingStateDTO;
-	protected ItemStateDTO anItemInDevelopmentStateDTO;
-	protected TransitionDTO aTransitionDTO;
+	private ItemStateDTO anItemPendingStateDTO;
+	private ItemStateDTO anItemInDevelopmentStateDTO;
+	private TransitionDTO aTransitionDTO;
+	private TeamDTO aTeamDTO;
+	private WorkflowDTO aWorkflowDTO;
+	private ItemTypeDTO anItemTypeDTO;
 
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		this.createAUserCollection();
-		this.createTeam();
-		this.createWorkflow();
-		this.createItemType();
-		this.createItemStateOnWorkflow(TestConstants.PENDING, true);
-		this.anItemPendingStateDTO = this.anItemStateDTO;
-		this.refreshWorkflowDTO();
-		this.createItemStateOnWorkflow(TestConstants.IN_DEVELOPMENT, false);
-		this.anItemInDevelopmentStateDTO = this.anItemStateDTO;
+		this.aUserDTOForListCollection = this.createAUserCollection(TransitionCreationTest.class.toString());
+		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.NEW_TEAM_NAME);
+		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME);
+		this.anItemTypeDTO = this.createItemType(TestConstants.ITEM_TYPE_NAME, this.aTeamDTO, this.aWorkflowDTO);
+		this.anItemPendingStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO, TestConstants.PENDING, true);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.anItemInDevelopmentStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO,
+				TestConstants.IN_DEVELOPMENT, false);
 	}
 
 	@Override
 	public void tearDown() throws Exception {
-		this.refreshItemStateDTO();
-		this.refreshWorkflowDTO();
+		this.anItemPendingStateDTO = this.getItemStateDTO(this.anItemPendingStateDTO);
+		this.anItemInDevelopmentStateDTO = this.getItemStateDTO(this.anItemInDevelopmentStateDTO);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
 
 		this.removeTransition(this.anItemPendingStateDTO, this.aTransitionDTO);
-		this.removeItemStateFromWorkflow(anItemInDevelopmentStateDTO);
-		this.removeItemStateFromWorkflow(anItemPendingStateDTO);
-		this.refreshWorkflowDTO();
-		this.removeItemType();
-		this.removeWorkflow();
-		this.removeTeam();
-		this.removeTheUserCollection();
+		this.removeItemStateFromWorkflow(this.aWorkflowDTO, anItemInDevelopmentStateDTO);
+		this.removeItemStateFromWorkflow(this.aWorkflowDTO, anItemPendingStateDTO);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.removeItemType(this.anItemTypeDTO);
+		this.removeWorkflow(this.aWorkflowDTO);
+		this.removeTeam(this.aTeamDTO);
+		this.removeTheUserCollection(TransitionCreationTest.class.toString());
 	}
 
 	public void testCreateTransition() {
@@ -50,17 +55,5 @@ public class TransitionCreationTest extends TransitionServiceTest {
 		assertEquals(aTransitionDTO.getName(), TestConstants.TRANSITION_IN_DEVELOPMENT);
 		assertEquals(aTransitionDTO.getNextState().getOid(), this.anItemInDevelopmentStateDTO.getOid());
 
-	}
-
-	@Override
-	protected void refreshItemStateDTO() {
-		try {
-			this.anItemInDevelopmentStateDTO = this.itemStateService.getItemStateByDTO(sessionToken,
-					this.anItemInDevelopmentStateDTO);
-			this.anItemPendingStateDTO = this.itemStateService.getItemStateByDTO(sessionToken,
-					this.anItemPendingStateDTO);
-		} catch (UnknownItemStateException e) {
-			fail("Error al actualizar la instancia del itemState.");
-		}
 	}
 }

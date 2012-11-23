@@ -1,5 +1,7 @@
 package workflow.test.state;
 
+import workflow.dto.WorkflowDTO;
+import workflow.dto.state.ItemStateDTO;
 import base.test.TestConstants;
 
 /**
@@ -9,25 +11,28 @@ import base.test.TestConstants;
  */
 public class ItemStateCreationTest extends ItemStateServiceTest {
 
+	private WorkflowDTO aWorkflowDTO;
+	private ItemStateDTO anItemStateDTO;
+
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		this.createWorkflow();
+		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME);
 	}
 
 	public void testItemStateCreation() {
 
-		this.createItemStateOnWorkflow(TestConstants.PENDING, true);
-		this.refreshWorkflowDTO();
+		this.anItemStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO, TestConstants.PENDING, true);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
 		assertEquals(this.aWorkflowDTO.getInitialState().getOid(), this.anItemStateDTO.getOid());
 		assertEquals(TestConstants.PENDING, this.anItemStateDTO.getName());
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		this.removeItemStateFromWorkflow(this.anItemStateDTO);
-		this.refreshWorkflowDTO();
-		this.removeWorkflow();
+		this.removeItemStateFromWorkflow(this.aWorkflowDTO, this.anItemStateDTO);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.removeWorkflow(this.aWorkflowDTO);
 		super.tearDown();
 	}
 }

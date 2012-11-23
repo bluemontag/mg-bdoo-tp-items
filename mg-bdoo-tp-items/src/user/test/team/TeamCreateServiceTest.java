@@ -4,36 +4,31 @@ import org.junit.After;
 import org.junit.Before;
 
 import user.dto.team.TeamDTO;
-import user.exception.team.UnknownTeamException;
+import base.test.TestConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
  */
 public class TeamCreateServiceTest extends TeamServiceTest {
 
+	private TeamDTO aTeamDTO;
+
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		this.createAUserCollection();
+		this.aUserDTOForListCollection = this.createAUserCollection(TeamCreateServiceTest.class.toString());
 	}
 
 	@Override
 	@After
 	public void tearDown() throws Exception {
-		this.removeTeam();
-		this.removeTheUserCollection();
+		this.removeTeam(this.aTeamDTO);
+		this.removeTheUserCollection(TeamCreateServiceTest.class.toString());
 	}
 
 	public void testCreateTeam() {
-		this.createTeam();
-		TeamDTO aTeamDTO = null;
-		try {
-			aTeamDTO = this.teamService.getTeam(this.sessionToken, this.aTeamDTO);
-		} catch (UnknownTeamException e) {
-			fail("El team no existe");
-		}
-		assertEquals(this.aTeamDTO.getVersion(), aTeamDTO.getVersion());
+		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.NEW_TEAM_NAME);
+		assertEquals(this.aTeamDTO.getName(), TestConstants.NEW_TEAM_NAME);
 	}
-
 }
