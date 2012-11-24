@@ -46,6 +46,7 @@ public class ItemStateServiceImpl extends AbstractServiceImpl implements ItemSta
 		throw new ItemStateAlreadyExistsException("El itemState " + itemStateName + " ya existe.");
 	}
 
+	@Deprecated
 	@Override
 	public ItemStateDTO getItemStateByNameAndWorkflow(String sessionToken, WorkflowDTO aWorkflowDTO,
 			String itemStateName) throws UnknownItemStateException {

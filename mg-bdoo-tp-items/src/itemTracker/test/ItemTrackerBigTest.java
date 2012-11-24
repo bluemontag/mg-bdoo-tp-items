@@ -108,7 +108,7 @@ public class ItemTrackerBigTest extends ItemTrackerTest {
 
 		Collection<? extends HistoricItemDTOForLists> historicItems = this.listHistoricItem(this.anItemDTO);
 		ArrayList<HistoricItemDTOForLists> historicsItemsAsArrayList = this.sortHistoricItemCollection(historicItems);
-		assertEquals(6, historicItems.size());
+		this.assertHistoricItems(historicsItemsAsArrayList);
 	}
 
 	protected void executeTransition(ItemDTO anItemDTO, TransitionDTO aTransitionDTO) {
@@ -125,6 +125,23 @@ public class ItemTrackerBigTest extends ItemTrackerTest {
 		} catch (UserNotLoggedException e) {
 			fail("Algo muy malo paso!");
 		}
+	}
+
+	protected void assertHistoricItems(ArrayList<HistoricItemDTOForLists> historicsItems) {
+
+		assertEquals(6, historicsItems.size());
+		HistoricItemDTOForLists historicItem0 = historicsItems.get(0);
+		assertEquals(this.anItemCreatedStateDTO.getName(), historicItem0.getItemState().getName());
+		HistoricItemDTOForLists historicItem1 = historicsItems.get(1);
+		assertEquals(this.anItemInDevelopmentStateDTO.getName(), historicItem1.getItemState().getName());
+		HistoricItemDTOForLists historicItem2 = historicsItems.get(2);
+		assertEquals(this.anItemInValidationStateDTO.getName(), historicItem2.getItemState().getName());
+		HistoricItemDTOForLists historicItem3 = historicsItems.get(3);
+		assertEquals(this.anItemInDevelopmentStateDTO.getName(), historicItem3.getItemState().getName());
+		HistoricItemDTOForLists historicItem4 = historicsItems.get(4);
+		assertEquals(this.anItemInValidationStateDTO.getName(), historicItem4.getItemState().getName());
+		HistoricItemDTOForLists historicItem5 = historicsItems.get(5);
+		assertEquals(this.anItemFixedStateDTO.getName(), historicItem5.getItemState().getName());
 	}
 
 	protected void createAllTransitions() {
