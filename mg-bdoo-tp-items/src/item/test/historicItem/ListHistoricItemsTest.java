@@ -3,7 +3,6 @@ package item.test.historicItem;
 import item.dto.ItemDTO;
 import item.dto.historicItem.HistoricItemDTOForLists;
 import item.dto.itemType.ItemTypeDTO;
-import item.exception.UnknownItemException;
 import item.test.ItemServiceTest;
 
 import java.util.Collection;
@@ -50,12 +49,7 @@ public class ListHistoricItemsTest extends ItemServiceTest {
 	}
 
 	public void testListHistoricItems() {
-		Collection<? extends HistoricItemDTOForLists> historicItems = null;
-		try {
-			historicItems = this.itemService.listHistoricItems(sessionToken, this.anItemDTO);
-		} catch (UnknownItemException e) {
-			fail("El item numero " + this.anItemDTO.getItemNum() + " no existe.");
-		}
+		Collection<? extends HistoricItemDTOForLists> historicItems = listHistoricItem(this.anItemDTO);
 		assertEquals(1, historicItems.size());
 	}
 }
