@@ -12,23 +12,25 @@ import base.test.TestConstants;
 public class TeamCreateServiceTest extends TeamServiceTest {
 
 	private TeamDTO aTeamDTO;
+	private String testCode;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		this.aUserDTOForListCollection = this.createAUserCollection(TeamCreateServiceTest.class.toString());
+		testCode = " " + TeamCreateServiceTest.class.getSimpleName();
+		this.aUserDTOForListCollection = this.createAUserCollection(testCode);
 	}
 
 	@Override
 	@After
 	public void tearDown() throws Exception {
 		this.removeTeam(this.aTeamDTO);
-		this.removeTheUserCollection(TeamCreateServiceTest.class.toString());
+		this.removeTheUserCollection(testCode);
 	}
 
 	public void testCreateTeam() {
-		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.NEW_TEAM_NAME);
-		assertEquals(this.aTeamDTO.getName(), TestConstants.NEW_TEAM_NAME);
+		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.TEAM_NAME + testCode);
+		assertEquals(this.aTeamDTO.getName(), TestConstants.TEAM_NAME + testCode);
 	}
 }

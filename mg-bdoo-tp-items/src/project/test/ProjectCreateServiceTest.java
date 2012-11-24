@@ -16,12 +16,14 @@ public class ProjectCreateServiceTest extends ProjectServiceTest {
 
 	private UserDTO anUserDTO;
 	private ProjectDTO aProjectDTO;
+	private String testCode;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		this.anUserDTO = this.createUser(TestConstants.NEW_USER_NAME, TestConstants.USER_PASSWORD);
+		testCode = " " + ProjectCreateServiceTest.class.getSimpleName();
+		this.anUserDTO = this.createUser(TestConstants.USER_NAME, TestConstants.USER_PASSWORD);
 	}
 
 	@Override
@@ -34,15 +36,15 @@ public class ProjectCreateServiceTest extends ProjectServiceTest {
 	public void testCreateProject() {
 		this.aProjectDTO = null;
 		try {
-			this.aProjectDTO = this.projectService.createProject(this.sessionToken, TestConstants.NEW_PROJECT_NAME,
-					this.anUserDTO);
+			this.aProjectDTO = this.projectService.createProject(this.sessionToken, TestConstants.PROJECT_NAME
+					+ testCode, this.anUserDTO);
 		} catch (ProjectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {
 			fail("El usuario que se intenta asignar como lider no existe.");
 		}
 		assertNotNull(this.aProjectDTO);
-		assertEquals(TestConstants.NEW_PROJECT_NAME, this.aProjectDTO.getName());
+		assertEquals(TestConstants.PROJECT_NAME + testCode, this.aProjectDTO.getName());
 		assertEquals(this.anUserDTO.getUserName(), this.aProjectDTO.getLeader().getUserName());
 	}
 }

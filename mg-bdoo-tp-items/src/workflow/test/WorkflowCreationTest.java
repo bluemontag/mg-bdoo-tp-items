@@ -13,6 +13,7 @@ import base.test.TestConstants;
 public class WorkflowCreationTest extends BaseTestCase {
 
 	private WorkflowDTO aWorkflowDTO;
+	private String testCode;
 
 	@Override
 	public void setUp() throws Exception {
@@ -20,8 +21,9 @@ public class WorkflowCreationTest extends BaseTestCase {
 	}
 
 	public void testWorkflowCreation() {
-		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME);
-		assertEquals(TestConstants.WORKFLOW_NAME, this.aWorkflowDTO.getName());
+		testCode = " " + WorkflowCreationTest.class.getSimpleName();
+		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME + testCode);
+		assertEquals(TestConstants.WORKFLOW_NAME + testCode, this.aWorkflowDTO.getName());
 		assertTrue(aWorkflowDTO.getItemStates().isEmpty());
 	}
 

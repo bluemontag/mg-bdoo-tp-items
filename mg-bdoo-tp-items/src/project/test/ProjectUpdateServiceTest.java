@@ -19,14 +19,16 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 
 	private UserDTO anUserDTO;
 	private ProjectDTO aProjectDTO;
+	private String testCode;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		this.anUserDTO = this.createUser(TestConstants.NEW_USER_NAME, TestConstants.USER_PASSWORD);
-		this.aProjectDTO = this.createProject(TestConstants.NEW_PROJECT_NAME, this.anUserDTO);
-		this.aUserDTOForListCollection = this.createAUserCollection(ProjectUpdateServiceTest.class.toString());
+		testCode = " " + ProjectUpdateServiceTest.class.getSimpleName();
+		this.anUserDTO = this.createUser(TestConstants.USER_NAME + testCode, TestConstants.USER_PASSWORD);
+		this.aProjectDTO = this.createProject(TestConstants.PROJECT_NAME + testCode, this.anUserDTO);
+		this.aUserDTOForListCollection = this.createAUserCollection(testCode);
 	}
 
 	@Override
@@ -36,13 +38,13 @@ public class ProjectUpdateServiceTest extends ProjectServiceTest {
 		this.aProjectDTO = this.getProject(this.aProjectDTO);
 		this.deleteProject(this.aProjectDTO);
 		this.deleteUser(this.anUserDTO);
-		this.removeTheUserCollection(ProjectUpdateServiceTest.class.toString());
+		this.removeTheUserCollection(testCode);
 	}
 
 	@Test
 	public void testUpdateProject() {
 		this.aProjectDTO.setUsersFromDTOsForList(this.aUserDTOForListCollection);
-		this.aProjectDTO.setName(TestConstants.UPDATED_PROJECT_NAME);
+		this.aProjectDTO.setName(TestConstants.UPDATED_PROJECT_NAME + testCode);
 		try {
 			this.projectService.updateProject(this.sessionToken, this.aProjectDTO);
 		} catch (UnknownProjectException e) {

@@ -12,6 +12,7 @@ public interface ItemStateRepositoryBI {
 
 	public ItemState getItemStateByOid(String anOid) throws UnknownItemStateException;
 
+	@Deprecated
 	public ItemState getItemStateByNameAndWorkflow(WorkflowDTO aWorkflowDTO, String stateName)
 			throws UnknownItemStateException;
 

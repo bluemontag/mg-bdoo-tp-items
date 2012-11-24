@@ -18,12 +18,14 @@ import base.test.TestConstants;
 public class UserUpdateServiceTest extends UserServiceTest {
 
 	private UserDTO anUserDTO;
+	private String testCode;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		this.anUserDTO = this.createUser(TestConstants.NEW_USER_NAME, TestConstants.USER_PASSWORD);
+		testCode = " " + UserUpdateServiceTest.class.getSimpleName();
+		this.anUserDTO = this.createUser(TestConstants.USER_NAME + testCode, TestConstants.USER_PASSWORD);
 	}
 
 	@Override

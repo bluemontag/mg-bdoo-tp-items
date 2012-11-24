@@ -23,16 +23,20 @@ public class ListHistoricItemsTest extends ItemServiceTest {
 	private WorkflowDTO aWorkflowDTO;
 	private ItemTypeDTO anItemTypeDTO;
 	private ItemDTO anItemDTO;
+	private String testCode;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		this.aUserDTOForListCollection = this.createAUserCollection(ListHistoricItemsTest.class.toString());
-		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.NEW_TEAM_NAME);
-		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME);
-		this.anItemTypeDTO = this.createItemType(TestConstants.ITEM_TYPE_NAME, this.aTeamDTO, this.aWorkflowDTO);
-		this.anItemDTO = this.createItem(TestConstants.ITEM_DESCRIPTION, TestConstants.PRIORITY, this.anItemTypeDTO);
+		testCode = " " + ListHistoricItemsTest.class.getSimpleName();
+		this.aUserDTOForListCollection = this.createAUserCollection(testCode);
+		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.TEAM_NAME + testCode);
+		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME + testCode);
+		this.anItemTypeDTO = this.createItemType(TestConstants.ITEM_TYPE_NAME + testCode, this.aTeamDTO,
+				this.aWorkflowDTO);
+		this.anItemDTO = this.createItem(TestConstants.ITEM_DESCRIPTION + testCode, TestConstants.PRIORITY,
+				this.anItemTypeDTO);
 
 	}
 
@@ -42,7 +46,7 @@ public class ListHistoricItemsTest extends ItemServiceTest {
 		this.removeItemType(this.anItemTypeDTO);
 		this.removeWorkflow(this.aWorkflowDTO);
 		this.removeTeam(this.aTeamDTO);
-		this.removeTheUserCollection(ListHistoricItemsTest.class.toString());
+		this.removeTheUserCollection(testCode);
 	}
 
 	public void testListHistoricItems() {

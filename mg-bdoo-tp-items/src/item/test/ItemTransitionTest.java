@@ -17,29 +17,34 @@ import base.test.TestConstants;
  */
 public class ItemTransitionTest extends ItemServiceTest {
 
-	protected ItemStateDTO anItemPendingStateDTO;
-	protected ItemStateDTO anItemInDevelopmentStateDTO;
-	protected TransitionDTO aTransitionDTO;
+	private ItemStateDTO anItemPendingStateDTO;
+	private ItemStateDTO anItemInDevelopmentStateDTO;
+	private TransitionDTO aTransitionDTO;
 	private TeamDTO aTeamDTO;
 	private WorkflowDTO aWorkflowDTO;
 	private ItemTypeDTO anItemTypeDTO;
 	private ItemDTO anItemDTO;
+	private String testCode;
 
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		this.aUserDTOForListCollection = this.createAUserCollection(ItemTransitionTest.class.toString());
-		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.NEW_TEAM_NAME);
-		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME);
-		this.anItemTypeDTO = this.createItemType(TestConstants.ITEM_TYPE_NAME, this.aTeamDTO, this.aWorkflowDTO);
-		this.anItemPendingStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO, TestConstants.PENDING, true);
+		testCode = " " + ItemTransitionTest.class.getSimpleName();
+		this.aUserDTOForListCollection = this.createAUserCollection(testCode);
+		this.aTeamDTO = this.createTeam(this.aUserDTOForListCollection, TestConstants.TEAM_NAME + testCode);
+		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME + testCode);
+		this.anItemTypeDTO = this.createItemType(TestConstants.ITEM_TYPE_NAME + testCode, this.aTeamDTO,
+				this.aWorkflowDTO);
+		this.anItemPendingStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO, TestConstants.PENDING_STATE,
+				true);
 		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
 		this.anItemInDevelopmentStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO,
-				TestConstants.IN_DEVELOPMENT, false);
+				TestConstants.IN_DEVELOPMENT_STATE, false);
 		this.aTransitionDTO = this.createTransition(this.anItemPendingStateDTO, this.anItemInDevelopmentStateDTO,
 				TestConstants.TRANSITION_IN_DEVELOPMENT, TestConstants.TRANSITION_IN_DEVELOPMENT);
 		this.anItemTypeDTO = this.getItemTypeDTO(this.anItemTypeDTO);
-		this.anItemDTO = this.createItem(TestConstants.ITEM_DESCRIPTION, TestConstants.PRIORITY, this.anItemTypeDTO);
+		this.anItemDTO = this.createItem(TestConstants.ITEM_DESCRIPTION + testCode, TestConstants.PRIORITY,
+				this.anItemTypeDTO);
 	}
 
 	@Override
@@ -58,7 +63,7 @@ public class ItemTransitionTest extends ItemServiceTest {
 		this.removeItemType(this.anItemTypeDTO);
 		this.removeWorkflow(this.aWorkflowDTO);
 		this.removeTeam(this.aTeamDTO);
-		this.removeTheUserCollection(ItemTransitionTest.class.toString());
+		this.removeTheUserCollection(testCode);
 	}
 
 	public void testExecuteTransition() {

@@ -27,6 +27,7 @@ public class HibernateItemStateRepository extends HibernateBaseRepository implem
 		return aItemState;
 	}
 
+	@Deprecated
 	@Override
 	public ItemState getItemStateByNameAndWorkflow(WorkflowDTO aWorkflowDTO, String stateName)
 			throws UnknownItemStateException {

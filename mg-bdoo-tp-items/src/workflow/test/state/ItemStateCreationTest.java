@@ -13,19 +13,21 @@ public class ItemStateCreationTest extends ItemStateServiceTest {
 
 	private WorkflowDTO aWorkflowDTO;
 	private ItemStateDTO anItemStateDTO;
+	private String testCode;
 
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME);
+		testCode = " " + ItemStateCreationTest.class.getSimpleName();
+		this.aWorkflowDTO = this.createWorkflow(TestConstants.WORKFLOW_NAME + testCode);
 	}
 
 	public void testItemStateCreation() {
 
-		this.anItemStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO, TestConstants.PENDING, true);
+		this.anItemStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO, TestConstants.PENDING_STATE, true);
 		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
 		assertEquals(this.aWorkflowDTO.getInitialState().getOid(), this.anItemStateDTO.getOid());
-		assertEquals(TestConstants.PENDING, this.anItemStateDTO.getName());
+		assertEquals(TestConstants.PENDING_STATE, this.anItemStateDTO.getName());
 	}
 
 	@Override

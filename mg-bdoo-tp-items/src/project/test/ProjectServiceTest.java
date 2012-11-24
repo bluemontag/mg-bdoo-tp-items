@@ -13,7 +13,6 @@ import user.dto.UserDTO;
 import user.exception.UnknownUserException;
 import base.exception.DTOConcurrencyException;
 import base.test.BaseTestCase;
-import base.test.TestConstants;
 
 /**
  * @author Rodrigo Itursarry (itursarry@gmail.com)
@@ -40,8 +39,7 @@ public abstract class ProjectServiceTest extends BaseTestCase {
 	protected ProjectDTO createProject(String newProjectName, UserDTO anUserDTO) {
 		ProjectDTO aProjectDTO = null;
 		try {
-			aProjectDTO = this.projectService.createProject(this.sessionToken, TestConstants.NEW_PROJECT_NAME,
-					anUserDTO);
+			aProjectDTO = this.projectService.createProject(this.sessionToken, newProjectName, anUserDTO);
 		} catch (ProjectAlreadyExistsException e) {
 			fail("El proyecto que se intenta crear ya existe.");
 		} catch (UnknownUserException e) {

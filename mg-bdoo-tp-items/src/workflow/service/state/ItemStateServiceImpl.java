@@ -29,7 +29,8 @@ public class ItemStateServiceImpl extends AbstractServiceImpl implements ItemSta
 			DTOConcurrencyException {
 
 		try {
-			this.getItemStateRepository().getItemStateByNameAndWorkflow(aWorkflowDTO, itemStateName);
+			Workflow aWorkflow = this.getWorkflowRepository().getWorkflowByDTO(aWorkflowDTO);
+			aWorkflow.getItemStateByName(itemStateName);
 
 		} catch (UnknownItemStateException unknownItemStateException) {
 			Workflow aWorkflow = this.getWorkflowRepository().getWorkflowByDTO(aWorkflowDTO);

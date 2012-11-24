@@ -68,4 +68,14 @@ public class Workflow extends BaseDomain {
 			this.initialState = null;
 		}
 	}
+
+	public ItemState getItemStateByName(String itemStateName) throws UnknownItemStateException {
+		Collection<ItemState> itemStates = this.getItemStates();
+		for (ItemState itemState : itemStates) {
+			if (itemState.getName().equals(itemStateName)) {
+				return itemState;
+			}
+		}
+		throw new UnknownItemStateException("El estado " + itemStateName + " no existe.");
+	}
 }
