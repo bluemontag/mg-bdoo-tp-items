@@ -1,6 +1,7 @@
 package base.test;
 
 import item.dto.ItemDTO;
+import item.dto.historicItem.HistoricItemDTOForLists;
 import item.dto.itemType.ItemTypeDTO;
 import item.exception.ItemAlreadyExistsException;
 import item.exception.UnknownItemException;
@@ -140,8 +141,7 @@ public abstract class BaseTestCase extends TestCase {
 
 				aUserDTOForListCollection.add(new UserDTOForLists(aCreatedUserDTO));
 			} catch (UserAlreadyExistsException e) {
-				fail("El usuario que se intenta crear " + (TestConstants.BASE_USERS_NAME_TO_SET_IN_COLLECTION + i)
-						+ " ya existe.");
+				fail("El usuario que se intenta crear " + (test + i) + " ya existe.");
 			}
 		}
 		return aUserDTOForListCollection;
@@ -328,5 +328,15 @@ public abstract class BaseTestCase extends TestCase {
 		} catch (UnknownTransitionException e) {
 			fail("La traniscion " + aTransitionDTO.getName() + " no existe en el estado " + anItemStateDTO.getName());
 		}
+	}
+
+	protected Collection<? extends HistoricItemDTOForLists> listHistoricItem(ItemDTO anItemDTO) {
+		Collection<? extends HistoricItemDTOForLists> historicItems = null;
+		try {
+			historicItems = this.itemService.listHistoricItems(sessionToken, anItemDTO);
+		} catch (UnknownItemException e) {
+			fail("El item numero " + anItemDTO.getItemNum() + " no existe.");
+		}
+		return historicItems;
 	}
 }
