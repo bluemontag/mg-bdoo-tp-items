@@ -8,12 +8,12 @@ import base.dto.AbstractDTO;
 
 /**
  * @author igallego
- *
+ * 
  */
 public class ItemStateDTO extends AbstractDTO {
 
 	private String name;
-	
+
 	public ItemStateDTO(ItemState aState) {
 		super(aState);
 		this.setName(aState.getName());
