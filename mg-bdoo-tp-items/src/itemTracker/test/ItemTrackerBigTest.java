@@ -1,8 +1,16 @@
 package itemTracker.test;
 
 import item.dto.ItemDTO;
+import item.dto.historicItem.HistoricItemDTOForLists;
 import item.dto.itemType.ItemTypeDTO;
 import item.exception.UnknownItemException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
 import user.dto.team.TeamDTO;
 import workflow.dto.WorkflowDTO;
 import workflow.dto.state.ItemStateDTO;
@@ -53,26 +61,54 @@ public class ItemTrackerBigTest extends ItemTrackerTest {
 		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
 		this.anItemCreatedStateDTO = this.getItemStateDTO(this.anItemCreatedStateDTO);
 		this.anItemInDevelopmentStateDTO = this.getItemStateDTO(this.anItemInDevelopmentStateDTO);
+		this.anItemInValidationStateDTO = this.getItemStateDTO(this.anItemInValidationStateDTO);
+		this.anItemFixedStateDTO = this.getItemStateDTO(this.anItemFixedStateDTO);
 
-		// this.removeTransition(this.anItemCreatedStateDTO,
-		// this.aTransitionFromPendingToInDevelopmentDTO);
+		this.removeAllTransactions();
 		this.removeItem(this.anItemDTO);
-		this.removeItemStateFromWorkflow(this.aWorkflowDTO, this.anItemInDevelopmentStateDTO);
-		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
-		this.removeItemStateFromWorkflow(this.aWorkflowDTO, this.anItemCreatedStateDTO);
-		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.removeAllItemStates();
+
 		this.removeItemType(this.anItemTypeDTO);
 		this.removeWorkflow(this.aWorkflowDTO);
 		this.removeTeam(this.aTeamDTO);
 		this.removeTheUserCollection(testCode);
 	}
 
-	public void testExecuteTransition() {
+	public void testExecuteTransition() throws InterruptedException {
+		Thread.sleep(1000); // para ver el orden de la historia
 
-		// executeTransition(this.anItemDTO,
-		// this.aTransitionFromPendingToInDevelopmentDTO);
+		// De creado a en desarrollo
+		executeTransition(this.anItemDTO, this.aTransitionFromCreatedToInDevelopmentDTO);
 		this.anItemDTO = this.getItemDTO(this.anItemDTO);
 		assertEquals(this.anItemDTO.getCurrentState(), this.anItemInDevelopmentStateDTO.getName());
+		Thread.sleep(1000); // para ver el orden de la historia
+
+		// De en desarrollo a en validacion
+		executeTransition(this.anItemDTO, this.aTransitionFromInDevelopmentToInValidationDTO);
+		this.anItemDTO = this.getItemDTO(this.anItemDTO);
+		assertEquals(this.anItemDTO.getCurrentState(), this.anItemInValidationStateDTO.getName());
+		Thread.sleep(1000); // para ver el orden de la historia
+
+		// De en validacion a en desarrollo (rechazar)
+		executeTransition(this.anItemDTO, this.aTransitionFromInValidationToInDevelopmentDTO);
+		this.anItemDTO = this.getItemDTO(this.anItemDTO);
+		assertEquals(this.anItemDTO.getCurrentState(), this.anItemInDevelopmentStateDTO.getName());
+		Thread.sleep(1000); // para ver el orden de la historia
+
+		// De en desarrollo a en validacion
+		executeTransition(this.anItemDTO, this.aTransitionFromInDevelopmentToInValidationDTO);
+		this.anItemDTO = this.getItemDTO(this.anItemDTO);
+		assertEquals(this.anItemDTO.getCurrentState(), this.anItemInValidationStateDTO.getName());
+		Thread.sleep(1000); // para ver el orden de la historia
+
+		// De en validacion a arreglado (aceptar)
+		executeTransition(this.anItemDTO, this.aTransitionFromInValidationToFixedDTO);
+		this.anItemDTO = this.getItemDTO(this.anItemDTO);
+		assertEquals(this.anItemDTO.getCurrentState(), this.anItemFixedStateDTO.getName());
+
+		Collection<? extends HistoricItemDTOForLists> historicItems = this.listHistoricItem(this.anItemDTO);
+		ArrayList<HistoricItemDTOForLists> historicsItemsAsArrayList = this.sortHistoricItemCollection(historicItems);
+		assertEquals(6, historicItems.size());
 	}
 
 	protected void executeTransition(ItemDTO anItemDTO, TransitionDTO aTransitionDTO) {
@@ -115,9 +151,16 @@ public class ItemTrackerBigTest extends ItemTrackerTest {
 		this.anItemInValidationStateDTO = this.getItemStateDTO(this.anItemInValidationStateDTO);
 	}
 
-	protected ItemStateDTO getTransition(ItemStateDTO anItemInValidationStateDTO2) {
-
-		return null;
+	protected void removeAllTransactions() {
+		this.anItemInValidationStateDTO = this.getItemStateDTO(this.anItemInValidationStateDTO);
+		this.removeTransition(this.anItemInValidationStateDTO, this.aTransitionFromInValidationToFixedDTO);
+		this.anItemInValidationStateDTO = this.getItemStateDTO(this.anItemInValidationStateDTO);
+		this.removeTransition(this.anItemInValidationStateDTO, this.aTransitionFromInValidationToInDevelopmentDTO);
+		this.anItemInValidationStateDTO = this.getItemStateDTO(this.anItemInValidationStateDTO);
+		this.removeTransition(this.anItemInDevelopmentStateDTO, this.aTransitionFromInDevelopmentToInValidationDTO);
+		this.anItemInDevelopmentStateDTO = this.getItemStateDTO(this.anItemInDevelopmentStateDTO);
+		this.removeTransition(this.anItemCreatedStateDTO, this.aTransitionFromCreatedToInDevelopmentDTO);
+		this.anItemCreatedStateDTO = this.getItemStateDTO(this.anItemCreatedStateDTO);
 	}
 
 	protected void createAllItemStates() {
@@ -132,5 +175,34 @@ public class ItemTrackerBigTest extends ItemTrackerTest {
 		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
 		this.anItemFixedStateDTO = this.createItemStateOnWorkflow(this.aWorkflowDTO, TestConstants.FIXED_STATE, false);
 		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+	}
+
+	protected void removeAllItemStates() {
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.removeItemStateFromWorkflow(this.aWorkflowDTO, this.anItemCreatedStateDTO);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.removeItemStateFromWorkflow(this.aWorkflowDTO, this.anItemInDevelopmentStateDTO);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.removeItemStateFromWorkflow(this.aWorkflowDTO, this.anItemInValidationStateDTO);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+		this.removeItemStateFromWorkflow(this.aWorkflowDTO, this.anItemFixedStateDTO);
+		this.aWorkflowDTO = this.getWorkflowDTO(this.aWorkflowDTO);
+	}
+
+	private ArrayList<HistoricItemDTOForLists> sortHistoricItemCollection(
+			Collection<? extends HistoricItemDTOForLists> historicItems) {
+		ArrayList<HistoricItemDTOForLists> historicItemsAsArray = new ArrayList<HistoricItemDTOForLists>(historicItems);
+		Collections.sort(historicItemsAsArray, new HistoricItemCompare());
+		return historicItemsAsArray;
+	}
+
+	protected class HistoricItemCompare implements Comparator<HistoricItemDTOForLists> {
+
+		@Override
+		public int compare(HistoricItemDTOForLists historicItemA, HistoricItemDTOForLists historicItemB) {
+			Date dateA = historicItemA.getDate();
+			Date dateB = historicItemB.getDate();
+			return dateA.compareTo(dateB);
+		}
 	}
 }
