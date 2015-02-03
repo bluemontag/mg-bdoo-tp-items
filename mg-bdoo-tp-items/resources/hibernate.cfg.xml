@@ -6,9 +6,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost/mg-tp-bd</property>
-		<property name="hibernate.connection.username">mg-tp-bd</property>
-		<property name="hibernate.connection.password">mg-tp-bd</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/item</property>
+		<property name="hibernate.connection.username">item</property>
+		<property name="hibernate.connection.password">item</property>
 		<property name="hibernate.connection.pool_size">10</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>		
