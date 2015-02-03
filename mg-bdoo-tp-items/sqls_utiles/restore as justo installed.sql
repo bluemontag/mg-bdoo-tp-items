@@ -1,4 +1,4 @@
-use `mg-tp-bd`;
+use `item`;
 Delete From historic_item;
 delete from item;
 Delete From transition;
