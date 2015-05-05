@@ -1,0 +1,121 @@
+#Aca cuento como es la arquitectura para armar un repositorio...
+
+# Introduction #
+
+Como en teoría podríamos tener varios lugares de donde sacar los datos, se pensó la aplicación para dejar abierta la posibilidad de introducir nuevos repositorios según el origen de ellos. En principio solo vamos a crear los repositorios con datos que originan de la base mapeada con Hibernate (en el momento MySql) y lo que esta en memoria.
+
+# Details #
+
+**Base**: como acá esta el core de la aplicación, alojamos las clases genéricas para cualquier repositorio (estan en _base.repository_). Estas son:
+
+_AbstractRepositoryFinder.java_ : el finder abstracto, define que repositorios se pueden "encontrar".
+
+_HibernateBaseRepository.java_ : se definen los los metodos genericos para cualquier repositorio hibernate.
+
+_HibernateRepositoryFinder.java_ : un finder contrecto de repositorios de hibernate. Si bien no tiene nada, se usa para inyeccion de dependencias en el contexto de hibernate (ver context/config/repositoriesApplicationContext.xml)
+
+_MemoryRepositoryFinder.java_ : un finder conctreto de repositorios de objetos de memoria. Igual que el anterior no tiene nada por el mismo motivo.
+
+**User**: ahora vemos como son los repositorios concretos. Estan definidos en _class.repository_ en este caso _user.repository_.
+Hay 3 clases en este caso, una interface que debe tener todos los metodos que se quieren acceder y una clase para cada origen de datos (hibernate y memoria en este caso).
+
+_UserRepositoryBI.java_: define la interfaz que debe tener el repositorio de usuario, cada objeto que posea un repositorio debe definir una interfaz.
+
+_HibernetUserRepository.java_: repositorio concreto de hibernate. Cualquier repositorio de este tipo debe extender HibernateBaseRepository y todos los repositorios deben implementar la interfaz que le corresponde, en este caso UserRepositoryBI.
+
+_MemoryUserRepository.java_: repositorio concreto de memoria. Solo debe extender la interfaz correspondiente (en este caso UserRepositoryBI).
+(TODO: agregar un _MemoryBaseRepository_ si es necesario)
+
+# Como crear un repositorio nuevo #
+
+**1.-** En repositoriesApplicationContext.xml agregar una entrada en cada **Finder**, ejemplo: tenemos deifinido solo el repositorio de usuario y agregamos el repositorio de ItemTracker:
+
+```
+
+	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+		<property name="userRepository">
+			<ref bean="memoryUserRepository"/>
+		</property>
+	</bean>
+
+	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">			
+		<property name="userRepository">
+			<ref bean="hibernateUserRepository"/>
+		</property>		
+	</bean>
+
+```
+
+Se agrega el repositorio de ItemTracker
+
+```
+
+	<bean id="memoryRepositoryFinder" class="base.repository.MemoryRepositoryFinder">
+		<!-- NUEVO REPOSITORIO!!!! -->
+		<property name="itemTrackerRepository">
+			<ref bean="memoryItemTrackerRepository"/>
+		</property>
+		<property name="userRepository">
+			<ref bean="memoryUserRepository"/>
+		</property>
+	</bean>
+
+	<bean id="hibernateRepositoryFinder" class="base.repository.HibernateRepositoryFinder">
+		<!-- NUEVO REPOSITORIO!!!! -->
+		<property name="itemTrackerRepository">
+			<ref bean="hibernateItemTrackerRepository"/>
+		</property>				
+		<property name="userRepository">
+			<ref bean="hibernateUserRepository"/>
+		</property>		
+	</bean>
+
+```
+
+**2.-** Ahora el tema es... de donde sacamos los beans _hibernateItemTrackerRepository_ y _memoryItemTrackerRepository_ ? Bueno.. hay que definirlos de la siguiente manera:
+
+```
+
+	<!-- Para hibernate -->
+	<bean id="hibernateItemTrackerRepository" class="itemTracker.repository.HibernetItemTrackerRepository">
+		<property name="sessionFactory">
+			 <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+	<!-- Para cuando viene de memoria -->
+	<bean id="memoryItemTrackerRepository" class="itemTracker.repository.MemoryItemTrackerRepository"/>
+
+```
+
+Ver de colocalor en el lugar correspondiente según dicen los comentarios en el archivo xml correspondiente para que queden ordenados.
+
+**3.-** Bueno ahora hay que definir los repositorios y ya estaría. En este caso tenemos estos dos:
+
+_itemTracker.repository.MemoryItemTrackerRepository_:
+
+Un repositorio de memoria debería tener esta forma
+
+```
+
+public class MemoryItemTrackerRepository implements ItemTrackerRepositoryBI{
+
+    // definición de los métodos que esta en ItemTrackerRepositoryBI
+
+}
+
+```
+
+_itemTracker.repository.HibernetItemTrackerRepository_:
+
+Un repositorio de hibernate debería tener esta forma
+
+```
+
+public class HibernetItemTrackerRepository extends HibernateBaseRepository implements ItemTrackerRepositoryBI{
+
+    // definicio de los metodos que esta en ItemTrackerRepositoryBI y si hubiera abstractos en HibernateBaseRepository.
+
+}
+
+```

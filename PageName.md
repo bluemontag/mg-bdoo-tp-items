@@ -1,0 +1,12 @@
+# Introduction #
+
+Como correr "algo".
+
+
+# Details #
+
+Hay dos maneras de empezar a probar.
+
+**1.-** Usando un cliente java comun, que empieze con un metodo main (ejemplo _installer.PruebasDeServicios.java_ ). El lanzador de la aplicacion se crea desde "Debug Condifuraions"-> click derecho en "Java Aplication" -> "new" y seleccionar installer.PruebasDeServicios.java como "Main class".
+
+**2.-** Usando un test de junit: similar al anterior, solo que hay que con

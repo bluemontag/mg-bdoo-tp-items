@@ -1,0 +1,36 @@
+# Introduction #
+
+Se detallan las herramientas de desarrollo que se utilizan.
+
+# J2EE #
+
+**Download:** http://download.eclipse.org/webtools/repository/helios/
+instalar ultimas versiones de cada uno
+
+# SVN #
+
+Help->Install new software
+workwith: http://subclipse.tigris.org/update_1.6.x
+instalar todo.
+
+show views: svn repository
+> crear uno nuevo:
+> > location: https://mg-bdoo-tp-items.googlecode.com/svn
+
+usuario: email (sin @gmail.com)
+password: ir a Profile->settings (se genera automaticamente)
+
+# Spring #
+
+**Download:** http://springide.org/updatesite
+
+Spring IDE Core
+
+**Configurar Spring-Tomcat:**
+
+http://www.bigsoft.co.uk/blog/index.php/2008/08/10/configuring-eclipse-tomcat-spring
+
+# Maven 2 #
+
+Update site: http://m2eclipse.sonatype.org/sites/m2e
+o este: http://download.eclipse.org/technology/m2e/releases
